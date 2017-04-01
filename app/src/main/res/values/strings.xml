@@ -1,10 +1,16 @@
 <resources>
-    <string name="app_name">TeacherReconsitution</string>
-    <string name="title_activity_main2">Main2Activity</string>
+    <string name="app_name">孜点教师重构版</string>
 
     <!--LoginActivity-->
     <string name="input_username_please">请输入用户名</string>
     <string name="input_password_please">请输入密码</string>
-    <string name="login">denglu</string>
-    <string name="login_welcome">welcome</string>
+    <string name="select_school_please">请选择您所在的学校</string>
+    <string name="login">登录</string>
+    <string name="login_loading">正在登陆</string>
+    <string name="login_welcome">欢饮进入&#160;&#160;孜点教育</string>
+    <!--MainActivity-->
+    <string name="main_course">课程</string>
+    <string name="main_evaluate">教评</string>
+    <string name="main_questionnaire">问卷</string>
+    <string name="main_mine">我的</string>
 </resources>

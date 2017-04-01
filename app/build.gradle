@@ -63,8 +63,6 @@ dependencies {
     compile rootProject.ext.supportDesign
     compile rootProject.ext.supportRecyclerView
     compile rootProject.ext.supportCardView
-    //Guava
-//    compile rootProject.ext.guava
     //Internet
     compile rootProject.ext.retrofit
     compile rootProject.ext.retrofitAdapterRxJava
