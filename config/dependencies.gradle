@@ -1,0 +1,73 @@
+ext {
+    //SDK version
+    minSdkVersion = 15
+    targetSdkVersion = 25
+    compileSdkVersion = 25
+    buildToolsVersion = '25.0.2'
+
+    //App Dependencies
+    guavaVersion = '18.0'
+    supportLibraryVersion = '25.2.0'
+    junitVersion = '4.12'
+    espressoVersion = '2.2.2'
+
+    //Test
+    junit = "junit:junit:$junitVersion"
+    expresso = "com.android.support.test.espresso:espresso-core:$espressoVersion"
+
+    //Appcompat
+    supportAppCompat = "com.android.support:appcompat-v7:$supportLibraryVersion"
+    supportDesign = "com.android.support:design:$supportLibraryVersion"
+    supportRecyclerView = "com.android.support:recyclerview-v7:$supportLibraryVersion"
+    supportCardView = "com.android.support:cardview-v7:$supportLibraryVersion"
+
+    //Guava
+    guava = "com.google.guava:guava:$guavaVersion"
+
+    //Internet
+    retrofitVersion = '2.1.0'
+    okhttpVersion = '3.3.1'
+    retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    retrofitAdapterRxJava = "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
+    retrofitConverterGson =  "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    retrofitConverterScalars = "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
+    okhttp = "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    okhttpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+
+    // Rx
+    rxJavaVersion = '1.1.0'
+    rxAndroidVersion = '1.1.5'
+    rxBindingVersion = '1.0.1'
+    rxAndroid = "io.reactivex:rxandroid:1.1.0"
+    rxjava = "io.reactivex:rxjava:1.1.5"
+    //RxBinding
+    rxBinding = "com.jakewharton.rxbinding:rxbinding:$rxBindingVersion"
+    rxBindingSupport = "com.jakewharton.rxbinding:rxbinding-support-v4:$rxBindingVersion"
+    rxBindingAppcompat = "com.jakewharton.rxbinding:rxbinding-appcompat-v7:$rxBindingVersion"
+    rxBindingDesign = "com.jakewharton.rxbinding:rxbinding-design:$rxBindingVersion"
+    rxBindingRecyclerView = "com.jakewharton.rxbinding:rxbinding-recyclerview-v7:$rxBindingVersion"
+    //Inject
+    //Inject
+    butterKnifeVersion = '8.5.1'
+    dagger2Version = '2.9'
+
+    butterKnife =  "com.jakewharton:butterknife:$butterKnifeVersion"
+    butterKnifeAnnotationProcessor = "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
+    dagger2 = "com.google.dagger:dagger:$dagger2Version"
+    dagger2AnnotationProcessor =  "com.google.dagger:dagger-compiler:$dagger2Version"
+    //image
+    glide = 'com.github.bumptech.glide:glide:3.7.0'
+    //log
+    logger =  'com.orhanobut:logger:1.15'
+    //sharedPreferences
+    hawk =  'com.orhanobut:hawk:2.0.1'
+    //CircleImageView
+    circleImageView =  'de.hdodenhof:circleimageview:2.0.0'
+    //fragmentation
+    fragmentation = 'me.yokeyword:fragmentation:0.10.1'
+
+    //leakCanary
+    leakCanaryDebug  = 'com.squareup.leakcanary:leakcanary-android:1.5'
+    leakCanaryRelease = 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    leakCanaryTest = 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+}

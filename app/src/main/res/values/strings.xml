@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TeacherReconsitution</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <!--LoginActivity-->
+    <string name="input_username_please">请输入用户名</string>
+    <string name="input_password_please">请输入密码</string>
+    <string name="login">denglu</string>
+    <string name="login_welcome">welcome</string>
+</resources>

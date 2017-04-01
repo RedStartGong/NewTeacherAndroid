@@ -1,0 +1,103 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        applicationId "com.zidian.teacher"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        jackOptions {
+            enabled false
+        }
+
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //修改APK名字
+    android.applicationVariants.all { variant ->
+        def file = variant.outputs[0].outputFile
+        def name = "-teacher-" + defaultConfig.versionName + ".apk"
+        variant.outputs[0].outputFile = new File(file.parent, file.name.replace(".apk",name))
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+    }
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    //Test
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile rootProject.ext.junit
+    //Appcompat
+    compile rootProject.ext.supportAppCompat
+    compile rootProject.ext.supportDesign
+    compile rootProject.ext.supportRecyclerView
+    compile rootProject.ext.supportCardView
+    //Guava
+//    compile rootProject.ext.guava
+    //Internet
+    compile rootProject.ext.retrofit
+    compile rootProject.ext.retrofitAdapterRxJava
+    compile rootProject.ext.retrofitConverterGson
+    compile rootProject.ext.retrofitConverterScalars
+    compile rootProject.ext.okhttp
+    compile rootProject.ext.okhttpLoggingInterceptor
+    // Rx
+    compile rootProject.ext.rxjava
+    compile rootProject.ext.rxAndroid
+    //RxBinding
+    compile rootProject.ext.rxBinding
+    compile rootProject.ext.rxBindingSupport
+    compile rootProject.ext.rxBindingAppcompat
+    compile rootProject.ext.rxBindingDesign
+    compile rootProject.ext.rxBindingRecyclerView
+    //Inject
+    compile rootProject.ext.butterKnife
+    annotationProcessor rootProject.ext.butterKnifeAnnotationProcessor
+    compile rootProject.ext.dagger2
+    annotationProcessor rootProject.ext.dagger2AnnotationProcessor
+    //image
+    compile rootProject.ext.glide
+    //log
+    compile rootProject.ext.logger
+    //sharedPreferences
+    compile rootProject.ext.hawk
+    //CircleImageView
+    compile rootProject.ext.circleImageView
+    //fragmentation
+    compile rootProject.ext.fragmentation
+    //leakCanary
+    debugCompile rootProject.ext.leakCanaryDebug
+    releaseCompile rootProject.ext.leakCanaryRelease
+    testCompile rootProject.ext.leakCanaryTest
+}

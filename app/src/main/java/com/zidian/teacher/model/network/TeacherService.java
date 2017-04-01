@@ -1,0 +1,38 @@
+package com.zidian.teacher.model.network;
+
+
+import com.zidian.teacher.model.entity.remote.HttpResult;
+import com.zidian.teacher.model.entity.remote.LoginResult;
+import com.zidian.teacher.model.entity.remote.School;
+
+import java.util.List;
+
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.POST;
+import rx.Observable;
+
+/**
+ * Created by GongCheng on 2017/3/16.
+ */
+
+public interface TeacherService {
+    /**
+     * get Schools
+     */
+    @POST("page/shiro/school")
+    Observable<HttpResult<List<School>>> getSchools();
+
+    @FormUrlEncoded
+    @POST("page/shiro/loginStudent")
+    Observable<LoginResult> login(
+            @Field("username") String username, @Field("password") String password,
+            @Field("schoolId") String schoolId);
+
+    @FormUrlEncoded
+    @POST("page/stuCou/select")
+    Observable<Object> getClassSchedule(
+            @Field("studentId") String studentId, @Field("token") String token,
+            @Field("schoolId") String schoolId);
+
+}
