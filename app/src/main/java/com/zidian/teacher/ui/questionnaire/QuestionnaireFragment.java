@@ -1,5 +1,8 @@
 package com.zidian.teacher.ui.questionnaire;
 
+import android.os.Bundle;
+
+import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseFragment;
 
 /**
@@ -7,9 +10,18 @@ import com.zidian.teacher.base.BaseFragment;
  */
 
 public class QuestionnaireFragment extends BaseFragment {
+    public static QuestionnaireFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        QuestionnaireFragment fragment = new QuestionnaireFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     protected int getLayout() {
-        return 0;
+        return R.layout.fragment_questionnaire;
     }
 
     @Override
