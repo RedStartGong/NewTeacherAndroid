@@ -4,25 +4,24 @@ import android.support.annotation.NonNull;
 
 import com.zidian.teacher.base.BasePresenter;
 import com.zidian.teacher.base.BaseView;
-import com.zidian.teacher.model.entity.remote.Question;
+import com.zidian.teacher.model.entity.remote.Questionnaire;
 
 import java.util.List;
 
-
 /**
- * Created by GongCheng on 2017/3/31.
+ * Created by GongCheng on 2017/4/1.
  */
 
-public interface QuestionContract {
+public interface QuestionnaireContract {
     interface View extends BaseView {
         void showLoading();
 
-        void showSuccess();
+        void showEmpty();
 
-        void showQuestions(List<Question> questions);
+        void showQuestionnaires(List<Questionnaire> questionnaires);
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getQuestions(@NonNull String startrow, @NonNull String type);
+        void getQuestionnaires(@NonNull String startRow);
     }
 }

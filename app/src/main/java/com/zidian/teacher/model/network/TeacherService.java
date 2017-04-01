@@ -3,6 +3,7 @@ package com.zidian.teacher.model.network;
 
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.LoginResult;
+import com.zidian.teacher.model.entity.remote.Questionnaire;
 import com.zidian.teacher.model.entity.remote.School;
 
 import java.util.List;
@@ -35,4 +36,16 @@ public interface TeacherService {
             @Field("studentId") String studentId, @Field("token") String token,
             @Field("schoolId") String schoolId);
 
+    @FormUrlEncoded
+    @POST("Questionnaire/selectQuestionnaire")
+    Observable<HttpResult<Questionnaire>> getQuestionnaire(
+            @Field("startrow") String startRow, @Field("pageSize") String pageSize,
+            @Field("teacherId") String teacherId, @Field("token") String token,
+            @Field("schoolId") String schoolId);
+
+    @FormUrlEncoded
+    @POST("Questionnaire/selectQuestionnaireStatistics")
+    Observable<HttpResult<Object>> getQuestionnaireResult(
+            @Field("questionnaireId") String questionnaireId, @Field("teacherId") String teacherId,
+            @Field("token") String token, @Field("schoolId") String schoolId);
 }

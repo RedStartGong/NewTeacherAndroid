@@ -13,4 +13,14 @@
     <string name="main_evaluate">教评</string>
     <string name="main_questionnaire">问卷</string>
     <string name="main_mine">我的</string>
+    <!--CourseFragment-->
+    <string-array name="weekdays">
+        <item>星期一</item>
+        <item>星期二</item>
+        <item>星期三</item>
+        <item>星期四</item>
+        <item>星期五</item>
+        <item>星期六</item>
+        <item>星期日</item>
+    </string-array>
 </resources>

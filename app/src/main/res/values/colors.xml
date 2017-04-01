@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#f50057</color>
-    <color name="colorPrimaryDark">#880e4f</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#f74a4e</color>
+    <color name="colorPrimaryDark">#dd191d</color>
+    <color name="colorAccent">#f36c60</color>
     <color name="tab_un_select">#c9c9c9</color>
 
     <!--字体颜色-->
