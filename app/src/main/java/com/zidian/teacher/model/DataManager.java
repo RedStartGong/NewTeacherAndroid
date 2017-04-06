@@ -3,6 +3,7 @@ package com.zidian.teacher.model;
 
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.LoginResult;
+import com.zidian.teacher.model.entity.remote.NoDataResult;
 import com.zidian.teacher.model.entity.remote.PersonInfo;
 import com.zidian.teacher.model.entity.remote.Questionnaire;
 import com.zidian.teacher.model.entity.remote.School;
@@ -45,5 +46,11 @@ public final class DataManager {
     public Observable<HttpResult<PersonInfo>> getPersonInfo(
             String teacherId, String token, String schoolId) {
         return service.getPersonInfo(teacherId, token, schoolId);
+    }
+
+    public Observable<NoDataResult> changePassword(
+            String teacherId, String password, String password1, String password2,
+            String token, String schoolId) {
+        return service.changePassword(teacherId, password, password1, password2, token, schoolId);
     }
 }

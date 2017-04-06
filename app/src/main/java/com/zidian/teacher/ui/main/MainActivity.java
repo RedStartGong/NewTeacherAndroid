@@ -7,7 +7,7 @@ import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
 import com.zidian.teacher.ui.course.fragment.CourseFragment;
 import com.zidian.teacher.ui.evaluate.fragment.EvaluateFragment;
-import com.zidian.teacher.ui.mine.MineFragment;
+import com.zidian.teacher.ui.mine.fragment.MineFragment;
 import com.zidian.teacher.ui.questionnaire.QuestionnaireFragment;
 import com.zidian.teacher.ui.widget.BottomBar;
 import com.zidian.teacher.ui.widget.BottomBarTab;

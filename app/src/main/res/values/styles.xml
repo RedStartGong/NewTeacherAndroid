@@ -18,7 +18,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     
     <!--MineFragment-->
-    <style name="mine_clickable_linear_layout_style">
+    <style name="Mine_clickable_linear_layout_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:background">@drawable/selector_touch_bg</item>
@@ -27,13 +27,13 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
-    <style name="mine_left_icon_style">
+    <style name="Mine_left_icon_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">16dp</item>
     </style>
 
-    <style name="mine_center_text_style">
+    <style name="Mine_center_text_style">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
@@ -42,10 +42,19 @@
         <item name="android:textSize">@dimen/text_size_h3</item>
     </style>
 
-    <style name="mine_right_icon_style">
+    <style name="Mine_right_icon_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:src">@drawable/ic_chevron_right_24dp</item>
+    </style>
+
+    <!--ChangePasswordActivity-->
+    <style name="TextInputStyle">
+        <item name="android:textColor">@color/dark_text_color</item>
+        <item name="android:textColorHint">@color/common_text_color</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">@dimen/text_size_h3</item>
     </style>
 </resources>

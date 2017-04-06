@@ -3,6 +3,7 @@ package com.zidian.teacher.model.network;
 
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.LoginResult;
+import com.zidian.teacher.model.entity.remote.NoDataResult;
 import com.zidian.teacher.model.entity.remote.PersonInfo;
 import com.zidian.teacher.model.entity.remote.Questionnaire;
 import com.zidian.teacher.model.entity.remote.School;
@@ -55,4 +56,12 @@ public interface TeacherService {
     Observable<HttpResult<PersonInfo>> getPersonInfo(
             @Field("teacherId") String teacherId, @Field("token") String token,
             @Field("schoolId") String schoolId);
+
+    @FormUrlEncoded
+    @POST("teacher/updatePassword")
+    Observable<NoDataResult> changePassword(
+            @Field("teacherId") String teacherId, @Field("password") String password,
+            @Field("password1") String password1, @Field("password2") String password2,
+            @Field("token") String token, @Field("schoolId")String schoolId
+    );
 }

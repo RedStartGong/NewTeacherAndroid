@@ -1,5 +1,6 @@
-package com.zidian.teacher.ui.mine;
+package com.zidian.teacher.ui.mine.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import com.zidian.teacher.base.BaseFragment;
 import com.zidian.teacher.model.entity.remote.PersonInfo;
 import com.zidian.teacher.presenter.PersonInfoPresenter;
 import com.zidian.teacher.presenter.contract.PersonInfoContract;
+import com.zidian.teacher.ui.mine.activity.ChangePasswordActivity;
 import com.zidian.teacher.util.SnackbarUtils;
 
 import javax.inject.Inject;
@@ -59,6 +61,7 @@ public class MineFragment extends BaseFragment implements PersonInfoContract.Vie
             case R.id.ll_information:
                 break;
             case R.id.ll_password:
+                startActivity(new Intent(activity, ChangePasswordActivity.class));
                 break;
             case R.id.ll_logout:
                 break;
@@ -100,6 +103,7 @@ public class MineFragment extends BaseFragment implements PersonInfoContract.Vie
         tvName.setText(personInfo.getName());
         tvMotto.setText(personInfo.getPersonSignature());
         tvEvaluatedCount.setText(String.valueOf(personInfo.getEvaluatedCount()));
+        tvEvaluateCount.setText("0");
         Glide.with(this).load(personInfo.getPortrait())
                 .placeholder(R.drawable.ic_teacher)
                 .into(cimPortrait);

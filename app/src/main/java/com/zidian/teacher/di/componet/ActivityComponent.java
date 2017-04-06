@@ -5,6 +5,7 @@ import com.zidian.teacher.di.PerActivity;
 import com.zidian.teacher.di.module.ActivityModule;
 import com.zidian.teacher.ui.main.LoginActivity;
 import com.zidian.teacher.ui.main.MainActivity;
+import com.zidian.teacher.ui.mine.activity.ChangePasswordActivity;
 
 import dagger.Component;
 
@@ -18,4 +19,6 @@ public interface ActivityComponent {
     void inject(MainActivity mainActivity);
 
     void inject(LoginActivity loginActivity);
+
+    void inject(ChangePasswordActivity changePasswordActivity);
 }

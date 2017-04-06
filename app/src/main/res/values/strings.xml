@@ -22,6 +22,14 @@
     <string name="mine_logout">退出登录</string>
     <string name="mine_feedback">意见反馈</string>
     <string name="mine_about">关于孜点</string>
+    <!--ChangePasswordActivity-->
+    <string name="old_password">旧密码</string>
+    <string name="new_password">新密码</string>
+    <string name="confirm_password">确认密码</string>
+    <string name="change_password_loading">加载中...</string>
+    <string name="please_input_old_password">请输入旧密码</string>
+    <string name="please_input_new_password">请输入新密码</string>
+    <string name="entered_password_diff">两次输入密码不一致</string>
     <!--CourseFragment-->
     <string-array name="weekdays">
         <item>星期一</item>
