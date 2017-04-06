@@ -3,6 +3,7 @@ package com.zidian.teacher.model.network;
 
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.LoginResult;
+import com.zidian.teacher.model.entity.remote.PersonInfo;
 import com.zidian.teacher.model.entity.remote.Questionnaire;
 import com.zidian.teacher.model.entity.remote.School;
 
@@ -25,7 +26,7 @@ public interface TeacherService {
     Observable<HttpResult<List<School>>> getSchools();
 
     @FormUrlEncoded
-    @POST("page/shiro/loginStudent")
+    @POST("page/shiro/loginTeacher")
     Observable<LoginResult> login(
             @Field("username") String username, @Field("password") String password,
             @Field("schoolId") String schoolId);
@@ -48,4 +49,10 @@ public interface TeacherService {
     Observable<HttpResult<Object>> getQuestionnaireResult(
             @Field("questionnaireId") String questionnaireId, @Field("teacherId") String teacherId,
             @Field("token") String token, @Field("schoolId") String schoolId);
+
+    @FormUrlEncoded
+    @POST("teacher/selectMydata")
+    Observable<HttpResult<PersonInfo>> getPersonInfo(
+            @Field("teacherId") String teacherId, @Field("token") String token,
+            @Field("schoolId") String schoolId);
 }

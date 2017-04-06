@@ -11,13 +11,15 @@ public class LoginResult implements Serializable {
     /**
      * message : 成功
      * code : 200
-     * studentId : 11011040105
-     * token :
+     * teacherId : 6283
+     * teacherName : 6283
+     * token :  9662804431d7090a35942d5f8d6c8569
      */
 
     private String message;
     private int code;
-    private String studentId;
+    private String teacherId;
+    private String teacherName;
     private String token;
 
     public String getMessage() {
@@ -36,12 +38,20 @@ public class LoginResult implements Serializable {
         this.code = code;
     }
 
-    public String getStudentId() {
-        return studentId;
+    public String getTeacherId() {
+        return teacherId;
     }
 
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
+    public void setTeacherId(String teacherId) {
+        this.teacherId = teacherId;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 
     public String getToken() {

@@ -3,6 +3,7 @@ package com.zidian.teacher.model;
 
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.LoginResult;
+import com.zidian.teacher.model.entity.remote.PersonInfo;
 import com.zidian.teacher.model.entity.remote.Questionnaire;
 import com.zidian.teacher.model.entity.remote.School;
 import com.zidian.teacher.model.network.TeacherService;
@@ -41,4 +42,8 @@ public final class DataManager {
         return service.getQuestionnaire(startRow, pageSize, teacherId, token, schoolId);
     }
 
+    public Observable<HttpResult<PersonInfo>> getPersonInfo(
+            String teacherId, String token, String schoolId) {
+        return service.getPersonInfo(teacherId, token, schoolId);
+    }
 }

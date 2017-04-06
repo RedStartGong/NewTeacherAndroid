@@ -1,20 +1,43 @@
 package com.zidian.teacher.ui.mine;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseFragment;
+import com.zidian.teacher.model.entity.remote.PersonInfo;
+import com.zidian.teacher.presenter.PersonInfoPresenter;
+import com.zidian.teacher.presenter.contract.PersonInfoContract;
+import com.zidian.teacher.util.SnackbarUtils;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static dagger.internal.Preconditions.checkNotNull;
 
 /**
  * Created by GongCheng on 2017/3/15.
  */
 
-public class MineFragment extends BaseFragment {
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+public class MineFragment extends BaseFragment implements PersonInfoContract.View {
+    @BindView(R.id.cim_portrait)
+    CircleImageView cimPortrait;
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.tv_motto)
+    TextView tvMotto;
+    @BindView(R.id.tv_evaluate_count)
+    TextView tvEvaluateCount;
+    @BindView(R.id.tv_evaluated_count)
+    TextView tvEvaluatedCount;
+
+    @Inject
+    PersonInfoPresenter presenter;
 
     public static MineFragment newInstance() {
 
@@ -30,6 +53,24 @@ public class MineFragment extends BaseFragment {
         return R.layout.fragment_mine;
     }
 
+    @OnClick({R.id.ll_information, R.id.ll_password, R.id.ll_logout, R.id.ll_feedback, R.id.ll_about})
+    public void OnItemClick(View view) {
+        switch (view.getId()) {
+            case R.id.ll_information:
+                break;
+            case R.id.ll_password:
+                break;
+            case R.id.ll_logout:
+                break;
+            case R.id.ll_feedback:
+                break;
+            case R.id.ll_about:
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     protected void initInject() {
         getFragmentComponent().inject(this);
@@ -37,6 +78,30 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void initViewAndData() {
-        toolbar.setTitle(R.string.main_mine);
+        checkNotNull(presenter);
+        presenter.attachView(this);
+        presenter.getPersonInfo();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        checkNotNull(presenter);
+        presenter.deAttachView();
+    }
+
+    @Override
+    public void showError(Throwable e) {
+        SnackbarUtils.showShort(cimPortrait, e.getMessage());
+    }
+
+    @Override
+    public void showInfo(PersonInfo personInfo) {
+        tvName.setText(personInfo.getName());
+        tvMotto.setText(personInfo.getPersonSignature());
+        tvEvaluatedCount.setText(String.valueOf(personInfo.getEvaluatedCount()));
+        Glide.with(this).load(personInfo.getPortrait())
+                .placeholder(R.drawable.ic_teacher)
+                .into(cimPortrait);
     }
 }

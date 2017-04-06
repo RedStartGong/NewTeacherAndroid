@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public final class ServiceFactory {
-
+    private static final boolean DEBUG = true;
     private static final String TAG = "HTTP";
     /**
      *  release： http://103.231.69.80:80//rest/
@@ -51,7 +51,7 @@ public final class ServiceFactory {
                 Log.i(TAG, message);
             }
         });
-        loggingInterceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY
+        loggingInterceptor.setLevel(DEBUG ? HttpLoggingInterceptor.Level.BODY
                 : HttpLoggingInterceptor.Level.NONE);
         return loggingInterceptor;
     }

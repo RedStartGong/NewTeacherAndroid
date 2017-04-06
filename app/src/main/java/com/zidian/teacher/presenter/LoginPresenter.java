@@ -85,7 +85,7 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
                     @Override
                     public void onNext(LoginResult loginResult) {
                         SharedPreferencesUtils.setToken(loginResult.getToken());
-                        SharedPreferencesUtils.setUsername(loginResult.getStudentId());
+                        SharedPreferencesUtils.setUsername(loginResult.getTeacherId());
                         SharedPreferencesUtils.setPassword(password);
                         SharedPreferencesUtils.setSchoolId(schoolId);
                         view.showSuccess();

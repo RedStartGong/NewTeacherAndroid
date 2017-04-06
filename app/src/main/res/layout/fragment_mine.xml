@@ -1,6 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <include layout="@layout/toolbar"/>
-</LinearLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/person_bg"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cim_portrait"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="20dp"
+                tools:src="@drawable/ic_teacher" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textColor="@color/white_text_color"
+                android:textSize="@dimen/text_size_h2"
+                tools:text="王老师" />
+
+            <TextView
+                android:id="@+id/tv_motto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white_text_color"
+                tools:text="哈哈哈哈哈" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_evaluated_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white_text_color"
+                        android:textSize="@dimen/text_size_h2"
+                        tools:text="120" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mine_evaluated"
+                        android:textColor="@color/white_text_color" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/common_bg" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_evaluate_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white_text_color"
+                        android:textSize="@dimen/text_size_h2"
+                        tools:text="120" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mine_evaluate_others"
+                        android:textColor="@color/white_text_color" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_information"
+            style="@style/mine_clickable_linear_layout_style">
+
+            <ImageView
+                style="@style/mine_left_icon_style"
+                android:src="@drawable/ic_information_24dp" />
+
+            <TextView
+                style="@style/mine_center_text_style"
+                android:text="@string/mine_information" />
+
+            <ImageView
+                style="@style/mine_right_icon_style"
+                android:src="@drawable/ic_chevron_right_24dp" />
+        </LinearLayout>
+
+        <include layout="@layout/view_divider" />
+
+        <LinearLayout
+            android:id="@+id/ll_password"
+            style="@style/mine_clickable_linear_layout_style">
+
+            <ImageView
+                style="@style/mine_left_icon_style"
+                android:src="@drawable/ic_password_24dp" />
+
+            <TextView
+                style="@style/mine_center_text_style"
+                android:text="@string/mine_change_password" />
+
+            <ImageView
+                style="@style/mine_right_icon_style"
+                android:src="@drawable/ic_chevron_right_24dp" />
+        </LinearLayout>
+
+        <include layout="@layout/view_divider" />
+
+        <LinearLayout
+            android:id="@+id/ll_logout"
+            style="@style/mine_clickable_linear_layout_style">
+
+            <ImageView
+                style="@style/mine_left_icon_style"
+                android:src="@drawable/ic_exit_24dp" />
+
+            <TextView
+                style="@style/mine_center_text_style"
+                android:text="@string/mine_logout" />
+
+            <ImageView
+                style="@style/mine_right_icon_style"
+                android:src="@drawable/ic_chevron_right_24dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <LinearLayout
+            android:id="@+id/ll_feedback"
+            style="@style/mine_clickable_linear_layout_style">
+
+            <ImageView
+                style="@style/mine_left_icon_style"
+                android:src="@drawable/ic_feedback_24dp" />
+
+            <TextView
+                style="@style/mine_center_text_style"
+                android:text="@string/mine_feedback" />
+
+            <ImageView
+                style="@style/mine_right_icon_style"
+                android:src="@drawable/ic_chevron_right_24dp" />
+        </LinearLayout>
+
+        <include layout="@layout/view_divider"/>
+
+        <LinearLayout
+            android:id="@+id/ll_about"
+            style="@style/mine_clickable_linear_layout_style">
+
+            <ImageView
+                style="@style/mine_left_icon_style"
+                android:src="@drawable/ic_about_24dp" />
+
+            <TextView
+                style="@style/mine_center_text_style"
+                android:text="@string/mine_about" />
+
+            <ImageView
+                style="@style/mine_right_icon_style" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

@@ -41,6 +41,7 @@ public abstract class BaseFragment extends SupportFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayout(), container, false);
         unbinder = ButterKnife.bind(this, view);
+        initInject();
         initViewAndData();
         return view;
     }

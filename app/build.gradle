@@ -23,6 +23,7 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
             minifyEnabled false
@@ -57,6 +58,7 @@ dependencies {
     androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile project(':xrecyclerview')
     testCompile rootProject.ext.junit
     //Appcompat
     compile rootProject.ext.supportAppCompat

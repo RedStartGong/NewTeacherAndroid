@@ -13,6 +13,15 @@
     <string name="main_evaluate">教评</string>
     <string name="main_questionnaire">问卷</string>
     <string name="main_mine">我的</string>
+
+    <!--Mine-->
+    <string name="mine_evaluated">被评价</string>
+    <string name="mine_evaluate_others">评价他人</string>
+    <string name="mine_information">个人资料</string>
+    <string name="mine_change_password">密码修改</string>
+    <string name="mine_logout">退出登录</string>
+    <string name="mine_feedback">意见反馈</string>
+    <string name="mine_about">关于孜点</string>
     <!--CourseFragment-->
     <string-array name="weekdays">
         <item>星期一</item>
