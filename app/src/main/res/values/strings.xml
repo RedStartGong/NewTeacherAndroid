@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">孜点教师重构版</string>
-
+    <string name="version">%1$s版本</string>
     <!--LoginActivity-->
     <string name="input_username_please">请输入用户名</string>
     <string name="input_password_please">请输入密码</string>
@@ -40,4 +40,9 @@
         <item>星期六</item>
         <item>星期日</item>
     </string-array>
+    <string name="about">关于孜点</string>
+    <string name="about_zidian">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;“孜点”是国内第一个跨接高校与社会的智慧教育动态监测数据平台。
+     \n\n&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;“孜点”以智慧教育为核心，建立了打通人才培养全过程的大数据分析系统，助力高校构建教学评估的内部质量保证体系和外部质量保障体系。
+        \n\n&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;“孜点”依托现代教育测评技术、学习分析和教育数据挖掘技术为用户提供“有用又有趣”的数据服务，使多主体深入互动，进而形成从社会需求到人才培养、
+        从招生到就业、从教学到育人的教育新生态。</string>
 </resources>

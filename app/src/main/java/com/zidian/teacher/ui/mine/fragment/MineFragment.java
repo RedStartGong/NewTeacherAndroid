@@ -11,6 +11,7 @@ import com.zidian.teacher.base.BaseFragment;
 import com.zidian.teacher.model.entity.remote.PersonInfo;
 import com.zidian.teacher.presenter.PersonInfoPresenter;
 import com.zidian.teacher.presenter.contract.PersonInfoContract;
+import com.zidian.teacher.ui.mine.activity.AboutActivity;
 import com.zidian.teacher.ui.mine.activity.ChangePasswordActivity;
 import com.zidian.teacher.util.SnackbarUtils;
 
@@ -68,6 +69,7 @@ public class MineFragment extends BaseFragment implements PersonInfoContract.Vie
             case R.id.ll_feedback:
                 break;
             case R.id.ll_about:
+                startActivity(new Intent(activity, AboutActivity.class));
                 break;
             default:
                 break;
