@@ -3,6 +3,8 @@ package com.zidian.teacher.di.componet;
 
 import com.zidian.teacher.di.PerActivity;
 import com.zidian.teacher.di.module.ActivityModule;
+import com.zidian.teacher.ui.course.activity.AttendanceActivity;
+import com.zidian.teacher.ui.course.activity.AttendanceStatisticsActivity;
 import com.zidian.teacher.ui.course.activity.CourseInfoActivity;
 import com.zidian.teacher.ui.main.LoginActivity;
 import com.zidian.teacher.ui.main.MainActivity;
@@ -27,4 +29,8 @@ public interface ActivityComponent {
     void inject(ChangeInfoActivity changeInfoActivity);
 
     void inject(CourseInfoActivity courseInfoActivity);
+
+    void inject(AttendanceActivity attendanceActivity);
+
+    void inject(AttendanceStatisticsActivity attendanceStatisticsActivity);
 }

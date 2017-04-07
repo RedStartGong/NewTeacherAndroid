@@ -15,7 +15,7 @@ public class AttendanceActivity extends BaseActivity {
 
     @Override
     protected void initInject() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override
