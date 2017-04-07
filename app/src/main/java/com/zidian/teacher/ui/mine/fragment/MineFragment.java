@@ -12,7 +12,7 @@ import com.zidian.teacher.model.entity.remote.PersonInfo;
 import com.zidian.teacher.presenter.PersonInfoPresenter;
 import com.zidian.teacher.presenter.contract.PersonInfoContract;
 import com.zidian.teacher.ui.mine.activity.AboutActivity;
-import com.zidian.teacher.ui.mine.activity.ChangePasswordActivity;
+import com.zidian.teacher.ui.mine.activity.ChangeInfoActivity;
 import com.zidian.teacher.util.SnackbarUtils;
 
 import javax.inject.Inject;
@@ -60,6 +60,7 @@ public class MineFragment extends BaseFragment implements PersonInfoContract.Vie
     public void OnItemClick(View view) {
         switch (view.getId()) {
             case R.id.ll_information:
+                startActivity(new Intent(activity, ChangeInfoActivity.class));
                 break;
             case R.id.ll_password:
                 start(ChangePasswordFragment.newInstance());

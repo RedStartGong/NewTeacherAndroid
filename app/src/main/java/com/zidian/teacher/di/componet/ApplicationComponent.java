@@ -7,6 +7,7 @@ import android.content.Context;
 import com.zidian.teacher.di.ApplicationContext;
 import com.zidian.teacher.di.module.ApplicationModule;
 import com.zidian.teacher.model.DataManager;
+import com.zidian.teacher.util.ActManager;
 
 import javax.inject.Singleton;
 
@@ -25,4 +26,6 @@ public interface ApplicationComponent {
     Application application();
 
     DataManager dataManager();
+
+    ActManager actManager();
 }

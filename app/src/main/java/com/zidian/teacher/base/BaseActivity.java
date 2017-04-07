@@ -4,15 +4,19 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-
 import com.zidian.teacher.App;
 import com.zidian.teacher.di.componet.ActivityComponent;
 import com.zidian.teacher.di.componet.DaggerActivityComponent;
 import com.zidian.teacher.di.module.ActivityModule;
+import com.zidian.teacher.util.ActManager;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.yokeyword.fragmentation.SupportActivity;
+
+import static dagger.internal.Preconditions.checkNotNull;
 
 /**
  * BaseActivity
@@ -23,14 +27,21 @@ public abstract class BaseActivity extends SupportActivity {
     private Unbinder unbinder;
     protected ActivityComponent activityComponent;
 
+    @Inject
+    ActManager actManager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         unbinder = ButterKnife.bind(this);
+
         initInject();
         initViewAndData();
+        //添加Activity
+        checkNotNull(actManager);
+        actManager.addActivity(this);
     }
 
     @Override
@@ -39,6 +50,7 @@ public abstract class BaseActivity extends SupportActivity {
         unbinder.unbind();
     }
 
+    @SuppressWarnings("deprecation")
     public ActivityComponent getActivityComponent() {
         if (activityComponent == null) {
             activityComponent = DaggerActivityComponent.builder()

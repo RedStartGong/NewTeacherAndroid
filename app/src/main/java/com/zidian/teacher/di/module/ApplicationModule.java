@@ -7,6 +7,7 @@ import android.content.Context;
 import com.zidian.teacher.di.ApplicationContext;
 import com.zidian.teacher.model.network.ServiceFactory;
 import com.zidian.teacher.model.network.TeacherService;
+import com.zidian.teacher.util.ActManager;
 
 import javax.inject.Singleton;
 
@@ -26,7 +27,6 @@ public class ApplicationModule {
         this.application = application;
     }
 
-
     @SuppressWarnings("deprecation")
     @Provides
     @Singleton
@@ -44,5 +44,11 @@ public class ApplicationModule {
     @Singleton
     TeacherService provideStudentService() {
         return ServiceFactory.makeStudentService();
+    }
+
+    @Provides
+    @Singleton
+    ActManager provideActManager() {
+        return new ActManager();
     }
 }

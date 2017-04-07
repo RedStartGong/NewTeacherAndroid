@@ -28,7 +28,7 @@ public class MineContainerFragment extends SupportFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_container, container, false);
         loadRootFragment(R.id.fl_container, MineFragment.newInstance());
         return view;
     }

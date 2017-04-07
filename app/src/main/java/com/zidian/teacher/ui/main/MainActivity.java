@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initInject() {
-
+        getActivityComponent().inject(this);
     }
 
     /**

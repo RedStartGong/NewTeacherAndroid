@@ -1,6 +1,7 @@
 package com.zidian.teacher.ui.mine.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,9 @@ import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseBackFragment;
 import com.zidian.teacher.presenter.ChangePasswordPresenter;
 import com.zidian.teacher.presenter.contract.ChangePasswordContract;
+import com.zidian.teacher.ui.main.LoginActivity;
+import com.zidian.teacher.util.ActManager;
+import com.zidian.teacher.util.SharedPreferencesUtils;
 import com.zidian.teacher.util.SnackbarUtils;
 
 import javax.inject.Inject;
@@ -44,6 +48,8 @@ public class ChangePasswordFragment extends BaseBackFragment implements
 
     @Inject
     ChangePasswordPresenter presenter;
+    @Inject
+    ActManager actManager;
 
     private ProgressDialog progressDialog;
 
@@ -121,6 +127,7 @@ public class ChangePasswordFragment extends BaseBackFragment implements
 
     @Override
     public void showError(Throwable e) {
+        progressDialog.dismiss();
         SnackbarUtils.showShort(tilNew, e.getMessage());
     }
 
@@ -128,7 +135,10 @@ public class ChangePasswordFragment extends BaseBackFragment implements
     public void showSuccess() {
         progressDialog.dismiss();
         pop();
-        activity.finish();
+        checkNotNull(actManager);
+        actManager.finishAllActivity();
+        SharedPreferencesUtils.clearAll();
+        startActivity(new Intent(activity, LoginActivity.class));
     }
 
     @Override

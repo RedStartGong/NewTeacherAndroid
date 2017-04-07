@@ -82,4 +82,10 @@ public class SharedPreferencesUtils {
     public static void setVersionName(String versionName) {
         Hawk.put(SP_VERSION_NAME, versionName);
     }
+
+    public static void clearAll() {
+        String username = getUserName();
+        Hawk.deleteAll();
+        setUsername(username);
+    }
 }

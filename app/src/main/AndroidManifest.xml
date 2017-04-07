@@ -19,8 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name="com.zidian.teacher.ui.main.MainActivity" />
-        <activity android:name=".ui.mine.activity.ChangePasswordActivity"/>
         <activity android:name=".ui.mine.activity.AboutActivity"/>
+        <activity android:name=".ui.mine.activity.ChangeInfoActivity"/>
     </application>
 
 </manifest>
