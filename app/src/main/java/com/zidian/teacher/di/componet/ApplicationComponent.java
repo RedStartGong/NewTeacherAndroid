@@ -21,6 +21,7 @@ public interface ApplicationComponent {
     @ApplicationContext
     Context context();
 
+    @SuppressWarnings("all")
     Application application();
 
     DataManager dataManager();

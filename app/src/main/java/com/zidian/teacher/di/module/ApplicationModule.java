@@ -18,12 +18,16 @@ import dagger.Provides;
  */
 @Module
 public class ApplicationModule {
+    @SuppressWarnings("deprecation")
     private final Application application;
 
+    @SuppressWarnings("deprecation")
     public ApplicationModule(Application application) {
         this.application = application;
     }
 
+
+    @SuppressWarnings("deprecation")
     @Provides
     @Singleton
     Application provideApplication() {

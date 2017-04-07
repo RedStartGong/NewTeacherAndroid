@@ -52,6 +52,7 @@ public abstract class BaseFragment extends SupportFragment {
         unbinder.unbind();
     }
 
+    @SuppressWarnings("deprecation")
     protected FragmentComponent getFragmentComponent() {
         if (fragmentComponent == null) {
             fragmentComponent = DaggerFragmentComponent.builder()

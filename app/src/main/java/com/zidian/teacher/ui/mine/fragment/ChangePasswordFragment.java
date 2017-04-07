@@ -1,13 +1,15 @@
-package com.zidian.teacher.ui.mine.activity;
+package com.zidian.teacher.ui.mine.fragment;
 
 import android.app.ProgressDialog;
+import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
 import com.zidian.teacher.R;
-import com.zidian.teacher.base.BaseActivity;
+import com.zidian.teacher.base.BaseBackFragment;
 import com.zidian.teacher.presenter.ChangePasswordPresenter;
 import com.zidian.teacher.presenter.contract.ChangePasswordContract;
 import com.zidian.teacher.util.SnackbarUtils;
@@ -20,44 +22,65 @@ import butterknife.OnClick;
 import static dagger.internal.Preconditions.checkNotNull;
 
 /**
- * Created by GongCheng on 2017/4/6.
+ * Created by GongCheng on 2017/4/7.
  */
 
-public class ChangePasswordActivity extends BaseActivity implements ChangePasswordContract.View, TextWatcher {
-    @BindView(R.id.til_old)
-    TextInputLayout tilOld;
-    @BindView(R.id.til_new)
-    TextInputLayout tilNew;
-    @BindView(R.id.til_confirm)
-    TextInputLayout tilConfirm;
+public class ChangePasswordFragment extends BaseBackFragment implements
+        ChangePasswordContract.View, TextWatcher{
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.et_old_password)
     EditText etOldPassword;
+    @BindView(R.id.til_old)
+    TextInputLayout tilOld;
     @BindView(R.id.et_new_password)
     EditText etNewPassword;
+    @BindView(R.id.til_new)
+    TextInputLayout tilNew;
     @BindView(R.id.et_confirm_password)
     EditText etConfirmPassword;
+    @BindView(R.id.til_confirm)
+    TextInputLayout tilConfirm;
 
     @Inject
     ChangePasswordPresenter presenter;
 
     private ProgressDialog progressDialog;
 
+    public static ChangePasswordFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        ChangePasswordFragment fragment = new ChangePasswordFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     protected int getLayout() {
-        return R.layout.activity_change_password;
+        return R.layout.fragment_change_password;
     }
 
     @Override
     protected void initInject() {
-        getActivityComponent().inject(this);
+        getFragmentComponent().inject(this);
     }
 
     @Override
     protected void initViewAndData() {
+        toolbar.setTitle(R.string.mine_change_password);
+        initToolbarNav(toolbar);
         checkNotNull(presenter);
         presenter.attachView(this);
-        progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(activity);
         progressDialog.setMessage(getString(R.string.change_password_loading));
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        checkNotNull(presenter);
+        presenter.deAttachView();
     }
 
     private void changePassword() {
@@ -85,12 +108,6 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
 
         presenter.changePassword(oldPassword, newPassword, confirmPassword);
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        checkNotNull(presenter);
-        presenter.deAttachView();
-    }
 
     @OnClick(R.id.btn_confirm)
     public void confirm() {
@@ -110,7 +127,8 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
     @Override
     public void showSuccess() {
         progressDialog.dismiss();
-        finish();
+        pop();
+        activity.finish();
     }
 
     @Override

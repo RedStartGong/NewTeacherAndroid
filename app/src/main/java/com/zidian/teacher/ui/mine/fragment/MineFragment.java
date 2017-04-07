@@ -62,7 +62,7 @@ public class MineFragment extends BaseFragment implements PersonInfoContract.Vie
             case R.id.ll_information:
                 break;
             case R.id.ll_password:
-                startActivity(new Intent(activity, ChangePasswordActivity.class));
+                start(ChangePasswordFragment.newInstance());
                 break;
             case R.id.ll_logout:
                 break;
