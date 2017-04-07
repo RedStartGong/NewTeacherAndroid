@@ -4,10 +4,12 @@
  */
 package com.zidian.teacher.ui.widget;
 
+import java.io.Serializable;
+
 /**
  * 课程页面的实体类
  */
-public class ClassInfo {
+public class ClassInfo implements Serializable{
     private int fromX;
     private int fromY;
     private int toX;

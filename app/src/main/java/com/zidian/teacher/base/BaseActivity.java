@@ -2,9 +2,13 @@ package com.zidian.teacher.base;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.zidian.teacher.App;
+import com.zidian.teacher.R;
 import com.zidian.teacher.di.componet.ActivityComponent;
 import com.zidian.teacher.di.componet.DaggerActivityComponent;
 import com.zidian.teacher.di.module.ActivityModule;
@@ -59,6 +63,16 @@ public abstract class BaseActivity extends SupportActivity {
                     .build();
         }
         return activityComponent;
+    }
+
+    protected void setToolbarBack(@NonNull Toolbar toolbar) {
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressedSupport();
+            }
+        });
     }
 
     protected abstract int getLayout();

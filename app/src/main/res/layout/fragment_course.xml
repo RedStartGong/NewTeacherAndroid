@@ -24,6 +24,7 @@
                 android:background="@null"
                 app:ms_background_color="@color/colorPrimary"
                 app:ms_hide_arrow="false"
+                app:paddingStart="16dp"
                 app:ms_text_color="@color/white_text_color" />
         </LinearLayout>
 

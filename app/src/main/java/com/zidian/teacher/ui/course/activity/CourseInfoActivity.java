@@ -1,0 +1,60 @@
+package com.zidian.teacher.ui.course.activity;
+
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.TextView;
+
+import com.zidian.teacher.R;
+import com.zidian.teacher.base.BaseActivity;
+import com.zidian.teacher.ui.widget.ClassInfo;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * Created by GongCheng on 2017/4/7.
+ */
+
+public class CourseInfoActivity extends BaseActivity {
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.tv_course_name)
+    TextView tvCourseName;
+    @BindView(R.id.tv_course_location)
+    TextView tvCourseLocation;
+    @BindView(R.id.tv_course_week)
+    TextView tvCourseWeek;
+
+    private ClassInfo classInfo;
+
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_course_info;
+    }
+
+    @Override
+    protected void initInject() {
+        getActivityComponent().inject(this);
+    }
+
+    @Override
+    protected void initViewAndData() {
+        classInfo = (ClassInfo) getIntent().getSerializableExtra("classInfo");
+        toolbar.setTitle(getString(R.string.course_info));
+        setToolbarBack(toolbar);
+        tvCourseName.setText(getString(R.string.course_name, classInfo.getClassname()));
+        tvCourseLocation.setText(getString(R.string.course_location, classInfo.getClassRoom()));
+        tvCourseWeek.setText(getString(R.string.course_current_week, classInfo.getBeginEndWeek()));
+    }
+
+
+    @OnClick({R.id.tv_attendance, R.id.tv_attendance_statistics})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_attendance:
+                break;
+            case R.id.tv_attendance_statistics:
+                break;
+        }
+    }
+}

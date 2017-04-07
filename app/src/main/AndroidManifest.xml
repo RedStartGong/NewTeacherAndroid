@@ -21,6 +21,9 @@
         <activity android:name="com.zidian.teacher.ui.main.MainActivity" />
         <activity android:name=".ui.mine.activity.AboutActivity"/>
         <activity android:name=".ui.mine.activity.ChangeInfoActivity"/>
+        <activity android:name=".ui.course.activity.CourseInfoActivity"/>
+        <activity android:name=".ui.course.activity.AttendanceActivity"/>
+        <activity android:name=".ui.course.activity.AttendanceStatisticsActivity"/>
     </application>
 
 </manifest>

@@ -1,9 +1,8 @@
 package com.zidian.teacher.ui.course.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
-import android.widget.ArrayAdapter;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.zidian.teacher.R;
@@ -11,12 +10,12 @@ import com.zidian.teacher.base.BaseFragment;
 import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.presenter.CoursePresenter;
 import com.zidian.teacher.presenter.contract.CourseContract;
+import com.zidian.teacher.ui.course.activity.CourseInfoActivity;
 import com.zidian.teacher.ui.widget.ClassInfo;
 import com.zidian.teacher.ui.widget.ScheduleView;
 import com.zidian.teacher.util.SnackbarUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,6 +23,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 import static dagger.internal.Preconditions.checkNotNull;
+
 
 /**
  * Created by GongCheng on 2017/3/15.
@@ -79,7 +79,9 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
         scheduleView.setOnItemClassClickListener(new ScheduleView.OnItemClassClickListener() {
             @Override
             public void onClick(ClassInfo classInfo) {
-
+                Intent intent = new Intent(activity, CourseInfoActivity.class);
+                intent.putExtra("classInfo", classInfo);
+                startActivity(intent);
             }
         });
         checkNotNull(presenter);
