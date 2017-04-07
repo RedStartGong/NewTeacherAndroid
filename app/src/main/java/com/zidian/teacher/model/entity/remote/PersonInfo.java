@@ -3,6 +3,7 @@ package com.zidian.teacher.model.entity.remote;
 import com.google.gson.annotations.SerializedName;
 
 /**
+ * 个人信息
  * Created by GongCheng on 2017/4/6.
  */
 

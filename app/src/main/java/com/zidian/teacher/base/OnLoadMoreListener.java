@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 /**
+ * 加载更多Listener
  * Created by GongCheng on 2017/3/31.
  */
 

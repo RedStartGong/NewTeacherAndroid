@@ -1,6 +1,7 @@
 package com.zidian.teacher.model.network;
 
 
+import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.LoginResult;
 import com.zidian.teacher.model.entity.remote.NoDataResult;
@@ -16,6 +17,7 @@ import retrofit2.http.POST;
 import rx.Observable;
 
 /**
+ * TeacherService
  * Created by GongCheng on 2017/3/16.
  */
 
@@ -64,4 +66,10 @@ public interface TeacherService {
             @Field("password1") String password1, @Field("password2") String password2,
             @Field("token") String token, @Field("schoolId")String schoolId
     );
+    
+    @FormUrlEncoded
+    @POST("page/course/select")
+    Observable<HttpResult<List<Course>>> getCourses(
+            @Field("teacherId") String teacherId, @Field("token") String token,
+            @Field("schoolId") String schoolId);
 }

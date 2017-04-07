@@ -7,6 +7,7 @@ import android.view.View;
 import com.zidian.teacher.R;
 
 /**
+ * 带有返回按钮的BaseFragment
  * Created by GongCheng on 2017/4/7.
  */
 

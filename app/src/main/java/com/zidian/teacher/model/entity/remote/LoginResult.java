@@ -3,6 +3,7 @@ package com.zidian.teacher.model.entity.remote;
 import java.io.Serializable;
 
 /**
+ * 登录返回值
  * Created by GongCheng on 2017/3/16.
  */
 

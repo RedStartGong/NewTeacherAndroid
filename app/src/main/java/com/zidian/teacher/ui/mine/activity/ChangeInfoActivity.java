@@ -9,6 +9,7 @@ import com.zidian.teacher.base.BaseActivity;
 import butterknife.BindView;
 
 /**
+ * 修改个人信息
  * Created by GongCheng on 2017/4/7.
  */
 

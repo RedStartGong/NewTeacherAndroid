@@ -6,6 +6,7 @@ import com.zidian.teacher.base.BasePresenter;
 import com.zidian.teacher.base.BaseView;
 
 /**
+ * 修改个人信息Contract
  * Created by GongCheng on 2017/4/6.
  */
 

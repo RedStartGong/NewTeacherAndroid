@@ -1,6 +1,7 @@
 package com.zidian.teacher.model.entity.remote;
 
 /**
+ * 学校
  * Created by GongCheng on 2017/3/30.
  */
 

@@ -1,6 +1,7 @@
 package com.zidian.teacher.model.entity.remote;
 
 /**
+ * 无data的返回值
  * Created by GongCheng on 2017/4/6.
  */
 

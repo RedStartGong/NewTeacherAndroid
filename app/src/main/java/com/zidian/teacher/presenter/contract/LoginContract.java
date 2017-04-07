@@ -10,6 +10,7 @@ import java.util.List;
 
 
 /**
+ * 登录Contract
  * Created by GongCheng on 2017/3/20.
  */
 

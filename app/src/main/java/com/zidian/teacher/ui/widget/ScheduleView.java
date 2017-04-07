@@ -29,7 +29,7 @@ public class ScheduleView extends View implements OnTouchListener {
     private Paint mPaint; // 画笔,包含了画几何图形、文本等的样式和颜色信息
     private int startX = 0;//画布的原点X（所有的画图操作，都是基于这个原点的，touch中只要修改这个值）
     private int startY = 0;//画布的原点Y（所有的画图操作，都是基于这个原点的，touch中只要修改这个值）
-    private int sidewidte ;//左边，上面bar的宽度
+    private int sideWidth;//左边，上面bar的宽度
     private int eachBoxH ;//每个格子的高度，设置可以后面根据屏幕对它做了均分
     private int eachBoxW ;//每个格子的宽度，后面根据屏幕对它做了均分
     private int focusX = -1;//当前手指焦点的位置坐标
@@ -67,7 +67,7 @@ public class ScheduleView extends View implements OnTouchListener {
         this.context = context;
         weekdays = context.getResources().getStringArray(R.array.weekdays);
         mPaint = new Paint();
-        sidewidte = DensityUtils.dip2px(context,35);
+        sideWidth = DensityUtils.dip2px(context,35);
         eachBoxH = DensityUtils.dip2px(context,50);
         eachBoxW = DensityUtils.dip2px(context,60);
         setOnTouchListener(this);
@@ -77,8 +77,8 @@ public class ScheduleView extends View implements OnTouchListener {
     protected void onDraw(Canvas canvas) {
         // TODO Auto-generated method stub
         super.onDraw(canvas);
-        eachBoxW = (getWidth() - sidewidte) / 7;
-        eachBoxH = (getHeight()-sidewidte)/12;
+        eachBoxW = (getWidth() - sideWidth) / 7;
+        eachBoxH = (getHeight()- sideWidth)/12;
         printMarker(canvas);
         printContent(canvas);
         printTopBar(canvas);
@@ -97,16 +97,16 @@ public class ScheduleView extends View implements OnTouchListener {
             for (int j = 0; j < classTotal - 1; j++) {
                 // 画交线处的十字
                 mPaint.setStyle(Style.STROKE);
-                canvas.drawRect(startX + sidewidte + eachBoxW * (i + 1)
-                        - eachBoxW / 20, startY + sidewidte + eachBoxH
-                        * (j + 1) - 1, startX + sidewidte + eachBoxW * (i + 1)
-                        + eachBoxW / 20, startY + sidewidte + eachBoxH
+                canvas.drawRect(startX + sideWidth + eachBoxW * (i + 1)
+                        - eachBoxW / 20, startY + sideWidth + eachBoxH
+                        * (j + 1) - 1, startX + sideWidth + eachBoxW * (i + 1)
+                        + eachBoxW / 20, startY + sideWidth + eachBoxH
                         * (j + 1), mPaint);
                 canvas.drawRect(
-                        startX + sidewidte + eachBoxW * (i + 1) - 1,
-                        startY + sidewidte + eachBoxH * (j + 1) - eachBoxW / 20,
-                        startX + sidewidte + eachBoxW * (i + 1), startY
-                                + sidewidte + eachBoxH * (j + 1) + eachBoxW
+                        startX + sideWidth + eachBoxW * (i + 1) - 1,
+                        startY + sideWidth + eachBoxH * (j + 1) - eachBoxW / 20,
+                        startX + sideWidth + eachBoxW * (i + 1), startY
+                                + sideWidth + eachBoxH * (j + 1) + eachBoxW
                                 / 20, mPaint);
             }
         }
@@ -122,14 +122,14 @@ public class ScheduleView extends View implements OnTouchListener {
             ClassInfo classInfo;
             for (int i = 0; i < classList.size(); i++) {
                 classInfo = classList.get(i);
-                int fromX = startX + sidewidte + eachBoxW
+                int fromX = startX + sideWidth + eachBoxW
                         * (classInfo.getWeekday() - 1);
-                int fromY = startY + sidewidte + eachBoxH
+                int fromY = startY + sideWidth + eachBoxH
                         * (classInfo.getFromClassNum() - 1);
-                int toX = startX + sidewidte + eachBoxW
+                int toX = startX + sideWidth + eachBoxW
                         * classInfo.getWeekday();
                 int toY = startY
-                        + sidewidte
+                        + sideWidth
                         + eachBoxH
                         * (classInfo.getFromClassNum()
                         + classInfo.getClassNumLen() - 1);
@@ -171,8 +171,6 @@ public class ScheduleView extends View implements OnTouchListener {
 
     /**
      * 画左边课时bar
-     *
-     * @param canvas
      */
     private void printLeftBar(Canvas canvas) {
         // =================画左边课时栏=================
@@ -180,12 +178,12 @@ public class ScheduleView extends View implements OnTouchListener {
         mPaint.setStyle(Style.FILL);
         mPaint.setTextSize(DensityUtils.dip2px(context,13));
         // 课时栏背景
-        canvas.drawRect(0, startY + sidewidte, sidewidte, sidewidte + startY
+        canvas.drawRect(0, startY + sideWidth, sideWidth, sideWidth + startY
                 + eachBoxH * classTotal, mPaint);
         mPaint.setColor(barBgHrLine);
         // 画第一个边框线
-        canvas.drawRect(0, startY + sidewidte + eachBoxH - 1, sidewidte, startY
-                + eachBoxH + sidewidte, mPaint);
+        canvas.drawRect(0, startY + sideWidth + eachBoxH - 1, sideWidth, startY
+                + eachBoxH + sideWidth, mPaint);
         // 居中处理
         Rect textRect1 = new Rect();
         mPaint.getTextBounds("1", 0, 1, textRect1);
@@ -194,53 +192,51 @@ public class ScheduleView extends View implements OnTouchListener {
         mPaint.getTextBounds("10", 0, 2, textRect1);
         int tw2 = textRect1.right - textRect1.left;
         // 画第一个文字
-        canvas.drawText("1", sidewidte / 2 - tw1, startY + sidewidte + eachBoxH
+        canvas.drawText("1", sideWidth / 2 - tw1, startY + sideWidth + eachBoxH
                 / 2 + th / 2, mPaint);
         for (int i = 2; i < classTotal + 1; i++) {
             // 画边框
-            canvas.drawRect(0, startY + sidewidte + eachBoxH * i - 1,
-                    sidewidte, startY + eachBoxH * i + sidewidte, mPaint);
+            canvas.drawRect(0, startY + sideWidth + eachBoxH * i - 1,
+                    sideWidth, startY + eachBoxH * i + sideWidth, mPaint);
             // 画文字
             int tw = tw1 * 2 + (tw2 - tw1) * (i / 10);
-            canvas.drawText(i + "", sidewidte / 2 - tw / 2, startY + sidewidte
+            canvas.drawText(i + "", sideWidth / 2 - tw / 2, startY + sideWidth
                     + eachBoxH * (i - 1) + eachBoxH / 2 + th / 2, mPaint);
         }
         // =========左上角正方形============
-        canvas.drawRect(0, 0, sidewidte, sidewidte, mPaint);
+        canvas.drawRect(0, 0, sideWidth, sideWidth, mPaint);
     }
 
     /**
      * 画顶部星期bar
-     *
-     * @param canvas
      */
     private void printTopBar(Canvas canvas) {
         // =================画顶部星期栏==================
         mPaint.setColor(barBg);
         mPaint.setStyle(Style.FILL);
         // 星期栏背景
-        canvas.drawRect(startX + sidewidte, 0, sidewidte + startX + eachBoxW
-                * dayTotal, sidewidte, mPaint);
+        canvas.drawRect(startX + sideWidth, 0, sideWidth + startX + eachBoxW
+                * dayTotal, sideWidth, mPaint);
         mPaint.setColor(barBgHrLine);
         // 画第一个边框线
         mPaint.setTextSize(DensityUtils.dip2px(context,13));
-        canvas.drawRect(startX + sidewidte + eachBoxW - 1, 0, startX + eachBoxW
-                + sidewidte, sidewidte, mPaint);
+        canvas.drawRect(startX + sideWidth + eachBoxW - 1, 0, startX + eachBoxW
+                + sideWidth, sideWidth, mPaint);
         // 居中处理
         Rect textBounds = new Rect();
         mPaint.getTextBounds(weekdays[0], 0, weekdays[0].length(), textBounds);
         int textHeight = textBounds.bottom - textBounds.top;
         int textWidth = textBounds.right - textBounds.left;
         // 画第一个文字
-        canvas.drawText(weekdays[0], startX + sidewidte + eachBoxW / 2
-                - textWidth / 2, sidewidte / 2 + textHeight / 2, mPaint);
+        canvas.drawText(weekdays[0], startX + sideWidth + eachBoxW / 2
+                - textWidth / 2, sideWidth / 2 + textHeight / 2, mPaint);
         for (int i = 2; i < dayTotal + 1; i++) {
             // 画边框线
-            canvas.drawRect(startX + sidewidte + eachBoxW * i - 1, 0, startX
-                    + eachBoxW * i + sidewidte, sidewidte, mPaint);
+            canvas.drawRect(startX + sideWidth + eachBoxW * i - 1, 0, startX
+                    + eachBoxW * i + sideWidth, sideWidth, mPaint);
             // 画文字
-            canvas.drawText(weekdays[i - 1], startX + sidewidte + eachBoxW
-                    * (i - 1) + eachBoxW / 2 - textWidth / 2, sidewidte / 2
+            canvas.drawText(weekdays[i - 1], startX + sideWidth + eachBoxW
+                    * (i - 1) + eachBoxW / 2 - textWidth / 2, sideWidth / 2
                     + textHeight / 2, mPaint);
         }
     }
@@ -261,12 +257,12 @@ public class ScheduleView extends View implements OnTouchListener {
             isMove = true;
             //判断是否超出左右边框
             if (startX + dx < 0
-                    && startX + dx + eachBoxW * dayTotal + sidewidte >= getWidth()) {
+                    && startX + dx + eachBoxW * dayTotal + sideWidth >= getWidth()) {
                 startX += dx;
             }
             //判断是否超出上下边框
             if (startY + dy < 0
-                    && startY + dy + eachBoxH * classTotal + sidewidte >= getHeight()) {
+                    && startY + dy + eachBoxH * classTotal + sideWidth >= getHeight()) {
                 startY += dy;
             }
             //重新获得焦点坐标
