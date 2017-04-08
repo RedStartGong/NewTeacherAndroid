@@ -50,7 +50,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_label_late"
+                android:id="@+id/btn_late"
                 android:layout_width="0dp"
                 android:layout_height="28dp"
                 android:layout_marginRight="5dp"
@@ -61,18 +61,18 @@
                 android:textColor="@color/white_text_color" />
 
             <Button
-                android:id="@+id/btn_label_early"
+                android:id="@+id/btn_leave_early"
                 android:layout_width="0dp"
                 android:layout_height="28dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/bg_early"
+                android:background="@drawable/bg_leave_early"
                 android:gravity="center"
                 android:text="早退"
                 android:textColor="@color/white_text_color" />
 
             <Button
-                android:id="@+id/btn_label_absenteeism"
+                android:id="@+id/btn_absenteeism"
                 android:layout_width="0dp"
                 android:layout_height="28dp"
                 android:layout_marginRight="5dp"
@@ -83,7 +83,7 @@
                 android:textColor="@color/white_text_color" />
 
             <Button
-                android:id="@+id/btn_label_leave"
+                android:id="@+id/btn_leave"
                 android:layout_width="0dp"
                 android:layout_height="28dp"
                 android:layout_marginRight="5dp"

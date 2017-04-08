@@ -1,12 +1,14 @@
 package com.zidian.teacher.ui.course.activity;
 
 import android.app.ProgressDialog;
+import android.support.annotation.StringDef;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.zidian.teacher.R;
@@ -19,12 +21,15 @@ import com.zidian.teacher.ui.course.adapter.AttendanceAdapter;
 import com.zidian.teacher.ui.widget.CourseInfo;
 import com.zidian.teacher.ui.widget.RecyclerViewLinearDecoration;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 import static dagger.internal.Preconditions.checkNotNull;
 
@@ -81,29 +86,48 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
         });
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.attendance_loading));
-        adapter = new AttendanceAdapter(this, students);
+        adapter = new AttendanceAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new RecyclerViewLinearDecoration(this, RecyclerViewLinearDecoration.VERTICAL_LIST));
-        //点击事件改变选择状态
-        adapter.setOnItemClickListener(new AttendanceAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                for (int i = 0; i < students.size(); i++) {
-                    if (i == position) {
-                        students.get(i).setSelect(true);
-                    } else {
-                        students.get(i).setSelect(false);
-                    }
-                }
-                adapter.notifyDataSetChanged();
-            }
-        });
 
         checkNotNull(presenter);
         presenter.attachView(this);
         presenter.getClasses(courseInfo.getCourseId());
 
+    }
+
+    @StringDef({
+            AttendanceStatus.LATE, AttendanceStatus.LEAVE_EARLY,
+            AttendanceStatus.ABSENTEEISM, AttendanceStatus.LEAVE
+    })
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface AttendanceStatus {
+        String LATE = "1";
+        String LEAVE_EARLY = "2";
+        String ABSENTEEISM = "3";
+        String LEAVE = "4";
+    }
+
+    @OnClick({R.id.btn_late, R.id.btn_leave_early, R.id.btn_absenteeism, R.id.btn_leave, R.id.btn_submit})
+    public void onAttendanceStatusClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_late:
+                adapter.setStudentAttendance(AttendanceStatus.LATE);
+                break;
+            case R.id.btn_leave_early:
+                adapter.setStudentAttendance(AttendanceStatus.LEAVE_EARLY);
+                break;
+            case R.id.btn_absenteeism:
+                adapter.setStudentAttendance(AttendanceStatus.ABSENTEEISM);
+                break;
+            case R.id.btn_leave:
+                adapter.setStudentAttendance(AttendanceStatus.LEAVE);
+                break;
+            case R.id.btn_submit:
+                presenter.setAttendance(adapter.getStudentJson(), courseInfo.getCourseId(), courseInfo.getCourseWeeklyId());
+                break;
+        }
     }
 
     @Override
@@ -114,7 +138,7 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
 
     @Override
     public void showError(Throwable e) {
-
+        progressDialog.dismiss();
     }
 
     @Override
@@ -148,11 +172,13 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
 
     @Override
     public void showLoading() {
-
+        progressDialog.show();
     }
 
     @Override
     public void showSuccess() {
-
+        progressDialog.dismiss();
+        Toast.makeText(this, "提交成功",Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

@@ -11,7 +11,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.zidian.teacher.R;
 import com.zidian.teacher.model.entity.remote.AttendanceStudent;
+import com.zidian.teacher.ui.course.activity.AttendanceActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,9 +32,9 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private Context context;
     private List<AttendanceStudent.DataBean> students;
 
-    public AttendanceAdapter(Context context, List<AttendanceStudent.DataBean> students) {
+    public AttendanceAdapter(Context context) {
+        students = new ArrayList<>();
         this.context = context;
-        this.students = students;
     }
 
     public void setStudents(List<AttendanceStudent.DataBean> students) {
@@ -36,22 +42,48 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
-
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
+    /**
+     * 学生考勤信息Json String
+     *
+     * @return
+     */
+    public String getStudentJson() {
+        String jsonResult = "";
+        try {
+            JSONArray jsonarray = new JSONArray();
+            for (int i = 0; i < students.size(); i++) {
+                JSONObject jsonObjAnswer = new JSONObject();
+                jsonObjAnswer.put("studentId", students.get(i).getStudentId());
+                jsonObjAnswer.put("attendanceContent", students.get(i).getAttendance());
+                jsonarray.put(jsonObjAnswer);
+            }
+            jsonResult = jsonarray.toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonResult;
     }
 
-
-    private OnItemClickListener onItemClickListener;
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+    /**
+     * 设置考勤信息
+     *
+     * @param code 状态
+     */
+    public void setStudentAttendance(@AttendanceActivity.AttendanceStatus String code) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).isSelect()) {
+                students.get(i).setAttendance(code);
+                students.get(i).setSelect(false);
+                notifyItemChanged(i);
+            }
+        }
     }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.item_study_select_attendance, parent,
+        View view = LayoutInflater.from(context).inflate(R.layout.item_student_attendance, parent,
                 false);
         return new ItemViewHolder(view);
 
@@ -103,45 +135,49 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 ((ItemViewHolder) holder).tvLeaveEarly.setVisibility(View.GONE);
             }
 
-            if (onItemClickListener != null) {
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int position = holder.getLayoutPosition();
-                        onItemClickListener.onItemClick(holder.itemView, position);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (students.get(position).isSelect()) {
+                        students.get(position).setSelect(false);
+                        notifyItemChanged(position);
+                    } else {
+                        students.get(position).setSelect(true);
+                        notifyItemChanged(position);
                     }
-                });
 
-                ((ItemViewHolder) holder).tvAbsenteeism.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        students.get(position).setAttendance("0");
-                        notifyDataSetChanged();
-                    }
-                });
-                ((ItemViewHolder) holder).tvLeaveEarly.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        students.get(position).setAttendance("0");
-                        notifyDataSetChanged();
-                    }
-                });
-                ((ItemViewHolder) holder).tvLate.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        students.get(position).setAttendance("0");
-                        notifyDataSetChanged();
-                    }
-                });
-                ((ItemViewHolder) holder).tvLeave.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        students.get(position).setAttendance("0");
-                        notifyDataSetChanged();
-                    }
-                });
+                }
+            });
 
-            }
+            ((ItemViewHolder) holder).tvAbsenteeism.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    students.get(position).setAttendance("0");
+                    notifyItemChanged(position);
+                }
+            });
+            ((ItemViewHolder) holder).tvLeaveEarly.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    students.get(position).setAttendance("0");
+                    notifyItemChanged(position);
+                }
+            });
+            ((ItemViewHolder) holder).tvLate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    students.get(position).setAttendance("0");
+                    notifyItemChanged(position);
+                }
+            });
+            ((ItemViewHolder) holder).tvLeave.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    students.get(position).setAttendance("0");
+                    notifyItemChanged(position);
+                }
+            });
+
 
         }
     }
