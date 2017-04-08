@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
-import com.zidian.teacher.ui.widget.ClassInfo;
+import com.zidian.teacher.ui.widget.CourseInfo;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,7 +26,7 @@ public class CourseInfoActivity extends BaseActivity {
     @BindView(R.id.tv_course_week)
     TextView tvCourseWeek;
 
-    private ClassInfo classInfo;
+    private CourseInfo courseInfo;
 
     @Override
     protected int getLayout() {
@@ -40,12 +40,12 @@ public class CourseInfoActivity extends BaseActivity {
 
     @Override
     protected void initViewAndData() {
-        classInfo = (ClassInfo) getIntent().getSerializableExtra("classInfo");
+        courseInfo = (CourseInfo) getIntent().getSerializableExtra("courseInfo");
         toolbar.setTitle(getString(R.string.course_info));
         setToolbarBack(toolbar);
-        tvCourseName.setText(getString(R.string.course_name, classInfo.getClassname()));
-        tvCourseLocation.setText(getString(R.string.course_location, classInfo.getClassRoom()));
-        tvCourseWeek.setText(getString(R.string.course_current_week, classInfo.getBeginEndWeek()));
+        tvCourseName.setText(getString(R.string.course_name, courseInfo.getClassname()));
+        tvCourseLocation.setText(getString(R.string.course_location, courseInfo.getClassRoom()));
+        tvCourseWeek.setText(getString(R.string.course_current_week, courseInfo.getBeginEndWeek()));
     }
 
 
@@ -54,7 +54,7 @@ public class CourseInfoActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.tv_attendance:
                 Intent intent = new Intent(this, AttendanceActivity.class);
-                intent.putExtra("classInfo", classInfo);
+                intent.putExtra("courseInfo", courseInfo);
                 startActivity(intent);
                 break;
             case R.id.tv_attendance_statistics:

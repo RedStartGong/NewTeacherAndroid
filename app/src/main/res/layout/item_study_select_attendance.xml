@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/white_text_color">
+
+        <ImageView
+            android:id="@+id/iv_selector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_un_checked" />
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_student_portrait"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            tools:src="@drawable/ic_student" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_student_name"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:gravity="bottom"
+                android:textSize="15sp"
+                android:text="王毅" />
+
+            <TextView
+                android:id="@+id/tv_student_id"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:gravity="center_vertical"
+                android:textSize="13sp"
+                android:text="13105668325" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_late"
+            android:visibility="gone"
+            android:layout_width="50dp"
+            android:layout_height="28dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:background="@drawable/bg_late"
+            android:textColor="@color/white_text_color"
+            android:text="迟到" />
+
+        <TextView
+            android:id="@+id/tv_leave_early"
+            android:visibility="gone"
+            android:layout_width="50dp"
+            android:layout_height="28dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:background="@drawable/bg_early"
+            android:textColor="@color/white_text_color"
+            android:text="早退" />
+
+        <TextView
+            android:id="@+id/tv_absenteeism"
+            android:visibility="gone"
+            android:layout_width="50dp"
+            android:layout_height="28dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:background="@drawable/bg_absenteeism"
+            android:textColor="@color/white_text_color"
+            android:text="旷课" />
+
+        <TextView
+            android:id="@+id/tv_leave"
+            android:visibility="gone"
+            android:layout_width="50dp"
+            android:layout_height="28dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:background="@drawable/bg_leave"
+            android:textColor="@color/white_text_color"
+            android:text="请假" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

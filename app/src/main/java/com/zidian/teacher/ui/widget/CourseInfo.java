@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * 课程页面的实体类
  */
-public class ClassInfo implements Serializable{
+public class CourseInfo implements Serializable{
     private int fromX;
     private int fromY;
     private int toX;

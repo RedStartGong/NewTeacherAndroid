@@ -1,6 +1,7 @@
 package com.zidian.teacher.model.network;
 
 
+import com.zidian.teacher.model.entity.remote.AttendanceStudent;
 import com.zidian.teacher.model.entity.remote.Class;
 import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.model.entity.remote.HttpResult;
@@ -78,6 +79,13 @@ public interface TeacherService {
     @POST("page/attendance/selectClass")
     Observable<HttpResult<List<Class>>> getClasses(
             @Field("courseId") String courseId, @Field("teacherId") String teacherId,
+            @Field("token") String token, @Field("schoolId") String schoolId);
+
+    @FormUrlEncoded
+    @POST("page/attendance/select")
+    Observable<AttendanceStudent> getAttendanceStudents(
+            @Field("courseWeeklyId") String courseWeeklyId, @Field("courseId") String courseId,
+            @Field("className") String className, @Field("teacherId") String teacherId,
             @Field("token") String token, @Field("schoolId") String schoolId);
 
     @FormUrlEncoded

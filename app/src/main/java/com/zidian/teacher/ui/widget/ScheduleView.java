@@ -44,7 +44,7 @@ public class ScheduleView extends View implements OnTouchListener {
     private OnItemClassClickListener onItemClassClickListener;
 
     // 数据
-    private List<ClassInfo> classList;
+    private List<CourseInfo> classList;
 
     // 颜色
     public static final int contentBg = Color.argb(255, 255, 255, 255);
@@ -119,7 +119,7 @@ public class ScheduleView extends View implements OnTouchListener {
      */
     private void printContent(Canvas canvas) {
         if (classList != null && classList.size() > 0) {
-            ClassInfo classInfo;
+            CourseInfo classInfo;
             for (int i = 0; i < classList.size(); i++) {
                 classInfo = classList.get(i);
                 int fromX = startX + sideWidth + eachBoxW
@@ -279,7 +279,7 @@ public class ScheduleView extends View implements OnTouchListener {
                     return true;
                 }
                 for (int i = 0; i < classList.size(); i++) {
-                    ClassInfo classInfo = classList.get(i);
+                    CourseInfo classInfo = classList.get(i);
                     if (focusX > classInfo.getFromX()
                             && focusX < classInfo.getToX()
                             && focusY > classInfo.getFromY()
@@ -296,7 +296,7 @@ public class ScheduleView extends View implements OnTouchListener {
     }
 
     public interface OnItemClassClickListener {
-        public void onClick(ClassInfo classInfo);
+        public void onClick(CourseInfo classInfo);
     }
 
     public OnItemClassClickListener getOnItemClassClickListener() {
@@ -308,11 +308,11 @@ public class ScheduleView extends View implements OnTouchListener {
         this.onItemClassClickListener = onItemClassClickListener;
     }
 
-    public List<ClassInfo> getClassList() {
+    public List<CourseInfo> getClassList() {
         return classList;
     }
 
-    public void setClassList(List<ClassInfo> classList) {
+    public void setClassList(List<CourseInfo> classList) {
         this.classList = classList;
         invalidate();// 刷新页面
     }

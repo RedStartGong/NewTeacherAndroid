@@ -23,7 +23,7 @@
     <string name="attendance">本节考勤</string>
     <string name="attendance_statistics">考勤统计</string>
     <!--AttendanceActivity-->
-
+    <string name="attendance_loading">正在提交考勤信息...</string>
     <!--Mine-->
     <string name="mine_evaluated">被评价</string>
     <string name="mine_evaluate_others">评价他人</string>

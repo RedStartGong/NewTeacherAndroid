@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.zidian.teacher.base.RxPresenter;
 import com.zidian.teacher.model.DataManager;
+import com.zidian.teacher.model.entity.remote.AttendanceStudent;
 import com.zidian.teacher.model.entity.remote.Class;
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.NoDataResult;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.functions.Action1;
@@ -44,6 +46,56 @@ public class AttendancePresenter extends RxPresenter<AttendanceContract.View> im
                     @Override
                     public void call(List<Class> classes) {
                         view.showClasses(classes);
+                    }
+                });
+        addSubscribe(subscription);
+    }
+
+    @Override
+    public void getAttendanceStudents(String courseWeeklyId, String courseId, String className) {
+        Subscription subscription = dataManager.getAttendanceStudent(courseWeeklyId, courseId, className,
+                SharedPreferencesUtils.getUserName(), SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
+                .compose(RxUtils.<AttendanceStudent>rxSchedulerIo())
+                .flatMap(new Func1<AttendanceStudent, Observable<List<AttendanceStudent.DataBean>>>() {
+                    @Override
+                    public Observable<List<AttendanceStudent.DataBean>> call(final AttendanceStudent attendanceStudent) {
+                        if (attendanceStudent.getCode() != 200) {
+                           return Observable.error(new ApiException(attendanceStudent.getMessage()));
+                        } else {
+                           return Observable.create(new Observable.OnSubscribe<List<AttendanceStudent.DataBean>>() {
+                                @Override
+                                public void call(Subscriber<? super List<AttendanceStudent.DataBean>> subscriber) {
+                                    try{
+                                        subscriber.onNext(attendanceStudent.getData());
+                                        subscriber.onCompleted();
+                                    } catch (Throwable throwable) {
+                                        subscriber.onError(throwable);
+                                    }
+
+                                }
+                            });
+                        }
+                    }
+                }).subscribe(new Subscriber<List<AttendanceStudent.DataBean>>() {
+                    @Override
+                    public void onStart() {
+                        super.onStart();
+                        view.showLoadingStudents();
+                    }
+
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        view.showLoadStudentsError(e);
+                    }
+
+                    @Override
+                    public void onNext(List<AttendanceStudent.DataBean> dataBeen) {
+                        view.showStudents(dataBeen);
                     }
                 });
         addSubscribe(subscription);

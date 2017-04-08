@@ -11,7 +11,7 @@ import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.presenter.CoursePresenter;
 import com.zidian.teacher.presenter.contract.CourseContract;
 import com.zidian.teacher.ui.course.activity.CourseInfoActivity;
-import com.zidian.teacher.ui.widget.ClassInfo;
+import com.zidian.teacher.ui.widget.CourseInfo;
 import com.zidian.teacher.ui.widget.ScheduleView;
 import com.zidian.teacher.util.SharedPreferencesUtils;
 import com.zidian.teacher.util.SnackbarUtils;
@@ -41,7 +41,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     @Inject
     CoursePresenter presenter;
 
-    private List<ClassInfo> classInfos;
+    private List<CourseInfo> classInfos;
     private List<Course> courses;
     private int currentWeek;
 
@@ -83,9 +83,9 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
         });
         scheduleView.setOnItemClassClickListener(new ScheduleView.OnItemClassClickListener() {
             @Override
-            public void onClick(ClassInfo classInfo) {
+            public void onClick(CourseInfo courseInfo) {
                 Intent intent = new Intent(activity, CourseInfoActivity.class);
-                intent.putExtra("classInfo", classInfo);
+                intent.putExtra("courseInfo", courseInfo);
                 startActivity(intent);
             }
         });
@@ -121,7 +121,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
             classInfos.clear();
             for (int i = 0; i < courses.size(); i++) {
                 if (courses.get(i).getBeginEndWeek().equals(String.valueOf(currentWeek))) {
-                    ClassInfo classInfo = new ClassInfo();
+                    CourseInfo classInfo = new CourseInfo();
                     classInfo.setClassname(courses.get(i).getCourseName());
                     classInfo.setFromClassNum(getBeginClass(courses.get(i).getWeeklyQuarter()));
                     classInfo.setClassNumLen(getClassLength(courses.get(i).getWeeklyQuarter()));
