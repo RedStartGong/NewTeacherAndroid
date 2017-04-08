@@ -25,6 +25,7 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
+ * 考勤adapter
  * Created by GongCheng on 2017/4/8.
  */
 

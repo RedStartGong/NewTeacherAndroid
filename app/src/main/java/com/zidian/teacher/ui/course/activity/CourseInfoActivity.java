@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
+ * 课程信息
  * Created by GongCheng on 2017/4/7.
  */
 
