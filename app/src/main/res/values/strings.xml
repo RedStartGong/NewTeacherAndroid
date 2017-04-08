@@ -22,6 +22,8 @@
     <string name="course_current_week">当前周数:&#160;%1$s</string>
     <string name="attendance">本节考勤</string>
     <string name="attendance_statistics">考勤统计</string>
+    <!--AttendanceActivity-->
+
     <!--Mine-->
     <string name="mine_evaluated">被评价</string>
     <string name="mine_evaluate_others">评价他人</string>

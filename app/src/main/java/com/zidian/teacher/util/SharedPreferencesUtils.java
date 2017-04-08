@@ -39,6 +39,8 @@ public class SharedPreferencesUtils {
 
     private static final String SP_VERSION_NAME = "versionName";
 
+    private static final String SP_CURRENT_WEEK = "currentWeek";
+
     public static void init(Context context) {
         Hawk.init(context).build();
     }
@@ -81,6 +83,14 @@ public class SharedPreferencesUtils {
 
     public static void setVersionName(String versionName) {
         Hawk.put(SP_VERSION_NAME, versionName);
+    }
+
+    public static void setCurrentWeek(int currentWeek) {
+        Hawk.put(SP_CURRENT_WEEK, currentWeek);
+    }
+
+    public static int getCurrentWeek() {
+        return Hawk.get(SP_CURRENT_WEEK, 0);
     }
 
     public static void clearAll() {

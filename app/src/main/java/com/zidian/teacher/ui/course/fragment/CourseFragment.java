@@ -13,6 +13,7 @@ import com.zidian.teacher.presenter.contract.CourseContract;
 import com.zidian.teacher.ui.course.activity.CourseInfoActivity;
 import com.zidian.teacher.ui.widget.ClassInfo;
 import com.zidian.teacher.ui.widget.ScheduleView;
+import com.zidian.teacher.util.SharedPreferencesUtils;
 import com.zidian.teacher.util.SnackbarUtils;
 
 import java.util.ArrayList;
@@ -69,10 +70,14 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
         courses = new ArrayList<>();
         toolbar.setTitle(R.string.main_course);
         spinner.setItems(getWeeks());
+        //设置当前周
+        currentWeek = SharedPreferencesUtils.getCurrentWeek() == 0 ? 1 : SharedPreferencesUtils.getCurrentWeek();
+        spinner.setSelectedIndex(currentWeek - 1);
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
             public void onItemSelected(MaterialSpinner materialSpinner, int i, long l, String item) {
                 currentWeek = i + 1;
+                SharedPreferencesUtils.setCurrentWeek(currentWeek);
                 setScheduleView();
             }
         });
@@ -103,6 +108,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     @Override
     public void showCourse(List<Course> courses) {
         this.courses = courses;
+        setScheduleView();
     }
 
     /**
@@ -131,6 +137,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
             scheduleView.setClassList(classInfos);
         }
     }
+
     /**
      * 设置周次
      *
@@ -143,14 +150,14 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
         }
         return weeks;
     }
+
     private int getBeginClass(String myClass) {
 
         if (myClass.indexOf(",") == -1) {
             return Integer.parseInt(myClass);
         } else {
             String b = myClass.substring(0, myClass.indexOf(","));
-            int i = Integer.parseInt(b);
-            return i;
+            return Integer.parseInt(b);
         }
     }
 
@@ -164,8 +171,8 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
         } else {
             return 1;
         }
-
     }
+
     private int getWeekDay(String weeklyDay) {
 
         int day = 1;

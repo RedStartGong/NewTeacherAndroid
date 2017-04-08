@@ -1,5 +1,6 @@
 package com.zidian.teacher.ui.course.activity;
 
+import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
@@ -52,8 +53,12 @@ public class CourseInfoActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_attendance:
+                Intent intent = new Intent(this, AttendanceActivity.class);
+                intent.putExtra("classInfo", classInfo);
+                startActivity(intent);
                 break;
             case R.id.tv_attendance_statistics:
+                startActivity(new Intent(this, AttendanceStatisticsActivity.class));
                 break;
         }
     }

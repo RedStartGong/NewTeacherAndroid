@@ -1,6 +1,7 @@
 package com.zidian.teacher.model;
 
 
+import com.zidian.teacher.model.entity.remote.Class;
 import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.LoginResult;
@@ -30,7 +31,6 @@ public final class DataManager {
         this.service = service;
     }
 
-
     public Observable<HttpResult<List<School>>> getSchools() {
         return service.getSchools();
     }
@@ -58,5 +58,17 @@ public final class DataManager {
     public Observable<HttpResult<List<Course>>> getCourses(
             String teacherId, String token, String schoolId) {
         return service.getCourses(teacherId, token, schoolId);
+    }
+
+    public Observable<HttpResult<List<Class>>> getClasses(
+            String courseId, String teacherId, String token, String schoolId) {
+        return service.getClasses(courseId, teacherId, token, schoolId);
+    }
+
+    public Observable<NoDataResult> setAttendance(
+            String student, String courseId, String courseWeeklyId, String teacherId,
+            String token, String schoolId) {
+        return service.setAttendance(student, courseId, courseWeeklyId, teacherId, token, schoolId);
+
     }
 }
