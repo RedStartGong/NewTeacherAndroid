@@ -7,7 +7,7 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:layout_width="130dp"
+        android:layout_width="128dp"
         android:layout_height="match_parent"
         android:src="@drawable/ic_attendance_table" />
 
@@ -21,40 +21,58 @@
         android:layout_width="0dp"
         android:layout_height="28dp"
         android:layout_marginLeft="2dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="4dp"
         android:layout_weight="1"
         android:background="@drawable/bg_leave"
         android:gravity="center"
         android:text="请假"
         android:textColor="@color/white_text_color" />
 
+    <View
+        android:layout_width="1px"
+        android:layout_height="match_parent"
+        android:background="@color/divider_color" />
+
     <TextView
         android:id="@+id/tv_late"
         android:layout_width="0dp"
         android:layout_height="28dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="4dp"
         android:layout_weight="1"
         android:background="@drawable/bg_late"
         android:gravity="center"
         android:text="迟到"
         android:textColor="@color/white_text_color" />
 
+    <View
+        android:layout_width="1px"
+        android:layout_height="match_parent"
+        android:background="@color/divider_color" />
+
     <TextView
         android:id="@+id/tv_leave_early"
         android:layout_width="0dp"
         android:layout_height="28dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="4dp"
         android:layout_weight="1"
         android:background="@drawable/bg_leave_early"
         android:gravity="center"
         android:text="早退"
         android:textColor="@color/white_text_color" />
 
+    <View
+        android:layout_width="1px"
+        android:layout_height="match_parent"
+        android:background="@color/divider_color" />
+
     <TextView
         android:id="@+id/tv_absenteeism"
         android:layout_width="0dp"
         android:layout_height="28dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="4dp"
         android:layout_weight="1"
         android:background="@drawable/bg_absenteeism"
         android:gravity="center"
