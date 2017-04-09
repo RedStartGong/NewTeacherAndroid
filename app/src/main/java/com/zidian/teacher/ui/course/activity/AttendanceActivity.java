@@ -146,6 +146,7 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
     public void showClasses(List<Class> classes) {
         this.classes = classes;
         spinner.setItems(classes);
+        //获取班级列表成功后获取第一个班级的学生
         presenter.getAttendanceStudents(courseInfo.getCourseWeeklyId(), courseInfo.getCourseId(),
                 classes.get(0).getClassId());
     }
@@ -179,7 +180,7 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
     @Override
     public void showSuccess() {
         progressDialog.dismiss();
-        Toast.makeText(this, "提交成功",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.attendance_succeed),Toast.LENGTH_SHORT).show();
         finish();
     }
 }

@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2016 EEFUNG Software Co.Ltd. All rights reserved.
- * 版权所有(c)2016湖南蚁坊软件有限公司。保留所有权利。
- */
 
 package com.zidian.teacher.ui.widget;
 
@@ -22,7 +18,7 @@ import com.zidian.teacher.util.StringConstants;
 
 /**
  * 带有清除按钮的 EditText
- * Created by Zuoji on 2015/11/5.
+ * Created by Zuoji from EEFUNG on 2015/11/5.
  */
 public class ClearEditText extends AppCompatEditText {
 

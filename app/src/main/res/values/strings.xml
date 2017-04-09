@@ -23,7 +23,8 @@
     <string name="attendance">本节考勤</string>
     <string name="attendance_statistics">考勤统计</string>
     <!--AttendanceActivity-->
-    <string name="attendance_loading">正在提交考勤信息...</string>
+    <string name="attendance_loading">正在提交考勤信息…</string>
+    <string name="attendance_succeed">提交成功</string>
     <!--Mine-->
     <string name="mine_evaluated">被评价</string>
     <string name="mine_evaluate_others">评价他人</string>
@@ -36,7 +37,7 @@
     <string name="old_password">旧密码</string>
     <string name="new_password">新密码</string>
     <string name="confirm_password">确认密码</string>
-    <string name="change_password_loading">加载中...</string>
+    <string name="change_password_loading">加载中…</string>
     <string name="please_input_old_password">请输入旧密码</string>
     <string name="please_input_new_password">请输入新密码</string>
     <string name="entered_password_diff">两次输入密码不一致</string>

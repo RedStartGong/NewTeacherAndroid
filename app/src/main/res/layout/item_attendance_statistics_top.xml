@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@color/common_bg"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="130dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_attendance_table" />
+
+    <View
+        android:layout_width="1px"
+        android:layout_height="match_parent"
+        android:background="@color/divider_color" />
+
+    <TextView
+        android:id="@+id/tv_leave"
+        android:layout_width="0dp"
+        android:layout_height="28dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_leave"
+        android:gravity="center"
+        android:text="请假"
+        android:textColor="@color/white_text_color" />
+
+    <TextView
+        android:id="@+id/tv_late"
+        android:layout_width="0dp"
+        android:layout_height="28dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_late"
+        android:gravity="center"
+        android:text="迟到"
+        android:textColor="@color/white_text_color" />
+
+    <TextView
+        android:id="@+id/tv_leave_early"
+        android:layout_width="0dp"
+        android:layout_height="28dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_leave_early"
+        android:gravity="center"
+        android:text="早退"
+        android:textColor="@color/white_text_color" />
+
+    <TextView
+        android:id="@+id/tv_absenteeism"
+        android:layout_width="0dp"
+        android:layout_height="28dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_absenteeism"
+        android:gravity="center"
+        android:text="旷课"
+        android:textColor="@color/white_text_color" />
+
+
+</LinearLayout>

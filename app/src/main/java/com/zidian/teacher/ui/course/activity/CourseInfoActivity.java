@@ -54,12 +54,14 @@ public class CourseInfoActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_attendance:
-                Intent intent = new Intent(this, AttendanceActivity.class);
-                intent.putExtra("courseInfo", courseInfo);
-                startActivity(intent);
+                Intent intentAttendance = new Intent(this, AttendanceActivity.class);
+                intentAttendance.putExtra("courseInfo", courseInfo);
+                startActivity(intentAttendance);
                 break;
             case R.id.tv_attendance_statistics:
-                startActivity(new Intent(this, AttendanceStatisticsActivity.class));
+                Intent intentAttendanceStatistics = new Intent(this, AttendanceStatisticsActivity.class);
+                intentAttendanceStatistics.putExtra("courseInfo", courseInfo);
+                startActivity(intentAttendanceStatistics);
                 break;
         }
     }
