@@ -14,11 +14,18 @@ import com.zidian.teacher.model.entity.remote.School;
 import com.zidian.teacher.util.SharedPreferencesUtils;
 
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import rx.Observable;
 
 /**
@@ -72,7 +79,7 @@ public interface TeacherService {
     Observable<NoDataResult> changePassword(
             @Field("teacherId") String teacherId, @Field("password") String password,
             @Field("password1") String password1, @Field("password2") String password2,
-            @Field("token") String token, @Field("schoolId")String schoolId
+            @Field("token") String token, @Field("schoolId") String schoolId
     );
 
     /**
@@ -131,4 +138,9 @@ public interface TeacherService {
     Observable<NoDataResult> feedback(
             @Field("feedbackId") String feedbackId, @Field("feedbackInformation") String feedbackInformation,
             @Field("type") String type, @Field("token") String token, @Field("schoolId") String schoolId);
+
+    @Multipart
+    @POST("teacher/updateTeacherHeadPortrait")
+    Observable<NoDataResult> setPortrait(@Part("teacherId") RequestBody teacherId, @Part("token") RequestBody token,
+                                         @Part("schoolId") RequestBody schoolId, @Part MultipartBody.Part file);
 }

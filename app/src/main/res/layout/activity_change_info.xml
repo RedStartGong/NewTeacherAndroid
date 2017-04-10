@@ -12,6 +12,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <LinearLayout
+                android:id="@+id/ll_set_portrait"
                 style="@style/ChangeInfoLinearStyle">
                 <TextView
                     android:layout_width="wrap_content"
@@ -19,12 +20,14 @@
                     android:layout_weight="1"
                     android:text="@string/info_change_portrait"/>
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/civ_portrait"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:src="@drawable/ic_teacher" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/ll_set_nickname"
                 android:layout_marginTop="16dp"
                 style="@style/ChangeInfoLinearStyle">
                 <TextView
@@ -33,12 +36,14 @@
                     android:layout_weight="1"
                     android:text="昵称"/>
                 <TextView
+                    android:id="@+id/tv_nickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="请输入昵称"/>
             </LinearLayout>
             <include layout="@layout/view_divider"/>
             <LinearLayout
+                android:id="@+id/ll_set_sex"
                 style="@style/ChangeInfoLinearStyle">
                 <TextView
                     android:layout_width="wrap_content"
@@ -46,12 +51,14 @@
                     android:layout_weight="1"
                     android:text="性别"/>
                 <TextView
+                    android:id="@+id/tv_sex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="女"/>
             </LinearLayout>
             <include layout="@layout/view_divider"/>
             <LinearLayout
+                android:id="@+id/ll_set_birthday"
                 style="@style/ChangeInfoLinearStyle">
                 <TextView
                     android:layout_width="wrap_content"
@@ -59,12 +66,14 @@
                     android:layout_weight="1"
                     android:text="生日"/>
                 <TextView
+                    android:id="@+id/tv_birthday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1987-6-03"/>
             </LinearLayout>
             <include layout="@layout/view_divider"/>
             <LinearLayout
+                android:id="@+id/ll_set_age"
                 style="@style/ChangeInfoLinearStyle">
                 <TextView
                     android:layout_width="wrap_content"
@@ -72,12 +81,14 @@
                     android:layout_weight="1"
                     android:text="年龄"/>
                 <TextView
+                    android:id="@+id/tv_age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="24"/>
             </LinearLayout>
             <include layout="@layout/view_divider"/>
             <LinearLayout
+                android:id="@+id/ll_set_phone_number"
                 style="@style/ChangeInfoLinearStyle">
                 <TextView
                     android:layout_width="wrap_content"
@@ -85,12 +96,14 @@
                     android:layout_weight="1"
                     android:text="手机号"/>
                 <TextView
+                    android:id="@+id/tv_phone_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="18628976411"/>
             </LinearLayout>
             <include layout="@layout/view_divider"/>
             <LinearLayout
+                android:id="@+id/ll_set_motto"
                 style="@style/ChangeInfoLinearStyle">
                 <TextView
                     android:layout_width="wrap_content"
@@ -98,6 +111,7 @@
                     android:layout_weight="1"
                     android:text="个性签名"/>
                 <TextView
+                    android:id="@+id/tv_motto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="哈哈哈哈哈哈"/>

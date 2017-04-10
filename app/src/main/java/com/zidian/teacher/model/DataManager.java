@@ -14,10 +14,14 @@ import com.zidian.teacher.model.entity.remote.School;
 import com.zidian.teacher.model.network.TeacherService;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -85,7 +89,11 @@ public final class DataManager {
     }
 
     public Observable<NoDataResult> feedback(String feedbackId, String feedbackInformation,
-            String type, String token, String schoolId) {
+                                             String type, String token, String schoolId) {
         return service.feedback(feedbackId, feedbackInformation, type, token, schoolId);
+    }
+
+    public Observable<NoDataResult> setPortrait(RequestBody teacherId, RequestBody token, RequestBody schoolId, MultipartBody.Part file) {
+        return service.setPortrait(teacherId, token, schoolId, file);
     }
 }
