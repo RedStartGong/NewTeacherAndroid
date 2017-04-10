@@ -29,7 +29,7 @@ public class QuestionnairePresenter extends RxPresenter<QuestionnaireContract.Vi
     }
 
     @Override
-    public void getQuestionnaires(@NonNull String startRow) {
+    public void getQuestionnaires(String startRow) {
         Subscription subscription = dataManager.getQuestionnaire(startRow, "10",
                 SharedPreferencesUtils.getUserName(), SharedPreferencesUtils.getToken(),
                 SharedPreferencesUtils.getSchoolId())

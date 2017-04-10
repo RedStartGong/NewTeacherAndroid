@@ -1,12 +1,10 @@
 package com.zidian.teacher.presenter;
 
-import android.support.annotation.NonNull;
-
 import com.zidian.teacher.base.RxPresenter;
 import com.zidian.teacher.model.DataManager;
 import com.zidian.teacher.model.entity.remote.NoDataResult;
 import com.zidian.teacher.model.network.ApiException;
-import com.zidian.teacher.presenter.contract.ChangePasswordContract;
+import com.zidian.teacher.presenter.contract.FeedbackContract;
 import com.zidian.teacher.util.RxUtils;
 import com.zidian.teacher.util.SharedPreferencesUtils;
 
@@ -17,22 +15,21 @@ import rx.Subscription;
 import rx.functions.Func1;
 
 /**
- * Created by GongCheng on 2017/4/6.
+ * Created by GongCheng on 2017/4/10.
  */
 
-public class ChangePasswordPresenter extends RxPresenter<ChangePasswordContract.View>
-        implements ChangePasswordContract.Presenter {
+public final class FeedbackPresenter extends RxPresenter<FeedbackContract.View> implements FeedbackContract.Presenter{
     private final DataManager dataManager;
 
     @Inject
-    public ChangePasswordPresenter(DataManager dataManager) {
+    public FeedbackPresenter(DataManager dataManager) {
         this.dataManager = dataManager;
     }
 
     @Override
-    public void changePassword(String password, String password1, String password2) {
-        Subscription subscription = dataManager.changePassword(SharedPreferencesUtils.getUserName(),
-                password, password1, password2, SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
+    public void feedback(String feedbackContent) {
+        Subscription subscription = dataManager.feedback(SharedPreferencesUtils.getUserName(), feedbackContent,
+                "2", SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
                 .compose(RxUtils.<NoDataResult>rxSchedulerIo())
                 .map(new Func1<NoDataResult, NoDataResult>() {
                     @Override
@@ -66,5 +63,6 @@ public class ChangePasswordPresenter extends RxPresenter<ChangePasswordContract.
                         view.showSuccess();
                     }
                 });
+        addSubscribe(subscription);
     }
 }

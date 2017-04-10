@@ -1,7 +1,9 @@
 package com.zidian.teacher.ui.mine.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,8 +13,12 @@ import com.zidian.teacher.base.BaseFragment;
 import com.zidian.teacher.model.entity.remote.PersonInfo;
 import com.zidian.teacher.presenter.PersonInfoPresenter;
 import com.zidian.teacher.presenter.contract.PersonInfoContract;
+import com.zidian.teacher.ui.main.LoginActivity;
 import com.zidian.teacher.ui.mine.activity.AboutActivity;
 import com.zidian.teacher.ui.mine.activity.ChangeInfoActivity;
+import com.zidian.teacher.ui.mine.activity.FeedbackActivity;
+import com.zidian.teacher.util.ActManager;
+import com.zidian.teacher.util.SharedPreferencesUtils;
 import com.zidian.teacher.util.SnackbarUtils;
 
 import javax.inject.Inject;
@@ -42,6 +48,9 @@ public class MineFragment extends BaseFragment implements PersonInfoContract.Vie
     @Inject
     PersonInfoPresenter presenter;
 
+    @Inject
+    ActManager actManager;
+
     public static MineFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -66,8 +75,10 @@ public class MineFragment extends BaseFragment implements PersonInfoContract.Vie
                 start(ChangePasswordFragment.newInstance());
                 break;
             case R.id.ll_logout:
+                showExitDialog();
                 break;
             case R.id.ll_feedback:
+                startActivity(new Intent(activity, FeedbackActivity.class));
                 break;
             case R.id.ll_about:
                 startActivity(new Intent(activity, AboutActivity.class));
@@ -94,6 +105,22 @@ public class MineFragment extends BaseFragment implements PersonInfoContract.Vie
         super.onDestroyView();
         checkNotNull(presenter);
         presenter.deAttachView();
+    }
+
+    private void showExitDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("提示");
+        builder.setMessage("确定要退出登录吗?");
+        builder.setNegativeButton("取消", null);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                actManager.finishAllActivity();
+                SharedPreferencesUtils.clearAll();
+                startActivity(new Intent(activity, LoginActivity.class));
+            }
+        });
+        builder.show();
     }
 
     @Override

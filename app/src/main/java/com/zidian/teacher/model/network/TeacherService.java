@@ -122,4 +122,13 @@ public interface TeacherService {
             @Field("courseId") String courseId, @Field("className") String className,
             @Field("teacherId") String teacherId, @Field("token") String token,
             @Field("schoolId") String schoolId);
+
+    /**
+     * 意见反馈
+     */
+    @FormUrlEncoded
+    @POST("page/suggestionFeedback/add")
+    Observable<NoDataResult> feedback(
+            @Field("feedbackId") String feedbackId, @Field("feedbackInformation") String feedbackInformation,
+            @Field("type") String type, @Field("token") String token, @Field("schoolId") String schoolId);
 }

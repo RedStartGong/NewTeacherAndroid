@@ -79,8 +79,13 @@ public final class DataManager {
         return service.setAttendance(student, courseId, courseWeeklyId, teacherId, token, schoolId);
     }
 
-    public Observable<HttpResult<List<AttendanceStatistics>>> getAttendanceStatistcs(
+    public Observable<HttpResult<List<AttendanceStatistics>>> getAttendanceStatistics(
             String courseId, String className, String teacherId, String token, String schoolId) {
         return service.getAttendanceStatistcs(courseId, className, teacherId, token, schoolId);
+    }
+
+    public Observable<NoDataResult> feedback(String feedbackId, String feedbackInformation,
+            String type, String token, String schoolId) {
+        return service.feedback(feedbackId, feedbackInformation, type, token, schoolId);
     }
 }

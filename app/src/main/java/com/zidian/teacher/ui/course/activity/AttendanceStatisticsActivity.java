@@ -18,7 +18,6 @@ import com.zidian.teacher.ui.course.adapter.AttendanceStatisticsAdapter;
 import com.zidian.teacher.ui.widget.CourseInfo;
 import com.zidian.teacher.ui.widget.RecyclerViewLinearDecoration;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,7 +47,6 @@ public class AttendanceStatisticsActivity extends BaseActivity implements Attend
     @Inject
     AttendanceStatisticsPresenter presenter;
 
-    private List<Class> classes;
     private CourseInfo courseInfo;
     private AttendanceStatisticsAdapter adapter;
 
@@ -64,7 +62,6 @@ public class AttendanceStatisticsActivity extends BaseActivity implements Attend
 
     @Override
     protected void initViewAndData() {
-        classes = new ArrayList<>();
         courseInfo = (CourseInfo) getIntent().getSerializableExtra("courseInfo");
         toolbar.setTitle(getString(R.string.attendance_statistics));
         setToolbarBack(toolbar);
@@ -102,7 +99,6 @@ public class AttendanceStatisticsActivity extends BaseActivity implements Attend
 
     @Override
     public void showClasses(List<Class> classes) {
-        this.classes = classes;
         spinner.setItems(classes);
         //获取班级列表成功后获取第一个班级的考勤统计数据
         presenter.getAttendanceStatistics(courseInfo.getCourseId(), classes.get(0).getClassId());

@@ -46,7 +46,8 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     /**
      * 学生考勤信息Json String
      *
-     * @return
+     * @return Json字符串
+     * example: [{studentId=11041010216,attendanceContent="1"},{studentId=14041020205},attendanceContent="1"]
      */
     public String getStudentJson() {
         String jsonResult = "";

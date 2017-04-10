@@ -33,7 +33,7 @@ public class AttendanceStatisticsPresenter extends RxPresenter<AttendanceStatist
     }
 
     @Override
-    public void getClasses(@NonNull String courseId) {
+    public void getClasses( String courseId) {
         Subscription subscription = dataManager.getClasses(courseId, SharedPreferencesUtils.getUserName(),
                 SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
                 .compose(RxUtils.<HttpResult<List<Class>>>rxSchedulerIo())
@@ -50,7 +50,7 @@ public class AttendanceStatisticsPresenter extends RxPresenter<AttendanceStatist
 
     @Override
     public void getAttendanceStatistics(@NonNull String courseId, @NonNull String className) {
-        Subscription subscription = dataManager.getAttendanceStatistcs(courseId, className,
+        Subscription subscription = dataManager.getAttendanceStatistics(courseId, className,
                 SharedPreferencesUtils.getUserName(), SharedPreferencesUtils.getToken(),
                 SharedPreferencesUtils.getSchoolId())
                 .compose(RxUtils.<HttpResult<List<AttendanceStatistics>>>rxSchedulerIo())

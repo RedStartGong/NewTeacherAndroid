@@ -10,6 +10,7 @@ import com.zidian.teacher.ui.main.LoginActivity;
 import com.zidian.teacher.ui.main.MainActivity;
 import com.zidian.teacher.ui.mine.activity.AboutActivity;
 import com.zidian.teacher.ui.mine.activity.ChangeInfoActivity;
+import com.zidian.teacher.ui.mine.activity.FeedbackActivity;
 
 import dagger.Component;
 
@@ -33,4 +34,6 @@ public interface ActivityComponent {
     void inject(AttendanceActivity attendanceActivity);
 
     void inject(AttendanceStatisticsActivity attendanceStatisticsActivity);
+
+    void inject(FeedbackActivity feedBackActivity);
 }
