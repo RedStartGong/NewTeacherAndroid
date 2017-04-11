@@ -193,7 +193,7 @@ public class ChangeInfoActivity extends BaseActivity implements ChangeInfoContra
                         tvBirthday.setText(getString(R.string.birthday, year, month + 1, day));
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy", Locale.CHINA);
                         int currentYear = Integer.parseInt(dateFormat.format(new Date()));
-                        tvBirthday.setText(String.valueOf(currentYear - year));
+                        tvAge.setText(String.valueOf(currentYear - year));
                     }
                 },
                 now.get(Calendar.YEAR),
