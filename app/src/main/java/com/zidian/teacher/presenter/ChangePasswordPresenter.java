@@ -30,7 +30,7 @@ public class ChangePasswordPresenter extends RxPresenter<ChangePasswordContract.
     }
 
     @Override
-    public void changePassword(String password, String password1, String password2) {
+    public void changePassword(@NonNull String password, @NonNull String password1, @NonNull String password2) {
         Subscription subscription = dataManager.changePassword(SharedPreferencesUtils.getUserName(),
                 password, password1, password2, SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
                 .compose(RxUtils.<NoDataResult>rxSchedulerIo())
@@ -66,5 +66,6 @@ public class ChangePasswordPresenter extends RxPresenter<ChangePasswordContract.
                         view.showSuccess();
                     }
                 });
+        addSubscribe(subscription);
     }
 }

@@ -1,5 +1,7 @@
 package com.zidian.teacher.presenter.contract;
 
+import android.support.annotation.NonNull;
+
 import com.zidian.teacher.base.BasePresenter;
 import com.zidian.teacher.base.BaseView;
 import com.zidian.teacher.model.entity.remote.AttendanceStudent;
@@ -19,7 +21,7 @@ public interface AttendanceContract {
 
         void showLoadStudentsError(Throwable throwable);
 
-        void showStudents(List<AttendanceStudent.DataBean> students );
+        void showStudents(List<AttendanceStudent.DataBean> students);
 
         void showLoading();
 
@@ -27,10 +29,10 @@ public interface AttendanceContract {
     }
 
     interface Presenter extends BasePresenter<AttendanceContract.View> {
-        void getClasses(String courseId);
+        void getClasses(@NonNull String courseId);
 
-        void getAttendanceStudents(String courseWeeklyId, String courseId, String className);
+        void getAttendanceStudents(@NonNull String courseWeeklyId, @NonNull String courseId, @NonNull String className);
 
-        void setAttendance(String student, String courseId, String courseWeeklyId);
+        void setAttendance(@NonNull String student, @NonNull String courseId, @NonNull String courseWeeklyId);
     }
 }

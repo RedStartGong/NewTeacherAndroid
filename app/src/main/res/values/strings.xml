@@ -35,7 +35,24 @@
     <string name="mine_about">关于孜点</string>
     <!--ChangeInfoActivity-->
     <string name="info_change_portrait">修改头像</string>
-
+    <string name="info_nickname">昵称</string>
+    <string name="info_sex">性别</string>
+    <string name="info_birthday">生日</string>
+    <string name="info_age">年龄</string>
+    <string name="info_phone_number">手机号码</string>
+    <string name="info_motto">个性签名</string>
+    <string name="change_person_info">编辑个人资料</string>
+    <string name="please_input_nickname">请输入昵称</string>
+    <string name="please_choose_sex">请选择性别</string>
+    <string name="please_choose_date">请选择日期</string>
+    <string name="cancel">取消</string>
+    <array name="sex">
+        <item>男</item>
+        <item>女</item>
+    </array>
+    <string name="please_input_phone_number">请输入手机号码</string>
+    <string name="please_input_motto">请输入个性签名</string>
+    <string name="birthday">%1$d-%2$d-%3$d</string>
     <!--ChangePasswordActivity-->
     <string name="old_password">旧密码</string>
     <string name="new_password">新密码</string>

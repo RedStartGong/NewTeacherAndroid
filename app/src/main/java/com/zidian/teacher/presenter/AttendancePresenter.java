@@ -36,7 +36,7 @@ public class AttendancePresenter extends RxPresenter<AttendanceContract.View> im
     }
 
     @Override
-    public void getClasses( String courseId) {
+    public void getClasses(@NonNull String courseId) {
         Subscription subscription = dataManager.getClasses(courseId, SharedPreferencesUtils.getUserName(),
                 SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
                 .compose(RxUtils.<HttpResult<List<Class>>>rxSchedulerIo())
@@ -52,7 +52,7 @@ public class AttendancePresenter extends RxPresenter<AttendanceContract.View> im
     }
 
     @Override
-    public void getAttendanceStudents(String courseWeeklyId, String courseId, String className) {
+    public void getAttendanceStudents(@NonNull String courseWeeklyId, @NonNull String courseId, @NonNull String className) {
         Subscription subscription = dataManager.getAttendanceStudent(courseWeeklyId, courseId, className,
                 SharedPreferencesUtils.getUserName(), SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
                 .compose(RxUtils.<AttendanceStudent>rxSchedulerIo())
@@ -102,7 +102,7 @@ public class AttendancePresenter extends RxPresenter<AttendanceContract.View> im
     }
 
     @Override
-    public void setAttendance( String student,  String courseId,  String courseWeeklyId) {
+    public void setAttendance(@NonNull String student, @NonNull String courseId, @NonNull String courseWeeklyId) {
         Subscription subscription = dataManager.setAttendance(student, courseId, courseWeeklyId,
                 SharedPreferencesUtils.getUserName(), SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
                 .compose(RxUtils.<NoDataResult>rxSchedulerIo())

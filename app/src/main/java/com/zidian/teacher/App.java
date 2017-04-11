@@ -4,12 +4,14 @@ import android.app.Application;
 import android.content.Context;
 
 import com.orhanobut.logger.Logger;
+import com.squareup.leakcanary.LeakCanary;
 import com.zidian.teacher.di.componet.ApplicationComponent;
 import com.zidian.teacher.di.componet.DaggerApplicationComponent;
 import com.zidian.teacher.di.module.ApplicationModule;
 import com.zidian.teacher.util.SharedPreferencesUtils;
 
 /**
+ * application
  * Created by GongCheng on 2017/3/14.
  */
 
@@ -19,13 +21,19 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (BuildConfig.DEBUG) {
-            Logger.init();
-        }
+
         SharedPreferencesUtils.init(this);
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
+        //init Logger and LeakCanary
+        if (BuildConfig.DEBUG) {
+            Logger.init();
+            if (LeakCanary.isInAnalyzerProcess(this)) {
+                return;
+            }
+            LeakCanary.install(this);
+        }
     }
 
     public static App get(Context context) {

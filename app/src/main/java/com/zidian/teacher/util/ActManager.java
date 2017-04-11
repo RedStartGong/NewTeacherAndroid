@@ -16,7 +16,7 @@ import javax.inject.Singleton;
 @Singleton
 public class ActManager {
 
-	private static Stack<Activity> activityStack;
+	private  Stack<Activity> activityStack;
 
 	/**
 	 * 初始化Stack<Activity>

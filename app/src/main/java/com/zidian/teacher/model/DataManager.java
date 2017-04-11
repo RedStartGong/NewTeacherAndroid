@@ -93,7 +93,14 @@ public final class DataManager {
         return service.feedback(feedbackId, feedbackInformation, type, token, schoolId);
     }
 
-    public Observable<NoDataResult> setPortrait(RequestBody teacherId, RequestBody token, RequestBody schoolId, MultipartBody.Part file) {
+    public Observable<NoDataResult> setPortrait(RequestBody teacherId, RequestBody token,
+                                                RequestBody schoolId, MultipartBody.Part file) {
         return service.setPortrait(teacherId, token, schoolId, file);
+    }
+
+    public Observable<NoDataResult> setPersonInfo(
+             String motto, String phoneNumber, String teacherSex,
+            String birthday, String nickName,String teacherId, String token, String schoolId) {
+        return service.setPersonInfo( motto, phoneNumber, teacherSex, birthday, nickName,teacherId, token, schoolId);
     }
 }

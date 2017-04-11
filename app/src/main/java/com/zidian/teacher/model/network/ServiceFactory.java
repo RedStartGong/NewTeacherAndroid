@@ -2,6 +2,8 @@ package com.zidian.teacher.model.network;
 
 import android.util.Log;
 
+import com.zidian.teacher.BuildConfig;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -16,7 +18,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public final class ServiceFactory {
-    private static final boolean DEBUG = true;
     private static final String TAG = "HTTP";
     /**
      *  release： http://103.231.69.80:80//rest/
@@ -49,7 +50,7 @@ public final class ServiceFactory {
                 Log.i(TAG, message);
             }
         });
-        loggingInterceptor.setLevel(DEBUG ? HttpLoggingInterceptor.Level.BODY
+        loggingInterceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY
                 : HttpLoggingInterceptor.Level.NONE);
         return loggingInterceptor;
     }

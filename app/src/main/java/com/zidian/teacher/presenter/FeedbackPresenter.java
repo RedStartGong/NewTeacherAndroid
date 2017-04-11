@@ -1,5 +1,7 @@
 package com.zidian.teacher.presenter;
 
+import android.support.annotation.NonNull;
+
 import com.zidian.teacher.base.RxPresenter;
 import com.zidian.teacher.model.DataManager;
 import com.zidian.teacher.model.entity.remote.NoDataResult;
@@ -27,7 +29,7 @@ public final class FeedbackPresenter extends RxPresenter<FeedbackContract.View> 
     }
 
     @Override
-    public void feedback(String feedbackContent) {
+    public void feedback(@NonNull String feedbackContent) {
         Subscription subscription = dataManager.feedback(SharedPreferencesUtils.getUserName(), feedbackContent,
                 "2", SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
                 .compose(RxUtils.<NoDataResult>rxSchedulerIo())

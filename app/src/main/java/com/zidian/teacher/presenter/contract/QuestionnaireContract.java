@@ -18,7 +18,7 @@ public interface QuestionnaireContract {
 
         void showEmpty();
 
-        void showQuestionnaires(List<Questionnaire> questionnaires);
+        void showQuestionnaires(@NonNull List<Questionnaire> questionnaires);
     }
 
     interface Presenter extends BasePresenter<View> {

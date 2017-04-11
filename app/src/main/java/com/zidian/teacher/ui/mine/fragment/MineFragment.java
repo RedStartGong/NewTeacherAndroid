@@ -30,6 +30,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static dagger.internal.Preconditions.checkNotNull;
 
 /**
+ * 个人中心
  * Created by GongCheng on 2017/3/15.
  */
 
@@ -65,11 +66,20 @@ public class MineFragment extends BaseFragment implements PersonInfoContract.Vie
         return R.layout.fragment_mine;
     }
 
+    //启动修改个人信息界面的requestCode
+    private static final int INFO_CHANGED_CODE = 0;
+    private PersonInfo personInfo;
+
     @OnClick({R.id.ll_information, R.id.ll_password, R.id.ll_logout, R.id.ll_feedback, R.id.ll_about})
     public void OnItemClick(View view) {
         switch (view.getId()) {
             case R.id.ll_information:
-                startActivity(new Intent(activity, ChangeInfoActivity.class));
+                if (personInfo == null) {
+                    return;
+                }
+                Intent intent = new Intent(activity, ChangeInfoActivity.class);
+                intent.putExtra("personInfo", personInfo);
+                startActivityForResult(intent, INFO_CHANGED_CODE);
                 break;
             case R.id.ll_password:
                 start(ChangePasswordFragment.newInstance());
@@ -107,7 +117,24 @@ public class MineFragment extends BaseFragment implements PersonInfoContract.Vie
         presenter.deAttachView();
     }
 
+    /**
+     * 根据返回值判断个人信息是否修改
+     *
+     * @param requestCode 请求code
+     * @param resultCode  结果code
+     * @param data        intent
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == INFO_CHANGED_CODE && resultCode == RESULT_OK) {
+            presenter.getPersonInfo();
+        }
+    }
+
+
     private void showExitDialog() {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle("提示");
         builder.setMessage("确定要退出登录吗?");
@@ -135,7 +162,8 @@ public class MineFragment extends BaseFragment implements PersonInfoContract.Vie
         tvEvaluatedCount.setText(String.valueOf(personInfo.getEvaluatedCount()));
         tvEvaluateCount.setText("0");
         Glide.with(this).load(personInfo.getPortrait())
-                .placeholder(R.drawable.ic_teacher)
+                .error(R.drawable.ic_teacher)
                 .into(cimPortrait);
+        this.personInfo = personInfo;
     }
 }

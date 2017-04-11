@@ -1,6 +1,8 @@
 package com.zidian.teacher.presenter;
 
 
+import android.support.annotation.NonNull;
+
 import com.zidian.teacher.base.RxPresenter;
 import com.zidian.teacher.model.DataManager;
 import com.zidian.teacher.model.entity.remote.HttpResult;
@@ -52,7 +54,7 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
     }
 
     @Override
-    public void login(String username, final String password, final String schoolId) {
+    public void login(@NonNull String username, @NonNull final String password, @NonNull final String schoolId) {
         Subscription subscription = dataManager.login(username, password, schoolId)
                 .compose(RxUtils.<LoginResult>rxSchedulerIo())
                 .map(new Func1<LoginResult, LoginResult>() {

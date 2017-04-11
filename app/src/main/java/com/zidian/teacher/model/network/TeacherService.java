@@ -139,8 +139,23 @@ public interface TeacherService {
             @Field("feedbackId") String feedbackId, @Field("feedbackInformation") String feedbackInformation,
             @Field("type") String type, @Field("token") String token, @Field("schoolId") String schoolId);
 
+    /**
+     * 修改头像
+     */
     @Multipart
     @POST("teacher/updateTeacherHeadPortrait")
     Observable<NoDataResult> setPortrait(@Part("teacherId") RequestBody teacherId, @Part("token") RequestBody token,
                                          @Part("schoolId") RequestBody schoolId, @Part MultipartBody.Part file);
+
+    /**
+     * 修改个人信息
+     */
+
+    @FormUrlEncoded
+    @POST("teacher/updateMydata")
+    Observable<NoDataResult> setPersonInfo(
+             @Field("personalizedSignature") String motto, @Field("teacherphoneNumber")
+            String phoneNumber, @Field("teacherSex") String teacherSex, @Field("mybirthd") String birthday,
+             @Field("mynickname") String nickName,@Field("teacherId") String teacherId,
+            @Field("token") String token, @Field("schoolId") String schoolId);
 }

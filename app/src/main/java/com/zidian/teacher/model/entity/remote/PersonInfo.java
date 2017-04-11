@@ -2,12 +2,14 @@ package com.zidian.teacher.model.entity.remote;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * 个人信息
  * Created by GongCheng on 2017/4/6.
  */
 
-public class PersonInfo {
+public class PersonInfo implements Serializable {
 
     /**
      * becomments : 18

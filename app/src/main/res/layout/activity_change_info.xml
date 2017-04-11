@@ -13,17 +13,17 @@
             android:orientation="vertical">
             <LinearLayout
                 android:id="@+id/ll_set_portrait"
+                android:layout_height="60dp"
                 style="@style/ChangeInfoLinearStyle">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/info_change_portrait"/>
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/civ_portrait"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
                     android:src="@drawable/ic_teacher" />
             </LinearLayout>
             <LinearLayout
@@ -31,93 +31,88 @@
                 android:layout_marginTop="16dp"
                 style="@style/ChangeInfoLinearStyle">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="昵称"/>
+                    android:text="@string/info_nickname"/>
                 <TextView
                     android:id="@+id/tv_nickname"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="请输入昵称"/>
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
             <include layout="@layout/view_divider"/>
             <LinearLayout
                 android:id="@+id/ll_set_sex"
                 style="@style/ChangeInfoLinearStyle">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="性别"/>
+                    android:text="@string/info_sex"/>
                 <TextView
                     android:id="@+id/tv_sex"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="女"/>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
             <include layout="@layout/view_divider"/>
             <LinearLayout
                 android:id="@+id/ll_set_birthday"
                 style="@style/ChangeInfoLinearStyle">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="生日"/>
+                    android:text="@string/info_birthday"/>
                 <TextView
                     android:id="@+id/tv_birthday"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1987-6-03"/>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
             <include layout="@layout/view_divider"/>
             <LinearLayout
                 android:id="@+id/ll_set_age"
                 style="@style/ChangeInfoLinearStyle">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="年龄"/>
+                    android:text="@string/info_age"/>
                 <TextView
                     android:id="@+id/tv_age"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="24"/>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
             <include layout="@layout/view_divider"/>
             <LinearLayout
                 android:id="@+id/ll_set_phone_number"
                 style="@style/ChangeInfoLinearStyle">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="手机号"/>
+                    android:text="@string/info_phone_number"/>
                 <TextView
                     android:id="@+id/tv_phone_number"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="18628976411"/>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
             <include layout="@layout/view_divider"/>
             <LinearLayout
                 android:id="@+id/ll_set_motto"
                 style="@style/ChangeInfoLinearStyle">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="个性签名"/>
+                    android:text="@string/info_motto"/>
                 <TextView
                     android:id="@+id/tv_motto"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="哈哈哈哈哈哈"/>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <Button
+                android:id="@+id/btn_person_info_commit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="16dp"

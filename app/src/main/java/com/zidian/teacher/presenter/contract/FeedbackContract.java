@@ -1,5 +1,7 @@
 package com.zidian.teacher.presenter.contract;
 
+import android.support.annotation.NonNull;
+
 import com.zidian.teacher.base.BasePresenter;
 import com.zidian.teacher.base.BaseView;
 
@@ -15,6 +17,6 @@ public interface FeedbackContract {
     }
 
     interface Presenter extends BasePresenter<FeedbackContract.View> {
-        void feedback(String feedbackContent);
+        void feedback(@NonNull String feedbackContent);
     }
 }
