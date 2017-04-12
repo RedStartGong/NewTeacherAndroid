@@ -1,6 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_task_content" />
+
+    <include layout="@layout/view_divider" />
+
+    <LinearLayout
+        android:id="@+id/view_invite"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_touch_bg"
+            android:gravity="center"
+            android:text="拒绝" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="wrap_content"
+            android:background="@color/divider_color" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_touch_bg"
+            android:gravity="center"
+            android:text="同意"
+            android:textColor="@color/colleague_evaluate_bg" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/view_untreated"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/common_bg"
+        android:gravity="center"
+        android:text="对方未处理"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/view_supervisor"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/selector_touch_bg"
+        android:gravity="center"
+        android:text="查看"
+        android:textColor="@color/supervisor_evaluate_bg"
+        android:visibility="gone" />
 </LinearLayout>

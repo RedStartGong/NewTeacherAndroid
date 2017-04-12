@@ -7,6 +7,7 @@ import com.zidian.teacher.model.entity.remote.Class;
 import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.LoginResult;
+import com.zidian.teacher.model.entity.remote.MyTask;
 import com.zidian.teacher.model.entity.remote.NoDataResult;
 import com.zidian.teacher.model.entity.remote.PersonInfo;
 import com.zidian.teacher.model.entity.remote.Questionnaire;
@@ -51,8 +52,8 @@ public final class DataManager {
     }
 
     public Observable<HttpResult<PersonInfo>> getPersonInfo(
-            String teacherId, String token, String schoolId) {
-        return service.getPersonInfo(teacherId, token, schoolId);
+            String teacherId, String teacherType, String token, String schoolId) {
+        return service.getPersonInfo(teacherId, teacherType, token, schoolId);
     }
 
     public Observable<NoDataResult> changePassword(
@@ -99,8 +100,13 @@ public final class DataManager {
     }
 
     public Observable<NoDataResult> setPersonInfo(
-             String motto, String phoneNumber, String teacherSex,
-            String birthday, String nickName,String teacherId, String token, String schoolId) {
-        return service.setPersonInfo( motto, phoneNumber, teacherSex, birthday, nickName,teacherId, token, schoolId);
+            String motto, String phoneNumber, String teacherSex,
+            String birthday, String nickName, String teacherId, String token, String schoolId) {
+        return service.setPersonInfo(motto, phoneNumber, teacherSex, birthday, nickName, teacherId, token, schoolId);
+    }
+
+    public Observable<HttpResult<List<MyTask>>> getMyTasks(
+            String requestState, String teacherId, String token, String schoolId) {
+        return service.getMyTasks(requestState, teacherId, token, schoolId);
     }
 }

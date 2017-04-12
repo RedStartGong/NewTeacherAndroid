@@ -15,6 +15,7 @@ public class LoginResult implements Serializable {
      * teacherId : 6283
      * teacherName : 6283
      * token :  9662804431d7090a35942d5f8d6c8569
+     * teacherType : 2为教师 9为督导
      */
 
     private String message;
@@ -22,6 +23,16 @@ public class LoginResult implements Serializable {
     private String teacherId;
     private String teacherName;
     private String token;
+
+    public int getTeacherType() {
+        return teacherType;
+    }
+
+    public void setTeacherType(int teacherType) {
+        this.teacherType = teacherType;
+    }
+
+    private int teacherType;
 
     public String getMessage() {
         return message;

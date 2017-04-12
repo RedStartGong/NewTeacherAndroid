@@ -7,6 +7,7 @@ import com.zidian.teacher.model.entity.remote.Class;
 import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.LoginResult;
+import com.zidian.teacher.model.entity.remote.MyTask;
 import com.zidian.teacher.model.entity.remote.NoDataResult;
 import com.zidian.teacher.model.entity.remote.PersonInfo;
 import com.zidian.teacher.model.entity.remote.Questionnaire;
@@ -68,8 +69,8 @@ public interface TeacherService {
     @FormUrlEncoded
     @POST("teacher/selectMydata")
     Observable<HttpResult<PersonInfo>> getPersonInfo(
-            @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") String schoolId);
+            @Field("teacherId") String teacherId, @Field("teacherType") String teacherType,
+            @Field("token") String token, @Field("schoolId") String schoolId);
 
     /**
      * 修改密码
@@ -157,5 +158,11 @@ public interface TeacherService {
              @Field("personalizedSignature") String motto, @Field("teacherphoneNumber")
             String phoneNumber, @Field("teacherSex") String teacherSex, @Field("mybirthd") String birthday,
              @Field("mynickname") String nickName,@Field("teacherId") String teacherId,
+            @Field("token") String token, @Field("schoolId") String schoolId);
+
+    @FormUrlEncoded
+    @POST("ToEvaluateOthers/myAssignment")
+    Observable<HttpResult<List<MyTask>>> getMyTasks(
+            @Field("requestState") String requestState, @Field("teacherId") String teacherId,
             @Field("token") String token, @Field("schoolId") String schoolId);
 }

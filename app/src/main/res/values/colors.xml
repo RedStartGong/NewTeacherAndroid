@@ -5,8 +5,12 @@
     <color name="colorAccent">#f36c60</color>
     <color name="tab_un_select">#c9c9c9</color>
 
+    <!--MyTask-->
+    <color name="colleague_evaluate_bg">#f74a4e</color>
+    <color name="supervisor_evaluate_bg">#3840d6</color>
     <!--字体颜色-->
-    <color name="dark_text_color">#585656</color>
+    <color name="black_text_color">#000000</color>
+    <color name="dark_text_color">#666666</color>
     <color name="white_text_color">#FFFFFF</color>
     <color name="common_text_color">#aeaeae</color>
     <!--通用背景色-->

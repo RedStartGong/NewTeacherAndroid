@@ -1,5 +1,6 @@
 package com.zidian.teacher.base;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,7 +13,10 @@ import com.zidian.teacher.R;
 import com.zidian.teacher.di.componet.ActivityComponent;
 import com.zidian.teacher.di.componet.DaggerActivityComponent;
 import com.zidian.teacher.di.module.ActivityModule;
+import com.zidian.teacher.ui.main.LoginActivity;
+import com.zidian.teacher.ui.main.MainActivity;
 import com.zidian.teacher.util.ActManager;
+import com.zidian.teacher.util.SharedPreferencesUtils;
 
 import javax.inject.Inject;
 
@@ -37,6 +41,12 @@ public abstract class BaseActivity extends SupportActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //如果判断为已经登录，则直接跳过登录界面
+        if (this instanceof LoginActivity) {
+            if (SharedPreferencesUtils.getIsLogin()) {
+                startActivity(new Intent(this, MainActivity.class));
+            }
+        }
         setContentView(getLayout());
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         unbinder = ButterKnife.bind(this);

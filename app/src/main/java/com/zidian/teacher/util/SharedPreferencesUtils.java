@@ -41,6 +41,8 @@ public class SharedPreferencesUtils {
 
     private static final String SP_CURRENT_WEEK = "currentWeek";
 
+    private static final String SP_TEACHER_TYPE = "teacherType";
+
     public static void init(Context context) {
         Hawk.init(context).build();
     }
@@ -91,6 +93,22 @@ public class SharedPreferencesUtils {
 
     public static int getCurrentWeek() {
         return Hawk.get(SP_CURRENT_WEEK, 0);
+    }
+
+    public static void setIsLogin(boolean isLogin) {
+        Hawk.put(SP_IS_LOGIN, isLogin);
+    }
+
+    public static boolean getIsLogin() {
+        return Hawk.get(SP_IS_LOGIN, false);
+    }
+
+    public static void setTeacherType(int teacherType) {
+        Hawk.put(SP_TEACHER_TYPE, teacherType);
+    }
+
+    public static int getTeacherType() {
+        return Hawk.get(SP_TEACHER_TYPE);
     }
 
     public static void clearAll() {

@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/click_linear_horizontal_margin"
-            android:src="@drawable/ic_about_24dp" />
+            android:src="@drawable/ic_my_task" />
 
         <TextView
             android:layout_width="0dp"
@@ -25,6 +25,7 @@
             android:drawableRight="@drawable/ic_chevron_right_24dp"
             android:gravity="center_vertical"
             android:text="我的任务"
+            android:textColor="@color/black_text_color"
             android:textSize="@dimen/text_size_h3" />
     </LinearLayout>
 
@@ -37,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/click_linear_horizontal_margin"
-            android:src="@drawable/ic_about_24dp" />
+            android:src="@drawable/ic_my_evaluate" />
 
         <TextView
             android:layout_width="0dp"
@@ -47,6 +48,7 @@
             android:drawableRight="@drawable/ic_chevron_right_24dp"
             android:gravity="center_vertical"
             android:text="我的评价"
+            android:textColor="@color/black_text_color"
             android:textSize="@dimen/text_size_h3" />
     </LinearLayout>
 
@@ -60,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/click_linear_horizontal_margin"
-            android:src="@drawable/ic_about_24dp" />
+            android:src="@drawable/ic_colleague_evaluate" />
 
         <TextView
             android:layout_width="0dp"
@@ -70,6 +72,7 @@
             android:drawableRight="@drawable/ic_chevron_right_24dp"
             android:gravity="center_vertical"
             android:text="同行评价"
+            android:textColor="@color/black_text_color"
             android:textSize="@dimen/text_size_h3" />
     </LinearLayout>
 
@@ -82,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/click_linear_horizontal_margin"
-            android:src="@drawable/ic_about_24dp" />
+            android:src="@drawable/ic_supervisor_evaluate" />
 
         <TextView
             android:layout_width="0dp"
@@ -92,6 +95,7 @@
             android:drawableRight="@drawable/ic_chevron_right_24dp"
             android:gravity="center_vertical"
             android:text="督导评价"
+            android:textColor="@color/black_text_color"
             android:textSize="@dimen/text_size_h3" />
     </LinearLayout>
 </LinearLayout>
