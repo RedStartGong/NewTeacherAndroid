@@ -6,6 +6,7 @@ import com.zidian.teacher.di.module.ActivityModule;
 import com.zidian.teacher.ui.course.activity.AttendanceActivity;
 import com.zidian.teacher.ui.course.activity.AttendanceStatisticsActivity;
 import com.zidian.teacher.ui.course.activity.CourseInfoActivity;
+import com.zidian.teacher.ui.evaluate.activity.ColleagueEvaActivity;
 import com.zidian.teacher.ui.evaluate.activity.MyTaskActivity;
 import com.zidian.teacher.ui.main.LoginActivity;
 import com.zidian.teacher.ui.main.MainActivity;
@@ -39,4 +40,6 @@ public interface ActivityComponent {
     void inject(FeedbackActivity feedBackActivity);
 
     void inject(MyTaskActivity myTaskActivity);
+
+    void inject(ColleagueEvaActivity colleagueEvaActivity);
 }

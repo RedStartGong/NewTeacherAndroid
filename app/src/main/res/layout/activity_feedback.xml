@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_horizontal_margin"
-        android:backgroundTint="@color/colorPrimary"
+        android:background="@drawable/bg_common_btn"
         android:text="提交"
         android:textColor="@color/white_text_color" />
 </LinearLayout>

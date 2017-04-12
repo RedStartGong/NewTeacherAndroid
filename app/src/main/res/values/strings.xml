@@ -25,6 +25,8 @@
     <!--AttendanceActivity-->
     <string name="attendance_loading">正在提交考勤信息…</string>
     <string name="attendance_succeed">提交成功</string>
+    <!--Evaluate-->
+    <string name="evaluate_manage">教评管理</string>
     <!--Mine-->
     <string name="mine_evaluated">被评价</string>
     <string name="mine_evaluate_others">评价他人</string>

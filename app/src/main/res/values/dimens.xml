@@ -14,4 +14,7 @@
     <dimen name="text_size_h6">11sp</dimen>
     <dimen name="click_linear_horizontal_margin">16dp</dimen>
     <dimen name="click_liner_top_margin">16dp</dimen>
+    <!--ButtonBg-->
+    <dimen name="button_inset_horizontal">4dp</dimen>
+    <dimen name="button_inset_vertical">6dp</dimen>
 </resources>
