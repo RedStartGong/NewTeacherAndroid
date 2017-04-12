@@ -1,6 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <include layout="@layout/toolbar"/>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:id="@+id/ll_may_task"
+        style="@style/EvaluateClickableLinearLayoutStyle"
+        android:layout_marginTop="@dimen/click_linear_horizontal_margin">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/click_linear_horizontal_margin"
+            android:src="@drawable/ic_about_24dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/click_linear_horizontal_margin"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/ic_chevron_right_24dp"
+            android:gravity="center_vertical"
+            android:text="我的任务"
+            android:textSize="@dimen/text_size_h3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_my_evaluate"
+        style="@style/EvaluateClickableLinearLayoutStyle"
+        android:layout_marginTop="@dimen/click_liner_top_margin">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/click_linear_horizontal_margin"
+            android:src="@drawable/ic_about_24dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/ic_chevron_right_24dp"
+            android:gravity="center_vertical"
+            android:text="我的评价"
+            android:textSize="@dimen/text_size_h3" />
+    </LinearLayout>
+
+    <include layout="@layout/view_divider" />
+
+    <LinearLayout
+        android:id="@+id/ll_colleague_evaluate"
+        style="@style/EvaluateClickableLinearLayoutStyle">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/click_linear_horizontal_margin"
+            android:src="@drawable/ic_about_24dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/click_linear_horizontal_margin"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/ic_chevron_right_24dp"
+            android:gravity="center_vertical"
+            android:text="同行评价"
+            android:textSize="@dimen/text_size_h3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_supervisor_evaluate"
+        style="@style/EvaluateClickableLinearLayoutStyle"
+        android:layout_marginTop="@dimen/click_liner_top_margin">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/click_linear_horizontal_margin"
+            android:src="@drawable/ic_about_24dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/click_linear_horizontal_margin"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/ic_chevron_right_24dp"
+            android:gravity="center_vertical"
+            android:text="督导评价"
+            android:textSize="@dimen/text_size_h3" />
+    </LinearLayout>
 </LinearLayout>

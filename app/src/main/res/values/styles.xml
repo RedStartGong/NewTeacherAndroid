@@ -69,4 +69,13 @@
         <item name="android:background">@drawable/selector_touch_bg</item>
         <item name="android:clickable">true</item>
     </style>
+    <!--EvaluateFragment-->
+    <style name="EvaluateClickableLinearLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@drawable/selector_touch_bg</item>
+        <item name="android:clickable">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
 </resources>

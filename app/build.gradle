@@ -108,4 +108,5 @@ dependencies {
     debugCompile rootProject.ext.leakCanaryDebug
     releaseCompile rootProject.ext.leakCanaryRelease
     testCompile rootProject.ext.leakCanaryTest
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }

@@ -25,6 +25,7 @@
         <activity android:name=".ui.course.activity.AttendanceActivity"/>
         <activity android:name=".ui.course.activity.AttendanceStatisticsActivity"/>
         <activity android:name=".ui.mine.activity.FeedbackActivity"/>
+        <activity android:name=".ui.evaluate.activity.MyTaskActivity" />
     </application>
 
 </manifest>

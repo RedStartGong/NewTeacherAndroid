@@ -12,4 +12,6 @@
     <dimen name="text_size_h4">13sp</dimen>
     <dimen name="text_size_h5">12sp</dimen>
     <dimen name="text_size_h6">11sp</dimen>
+    <dimen name="click_linear_horizontal_margin">16dp</dimen>
+    <dimen name="click_liner_top_margin">16dp</dimen>
 </resources>
