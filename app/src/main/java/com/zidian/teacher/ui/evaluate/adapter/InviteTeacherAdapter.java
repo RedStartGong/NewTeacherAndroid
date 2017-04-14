@@ -21,6 +21,16 @@ import butterknife.ButterKnife;
 public class InviteTeacherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<InviteTeacher> teachers;
 
+    public interface OnItemClickListener {
+        void onClick(InviteTeacher teacher);
+    }
+
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     public void setTeachers(List<InviteTeacher> teachers) {
         this.teachers = teachers;
         notifyDataSetChanged();
@@ -34,10 +44,18 @@ public class InviteTeacherAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
             ((ItemViewHolder) holder).tvTeacherName.setText(teachers.get(position).getTeacherName());
             ((ItemViewHolder) holder).tvTeacherCollege.setText(teachers.get(position).getTeacherCollege());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemClickListener != null) {
+                        onItemClickListener.onClick(teachers.get(holder.getLayoutPosition()));
+                    }
+                }
+            });
         }
     }
 

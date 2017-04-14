@@ -12,6 +12,9 @@ import com.zidian.teacher.ui.mine.fragment.MineFragment;
 import com.zidian.teacher.ui.questionnaire.QuestionnaireFragment;
 import com.zidian.teacher.ui.widget.BottomBar;
 import com.zidian.teacher.ui.widget.BottomBarTab;
+import com.zidian.teacher.util.ActManager;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -23,6 +26,9 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.bottom_bar)
     BottomBar bottomBar;
 
+    @Inject
+    ActManager actManager;
+
     private static final int COURSE = 0;
     private static final int EVALUATE = 1;
     private static final int QUESTIONNAIRE = 2;
@@ -33,6 +39,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        actManager.addActivity(this);
         if (savedInstanceState == null) {
             supportFragments[COURSE] = CourseFragment.newInstance();
             supportFragments[EVALUATE] = EvaluateFragment.newInstance();

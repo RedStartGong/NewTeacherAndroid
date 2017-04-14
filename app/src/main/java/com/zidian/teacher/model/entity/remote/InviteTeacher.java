@@ -1,10 +1,12 @@
 package com.zidian.teacher.model.entity.remote;
 
+import java.io.Serializable;
+
 /**
  * Created by GongCheng on 2017/4/13.
  */
 
-public class InviteTeacher {
+public class InviteTeacher implements Serializable{
 
     /**
      * teacherCollege : 经济与管理学院

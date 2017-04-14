@@ -11,12 +11,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
 import com.zidian.teacher.model.entity.remote.InviteCourseResult;
+import com.zidian.teacher.model.entity.remote.InviteTeacher;
 import com.zidian.teacher.presenter.InvitePresenter;
 import com.zidian.teacher.presenter.contract.InviteContract;
 import com.zidian.teacher.util.SnackbarUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +33,7 @@ import butterknife.OnClick;
 
 import static com.zidian.teacher.util.Preconditions.checkNotNull;
 
-public class InviteActivity extends BaseActivity implements InviteContract.View{
+public class InviteActivity extends BaseActivity implements InviteContract.View {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -53,6 +58,7 @@ public class InviteActivity extends BaseActivity implements InviteContract.View{
     private ProgressDialog progressDialog;
     private List<InviteCourseResult.CourseBean> courses;
     private List<String> stringCourses;
+
 
     @Override
     protected int getLayout() {
@@ -108,6 +114,12 @@ public class InviteActivity extends BaseActivity implements InviteContract.View{
         }
     }
 
+    private String college;
+    private String json;
+    private String courseId;
+    private String courseName;
+    private String teachingDate;
+
     /**
      * 选择课程
      */
@@ -128,7 +140,13 @@ public class InviteActivity extends BaseActivity implements InviteContract.View{
                     @Override
                     public void onSelection(MaterialDialog materialDialog, View view, int i,
                                             CharSequence course) {
+                        //设置选择的课程
                         tvInviteCourse.setText(course);
+                        courseName = course.toString();
+                        //设置选择的学院(根据StringCourses的element)
+                        college = courses.get(stringCourses.indexOf(course.toString())).getCourseCollege();
+                        //设置选择学院的Id(方法同上)
+                        courseId = courses.get(stringCourses.indexOf(course.toString())).getCourseId();
                     }
                 })
                 .show();
@@ -152,9 +170,34 @@ public class InviteActivity extends BaseActivity implements InviteContract.View{
                         public void onSelection(MaterialDialog materialDialog, View view, int i,
                                                 CharSequence teachingCalendar) {
                             tvInviteTeachingDate.setText(teachingCalendar);
+                            teachingDate = teachingCalendar.toString();
                         }
                     })
                     .show();
+        }
+    }
+
+    /**
+     * 根据activity返回的结果选择教师
+     *
+     * @param requestCode requestCode
+     * @param resultCode  resultCode
+     * @param data        返回intent
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_TEACHER && resultCode == RESULT_OK) {
+            InviteTeacher teacher = (InviteTeacher) data.getSerializableExtra("teacher");
+            tvInviteTeacherName.setText(teacher.getTeacherName());
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("theRequestedPersonId", teacher.getTeacherId());
+                jsonObject.put("theRequestedPersonName", teacher.getTeacherName());
+                json = jsonObject.toString();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -165,7 +208,7 @@ public class InviteActivity extends BaseActivity implements InviteContract.View{
     private void inputClassroom() {
         new MaterialDialog.Builder(this)
                 .title("请输入教室")
-                .inputRange(4,15)
+                .inputRange(4, 15)
                 .negativeText("取消")
                 .positiveColor(getResources().getColor(R.color.supervisor_evaluate_bg))
                 .input(null, null, new MaterialDialog.InputCallback() {
@@ -181,7 +224,22 @@ public class InviteActivity extends BaseActivity implements InviteContract.View{
      * 确认
      */
     private void confirm() {
-
+        if (TextUtils.isEmpty(json)) {
+            SnackbarUtils.showShort(toolbar, "请选择老师");
+            return;
+        }
+        if (TextUtils.isEmpty(courseName)) {
+            SnackbarUtils.showShort(toolbar, "请选择课程");
+            return;
+        }
+        if (TextUtils.isEmpty(tvInviteTeachingDate.getText())) {
+            SnackbarUtils.showShort(toolbar, "请选择教学日历");
+            return;
+        }
+        String classRoom = tvClassroom.getText().toString().trim();
+        String invitationLanguage = etInvitationLanguage.getText().toString().trim();
+        presenter.invite(json, college, courseId, courseName, teachingDate, classRoom,
+                invitationLanguage);
     }
 
     @Override

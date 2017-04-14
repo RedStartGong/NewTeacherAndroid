@@ -1,5 +1,6 @@
 package com.zidian.teacher.ui.evaluate.activity;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -25,6 +26,7 @@ import static com.zidian.teacher.util.Preconditions.checkNotNull;
 
 
 /**
+ * 邀请老师评价我
  * Created by GongCheng on 2017/4/14.
  */
 
@@ -62,6 +64,7 @@ public class InviteSelectTeacherActivity extends BaseActivity implements InviteS
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new RecyclerViewLinearDecoration(this, RecyclerViewLinearDecoration.HORIZONTAL_LIST));
         recyclerView.setAdapter(adapter);
+        recyclerView.setLoadingMoreEnabled(false);
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
@@ -71,6 +74,16 @@ public class InviteSelectTeacherActivity extends BaseActivity implements InviteS
             @Override
             public void onLoadMore() {
 
+            }
+        });
+        //点击 item 选择需要返回的教师
+        adapter.setOnItemClickListener(new InviteTeacherAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(InviteTeacher teacher) {
+                Intent intent = new Intent();
+                intent.putExtra("teacher", teacher);
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
 
@@ -97,7 +110,6 @@ public class InviteSelectTeacherActivity extends BaseActivity implements InviteS
 
     @Override
     public void showLoading() {
-        loadingView.setVisibility(View.VISIBLE);
         errorView.setVisibility(View.GONE);
     }
 

@@ -35,8 +35,6 @@ public abstract class BaseActivity extends SupportActivity {
     private Unbinder unbinder;
     protected ActivityComponent activityComponent;
 
-    @Inject
-    ActManager actManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,9 +51,6 @@ public abstract class BaseActivity extends SupportActivity {
 
         initInject();
         initViewAndData();
-        //添加Activity
-        checkNotNull(actManager);
-        actManager.addActivity(this);
     }
 
     @Override
