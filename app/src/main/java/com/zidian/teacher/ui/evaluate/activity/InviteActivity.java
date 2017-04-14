@@ -20,6 +20,7 @@ import com.zidian.teacher.presenter.InvitePresenter;
 import com.zidian.teacher.presenter.contract.InviteContract;
 import com.zidian.teacher.util.SnackbarUtils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -191,10 +192,12 @@ public class InviteActivity extends BaseActivity implements InviteContract.View 
             InviteTeacher teacher = (InviteTeacher) data.getSerializableExtra("teacher");
             tvInviteTeacherName.setText(teacher.getTeacherName());
             JSONObject jsonObject = new JSONObject();
+            JSONArray jsonArray = new JSONArray();
             try {
                 jsonObject.put("theRequestedPersonId", teacher.getTeacherId());
                 jsonObject.put("theRequestedPersonName", teacher.getTeacherName());
-                json = jsonObject.toString();
+                jsonArray.put(jsonObject);
+                json = jsonArray.toString();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -208,7 +211,7 @@ public class InviteActivity extends BaseActivity implements InviteContract.View 
     private void inputClassroom() {
         new MaterialDialog.Builder(this)
                 .title("请输入教室")
-                .inputRange(4, 15)
+                .inputRange(1, 15)
                 .negativeText("取消")
                 .positiveColor(getResources().getColor(R.color.supervisor_evaluate_bg))
                 .input(null, null, new MaterialDialog.InputCallback() {

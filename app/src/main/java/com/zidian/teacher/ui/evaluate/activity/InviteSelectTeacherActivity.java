@@ -2,6 +2,7 @@ package com.zidian.teacher.ui.evaluate.activity;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -34,7 +35,7 @@ public class InviteSelectTeacherActivity extends BaseActivity implements InviteS
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.recycler_view)
-    XRecyclerView recyclerView;
+    RecyclerView recyclerView;
     @BindView(R.id.loading_view)
     ProgressBar loadingView;
     @BindView(R.id.error_view)
@@ -64,18 +65,18 @@ public class InviteSelectTeacherActivity extends BaseActivity implements InviteS
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new RecyclerViewLinearDecoration(this, RecyclerViewLinearDecoration.HORIZONTAL_LIST));
         recyclerView.setAdapter(adapter);
-        recyclerView.setLoadingMoreEnabled(false);
-        recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
-            @Override
-            public void onRefresh() {
-                presenter.getInviteTeachers("经济与管理学院");
-            }
-
-            @Override
-            public void onLoadMore() {
-
-            }
-        });
+//        recyclerView.setLoadingMoreEnabled(false);
+//        recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+//            @Override
+//            public void onRefresh() {
+//                presenter.getInviteTeachers("经济与管理学院");
+//            }
+//
+//            @Override
+//            public void onLoadMore() {
+//
+//            }
+//        });
         //点击 item 选择需要返回的教师
         adapter.setOnItemClickListener(new InviteTeacherAdapter.OnItemClickListener() {
             @Override
@@ -104,7 +105,7 @@ public class InviteSelectTeacherActivity extends BaseActivity implements InviteS
         loadingView.setVisibility(View.GONE);
         errorView.setVisibility(View.VISIBLE);
         errorView.setText(e.getMessage());
-        recyclerView.refreshComplete();
+//        recyclerView.refreshComplete();
         adapter.setTeachers(null);
     }
 
@@ -119,7 +120,7 @@ public class InviteSelectTeacherActivity extends BaseActivity implements InviteS
         errorView.setVisibility(View.VISIBLE);
         errorView.setText("暂无教师");
         adapter.setTeachers(null);
-        recyclerView.refreshComplete();
+//        recyclerView.refreshComplete();
     }
 
     @Override
@@ -127,6 +128,6 @@ public class InviteSelectTeacherActivity extends BaseActivity implements InviteS
         loadingView.setVisibility(View.GONE);
         errorView.setVisibility(View.GONE);
         adapter.setTeachers(teachers);
-        recyclerView.refreshComplete();
+//        recyclerView.refreshComplete();
     }
 }
