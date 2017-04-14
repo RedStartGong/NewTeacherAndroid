@@ -13,9 +13,9 @@
         android:layout_height="24dp"
         android:layout_marginLeft="-18dp"
         android:layout_marginTop="16dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/supervisor_evaluate_bg"
         android:gravity="center"
-        android:text="同行评价"
+        android:text="督导评价"
         android:textColor="@color/white_text_color"
         app:layout_constraintLeft_toLeftOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +39,7 @@
         android:layout_marginTop="21dp"
         app:layout_constraintLeft_toRightOf="@+id/tv_evaluate_name"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_invite_evaluate" />
+        app:srcCompat="@drawable/ic_evaluate_others" />
 
     <TextView
         android:id="@+id/tv_evaluated_name"
@@ -83,7 +83,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
-        android:id="@+id/tb_course_date"
+        android:id="@+id/tv_course_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -110,7 +110,7 @@
         android:layout_marginTop="13dp"
         android:textColor="@color/dark_text_color"
         app:layout_constraintLeft_toLeftOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/tb_course_date"
+        app:layout_constraintTop_toBottomOf="@+id/tv_course_date"
         tools:text="某某某教室" />
 
     <TextView
@@ -126,7 +126,7 @@
     <TextView
         android:id="@+id/tv_message"
         android:layout_width="195dp"
-        android:layout_height="15dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="9dp"
         android:textColor="@color/dark_text_color"
         app:layout_constraintHorizontal_weight="1"

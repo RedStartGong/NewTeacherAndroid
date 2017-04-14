@@ -48,5 +48,6 @@ public class MyTaskPresenter extends RxPresenter<MyTaskContract.View> implements
                         view.showError(throwable);
                     }
                 });
+        addSubscribe(subscription);
     }
 }

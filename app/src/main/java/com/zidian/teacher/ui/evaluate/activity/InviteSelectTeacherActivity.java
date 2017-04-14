@@ -63,7 +63,7 @@ public class InviteSelectTeacherActivity extends BaseActivity implements InviteS
         errorView.setVisibility(View.GONE);
         adapter = new InviteTeacherAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new RecyclerViewLinearDecoration(this, RecyclerViewLinearDecoration.HORIZONTAL_LIST));
+        recyclerView.addItemDecoration(new RecyclerViewLinearDecoration(this, RecyclerViewLinearDecoration.VERTICAL_LIST));
         recyclerView.setAdapter(adapter);
         recyclerView.setLoadingMoreEnabled(false);
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
