@@ -44,7 +44,7 @@ public class InviteTeacherAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder( RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ItemViewHolder) {
             ((ItemViewHolder) holder).tvTeacherName.setText(teachers.get(position).getTeacherName());
             ((ItemViewHolder) holder).tvTeacherCollege.setText(teachers.get(position).getTeacherCollege());
@@ -52,7 +52,7 @@ public class InviteTeacherAdapter extends RecyclerView.Adapter<RecyclerView.View
                 @Override
                 public void onClick(View v) {
                     if (onItemClickListener != null) {
-                        onItemClickListener.onClick(teachers.get(holder.getLayoutPosition()));
+                        onItemClickListener.onClick(teachers.get(position));
                     }
                 }
             });

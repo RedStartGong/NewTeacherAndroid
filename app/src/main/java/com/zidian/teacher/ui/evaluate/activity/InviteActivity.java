@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -265,5 +266,7 @@ public class InviteActivity extends BaseActivity implements InviteContract.View 
     @Override
     public void showSuccess() {
         progressDialog.dismiss();
+        Toast.makeText(this, "邀请成功", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }
