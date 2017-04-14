@@ -7,7 +7,7 @@
     <string name="select_school_please">请选择您所在的学校</string>
     <string name="login">登录</string>
     <string name="login_loading">正在登陆</string>
-    <string name="login_welcome">欢饮进入&#160;&#160;孜点教育</string>
+    <string name="login_welcome">欢迎进入&#160;&#160;孜点教育</string>
     <!--MainActivity-->
     <string name="main_course">课程</string>
     <string name="main_evaluate">教评</string>
@@ -25,8 +25,15 @@
     <!--AttendanceActivity-->
     <string name="attendance_loading">正在提交考勤信息…</string>
     <string name="attendance_succeed">提交成功</string>
+
     <!--Evaluate-->
     <string name="evaluate_manage">教评管理</string>
+    <!--ColleagueEvaActivity-->
+    <string name="colleague_evaluate">同行评价</string>
+    <string name="colleague_invite_others">邀请</string>
+    <string name="colleague_evaluate_others">评价他人</string>
+    <string name="introduce_invite">邀请指定的教师对自己的课程进行评价</string>
+    <string name="introduce_evaluate">向其他教师发起评价其课程的请求，若获得对方的同意则开始评价</string>
     <!--Mine-->
     <string name="mine_evaluated">被评价</string>
     <string name="mine_evaluate_others">评价他人</string>

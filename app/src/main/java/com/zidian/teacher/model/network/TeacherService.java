@@ -6,27 +6,26 @@ import com.zidian.teacher.model.entity.remote.AttendanceStudent;
 import com.zidian.teacher.model.entity.remote.Class;
 import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.model.entity.remote.HttpResult;
+import com.zidian.teacher.model.entity.remote.InviteCourseResult;
+import com.zidian.teacher.model.entity.remote.InviteTeacher;
 import com.zidian.teacher.model.entity.remote.LoginResult;
 import com.zidian.teacher.model.entity.remote.MyTask;
 import com.zidian.teacher.model.entity.remote.NoDataResult;
 import com.zidian.teacher.model.entity.remote.PersonInfo;
 import com.zidian.teacher.model.entity.remote.Questionnaire;
 import com.zidian.teacher.model.entity.remote.School;
-import com.zidian.teacher.util.SharedPreferencesUtils;
 
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.PartMap;
 import rx.Observable;
 
 /**
@@ -126,7 +125,7 @@ public interface TeacherService {
      */
     @FormUrlEncoded
     @POST("page/attendance/selectAll")
-    Observable<HttpResult<List<AttendanceStatistics>>> getAttendanceStatistcs(
+    Observable<HttpResult<List<AttendanceStatistics>>> getAttendanceStatistics(
             @Field("courseId") String courseId, @Field("className") String className,
             @Field("teacherId") String teacherId, @Field("token") String token,
             @Field("schoolId") String schoolId);
@@ -151,18 +150,49 @@ public interface TeacherService {
     /**
      * 修改个人信息
      */
-
     @FormUrlEncoded
     @POST("teacher/updateMydata")
     Observable<NoDataResult> setPersonInfo(
-             @Field("personalizedSignature") String motto, @Field("teacherphoneNumber")
+            @Field("personalizedSignature") String motto, @Field("teacherphoneNumber")
             String phoneNumber, @Field("teacherSex") String teacherSex, @Field("mybirthd") String birthday,
-             @Field("mynickname") String nickName,@Field("teacherId") String teacherId,
+            @Field("mynickname") String nickName, @Field("teacherId") String teacherId,
             @Field("token") String token, @Field("schoolId") String schoolId);
 
+    /**
+     * 我的任务
+     */
     @FormUrlEncoded
     @POST("ToEvaluateOthers/myAssignment")
     Observable<HttpResult<List<MyTask>>> getMyTasks(
             @Field("requestState") String requestState, @Field("teacherId") String teacherId,
+            @Field("token") String token, @Field("schoolId") String schoolId);
+
+    /**
+     * 获取邀请评价时的课程信息
+     */
+    @FormUrlEncoded
+    @POST("page/evaluateBySupervisor/inviteSelectAll")
+    Observable<InviteCourseResult> getInviteCourses(@Field("teacherId") String teacherId, @Field("token") String token,
+                                                    @Field("schoolId") String schoolId);
+
+    /**
+     * 获取邀请评价的教师
+     */
+    @FormUrlEncoded
+    @POST("page/evaluateBySupervisor/selectTeacher")
+    Observable<HttpResult<List<InviteTeacher>>> getInviteTeacher(@Field("condition") String condition, @Field("teacherId")
+            String teacherId, @Field("token") String token, @Field("schoolId") String schoolId);
+
+    /**
+     * 邀请评价或申请评价他人
+     */
+    @FormUrlEncoded
+    @POST("ToEvaluateOthers/invitationToEvaluate")
+    Observable<NoDataResult> inviteOrApply(
+            @Field("initiateTheRequestId") String teacherId, @Field("initiateTheRequestName") String teacherName,
+            @Field("theRequestedPerson") String requestedPerson, @Field("requestType") String requestType,
+            @Field("teacherCollege") String teacherCollege, @Field("courseId") String courseId,
+            @Field("courseName") String courseName, @Field("teachingCalendar") String teachingCalendar,
+            @Field("courseClassroom") String classroom, @Field("requestExplain") String requestExplain,
             @Field("token") String token, @Field("schoolId") String schoolId);
 }

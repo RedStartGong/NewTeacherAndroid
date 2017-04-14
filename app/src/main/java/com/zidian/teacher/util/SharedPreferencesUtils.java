@@ -43,6 +43,8 @@ public class SharedPreferencesUtils {
 
     private static final String SP_TEACHER_TYPE = "teacherType";
 
+    private static final String SP_TEACHER_NAME = "teacherName";
+
     public static void init(Context context) {
         Hawk.init(context).build();
     }
@@ -53,6 +55,14 @@ public class SharedPreferencesUtils {
 
     public static String getUserName() {
         return Hawk.get(SP_USERNAME);
+    }
+
+    public static void setTeacherName(String teacherName) {
+        Hawk.put(SP_TEACHER_NAME, teacherName);
+    }
+
+    public static String getTeacherName() {
+        return Hawk.get(SP_TEACHER_NAME);
     }
 
     public static void setPassword(String password) {

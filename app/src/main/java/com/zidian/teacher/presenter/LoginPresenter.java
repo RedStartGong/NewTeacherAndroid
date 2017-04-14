@@ -92,6 +92,7 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
                         SharedPreferencesUtils.setSchoolId(schoolId);
                         SharedPreferencesUtils.setIsLogin(true);
                         SharedPreferencesUtils.setTeacherType(loginResult.getTeacherType());
+                        SharedPreferencesUtils.setTeacherName(loginResult.getTeacherName());
                         view.showSuccess();
                     }
                 });

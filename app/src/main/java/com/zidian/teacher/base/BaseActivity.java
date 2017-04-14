@@ -75,7 +75,15 @@ public abstract class BaseActivity extends SupportActivity {
         return activityComponent;
     }
 
+    /**
+     * 为toolbar添加返回按钮
+     *
+     * @param toolbar toolbar
+     */
     protected void setToolbarBack(@NonNull Toolbar toolbar) {
+        if (this instanceof LoginActivity || this instanceof MainActivity) {
+            throw new RuntimeException("Can't set toolbar back icon for this Activity");
+        }
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +92,7 @@ public abstract class BaseActivity extends SupportActivity {
             }
         });
     }
+
 
     protected abstract int getLayout();
 

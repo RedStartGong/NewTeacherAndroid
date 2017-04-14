@@ -14,6 +14,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 /**
+ * ApplicationComponent 管理 App 依赖注入，singleton
  * Created by GongCheng on 2017/3/14.
  */
 @Singleton

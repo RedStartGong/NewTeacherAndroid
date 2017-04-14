@@ -6,7 +6,10 @@ import com.zidian.teacher.di.module.ActivityModule;
 import com.zidian.teacher.ui.course.activity.AttendanceActivity;
 import com.zidian.teacher.ui.course.activity.AttendanceStatisticsActivity;
 import com.zidian.teacher.ui.course.activity.CourseInfoActivity;
+import com.zidian.teacher.ui.evaluate.activity.ApplyForEvaActivity;
 import com.zidian.teacher.ui.evaluate.activity.ColleagueEvaActivity;
+import com.zidian.teacher.ui.evaluate.activity.InviteActivity;
+import com.zidian.teacher.ui.evaluate.activity.InviteSelectTeacherActivity;
 import com.zidian.teacher.ui.evaluate.activity.MyTaskActivity;
 import com.zidian.teacher.ui.main.LoginActivity;
 import com.zidian.teacher.ui.main.MainActivity;
@@ -17,6 +20,7 @@ import com.zidian.teacher.ui.mine.activity.FeedbackActivity;
 import dagger.Component;
 
 /**
+ * Activity Component 管理 Activity 依赖注入
  * Created by GongCheng on 2017/3/15.
  */
 @PerActivity
@@ -42,4 +46,10 @@ public interface ActivityComponent {
     void inject(MyTaskActivity myTaskActivity);
 
     void inject(ColleagueEvaActivity colleagueEvaActivity);
+
+    void inject(InviteActivity inviteActivity);
+
+    void inject(ApplyForEvaActivity applyForEvaActivity);
+
+    void inject(InviteSelectTeacherActivity inviteSelectTeacherActivity);
 }

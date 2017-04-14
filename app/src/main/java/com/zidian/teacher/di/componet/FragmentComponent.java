@@ -13,6 +13,7 @@ import com.zidian.teacher.ui.questionnaire.QuestionnaireFragment;
 import dagger.Component;
 
 /**
+ * FragmentComponent 管理 Fragment 依赖注入
  * Created by GongCheng on 2017/3/15.
  */
 @PerFragment

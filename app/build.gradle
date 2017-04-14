@@ -35,7 +35,7 @@ android {
     android.applicationVariants.all { variant ->
         def file = variant.outputs[0].outputFile
         def name = "-teacher-" + defaultConfig.versionName + ".apk"
-        variant.outputs[0].outputFile = new File(file.parent, file.name.replace(".apk",name))
+        variant.outputs[0].outputFile = new File(file.parent, file.name.replace(".apk", name))
     }
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
@@ -65,6 +65,7 @@ dependencies {
     compile rootProject.ext.supportDesign
     compile rootProject.ext.supportRecyclerView
     compile rootProject.ext.supportCardView
+    compile rootProject.ext.constraintLayout
     //Internet
     compile rootProject.ext.retrofit
     compile rootProject.ext.retrofitAdapterRxJava
@@ -95,18 +96,21 @@ dependencies {
     //CircleImageView
     compile rootProject.ext.circleImageView
     //dialogs
-    compile 'com.afollestad.material-dialogs:core:0.9.4.2'
+    compile rootProject.ext.materialDialogs
     //material-spinner
-    compile 'com.jaredrummler:material-spinner:1.1.0'
+    compile rootProject.ext.materialSpinner
     //date_picker
-    compile 'co.infinum:materialdatetimepicker-support:3.1.3'
+    compile rootProject.ext.materialDatePicker
     //PhotoSelector
-    compile 'com.yuyh.imgsel:library:1.2.0'
+    compile rootProject.ext.imageSelector
     //fragmentation
     compile rootProject.ext.fragmentation
     //leakCanary
     debugCompile rootProject.ext.leakCanaryDebug
     releaseCompile rootProject.ext.leakCanaryRelease
     testCompile rootProject.ext.leakCanaryTest
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //测试
+    compile 'com.zhy:okhttputils:2.6.2'
+
+
 }

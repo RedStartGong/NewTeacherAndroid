@@ -8,62 +8,91 @@
 
     <include
         layout="@layout/toolbar"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        android:layout_height="wrap_content"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
         android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="-2dp"
-        app:layout_constraintHorizontal_bias="0.0" />
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
     <ImageView
+        android:id="@+id/iv_evaluate_bg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/bg_evaluate"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintVertical_bias="0.457" />
-
-    <Button
-        android:layout_width="110dp"
-        android:layout_height="42dp"
-        android:background="@drawable/bg_blue_btn"
-        android:text="邀请"
-        android:textColor="@color/white_text_color"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.296"
         tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="112dp"
-        app:layout_constraintRight_toLeftOf="@+id/guideline3"
-        android:layout_marginRight="34dp" />
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
     <Button
-        android:layout_width="110dp"
-        android:layout_height="42dp"
-        android:background="@drawable/bg_common_btn"
-        android:text="评价他人"
+        android:id="@+id/btn_invite"
+        android:layout_width="146dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="114dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/bg_blue_btn"
+        android:text="@string/colleague_invite_others"
         android:textColor="@color/white_text_color"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="112dp"
-        android:layout_marginLeft="34dp"
-        app:layout_constraintLeft_toLeftOf="@+id/guideline3" />
+        app:layout_constraintRight_toLeftOf="@+id/guideline3"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginEnd="16dp" />
+
+    <Button
+        android:id="@+id/btn_evaluate"
+        android:layout_width="146dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="114dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/bg_common_btn"
+        android:text="@string/colleague_evaluate_others"
+        android:textColor="@color/white_text_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline3"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="16dp"
+        tools:layout_editor_absoluteY="407dp" />
+
+    <TextView
+        android:layout_width="146dp"
+        android:layout_height="87dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/bg_introduce_left"
+        android:padding="10dp"
+        android:text="@string/introduce_invite"
+        app:layout_constraintRight_toLeftOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/btn_invite"
+        android:layout_marginEnd="16dp" />
+
+    <TextView
+        android:layout_width="146dp"
+        android:layout_height="87dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/bg_introduce_right"
+        android:padding="10dp"
+        android:text="@string/introduce_evaluate"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/btn_evaluate"
+        android:layout_marginStart="16dp" />
+
 
     <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/guideline3"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.5"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="192dp" />
 </android.support.constraint.ConstraintLayout>

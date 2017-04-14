@@ -6,6 +6,8 @@ import com.zidian.teacher.model.entity.remote.AttendanceStudent;
 import com.zidian.teacher.model.entity.remote.Class;
 import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.model.entity.remote.HttpResult;
+import com.zidian.teacher.model.entity.remote.InviteCourseResult;
+import com.zidian.teacher.model.entity.remote.InviteTeacher;
 import com.zidian.teacher.model.entity.remote.LoginResult;
 import com.zidian.teacher.model.entity.remote.MyTask;
 import com.zidian.teacher.model.entity.remote.NoDataResult;
@@ -15,14 +17,12 @@ import com.zidian.teacher.model.entity.remote.School;
 import com.zidian.teacher.model.network.TeacherService;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -75,7 +75,8 @@ public final class DataManager {
     public Observable<AttendanceStudent> getAttendanceStudent(
             String courseWeeklyId, String courseId, String className, String teacherId,
             String token, String schoolId) {
-        return service.getAttendanceStudents(courseWeeklyId, courseId, className, teacherId, token, schoolId);
+        return service.getAttendanceStudents(courseWeeklyId, courseId, className, teacherId,
+                token, schoolId);
     }
 
     public Observable<NoDataResult> setAttendance(
@@ -86,7 +87,7 @@ public final class DataManager {
 
     public Observable<HttpResult<List<AttendanceStatistics>>> getAttendanceStatistics(
             String courseId, String className, String teacherId, String token, String schoolId) {
-        return service.getAttendanceStatistcs(courseId, className, teacherId, token, schoolId);
+        return service.getAttendanceStatistics(courseId, className, teacherId, token, schoolId);
     }
 
     public Observable<NoDataResult> feedback(String feedbackId, String feedbackInformation,
@@ -102,11 +103,28 @@ public final class DataManager {
     public Observable<NoDataResult> setPersonInfo(
             String motto, String phoneNumber, String teacherSex,
             String birthday, String nickName, String teacherId, String token, String schoolId) {
-        return service.setPersonInfo(motto, phoneNumber, teacherSex, birthday, nickName, teacherId, token, schoolId);
+        return service.setPersonInfo(motto, phoneNumber, teacherSex, birthday, nickName, teacherId,
+                token, schoolId);
     }
 
     public Observable<HttpResult<List<MyTask>>> getMyTasks(
             String requestState, String teacherId, String token, String schoolId) {
         return service.getMyTasks(requestState, teacherId, token, schoolId);
+    }
+
+    public Observable<InviteCourseResult> getInviteCourses(String teacherId, String token, String schoolId) {
+        return service.getInviteCourses(teacherId, token, schoolId);
+    }
+
+    public Observable<HttpResult<List<InviteTeacher>>> getInviteTeachers(String condition, String teacherId, String token, String schoolId) {
+        return service.getInviteTeacher(condition, teacherId, token, schoolId);
+    }
+
+    public Observable<NoDataResult> inviteOrApply(
+            String teacherId, String teacherName, String requestedPerson, String requestType,
+            String teacherCollege, String courseId, String courseName, String teachingCalendar,
+            String classroom, String requestExplain, String token, String schoolId) {
+        return service.inviteOrApply(teacherId, teacherName, requestedPerson, requestType, teacherCollege,
+                courseId, courseName, teachingCalendar, classroom, requestExplain, token, schoolId);
     }
 }
