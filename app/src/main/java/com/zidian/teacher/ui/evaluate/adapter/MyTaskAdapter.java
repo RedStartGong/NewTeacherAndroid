@@ -111,7 +111,6 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 ((ColleagueHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_apply_evaluate);
                 ((ColleagueHolder) holder).tvEvaluateName.setText(tasks.get(position).getToTeacherName());
                 ((ColleagueHolder) holder).tvEvaluatedName.setText(R.string.evaluate_my_course);
-
             } else {
                 //别人邀请我评价他的课
                 ((ColleagueHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_invite_evaluate);
@@ -128,7 +127,6 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 ((SupervisorHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_invite_evaluate);
                 ((SupervisorHolder) holder).tvEvaluateName.setText("我");
                 ((SupervisorHolder) holder).tvEvaluatedName.setText(tasks.get(position).getToTeacherName());
-
             } else {//我是被请求的人
                 ((SupervisorHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_apply_evaluate);
                 ((SupervisorHolder) holder).tvEvaluateName.setText("我");
