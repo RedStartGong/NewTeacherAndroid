@@ -52,11 +52,12 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
 
     @Inject
     AttendancePresenter presenter;
+    @Inject
+    AttendanceAdapter adapter;
 
     private List<Class> classes;
     private List<AttendanceStudent.DataBean> students;
     private CourseInfo courseInfo;
-    private AttendanceAdapter adapter;
     private ProgressDialog progressDialog;
 
     @Override
@@ -71,6 +72,8 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
 
     @Override
     protected void initViewAndData() {
+        checkNotNull(presenter);
+        checkNotNull(adapter);
         classes = new ArrayList<>();
         students = new ArrayList<>();
         courseInfo = (CourseInfo) getIntent().getSerializableExtra("courseInfo");
@@ -87,12 +90,10 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
         });
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.attendance_loading));
-        adapter = new AttendanceAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new RecyclerViewLinearDecoration(this, RecyclerViewLinearDecoration.VERTICAL_LIST));
 
-        checkNotNull(presenter);
         presenter.attachView(this);
         presenter.getClasses(courseInfo.getCourseId());
 

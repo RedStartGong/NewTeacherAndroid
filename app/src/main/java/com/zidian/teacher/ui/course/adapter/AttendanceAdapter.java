@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.zidian.teacher.R;
+import com.zidian.teacher.di.ActivityContext;
 import com.zidian.teacher.model.entity.remote.AttendanceStudent;
 import com.zidian.teacher.ui.course.activity.AttendanceActivity;
 
@@ -19,6 +20,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,10 +33,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private Context context;
+    private  Context context;
     private List<AttendanceStudent.DataBean> students;
 
-    public AttendanceAdapter(Context context) {
+    @Inject
+    public AttendanceAdapter(@ActivityContext Context context) {
         students = new ArrayList<>();
         this.context = context;
     }

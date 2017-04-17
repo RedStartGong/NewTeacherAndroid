@@ -25,7 +25,8 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
-import static dagger.internal.Preconditions.checkNotNull;
+import static com.zidian.teacher.util.Preconditions.checkNotNull;
+
 
 /**
  * 考勤统计
@@ -46,9 +47,10 @@ public class AttendanceStatisticsActivity extends BaseActivity implements Attend
 
     @Inject
     AttendanceStatisticsPresenter presenter;
+    @Inject
+    AttendanceStatisticsAdapter adapter;
 
     private CourseInfo courseInfo;
-    private AttendanceStatisticsAdapter adapter;
 
     @Override
     protected int getLayout() {
@@ -62,6 +64,9 @@ public class AttendanceStatisticsActivity extends BaseActivity implements Attend
 
     @Override
     protected void initViewAndData() {
+        checkNotNull(presenter);
+        checkNotNull(adapter);
+
         courseInfo = (CourseInfo) getIntent().getSerializableExtra("courseInfo");
         toolbar.setTitle(getString(R.string.attendance_statistics));
         setToolbarBack(toolbar);
@@ -73,12 +78,10 @@ public class AttendanceStatisticsActivity extends BaseActivity implements Attend
                 presenter.getAttendanceStatistics(courseInfo.getCourseId(), cls.getClassId());
             }
         });
-        adapter = new AttendanceStatisticsAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new RecyclerViewLinearDecoration(this, RecyclerViewLinearDecoration.VERTICAL_LIST));
         recyclerView.setAdapter(adapter);
 
-        checkNotNull(presenter);
         presenter.attachView(this);
         presenter.getClasses(courseInfo.getCourseId());
     }

@@ -14,6 +14,8 @@ import com.zidian.teacher.model.entity.remote.AttendanceStatistics;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -29,6 +31,7 @@ public class AttendanceStatisticsAdapter extends RecyclerView.Adapter<RecyclerVi
     private static final int TYPE_TOP = 0;
     private static final int TYPE_ITEM = 1;
 
+    @Inject
     public AttendanceStatisticsAdapter(Context context) {
         this.context = context;
         attendanceStatistics = new ArrayList<>();

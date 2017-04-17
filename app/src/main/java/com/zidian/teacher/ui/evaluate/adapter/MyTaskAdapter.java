@@ -13,6 +13,8 @@ import com.zidian.teacher.model.entity.remote.MyTask;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -26,6 +28,10 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private List<MyTask> tasks;
 
+    @Inject
+    public MyTaskAdapter() {
+
+    }
     public void setTasks(List<MyTask> tasks) {
         this.tasks = tasks;
         notifyDataSetChanged();

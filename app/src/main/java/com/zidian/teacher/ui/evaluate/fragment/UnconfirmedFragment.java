@@ -37,8 +37,8 @@ public class UnconfirmedFragment extends BaseFragment implements MyTaskContract.
 
     @Inject
     MyTaskPresenter presenter;
-
-    private MyTaskAdapter adapter;
+    @Inject
+    MyTaskAdapter adapter;
 
     public static UnconfirmedFragment newInstance() {
 
@@ -62,6 +62,7 @@ public class UnconfirmedFragment extends BaseFragment implements MyTaskContract.
     @Override
     protected void initViewAndData() {
         errorView.setVisibility(View.GONE);
+        checkNotNull(adapter);
         checkNotNull(presenter);
         presenter.attachView(this);
         presenter.getTasks("0");
@@ -69,7 +70,6 @@ public class UnconfirmedFragment extends BaseFragment implements MyTaskContract.
         recyclerView.setLoadingMoreEnabled(false);
         recyclerView.addItemDecoration(new RecyclerViewLinearDecoration(activity,
                 RecyclerViewLinearDecoration.VERTICAL_LIST));
-        adapter = new MyTaskAdapter();
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
