@@ -11,6 +11,7 @@ import com.zidian.teacher.base.BaseFragment;
 import com.zidian.teacher.model.entity.remote.MyTask;
 import com.zidian.teacher.presenter.MyTaskPresenter;
 import com.zidian.teacher.presenter.contract.MyTaskContract;
+import com.zidian.teacher.ui.evaluate.activity.MyTaskActivity;
 import com.zidian.teacher.ui.evaluate.adapter.MyTaskAdapter;
 import com.zidian.teacher.ui.widget.RecyclerViewLinearDecoration;
 import com.zidian.xrecyclerview.XRecyclerView;
@@ -24,10 +25,11 @@ import butterknife.BindView;
 import static dagger.internal.Preconditions.checkNotNull;
 
 /**
+ * 我的任务 Fragment
  * Created by GongCheng on 2017/4/12.
  */
 
-public class UnconfirmedFragment extends BaseFragment implements MyTaskContract.View {
+public class MyTasksFragment extends BaseFragment implements MyTaskContract.View {
     @BindView(R.id.recycler_view)
     XRecyclerView recyclerView;
     @BindView(R.id.error_view)
@@ -40,11 +42,14 @@ public class UnconfirmedFragment extends BaseFragment implements MyTaskContract.
     @Inject
     MyTaskAdapter adapter;
 
-    public static UnconfirmedFragment newInstance() {
+    private String taskType;
+
+    public static MyTasksFragment newInstance(@MyTaskActivity.TaskType String type) {
 
         Bundle args = new Bundle();
 
-        UnconfirmedFragment fragment = new UnconfirmedFragment();
+        MyTasksFragment fragment = new MyTasksFragment();
+        fragment.taskType = type;
         fragment.setArguments(args);
         return fragment;
     }
@@ -65,7 +70,7 @@ public class UnconfirmedFragment extends BaseFragment implements MyTaskContract.
         checkNotNull(adapter);
         checkNotNull(presenter);
         presenter.attachView(this);
-        presenter.getTasks("0");
+        presenter.getTasks(taskType);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setLoadingMoreEnabled(false);
         recyclerView.addItemDecoration(new RecyclerViewLinearDecoration(activity,
@@ -73,7 +78,7 @@ public class UnconfirmedFragment extends BaseFragment implements MyTaskContract.
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                presenter.getTasks("0");
+                presenter.getTasks(taskType);
             }
 
             @Override

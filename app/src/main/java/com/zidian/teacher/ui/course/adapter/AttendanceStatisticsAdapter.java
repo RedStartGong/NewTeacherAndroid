@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.zidian.teacher.R;
+import com.zidian.teacher.di.ActivityContext;
 import com.zidian.teacher.model.entity.remote.AttendanceStatistics;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class AttendanceStatisticsAdapter extends RecyclerView.Adapter<RecyclerVi
     private static final int TYPE_ITEM = 1;
 
     @Inject
-    public AttendanceStatisticsAdapter(Context context) {
+    public AttendanceStatisticsAdapter(@ActivityContext Context context) {
         this.context = context;
         attendanceStatistics = new ArrayList<>();
     }

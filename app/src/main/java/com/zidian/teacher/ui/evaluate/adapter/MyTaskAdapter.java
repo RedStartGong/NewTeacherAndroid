@@ -1,5 +1,6 @@
 package com.zidian.teacher.ui.evaluate.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public MyTaskAdapter() {
 
     }
+
     public void setTasks(List<MyTask> tasks) {
         this.tasks = tasks;
         notifyDataSetChanged();
@@ -52,41 +54,76 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof ColleagueHolder) {
+        Context context = holder.itemView.getContext();
+        if (holder instanceof ColleagueHolder) {//同行评价
             //myRole = 0 我是发起请求的人 myRole = 1 我是被请求的人
-            //requestState 请求所处状态：0为请求发出，待确认；1为同意，待评价；2为已拒绝；3为已完成
+            //requestType :请求类型：0为请求评价别人，1为请求别人评价‘我’
+            //requestState:请求所处状态：0为请求发出，待确认；1为同意，待评价；2为已拒绝；3为已完成
             switch (tasks.get(position).getRequestState()) {
                 //未确认
                 case 0:
+                    if (tasks.get(position).getMyRole() == 0) {
+                        ((ColleagueHolder) holder).viewUntreated.setVisibility(View.VISIBLE);
+                    } else {
+                        ((ColleagueHolder) holder).viewInvite.setVisibility(View.VISIBLE);
+                    }
                     break;
                 //待评价
                 case 1:
+                    if (tasks.get(position).getMyRole() == 0) {
+                        ((ColleagueHolder) holder).viewUntreated.setVisibility(View.VISIBLE);
+                    } else {
+                        ((ColleagueHolder) holder).viewEvaluate.setVisibility(View.VISIBLE);
+                    }
                     break;
                 //已拒绝
                 case 2:
+                    ((ColleagueHolder) holder).viewRejected.setVisibility(View.VISIBLE);
                     break;
                 //已完成
                 case 3:
+                    //我申请评价别人—已完成 -- 可查看
+                    if (tasks.get(position).getMyRole() == 0 && tasks.get(position).getRequestType() == 0) {
+                        ((ColleagueHolder) holder).viewCheck.setVisibility(View.VISIBLE);
+                    } else if (tasks.get(position).getMyRole() == 1 && tasks.get(position).getEvaluationType() == 1) {
+                        ((ColleagueHolder) holder).viewCheck.setVisibility(View.VISIBLE);
+                    } else {
+                        ((ColleagueHolder) holder).viewFinished.setVisibility(View.VISIBLE);
+                    }
                     break;
             }
-            if (tasks.get(position).getMyRole() == 0) {//我发起请求
-                ((ColleagueHolder) holder).viewInvite.setVisibility(View.VISIBLE);
+
+            if (tasks.get(position).getMyRole() == 0 && tasks.get(position).getRequestType() == 0) {
+                //我申请评价别人
+                ((ColleagueHolder) holder).tvEvaluateName.setText("我");
+                ((ColleagueHolder) holder).tvEvaluatedName.setText(context.getString(R.string.evaluate_others_course,
+                        tasks.get(position).getToTeacherName()));
+                ((ColleagueHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_apply_evaluate);
+
+            } else if (tasks.get(position).getMyRole() == 0 && tasks.get(position).getRequestType() == 1) {
+                //我邀请别人评价我
                 ((ColleagueHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_invite_evaluate);
                 ((ColleagueHolder) holder).tvEvaluateName.setText("我");
-                ((ColleagueHolder) holder).tvEvaluatedName.setText(tasks.get(position).getToTeacherName());
-
-            } else {//我是被请求的人
-                ((ColleagueHolder) holder).viewUntreated.setVisibility(View.VISIBLE);
+                ((ColleagueHolder) holder).tvEvaluatedName.setText(context.getString(R.string.someone_evaluate_my_course,
+                        tasks.get(position).getToTeacherName()));
+            } else if (tasks.get(position).getMyRole() == 1 && tasks.get(position).getEvaluationType() == 0) {
+                //别人申请评价我的课
                 ((ColleagueHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_apply_evaluate);
-                ((ColleagueHolder) holder).tvEvaluateName.setText("我");
-                ((ColleagueHolder) holder).tvEvaluatedName.setText(tasks.get(position).getToTeacherName());
+                ((ColleagueHolder) holder).tvEvaluateName.setText(tasks.get(position).getToTeacherName());
+                ((ColleagueHolder) holder).tvEvaluatedName.setText(R.string.evaluate_my_course);
+
+            } else {
+                //别人邀请我评价他的课
+                ((ColleagueHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_invite_evaluate);
+                ((ColleagueHolder) holder).tvEvaluateName.setText(tasks.get(position).getToTeacherName());
+                ((ColleagueHolder) holder).tvEvaluatedName.setText(R.string.evaluate_his_course);
             }
             //公用组件
             ((ColleagueHolder) holder).tvEvaluateCourse.setText(tasks.get(position).getCourseName());
             ((ColleagueHolder) holder).tvCourseDate.setText(tasks.get(position).getTeachingCalendar());
             ((ColleagueHolder) holder).tvCourseLocation.setText(tasks.get(position).getCourseLocation());
             ((ColleagueHolder) holder).tvMessage.setText(tasks.get(position).getRequestExplain());
-        } else if (holder instanceof SupervisorHolder) {
+        } else if (holder instanceof SupervisorHolder) {//督导评价
             if (tasks.get(position).getMyRole() == 0) {//我发起请求
                 ((SupervisorHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_invite_evaluate);
                 ((SupervisorHolder) holder).tvEvaluateName.setText("我");
@@ -141,6 +178,16 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         LinearLayout viewInvite;
         @BindView(R.id.view_untreated)
         TextView viewUntreated;
+        @BindView(R.id.view_evaluate)
+        TextView viewEvaluate;
+        @BindView(R.id.view_unevaluate)
+        TextView viewUnevaluate;
+        @BindView(R.id.view_rejected)
+        TextView viewRejected;
+        @BindView(R.id.view_finished)
+        TextView viewFinished;
+        @BindView(R.id.view_check)
+        TextView viewCheck;
 
         public ColleagueHolder(View itemView) {
             super(itemView);

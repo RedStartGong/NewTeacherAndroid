@@ -5,7 +5,7 @@ import com.zidian.teacher.di.PerFragment;
 import com.zidian.teacher.di.module.FragmentModule;
 import com.zidian.teacher.ui.course.fragment.CourseFragment;
 import com.zidian.teacher.ui.evaluate.fragment.EvaluateFragment;
-import com.zidian.teacher.ui.evaluate.fragment.UnconfirmedFragment;
+import com.zidian.teacher.ui.evaluate.fragment.MyTasksFragment;
 import com.zidian.teacher.ui.mine.fragment.ChangePasswordFragment;
 import com.zidian.teacher.ui.mine.fragment.MineFragment;
 import com.zidian.teacher.ui.questionnaire.QuestionnaireFragment;
@@ -30,5 +30,5 @@ public interface FragmentComponent {
 
     void inject(ChangePasswordFragment changePasswordFragment);
 
-    void inject(UnconfirmedFragment unconfirmedFragment);
+    void inject(MyTasksFragment myTasksFragment);
 }

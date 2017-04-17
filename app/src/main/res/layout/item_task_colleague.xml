@@ -13,8 +13,8 @@
         android:id="@+id/view_invite"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:visibility="gone"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="0dp"
@@ -48,5 +48,49 @@
         android:text="对方未处理"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/view_evaluate"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/common_bg"
+        android:gravity="center"
+        android:text="开始评价"
+        android:textColor="@color/colorPrimary"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/view_unevaluate"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/common_bg"
+        android:gravity="center"
+        android:text="未评价"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/view_rejected"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/common_bg"
+        android:gravity="center"
+        android:text="已拒绝"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/view_finished"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/common_bg"
+        android:gravity="center"
+        android:text="已完成"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/view_check"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/common_bg"
+        android:gravity="center"
+        android:text="查看"
+        android:textColor="@color/colorPrimary"
+        android:visibility="gone" />
 
 </LinearLayout>
