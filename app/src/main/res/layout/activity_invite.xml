@@ -1,153 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
     tools:context="com.zidian.teacher.ui.evaluate.activity.InviteActivity">
-
-    <include layout="@layout/toolbar" />
-
     <LinearLayout
-        android:id="@+id/ll_choose_course"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/selector_touch_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+        <include layout="@layout/toolbar" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="我的课程"
-            android:textColor="@color/black_text_color"
-            android:textSize="@dimen/text_size_h3" />
+        <LinearLayout
+            android:id="@+id/ll_choose_course"
+            style="@style/EvaluateItemChooseLinearLayoutStyle">
 
-        <TextView
-            android:id="@+id/tv_invite_course"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableRight="@drawable/ic_chevron_right_24dp"
-            android:gravity="center_vertical|right"
-            android:hint="请选择课程" />
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="我的课程"
+                android:textColor="@color/black_text_color"
+                android:textSize="@dimen/text_size_h3" />
 
-    <include layout="@layout/view_divider" />
+            <TextView
+                android:id="@+id/tv_invite_course"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_chevron_right_24dp"
+                android:gravity="center_vertical|right"
+                android:hint="请选择课程" />
+        </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_choose_teaching_date"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/selector_touch_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        <include layout="@layout/view_divider" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="教学日历"
-            android:textColor="@color/black_text_color"
-            android:textSize="@dimen/text_size_h3" />
+        <LinearLayout
+            android:id="@+id/ll_choose_teaching_date"
+            style="@style/EvaluateItemChooseLinearLayoutStyle">
 
-        <TextView
-            android:id="@+id/tv_invite_teaching_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableRight="@drawable/ic_chevron_right_24dp"
-            android:gravity="center_vertical|right"
-            android:hint="例:第三周--周四--第七八节课" />
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="教学日历"
+                android:textColor="@color/black_text_color"
+                android:textSize="@dimen/text_size_h3" />
 
-    <include layout="@layout/view_divider" />
+            <TextView
+                android:id="@+id/tv_invite_teaching_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_chevron_right_24dp"
+                android:gravity="center_vertical|right"
+                android:hint="例:第三周--周四--第七八节课" />
+        </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_invite_teacher"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/selector_touch_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        <include layout="@layout/view_divider" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="邀请老师"
-            android:textColor="@color/black_text_color"
-            android:textSize="@dimen/text_size_h3" />
+        <LinearLayout
+            android:id="@+id/ll_invite_teacher"
+            style="@style/EvaluateItemChooseLinearLayoutStyle">
 
-        <TextView
-            android:id="@+id/tv_invite_teacher_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableRight="@drawable/ic_chevron_right_24dp"
-            android:gravity="center_vertical"
-            android:hint="邀请老师" />
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="邀请老师"
+                android:textColor="@color/black_text_color"
+                android:textSize="@dimen/text_size_h3" />
 
-    <include layout="@layout/view_divider" />
+            <TextView
+                android:id="@+id/tv_invite_teacher_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_chevron_right_24dp"
+                android:gravity="center_vertical"
+                android:hint="邀请老师" />
+        </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_input_classroom"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/selector_touch_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        <include layout="@layout/view_divider" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="教室"
-            android:textColor="@color/black_text_color"
-            android:textSize="@dimen/text_size_h3" />
+        <LinearLayout
+            android:id="@+id/ll_input_classroom"
+            style="@style/EvaluateItemChooseLinearLayoutStyle">
 
-        <TextView
-            android:id="@+id/tv_classroom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableRight="@drawable/ic_chevron_right_24dp"
-            android:gravity="center_vertical"
-            android:hint="例:第一教学楼101室" />
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="教室"
+                android:textColor="@color/black_text_color"
+                android:textSize="@dimen/text_size_h3" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_invitation_language"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin">
+            <TextView
+                android:id="@+id/tv_classroom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_chevron_right_24dp"
+                android:gravity="center_vertical"
+                android:hint="例:第一教学楼101室" />
+        </LinearLayout>
 
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/et_invitation_language"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_invitation_language"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="请填写邀请语,(限20字)" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin">
 
-    <Button
-        android:id="@+id/btn_invite_confirm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:background="@drawable/bg_common_btn"
-        android:text="提交"
-        android:textColor="@color/white_text_color" />
-</LinearLayout>
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_invitation_language"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请填写邀请语,(限20字)" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_invite_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:background="@drawable/bg_common_btn"
+            android:text="提交"
+            android:textColor="@color/white_text_color" />
+    </LinearLayout>
+
+</ScrollView>

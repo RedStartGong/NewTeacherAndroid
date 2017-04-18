@@ -5,6 +5,7 @@ import com.zidian.teacher.model.entity.remote.AttendanceStatistics;
 import com.zidian.teacher.model.entity.remote.AttendanceStudent;
 import com.zidian.teacher.model.entity.remote.Class;
 import com.zidian.teacher.model.entity.remote.Course;
+import com.zidian.teacher.model.entity.remote.EvaluateCourse;
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.InviteCourseResult;
 import com.zidian.teacher.model.entity.remote.InviteTeacher;
@@ -174,6 +175,14 @@ public interface TeacherService {
                                                     @Field("schoolId") String schoolId);
 
     /**
+     * 获取评价他人时的课程信息
+     */
+    @FormUrlEncoded
+    @POST("page/evaluateBySupervisor /selectAll")
+    Observable<HttpResult<List<EvaluateCourse>>> getEvaluateCourses(
+            @Field("teacherId") String teacherId, @Field("token") String token, @Field("schoolId") String schoolId);
+
+    /**
      * 获取邀请评价的教师
      */
     @FormUrlEncoded
@@ -193,4 +202,16 @@ public interface TeacherService {
             @Field("courseName") String courseName, @Field("teachingCalendar") String teachingCalendar,
             @Field("courseClassroom") String classroom, @Field("requestExplain") String requestExplain,
             @Field("token") String token, @Field("schoolId") String schoolId);
+
+    /**
+     * 评价别人
+     */
+    @FormUrlEncoded
+    @POST("ToEvaluateOthers/EvaluationColleagues")
+    Observable<NoDataResult> evaluate(
+            @Field("evaluateType") String evaluateType, @Field("teacherType") String teacherType,
+            @Field("byEvaluatePersonId") String evaluatedId, @Field("recordId") String recordId,
+            @Field("evaluateLabel") String evaluateLabel, @Field("evaluateComment") String evaluateComment,
+            @Field("colleagueId") String colleagueId, @Field("token") String token,
+            @Field("schoolId") String schoolId);
 }

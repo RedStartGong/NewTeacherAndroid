@@ -139,4 +139,5 @@
             android:text="确定"
             android:textColor="@color/white_text_color" />
     </LinearLayout>
+
 </ScrollView>

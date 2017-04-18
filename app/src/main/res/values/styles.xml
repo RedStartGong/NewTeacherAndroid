@@ -78,4 +78,8 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:orientation">horizontal</item>
     </style>
+    <style name="EvaluateItemChooseLinearLayoutStyle" parent="EvaluateClickableLinearLayoutStyle">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
 </resources>

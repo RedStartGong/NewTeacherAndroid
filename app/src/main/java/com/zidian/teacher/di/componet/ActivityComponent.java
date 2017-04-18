@@ -11,6 +11,7 @@ import com.zidian.teacher.ui.evaluate.activity.ColleagueEvaActivity;
 import com.zidian.teacher.ui.evaluate.activity.InviteActivity;
 import com.zidian.teacher.ui.evaluate.activity.InviteSelectTeacherActivity;
 import com.zidian.teacher.ui.evaluate.activity.MyTaskActivity;
+import com.zidian.teacher.ui.evaluate.activity.SupervisorEvaActivity;
 import com.zidian.teacher.ui.main.LoginActivity;
 import com.zidian.teacher.ui.main.MainActivity;
 import com.zidian.teacher.ui.mine.activity.AboutActivity;
@@ -52,4 +53,6 @@ public interface ActivityComponent {
     void inject(ApplyForEvaActivity applyForEvaActivity);
 
     void inject(InviteSelectTeacherActivity inviteSelectTeacherActivity);
+
+    void inject(SupervisorEvaActivity supervisorEvaActivity);
 }

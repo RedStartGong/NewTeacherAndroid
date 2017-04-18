@@ -9,6 +9,7 @@ import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseFragment;
 import com.zidian.teacher.ui.evaluate.activity.ColleagueEvaActivity;
 import com.zidian.teacher.ui.evaluate.activity.MyTaskActivity;
+import com.zidian.teacher.ui.evaluate.activity.SupervisorEvaActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -58,6 +59,7 @@ public class EvaluateFragment extends BaseFragment {
                 startActivity(new Intent(activity, ColleagueEvaActivity.class));
                 break;
             case R.id.ll_supervisor_evaluate:
+                startActivity(new Intent(activity, SupervisorEvaActivity.class));
                 break;
         }
     }

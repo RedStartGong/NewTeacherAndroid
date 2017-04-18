@@ -1,5 +1,6 @@
 package com.zidian.teacher.ui.evaluate.activity;
 
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -14,11 +15,16 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+
 /**
  * Created by GongCheng on 2017/4/13.
  */
 
 public class ApplyForEvaActivity extends BaseActivity {
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
     @Inject
     DataManager dataManager;
 
@@ -34,37 +40,13 @@ public class ApplyForEvaActivity extends BaseActivity {
 
     @Override
     protected void initViewAndData() {
-
-//        final OkHttpClient client = new OkHttpClient.Builder()
-//                .build();
-//        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-//                .addFormDataPart("teacherId", "1001")
-//                .addFormDataPart("token", SharedPreferencesUtils.getToken())
-//                .addFormDataPart("condition", "经济与管理学院")
-//                .addFormDataPart("schoolId", "2")
-//                .build();
-//
-//        final Request request = new Request.Builder()
-//                .url("http://192.168.0.115:8080/rest/page/evaluateBySupervisor/selectTeacher")
-//                .post(requestBody)
-//                .build();
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    okhttp3.Response response =  client.newCall(request).execute();
-//                    Log.e("HTTP", response.body().toString());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }).start();
+        toolbar.setTitle("同行评价-评价他人");
+        setToolbarBack(toolbar);
         Map<String, String> map = new HashMap<>();
         map.put("teacherId", "1001");
         map.put("token", SharedPreferencesUtils.getToken());
         map.put("schoolId", SharedPreferencesUtils.getSchoolId());
-        map.put("condition", "经济与管理学院");
-        OkHttpUtils.post().url("http://192.168.0.115:8080/rest/page/evaluateBySupervisor/selectTeacher")
+        OkHttpUtils.post().url("http://192.168.0.115:8080/rest/page/evaluateBySupervisor/selectAll")
                 .params(map).build().execute(new StringCallback() {
             @Override
             public void onError(okhttp3.Call call, Exception e, int id) {

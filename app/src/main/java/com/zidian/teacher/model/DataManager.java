@@ -5,6 +5,7 @@ import com.zidian.teacher.model.entity.remote.AttendanceStatistics;
 import com.zidian.teacher.model.entity.remote.AttendanceStudent;
 import com.zidian.teacher.model.entity.remote.Class;
 import com.zidian.teacher.model.entity.remote.Course;
+import com.zidian.teacher.model.entity.remote.EvaluateCourse;
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.InviteCourseResult;
 import com.zidian.teacher.model.entity.remote.InviteTeacher;
@@ -112,11 +113,18 @@ public final class DataManager {
         return service.getMyTasks(requestState, teacherId, token, schoolId);
     }
 
-    public Observable<InviteCourseResult> getInviteCourses(String teacherId, String token, String schoolId) {
+    public Observable<InviteCourseResult> getInviteCourses(String teacherId, String token,
+                                                           String schoolId) {
         return service.getInviteCourses(teacherId, token, schoolId);
     }
 
-    public Observable<HttpResult<List<InviteTeacher>>> getInviteTeachers(String condition, String teacherId, String token, String schoolId) {
+    public Observable<HttpResult<List<EvaluateCourse>>> getEvaluateCourses(
+            String teacherId, String token, String schoolId) {
+        return service.getEvaluateCourses(teacherId, token, schoolId);
+    }
+
+    public Observable<HttpResult<List<InviteTeacher>>> getInviteTeachers(
+            String condition, String teacherId, String token, String schoolId) {
         return service.getInviteTeacher(condition, teacherId, token, schoolId);
     }
 
@@ -127,4 +135,13 @@ public final class DataManager {
         return service.inviteOrApply(teacherId, teacherName, requestedPerson, requestType, teacherCollege,
                 courseId, courseName, teachingCalendar, classroom, requestExplain, token, schoolId);
     }
+
+    public Observable<NoDataResult> evaluate(
+            String evaluateType, String teacherType, String evaluatedId, String recordId,
+            String evaluateLabel, String evaluateComment, String colleagueId, String token,
+            String schoolId) {
+        return service.evaluate(evaluateType, teacherType, evaluatedId, recordId, evaluateLabel,
+                evaluateComment, colleagueId, token, schoolId);
+    }
+
 }
