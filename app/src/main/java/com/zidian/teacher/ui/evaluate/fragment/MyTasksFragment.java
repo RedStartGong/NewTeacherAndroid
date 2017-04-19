@@ -13,9 +13,12 @@ import com.zidian.teacher.presenter.MyTaskPresenter;
 import com.zidian.teacher.presenter.contract.MyTaskContract;
 import com.zidian.teacher.ui.evaluate.activity.MyTaskActivity;
 import com.zidian.teacher.ui.evaluate.adapter.MyTaskAdapter;
+import com.zidian.teacher.ui.evaluate.listener.MyTaskOnClickListener;
 import com.zidian.teacher.ui.widget.RecyclerViewLinearDecoration;
+import com.zidian.teacher.util.SnackbarUtils;
 import com.zidian.xrecyclerview.XRecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -43,6 +46,7 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
     MyTaskAdapter adapter;
 
     private String taskType;
+    private List<MyTask> myTasks;
 
     public static MyTasksFragment newInstance(@MyTaskActivity.TaskType String type) {
 
@@ -66,6 +70,7 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
 
     @Override
     protected void initViewAndData() {
+        myTasks = new ArrayList<>();
         errorView.setVisibility(View.GONE);
         checkNotNull(adapter);
         checkNotNull(presenter);
@@ -87,10 +92,53 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
             }
         });
         recyclerView.setAdapter(adapter);
+        itemClicks();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        presenter.deAttachView();
+    }
+
+    /**
+     * 处理 adapter 点击事件
+     * 修改为什么状态：0为请求发出，待确认；1为同意，待评价；2为被拒绝
+     */
+    private void itemClicks() {
+        adapter.setMyTaskOnClickListener(new MyTaskOnClickListener() {
+            @Override
+            public void evaluate(int position) {
+                SnackbarUtils.showShort(errorView, position + "");
+            }
+
+            @Override
+            public void reject(int position) {
+                presenter.changeEvaState(String.valueOf(myTasks.get(position).getRecordId()),"2");
+                adapter.removeTask(position);
+            }
+
+            @Override
+            public void agree(int position) {
+                presenter.changeEvaState(String.valueOf(myTasks.get(position).getRecordId()),"1");
+                adapter.removeTask(position);
+            }
+
+            @Override
+            public void colleagueCheck(int position) {
+                SnackbarUtils.showShort(errorView, position + "");
+            }
+
+            @Override
+            public void supervisorCheck(int position) {
+                SnackbarUtils.showShort(errorView, position + "");
+            }
+        });
     }
 
     @Override
     public void showError(Throwable e) {
+        myTasks.clear();
         loadingView.setVisibility(View.GONE);
         errorView.setVisibility(View.VISIBLE);
         errorView.setText(e.getMessage());
@@ -99,6 +147,8 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
 
     @Override
     public void showTasks(List<MyTask> tasks) {
+        myTasks = tasks;
+        errorView.setVisibility(View.GONE);
         loadingView.setVisibility(View.GONE);
         adapter.setTasks(tasks);
         recyclerView.refreshComplete();
@@ -106,9 +156,22 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
 
     @Override
     public void showEmpty() {
+        myTasks.clear();
         loadingView.setVisibility(View.GONE);
+        errorView.setVisibility(View.VISIBLE);
         errorView.setText("当前没有任务");
         adapter.setTasks(null);
         recyclerView.refreshComplete();
+    }
+
+    @Override
+    public void showChangeStateSucceed() {
+        SnackbarUtils.showShort(errorView, "操作成功");
+    }
+
+    @Override
+    public void showChangeStateError(Throwable e) {
+        SnackbarUtils.showShort(errorView, e.getMessage());
+        presenter.getTasks(taskType);
     }
 }

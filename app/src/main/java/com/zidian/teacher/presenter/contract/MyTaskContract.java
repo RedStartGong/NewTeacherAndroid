@@ -15,9 +15,15 @@ public interface MyTaskContract {
         void showTasks(List<MyTask> tasks);
 
         void showEmpty();
+
+        void showChangeStateSucceed();
+
+        void showChangeStateError(Throwable e);
     }
 
     interface Presenter extends BasePresenter<MyTaskContract.View> {
         void getTasks(String requestState);
+
+        void changeEvaState(String recordId, String requestState);
     }
 }

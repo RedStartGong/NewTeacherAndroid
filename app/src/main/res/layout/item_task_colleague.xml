@@ -17,6 +17,7 @@
         android:visibility="gone">
 
         <TextView
+            android:id="@+id/tv_reject"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -30,6 +31,7 @@
             android:background="@color/divider_color" />
 
         <TextView
+            android:id="@+id/tv_agree"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

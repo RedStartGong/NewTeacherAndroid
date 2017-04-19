@@ -214,4 +214,14 @@ public interface TeacherService {
             @Field("evaluateLabel") String evaluateLabel, @Field("evaluateComment") String evaluateComment,
             @Field("colleagueId") String colleagueId, @Field("token") String token,
             @Field("schoolId") String schoolId);
+
+    /**
+     * 修改评价状态
+     */
+    @FormUrlEncoded
+    @POST("ToEvaluateOthers/updateRequestState")
+    Observable<NoDataResult> changeEvaState(
+            @Field("recordId") String recordId, @Field("requestState") String requestState,
+            @Field("teacherId") String teacherId, @Field("token") String token,
+            @Field("schoolId") String schoolId);
 }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.zidian.teacher.R;
 import com.zidian.teacher.model.entity.remote.MyTask;
+import com.zidian.teacher.ui.evaluate.listener.MyTaskOnClickListener;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by GongCheng on 2017/4/14.
@@ -36,7 +38,11 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void setTasks(List<MyTask> tasks) {
         this.tasks = tasks;
-        notifyDataSetChanged();
+    }
+
+    public void removeTask(int position) {
+        tasks.remove(position);
+        notifyItemRemoved(position + 1);
     }
 
     @Override
@@ -157,6 +163,12 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
+    private MyTaskOnClickListener myTaskOnClickListener;
+
+    public void setMyTaskOnClickListener(MyTaskOnClickListener myTaskOnClickListener) {
+        this.myTaskOnClickListener = myTaskOnClickListener;
+    }
+
     class ColleagueHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_evaluate_name)
         TextView tvEvaluateName;
@@ -179,7 +191,7 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         @BindView(R.id.view_evaluate)
         TextView viewEvaluate;
         @BindView(R.id.view_unevaluate)
-        TextView viewUnevaluate;
+        TextView viewUnevaluated;
         @BindView(R.id.view_rejected)
         TextView viewRejected;
         @BindView(R.id.view_finished)
@@ -190,6 +202,30 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public ColleagueHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        @OnClick({R.id.view_evaluate, R.id.view_check, R.id.tv_agree, R.id.tv_reject})
+        public void onClick(View view) {
+            if (myTaskOnClickListener == null) {
+                return;
+            }
+
+            // 使用了XRecyclerView的缘故,这个的adapterPosition比实际多了 1
+
+            switch (view.getId()) {
+                case R.id.view_evaluate:
+                    myTaskOnClickListener.evaluate(getAdapterPosition() - 1);
+                    break;
+                case R.id.view_check:
+                    myTaskOnClickListener.colleagueCheck(getAdapterPosition() - 1);
+                    break;
+                case R.id.tv_agree:
+                    myTaskOnClickListener.agree(getAdapterPosition() - 1);
+                    break;
+                case R.id.tv_reject:
+                    myTaskOnClickListener.reject(getAdapterPosition() - 1);
+                    break;
+            }
         }
     }
 

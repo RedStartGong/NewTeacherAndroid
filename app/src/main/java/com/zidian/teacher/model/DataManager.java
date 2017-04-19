@@ -144,4 +144,9 @@ public final class DataManager {
                 evaluateComment, colleagueId, token, schoolId);
     }
 
+    public Observable<NoDataResult> changeEvaState(
+            String recordId,String requestState, String teacherId, String token, String schoolId) {
+        return service.changeEvaState(recordId, requestState, teacherId, token, schoolId);
+    }
+
 }
