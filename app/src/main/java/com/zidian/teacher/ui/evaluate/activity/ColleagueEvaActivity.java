@@ -51,6 +51,6 @@ public class ColleagueEvaActivity extends BaseActivity {
      */
     @OnClick(R.id.btn_evaluate)
     public void evaluate() {
-        startActivity(new Intent(this, ApplyForEvaActivity.class));
+        startActivity(new Intent(this, ApplyToEvaActivity.class));
     }
 }

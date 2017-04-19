@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import com.zidian.teacher.R;
@@ -266,7 +267,16 @@ public class InviteActivity extends BaseActivity implements InviteContract.View 
     @Override
     public void showSuccess() {
         progressDialog.dismiss();
-        Toast.makeText(this, "邀请成功", Toast.LENGTH_SHORT).show();
-        finish();
+        new MaterialDialog.Builder(this)
+                .title("温馨提示")
+                .positiveText("确定")
+                .content("邀请发起成功，请在我的任务里面查看")
+                .onAny(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        finish();
+                    }
+                })
+                .show();
     }
 }

@@ -30,7 +30,7 @@
         <activity android:name=".ui.evaluate.activity.MyTaskActivity" />
         <activity android:name=".ui.evaluate.activity.ColleagueEvaActivity" />
         <activity android:name=".ui.evaluate.activity.InviteActivity" />
-        <activity android:name=".ui.evaluate.activity.ApplyForEvaActivity" />
+        <activity android:name=".ui.evaluate.activity.ApplyToEvaActivity" />
         <activity android:name=".ui.evaluate.activity.InviteSelectTeacherActivity" />
         <activity android:name=".ui.evaluate.activity.SupervisorEvaActivity" />
     </application>
