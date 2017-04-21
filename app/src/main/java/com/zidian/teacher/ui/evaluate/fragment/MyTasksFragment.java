@@ -111,11 +111,11 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
         adapter.setMyTaskOnClickListener(new MyTaskOnClickListener() {
             @Override
             public void evaluate(int position) {
-                SnackbarUtils.showShort(errorView, position + "");
                 Intent intent = new Intent(activity, EvaluateActivity.class);
                 intent.putExtra("teacherType", myTasks.get(position).getEvaluationType());
                 intent.putExtra("toTeacherId", myTasks.get(position).getToTeacherId());
                 intent.putExtra("recordId", myTasks.get(position).getRecordId());
+                intent.putExtra("evaluateType", myTasks.get(position).getEvaluationType());
                 startActivity(intent);
             }
 

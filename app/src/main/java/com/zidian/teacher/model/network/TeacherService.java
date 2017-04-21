@@ -230,7 +230,7 @@ public interface TeacherService {
      * 评价别人
      */
     @FormUrlEncoded
-    @POST("ToEvaluateOthers/EvaluationColleagues")
+    @POST("ToEvaluateOthers/evaluationColleagues")
     Observable<NoDataResult> evaluate(
             @Field("evaluateType") String evaluateType, @Field("teacherType") String teacherType,
             @Field("byEvaluatePersonId") String evaluatedId, @Field("recordId") String recordId,

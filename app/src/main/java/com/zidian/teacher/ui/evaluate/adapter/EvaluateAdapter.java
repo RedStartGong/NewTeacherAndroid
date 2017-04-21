@@ -235,7 +235,7 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
 
                         data.put("tagEvaluate1" + position, i);
 
-                        sb.append(parent.getAdapter().getItem(i));
+                        sb.append(mBeans.get(position).getLabel().get(i).getLabelName());
                     }
                     map.put(position * 4, mBeans.get(position * 4).getPackageName() + "!" + mBeans.get(position * 4).getIndexName() + "!" + sb.toString());
                 } else {
@@ -252,7 +252,7 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
                     StringBuilder sb = new StringBuilder();
                     for (int i : selectedList) {
                         data.put("tagEvaluate2" + position, i);
-                        sb.append(parent.getAdapter().getItem(i));
+                        sb.append(mBeans.get(position).getLabel().get(i).getLabelName());
                     }
                     map.put(position * 4 + 1, mBeans.get(position * 4 + 1).getPackageName() + "!" + mBeans.get(position * 4 + 1).getIndexName() + "!" + sb.toString());
 
@@ -271,7 +271,7 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
                     StringBuilder sb = new StringBuilder();
                     for (int i : selectedList) {
                         data.put("tagEvaluate3" + position, i);
-                        sb.append(parent.getAdapter().getItem(i));
+                        sb.append(mBeans.get(position).getLabel().get(i).getLabelName());
                     }
                     map.put(position * 4 + 2, mBeans.get(position * 4 + 2).getPackageName() + "!" + mBeans.get(position * 4 + 2).getIndexName() + "!" + sb.toString());
                 } else {
@@ -288,7 +288,7 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
                     StringBuilder sb = new StringBuilder();
                     for (int i : selectedList) {
                         data.put("tagEvaluate4" + position, i);
-                        sb.append(parent.getAdapter().getItem(i));
+                        sb.append(mBeans.get(position).getLabel().get(i).getLabelName());
                     }
                     map.put(position * 4 + 3, mBeans.get(position * 4 + 3).getPackageName() + "!" + mBeans.get(position * 4 + 3).getIndexName() + "!" + sb.toString());
                 } else {
@@ -305,7 +305,7 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
         return itemCount;
     }
 
-    public Map<Integer, String> getSlect() {
+    public Map<Integer, String> getSelect() {
         return map;
     }
 

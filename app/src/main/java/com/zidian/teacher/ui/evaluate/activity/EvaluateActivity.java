@@ -1,6 +1,7 @@
 package com.zidian.teacher.ui.evaluate.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -8,10 +9,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
 import com.zidian.teacher.model.entity.remote.EvaluateTag;
@@ -22,7 +21,6 @@ import com.zidian.teacher.ui.evaluate.adapter.EvaluateAdapter;
 import com.zidian.teacher.util.SnackbarUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +29,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 /**
+ * 评价界面
  * Created by GongCheng on 2017/4/20.
  */
 
@@ -46,6 +45,10 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
     private EvaluateAdapter adapter;
     private List<EvaluateTag> evaluateTags;
     private ProgressDialog progressDialog;
+    private String teacherType;
+    private String toTeacherId;
+    private String recordId;
+    private String evaluateType;
 
     @Override
     protected int getLayout() {
@@ -59,6 +62,12 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
 
     @Override
     protected void initViewAndData() {
+        Intent intent = getIntent();
+        teacherType = String.valueOf(intent.getIntExtra("teacherType",0));
+        toTeacherId = intent.getStringExtra("toTeacherId");
+        recordId = String.valueOf(intent.getIntExtra("recordId", 0));
+        evaluateType = String.valueOf(intent.getIntExtra("evaluateType", 0));
+
         evaluateTags = new ArrayList<>();
         toolbar.setTitle("标签评价");
         setToolbarBack(toolbar);
@@ -165,7 +174,7 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-//        presenter.evaluate("0", "2", );
+        presenter.evaluate(evaluateType, teacherType, toTeacherId,recordId, getEvaluateLabel(), "自定义评语" );
         return super.onOptionsItemSelected(item);
     }
 
@@ -173,8 +182,7 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
      * 获取评价的内容
      */
     private String getEvaluateLabel() {
-        Map<Integer, String> map = new HashMap<>();
-        map = adapter.getSlect();
+        Map<Integer, String> map = adapter.getSelect();
         String result = "";
 
         result = map.get(0);
@@ -198,6 +206,7 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
 
     @Override
     public void showEvaluateTags(List<EvaluateTag> evaluateTags) {
+        progressDialog.dismiss();
         this.evaluateTags = evaluateTags;
         adapter = new EvaluateAdapter(this, evaluateTags);
         viewPager.setAdapter(adapter);
