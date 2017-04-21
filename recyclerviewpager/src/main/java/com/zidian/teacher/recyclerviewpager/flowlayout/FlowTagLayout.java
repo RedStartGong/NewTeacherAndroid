@@ -1,4 +1,4 @@
-package teacher.mingmingde.com.library;
+package com.zidian.teacher.recyclerviewpager.flowlayout;
 
 import android.content.Context;
 import android.database.DataSetObserver;

@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
@@ -96,6 +97,7 @@ public class SupervisorEvaActivity extends BaseActivity implements SupervisorCho
                 inputClassroom();
                 break;
             case R.id.btn_confirm:
+                confirm();
                 break;
         }
     }
@@ -104,7 +106,11 @@ public class SupervisorEvaActivity extends BaseActivity implements SupervisorCho
     private List<String> teachers;
     private List<String> stringCourses;
     private List<String> stringCalendars;
-
+    private String requestTeacherName;
+    private String requestTeacherId;
+    private String courseId;
+    private String courseName;
+    private String teachingCalendar;
     /**
      * 选择学院
      */
@@ -142,7 +148,7 @@ public class SupervisorEvaActivity extends BaseActivity implements SupervisorCho
         if (teachers == null) {
             teachers = new ArrayList<>();
         }
-        List<EvaluateCourse.CollegeOtherInformationBean> infoList =
+        final List<EvaluateCourse.CollegeOtherInformationBean> infoList =
                 courses.get(colleges.indexOf(tvCollege.getText().toString())).getCollegeOtherInformation();
         teachers.clear();
         for (int i = 0; i < infoList.size(); i++) {
@@ -153,10 +159,14 @@ public class SupervisorEvaActivity extends BaseActivity implements SupervisorCho
                 .items(teachers)
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
-                    public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence teacherName) {
+                    public void onSelection(MaterialDialog materialDialog, View view, int i,
+                                            CharSequence teacherName) {
                         tvTeacherName.setText(teacherName);
                         tvCourse.setText("");
                         tvTeachingDate.setText("");
+                        requestTeacherName = teacherName.toString();
+                        requestTeacherId = infoList.get(teachers.indexOf(teacherName.toString()))
+                                .getTeacherId();
                     }
                 }).show();
     }
@@ -177,7 +187,7 @@ public class SupervisorEvaActivity extends BaseActivity implements SupervisorCho
             stringCourses = new ArrayList<>();
         }
         stringCourses.clear();
-        List<EvaluateCourse.CollegeOtherInformationBean.CourseBean> courseBeanList =
+        final List<EvaluateCourse.CollegeOtherInformationBean.CourseBean> courseBeanList =
                 courses.get(colleges.indexOf(tvCollege.getText().toString()))
                         .getCollegeOtherInformation()
                         .get(teachers.indexOf(tvTeacherName.getText().toString())).getCourse();
@@ -193,6 +203,9 @@ public class SupervisorEvaActivity extends BaseActivity implements SupervisorCho
                                             int i, CharSequence course) {
                         tvCourse.setText(course);
                         tvTeachingDate.setText("");
+                        courseId = courseBeanList.get(stringCourses.indexOf(course.toString()))
+                                .getCourseId();
+                        courseName = course.toString();
                     }
                 })
                 .show();
@@ -233,6 +246,7 @@ public class SupervisorEvaActivity extends BaseActivity implements SupervisorCho
                     @Override
                     public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence calendar) {
                         tvTeachingDate.setText(calendar);
+                        teachingCalendar = calendar.toString();
                     }
                 }).show();
 
@@ -253,6 +267,27 @@ public class SupervisorEvaActivity extends BaseActivity implements SupervisorCho
                 .show();
     }
 
+    /**
+     * 确定
+     */
+    private void confirm() {
+        String classroom = tvClassroom.getText().toString().trim();
+        if (TextUtils.isEmpty(requestTeacherName)) {
+            SnackbarUtils.showShort(toolbar, "请选择教师");
+            return;
+        }
+        if (TextUtils.isEmpty(courseName)) {
+            SnackbarUtils.showShort(toolbar, "请选择课程");
+            return;
+        }
+        if (TextUtils.isEmpty(teachingCalendar)) {
+            SnackbarUtils.showShort(toolbar, "请选择教学日历");
+            return;
+        }
+        presenter.addSupervisorEva(requestTeacherId, requestTeacherName, courseId, courseName,
+                teachingCalendar, classroom);
+    }
+
     @Override
     public void showError(Throwable e) {
         progressDialog.dismiss();
@@ -267,5 +302,21 @@ public class SupervisorEvaActivity extends BaseActivity implements SupervisorCho
     public void showEvaluateCourses(List<EvaluateCourse> courses) {
         progressDialog.dismiss();
         this.courses = courses;
+    }
+
+    @Override
+    public void showSuccess() {
+        progressDialog.dismiss();
+        new MaterialDialog.Builder(this)
+                .title("温馨提示")
+                .positiveText("确定")
+                .content("评价发起成功，请在我的任务里面查看")
+                .onAny(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        finish();
+                    }
+                })
+                .show();
     }
 }

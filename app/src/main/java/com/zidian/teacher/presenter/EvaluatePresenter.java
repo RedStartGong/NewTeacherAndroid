@@ -2,11 +2,11 @@ package com.zidian.teacher.presenter;
 
 import com.zidian.teacher.base.RxPresenter;
 import com.zidian.teacher.model.DataManager;
-import com.zidian.teacher.model.entity.remote.EvaluateCourse;
+import com.zidian.teacher.model.entity.remote.EvaluateTag;
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.NoDataResult;
 import com.zidian.teacher.model.network.ApiException;
-import com.zidian.teacher.presenter.contract.SupervisorChooseContract;
+import com.zidian.teacher.presenter.contract.EvaluateContract;
 import com.zidian.teacher.util.RxUtils;
 import com.zidian.teacher.util.SharedPreferencesUtils;
 
@@ -19,25 +19,27 @@ import rx.Subscription;
 import rx.functions.Func1;
 
 /**
- * Created by GongCheng on 2017/4/18.
+ * Created by GongCheng on 2017/4/20.
  */
 
-public class SupervisorChoosePresenter extends RxPresenter<SupervisorChooseContract.View>
-        implements SupervisorChooseContract.Presenter {
+public class EvaluatePresenter extends RxPresenter<EvaluateContract.View> implements EvaluateContract.Presenter {
     private final DataManager dataManager;
+    private static final String EVALUATE_TAG_TYPE = "教评";
+    private static final String OPERATOR_TYPE = "教师";
 
     @Inject
-    public SupervisorChoosePresenter(DataManager dataManager) {
+    public EvaluatePresenter(DataManager dataManager) {
         this.dataManager = dataManager;
     }
 
     @Override
-    public void getEvaluateCourses() {
-        Subscription subscription = dataManager.getEvaluateCourses(SharedPreferencesUtils.getUserName(),
-                SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
-                .compose(RxUtils.<HttpResult<List<EvaluateCourse>>>rxSchedulerIo())
-                .compose(RxUtils.<List<EvaluateCourse>>handleHttpResult())
-                .subscribe(new Subscriber<List<EvaluateCourse>>() {
+    public void getEvaluateTags( ) {
+        Subscription subscription = dataManager.getEvaluateTags(EVALUATE_TAG_TYPE,
+                SharedPreferencesUtils.getUserName(), OPERATOR_TYPE,
+                SharedPreferencesUtils.getToken(),SharedPreferencesUtils.getSchoolId())
+                .compose(RxUtils.<HttpResult<List<EvaluateTag>>>rxSchedulerIo())
+                .compose(RxUtils.<List<EvaluateTag>>handleHttpResult())
+                .subscribe(new Subscriber<List<EvaluateTag>>() {
                     @Override
                     public void onStart() {
                         super.onStart();
@@ -51,24 +53,23 @@ public class SupervisorChoosePresenter extends RxPresenter<SupervisorChooseContr
 
                     @Override
                     public void onError(Throwable e) {
-                        view.showError(e);
+                        view.showTagsError(e);
                     }
 
                     @Override
-                    public void onNext(List<EvaluateCourse> courses) {
-                        view.showEvaluateCourses(courses);
+                    public void onNext(List<EvaluateTag> evaluateTags) {
+                        view.showEvaluateTags(evaluateTags);
                     }
                 });
         addSubscribe(subscription);
     }
 
     @Override
-    public void addSupervisorEva(String requestedPersonId, String requestedPersonName, String courseId,
-                                 String courseName, String teachingCalendar, String classroom) {
-        Subscription subscription = dataManager.addSupervisorEva(SharedPreferencesUtils.getUserName(),
-                SharedPreferencesUtils.getTeacherName(), requestedPersonId, requestedPersonName, courseId,
-                courseName, teachingCalendar, classroom,"9", SharedPreferencesUtils.getToken(),
-                SharedPreferencesUtils.getSchoolId())
+    public void evaluate(String evaluateType, String teacherType, String evaluatedId,
+                         String recordId, String evaluateLabel, String evaluateComment) {
+        Subscription subscription = dataManager.evaluate(evaluateType, teacherType, evaluatedId,
+                recordId, evaluateLabel, evaluateComment, SharedPreferencesUtils.getUserName(),
+                SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
                 .compose(RxUtils.<NoDataResult>rxSchedulerIo())
                 .map(new Func1<NoDataResult, NoDataResult>() {
                     @Override

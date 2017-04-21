@@ -1,4 +1,4 @@
-package teacher.mingmingde.com.library;
+package com.zidian.teacher.recyclerviewpager.flowlayout;
 
 /**
  * Created by HanHailong on 16/6/26.

@@ -6,6 +6,7 @@ import com.zidian.teacher.model.entity.remote.AttendanceStudent;
 import com.zidian.teacher.model.entity.remote.Class;
 import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.model.entity.remote.EvaluateCourse;
+import com.zidian.teacher.model.entity.remote.EvaluateTag;
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.InviteCourseResult;
 import com.zidian.teacher.model.entity.remote.InviteTeacher;
@@ -202,6 +203,28 @@ public interface TeacherService {
             @Field("courseName") String courseName, @Field("teachingCalendar") String teachingCalendar,
             @Field("courseClassroom") String classroom, @Field("requestExplain") String requestExplain,
             @Field("token") String token, @Field("schoolId") String schoolId);
+
+    /**
+     * 添加督导评价
+     */
+    @FormUrlEncoded
+    @POST("page/evaluateBySupervisor/add")
+    Observable<NoDataResult> addSupervisorEva(
+            @Field("initateTheRequestId") String teacherId, @Field("initateTheRequestName") String teacherName,
+            @Field("theRequestedPersonId") String requestedPersonId, @Field("theRequestedPersonName") String requestedPersonName,
+            @Field("courseId") String courseId, @Field("courseName") String courseName,
+            @Field("teachingCalendarTime") String teachingCalendar, @Field("courseClassroom") String classroom,
+            @Field("teacherType") String teacherType, @Field("token") String token,
+            @Field("schoolId") String schoolId);
+    /**
+     * 同行评价，查看标签
+     */
+    @FormUrlEncoded
+    @POST("Label/selectAllLabelName")
+    Observable<HttpResult<List<EvaluateTag>>> getEvaluateTags(
+            @Field("packageName") String packageName, @Field("operatorId") String teacherId,
+            @Field("operatorType") String operatorType, @Field("token") String token,
+            @Field("schoolId") String schoolId);
 
     /**
      * 评价别人

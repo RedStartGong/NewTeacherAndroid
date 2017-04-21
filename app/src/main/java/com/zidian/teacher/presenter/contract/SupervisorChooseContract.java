@@ -16,9 +16,14 @@ public interface SupervisorChooseContract {
 
         void showEvaluateCourses(List<EvaluateCourse> courses);
 
+        void showSuccess();
+
     }
 
     interface Presenter extends BasePresenter<SupervisorChooseContract.View> {
         void getEvaluateCourses();
+
+        void addSupervisorEva(String requestedPersonId, String requestedPersonName, String courseId,
+                              String courseName, String teachingCalendar, String classroom);
     }
 }

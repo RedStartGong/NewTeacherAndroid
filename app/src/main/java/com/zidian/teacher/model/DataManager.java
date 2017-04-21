@@ -6,6 +6,7 @@ import com.zidian.teacher.model.entity.remote.AttendanceStudent;
 import com.zidian.teacher.model.entity.remote.Class;
 import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.model.entity.remote.EvaluateCourse;
+import com.zidian.teacher.model.entity.remote.EvaluateTag;
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.InviteCourseResult;
 import com.zidian.teacher.model.entity.remote.InviteTeacher;
@@ -136,6 +137,21 @@ public final class DataManager {
                 courseId, courseName, teachingCalendar, classroom, requestExplain, token, schoolId);
     }
 
+    public Observable<NoDataResult> addSupervisorEva(
+            String teacherId, String teacherName, String requestedPersonId, String requestedPersonName,
+            String courseId, String courseName, String teachingCalendar, String classroom,
+            String teacherType, String token, String schoolId) {
+        return service.addSupervisorEva(teacherId, teacherName, requestedPersonId, requestedPersonName,
+                courseId, courseName, teachingCalendar, classroom, teacherType, token, schoolId);
+    }
+
+    public Observable<HttpResult<List<EvaluateTag>>> getEvaluateTags(
+            String packageName, String teacherId, String operatorType, String token,
+            String schoolId) {
+        return service.getEvaluateTags(packageName, teacherId, operatorType, token, schoolId);
+
+    }
+
     public Observable<NoDataResult> evaluate(
             String evaluateType, String teacherType, String evaluatedId, String recordId,
             String evaluateLabel, String evaluateComment, String colleagueId, String token,
@@ -145,7 +161,7 @@ public final class DataManager {
     }
 
     public Observable<NoDataResult> changeEvaState(
-            String recordId,String requestState, String teacherId, String token, String schoolId) {
+            String recordId, String requestState, String teacherId, String token, String schoolId) {
         return service.changeEvaState(recordId, requestState, teacherId, token, schoolId);
     }
 

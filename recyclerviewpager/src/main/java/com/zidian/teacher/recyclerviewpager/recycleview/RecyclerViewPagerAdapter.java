@@ -1,4 +1,4 @@
-package teacher.mingmingde.com.recycle;
+package com.zidian.teacher.recyclerviewpager.recycleview;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

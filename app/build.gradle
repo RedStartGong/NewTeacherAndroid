@@ -59,6 +59,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile project(':xrecyclerview')
+    compile project(':recyclerviewpager')
     testCompile rootProject.ext.junit
     //Appcompat
     compile rootProject.ext.supportAppCompat

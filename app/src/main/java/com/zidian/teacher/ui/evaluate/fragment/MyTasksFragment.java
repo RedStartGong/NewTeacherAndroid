@@ -1,5 +1,6 @@
 package com.zidian.teacher.ui.evaluate.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.zidian.teacher.base.BaseFragment;
 import com.zidian.teacher.model.entity.remote.MyTask;
 import com.zidian.teacher.presenter.MyTaskPresenter;
 import com.zidian.teacher.presenter.contract.MyTaskContract;
+import com.zidian.teacher.ui.evaluate.activity.EvaluateActivity;
 import com.zidian.teacher.ui.evaluate.activity.MyTaskActivity;
 import com.zidian.teacher.ui.evaluate.adapter.MyTaskAdapter;
 import com.zidian.teacher.ui.evaluate.listener.MyTaskOnClickListener;
@@ -110,6 +112,11 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
             @Override
             public void evaluate(int position) {
                 SnackbarUtils.showShort(errorView, position + "");
+                Intent intent = new Intent(activity, EvaluateActivity.class);
+                intent.putExtra("teacherType", myTasks.get(position).getEvaluationType());
+                intent.putExtra("toTeacherId", myTasks.get(position).getToTeacherId());
+                intent.putExtra("recordId", myTasks.get(position).getRecordId());
+                startActivity(intent);
             }
 
             @Override

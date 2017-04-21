@@ -33,6 +33,8 @@
         <activity android:name=".ui.evaluate.activity.ApplyToEvaActivity" />
         <activity android:name=".ui.evaluate.activity.InviteSelectTeacherActivity" />
         <activity android:name=".ui.evaluate.activity.SupervisorEvaActivity" />
+        <activity android:name=".ui.evaluate.activity.EvaluateActivity"/>
+        <activity android:name=".ui.evaluate.activity.CheckActivity"/>
     </application>
 
 </manifest>
