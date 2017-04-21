@@ -39,6 +39,8 @@
     <string name="evaluate_my_course">评我的课</string>
     <string name="someone_evaluate_my_course">%1$s评我的课</string>
     <string name="evaluate_others_course">评%1$s的课</string>
+    <string name="others_course">%1$s的课</string>
+    <string name="my_course">我的课</string>
     <!--Mine-->
     <string name="mine_evaluated">被评价</string>
     <string name="mine_evaluate_others">评价他人</string>

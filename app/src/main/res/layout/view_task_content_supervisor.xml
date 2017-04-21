@@ -113,27 +113,6 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_course_date"
         tools:text="某某某教室" />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
-        android:text="留言:"
-        android:textColor="@color/black_text_color"
-        app:layout_constraintLeft_toLeftOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-    <TextView
-        android:id="@+id/tv_message"
-        android:layout_width="195dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
-        android:textColor="@color/dark_text_color"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toLeftOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/tv_course_location"
-        tools:text="谢谢支持" />
-
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"

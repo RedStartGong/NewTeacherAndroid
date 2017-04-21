@@ -9,12 +9,48 @@
     <include layout="@layout/view_divider" />
 
     <TextView
-        android:id="@+id/view_supervisor"
+        android:id="@+id/view_check"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/selector_touch_bg"
         android:gravity="center"
         android:text="查看"
         android:textColor="@color/supervisor_evaluate_bg"
-        android:visibility="visible" />
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/view_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/selector_touch_bg"
+        android:gravity="center"
+        android:text="确认或提出异议"
+        android:textColor="@color/supervisor_evaluate_bg"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/view_evaluate"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/selector_touch_bg"
+        android:gravity="center"
+        android:text="开始评价"
+        android:textColor="@color/supervisor_evaluate_bg"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/view_untreated"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/selector_touch_bg"
+        android:gravity="center"
+        android:text="对方未处理"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/view_finished"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/selector_touch_bg"
+        android:gravity="center"
+        android:text="已完成"
+        android:visibility="gone" />
 </LinearLayout>

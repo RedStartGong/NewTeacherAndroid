@@ -5,38 +5,30 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
 import com.zidian.teacher.model.DataManager;
 import com.zidian.teacher.model.entity.remote.EvaluateCourse;
 import com.zidian.teacher.presenter.ApplyToEvaPresenter;
 import com.zidian.teacher.presenter.contract.ApplyToEvaContract;
-import com.zidian.teacher.util.SharedPreferencesUtils;
 import com.zidian.teacher.util.SnackbarUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import okhttp3.Call;
 
 import static com.zidian.teacher.util.Preconditions.checkNotNull;
 
@@ -92,8 +84,6 @@ public class ApplyToEvaActivity extends BaseActivity implements ApplyToEvaContra
         checkNotNull(presenter);
         presenter.attachView(this);
         presenter.getEvaluateCourses();
-        test();
-
 
     }
 
@@ -331,27 +321,6 @@ public class ApplyToEvaActivity extends BaseActivity implements ApplyToEvaContra
                 classroom, requestExplain);
     }
 
-    /**
-     * 测试接口
-     */
-    private void test() {
-        Map<String, String> map = new HashMap<>();
-        map.put("teacherId", "1001");
-        map.put("token", SharedPreferencesUtils.getToken());
-        map.put("schoolId", SharedPreferencesUtils.getSchoolId());
-        OkHttpUtils.post().url("http://192.168.0.115:8080/rest/page/evaluateBySupervisor/selectAll")
-                .params(map).build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                Log.e("HTTP", response.toString());
-            }
-        });
-    }
 
     @Override
     public void showError(Throwable e) {

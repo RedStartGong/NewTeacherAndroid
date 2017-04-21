@@ -140,6 +140,16 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
             public void supervisorCheck(int position) {
                 SnackbarUtils.showShort(errorView, position + "");
             }
+
+            @Override
+            public void supervisorConfirm(int position) {
+
+            }
+
+            @Override
+            public void supervisorEvaluate(int position) {
+
+            }
         });
     }
 

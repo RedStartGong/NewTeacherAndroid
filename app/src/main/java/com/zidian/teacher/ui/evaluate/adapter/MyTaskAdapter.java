@@ -61,37 +61,58 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Context context = holder.itemView.getContext();
+        //myRole = 0 我是发起请求的人 myRole = 1 我是被请求的人
+        //requestType :请求类型：0为请求评价别人，1为请求别人评价‘我’
+        //myRole 跟 requestType
+        // [0,0]表示‘我发起请求评价别人’
+        // [0,1]表示‘我请求别人评价我’
+        // [1,0]表示‘别人请求评价我’
+        // [1,1]表示‘别人请求我评价他
+        //requestState:请求所处状态：0为请求发出，待确认；1为同意，待评价；2为已拒绝；3为已完成
+        int requestState = tasks.get(position).getRequestState();
+        int myRole = tasks.get(position).getMyRole();
+        int requestType = tasks.get(position).getRequestType();
+
         if (holder instanceof ColleagueHolder) {//同行评价
-            //myRole = 0 我是发起请求的人 myRole = 1 我是被请求的人
-            //requestType :请求类型：0为请求评价别人，1为请求别人评价‘我’
-            //requestState:请求所处状态：0为请求发出，待确认；1为同意，待评价；2为已拒绝；3为已完成
-            switch (tasks.get(position).getRequestState()) {
+            switch (requestState) {
                 //未确认
                 case 0:
-                    if (tasks.get(position).getMyRole() == 0) {
+                    if (myRole == 0) {
                         ((ColleagueHolder) holder).viewUntreated.setVisibility(View.VISIBLE);
+                        ((ColleagueHolder) holder).viewInvite.setVisibility(View.GONE);
                     } else {
                         ((ColleagueHolder) holder).viewInvite.setVisibility(View.VISIBLE);
+                        ((ColleagueHolder) holder).viewUntreated.setVisibility(View.GONE);
                     }
                     break;
                 //待评价
                 case 1:
-                    if (tasks.get(position).getMyRole() == 0) {
+                    if (myRole == 0 && requestType == 0) {
+                        ((ColleagueHolder) holder).viewUntreated.setVisibility(View.GONE);
+                        ((ColleagueHolder) holder).viewEvaluate.setVisibility(View.VISIBLE);
+                    } else if (myRole == 0 && requestType == 1) {
+                        ((ColleagueHolder) holder).viewEvaluate.setVisibility(View.GONE);
                         ((ColleagueHolder) holder).viewUntreated.setVisibility(View.VISIBLE);
+                    } else if (myRole == 1 && requestType == 0) {
+                        ((ColleagueHolder) holder).viewUntreated.setVisibility(View.VISIBLE);
+                        ((ColleagueHolder) holder).viewEvaluate.setVisibility(View.GONE);
                     } else {
+                        ((ColleagueHolder) holder).viewUntreated.setVisibility(View.GONE);
                         ((ColleagueHolder) holder).viewEvaluate.setVisibility(View.VISIBLE);
                     }
                     break;
                 //已拒绝
                 case 2:
                     ((ColleagueHolder) holder).viewRejected.setVisibility(View.VISIBLE);
+                    ((ColleagueHolder) holder).viewCheck.setVisibility(View.GONE);
+                    ((ColleagueHolder) holder).viewFinished.setVisibility(View.GONE);
                     break;
                 //已完成
                 case 3:
                     //我申请评价别人—已完成 -- 可查看
-                    if (tasks.get(position).getMyRole() == 0 && tasks.get(position).getRequestType() == 0) {
+                    if (myRole == 0 && requestType == 0) {
                         ((ColleagueHolder) holder).viewCheck.setVisibility(View.VISIBLE);
-                    } else if (tasks.get(position).getMyRole() == 1 && tasks.get(position).getEvaluationType() == 1) {
+                    } else if (myRole == 1 && requestType == 1) {
                         ((ColleagueHolder) holder).viewCheck.setVisibility(View.VISIBLE);
                     } else {
                         ((ColleagueHolder) holder).viewFinished.setVisibility(View.VISIBLE);
@@ -99,20 +120,20 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     break;
             }
 
-            if (tasks.get(position).getMyRole() == 0 && tasks.get(position).getRequestType() == 0) {
+            if (myRole == 0 && requestType == 0) {
                 //我申请评价别人
                 ((ColleagueHolder) holder).tvEvaluateName.setText("我");
                 ((ColleagueHolder) holder).tvEvaluatedName.setText(context.getString(R.string.evaluate_others_course,
                         tasks.get(position).getToTeacherName()));
                 ((ColleagueHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_apply_evaluate);
 
-            } else if (tasks.get(position).getMyRole() == 0 && tasks.get(position).getRequestType() == 1) {
+            } else if (myRole == 0 && requestType == 1) {
                 //我邀请别人评价我
                 ((ColleagueHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_invite_evaluate);
                 ((ColleagueHolder) holder).tvEvaluateName.setText("我");
                 ((ColleagueHolder) holder).tvEvaluatedName.setText(context.getString(R.string.someone_evaluate_my_course,
                         tasks.get(position).getToTeacherName()));
-            } else if (tasks.get(position).getMyRole() == 1 && tasks.get(position).getEvaluationType() == 0) {
+            } else if (myRole == 1 && requestType == 0) {
                 //别人申请评价我的课
                 ((ColleagueHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_apply_evaluate);
                 ((ColleagueHolder) holder).tvEvaluateName.setText(tasks.get(position).getToTeacherName());
@@ -129,20 +150,51 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((ColleagueHolder) holder).tvCourseLocation.setText(tasks.get(position).getCourseLocation());
             ((ColleagueHolder) holder).tvMessage.setText(tasks.get(position).getRequestExplain());
         } else if (holder instanceof SupervisorHolder) {//督导评价
-            if (tasks.get(position).getMyRole() == 0) {//我发起请求
-                ((SupervisorHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_invite_evaluate);
+            //myRole = 0 我是发起请求的人 myRole = 1 我是被请求的人
+            //requestType :请求类型：0为请求评价别人，1为请求别人评价‘我’
+            //requestState:请求所处状态：0为请求发出，待确认；1为同意，待评价；2为已拒绝；3为已完成
+            switch (requestState) {
+                case 0:
+                    if (myRole == 0) {
+                        ((SupervisorHolder) holder).viewUntreated.setVisibility(View.VISIBLE);
+                        ((SupervisorHolder) holder).viewConfirm.setVisibility(View.GONE);
+                    } else {
+                        ((SupervisorHolder) holder).viewUntreated.setVisibility(View.GONE);
+                        ((SupervisorHolder) holder).viewConfirm.setVisibility(View.VISIBLE);
+                    }
+                    break;
+                case 1:
+                    if (myRole == 0) {
+                        ((SupervisorHolder) holder).viewEvaluate.setVisibility(View.VISIBLE);
+                        ((SupervisorHolder) holder).viewUntreated.setVisibility(View.GONE);
+                    } else {
+                        ((SupervisorHolder) holder).viewEvaluate.setVisibility(View.GONE);
+                        ((SupervisorHolder) holder).viewUntreated.setVisibility(View.VISIBLE);
+                    }
+                    break;
+                case 2:
+                    if (myRole == 0) {
+                        ((SupervisorHolder) holder).viewCheck.setVisibility(View.VISIBLE);
+                        ((SupervisorHolder) holder).viewFinished.setVisibility(View.GONE);
+                    } else {
+                        ((SupervisorHolder) holder).viewCheck.setVisibility(View.GONE);
+                        ((SupervisorHolder) holder).viewFinished.setVisibility(View.VISIBLE);
+                    }
+                    break;
+            }
+            if (myRole== 0) {//我发起请求
                 ((SupervisorHolder) holder).tvEvaluateName.setText("我");
-                ((SupervisorHolder) holder).tvEvaluatedName.setText(tasks.get(position).getToTeacherName());
+                ((SupervisorHolder) holder).tvEvaluatedName.setText(
+                        context.getString(R.string.others_course, tasks.get(position).getToTeacherName()));
             } else {//我是被请求的人
-                ((SupervisorHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_apply_evaluate);
-                ((SupervisorHolder) holder).tvEvaluateName.setText("我");
-                ((SupervisorHolder) holder).tvEvaluatedName.setText(tasks.get(position).getToTeacherName());
+                ((SupervisorHolder) holder).tvEvaluateName.setText(tasks.get(position).getToTeacherName());
+                ((SupervisorHolder) holder).tvEvaluatedName.setText(context.getString(R.string.my_course));
             }
             //公用组件
+            ((SupervisorHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_evaluate_others);
             ((SupervisorHolder) holder).tvEvaluateCourse.setText(tasks.get(position).getCourseName());
             ((SupervisorHolder) holder).tvCourseDate.setText(tasks.get(position).getTeachingCalendar());
             ((SupervisorHolder) holder).tvCourseLocation.setText(tasks.get(position).getCourseLocation());
-            ((SupervisorHolder) holder).tvMessage.setText(tasks.get(position).getRequestExplain());
         }
     }
 
@@ -209,7 +261,6 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             if (myTaskOnClickListener == null) {
                 return;
             }
-
             // 使用了XRecyclerView的缘故,这个的adapterPosition比实际多了 1
 
             switch (view.getId()) {
@@ -242,14 +293,36 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         TextView tvCourseDate;
         @BindView(R.id.tv_course_location)
         TextView tvCourseLocation;
-        @BindView(R.id.tv_message)
-        TextView tvMessage;
-        @BindView(R.id.view_supervisor)
-        TextView viewSupervisor;
+        @BindView(R.id.view_check)
+        TextView viewCheck;
+        @BindView(R.id.view_confirm)
+        TextView viewConfirm;
+        @BindView(R.id.view_evaluate)
+        TextView viewEvaluate;
+        @BindView(R.id.view_untreated)
+        TextView viewUntreated;
+        @BindView(R.id.view_finished)
+        TextView viewFinished;
+
 
         public SupervisorHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        @OnClick({R.id.view_confirm, R.id.view_evaluate, R.id.view_check})
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.view_confirm:
+                    myTaskOnClickListener.supervisorConfirm(getAdapterPosition() - 1);
+                    break;
+                case R.id.view_evaluate:
+                    myTaskOnClickListener.supervisorEvaluate(getAdapterPosition() - 1);
+                    break;
+                case R.id.view_check:
+                    myTaskOnClickListener.supervisorCheck(getAdapterPosition() - 1);
+                    break;
+            }
         }
     }
 }

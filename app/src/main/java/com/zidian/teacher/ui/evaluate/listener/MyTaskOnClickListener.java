@@ -14,4 +14,9 @@ public interface MyTaskOnClickListener {
     void colleagueCheck(int position);
 
     void supervisorCheck(int position);
+
+    void supervisorConfirm(int position);
+
+    void supervisorEvaluate(int position);
+
 }

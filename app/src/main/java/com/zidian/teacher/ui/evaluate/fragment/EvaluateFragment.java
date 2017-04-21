@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseFragment;
 import com.zidian.teacher.ui.evaluate.activity.ColleagueEvaActivity;
 import com.zidian.teacher.ui.evaluate.activity.MyTaskActivity;
 import com.zidian.teacher.ui.evaluate.activity.SupervisorEvaActivity;
+import com.zidian.teacher.util.SharedPreferencesUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -22,6 +24,8 @@ import butterknife.OnClick;
 public class EvaluateFragment extends BaseFragment {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.ll_supervisor_evaluate)
+    LinearLayout llSupervisorEvaluate;
 
     public static EvaluateFragment newInstance() {
 
@@ -45,6 +49,9 @@ public class EvaluateFragment extends BaseFragment {
     @Override
     protected void initViewAndData() {
         toolbar.setTitle(R.string.evaluate_manage);
+        if (SharedPreferencesUtils.getTeacherType() == 2) {
+            llSupervisorEvaluate.setVisibility(View.GONE);
+        }
     }
 
     @OnClick({R.id.ll_may_task, R.id.ll_my_evaluate, R.id.ll_colleague_evaluate, R.id.ll_supervisor_evaluate})
