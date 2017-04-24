@@ -111,10 +111,17 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 case 3:
                     //我申请评价别人—已完成 -- 可查看
                     if (myRole == 0 && requestType == 0) {
+                        ((ColleagueHolder) holder).viewRejected.setVisibility(View.GONE);
                         ((ColleagueHolder) holder).viewCheck.setVisibility(View.VISIBLE);
+                        ((ColleagueHolder) holder).viewFinished.setVisibility(View.GONE);
+
                     } else if (myRole == 1 && requestType == 1) {
+                        ((ColleagueHolder) holder).viewRejected.setVisibility(View.GONE);
                         ((ColleagueHolder) holder).viewCheck.setVisibility(View.VISIBLE);
+                        ((ColleagueHolder) holder).viewFinished.setVisibility(View.GONE);
                     } else {
+                        ((ColleagueHolder) holder).viewRejected.setVisibility(View.GONE);
+                        ((ColleagueHolder) holder).viewCheck.setVisibility(View.GONE);
                         ((ColleagueHolder) holder).viewFinished.setVisibility(View.VISIBLE);
                     }
                     break;

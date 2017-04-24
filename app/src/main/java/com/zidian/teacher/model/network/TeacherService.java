@@ -3,6 +3,7 @@ package com.zidian.teacher.model.network;
 
 import com.zidian.teacher.model.entity.remote.AttendanceStatistics;
 import com.zidian.teacher.model.entity.remote.AttendanceStudent;
+import com.zidian.teacher.model.entity.remote.CheckColleagueEva;
 import com.zidian.teacher.model.entity.remote.Class;
 import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.model.entity.remote.EvaluateCourse;
@@ -216,6 +217,7 @@ public interface TeacherService {
             @Field("teachingCalendarTime") String teachingCalendar, @Field("courseClassroom") String classroom,
             @Field("teacherType") String teacherType, @Field("token") String token,
             @Field("schoolId") String schoolId);
+
     /**
      * 同行评价，查看标签
      */
@@ -247,4 +249,13 @@ public interface TeacherService {
             @Field("recordId") String recordId, @Field("requestState") String requestState,
             @Field("teacherId") String teacherId, @Field("token") String token,
             @Field("schoolId") String schoolId);
+
+    /**
+     * 查看评价详情
+     */
+    @FormUrlEncoded
+    @POST("ToEvaluateOthers/evaluationDetails")
+    Observable<HttpResult<CheckColleagueEva>> checkColleagueEva(
+            @Field("recordId") String recordId, @Field("teacherId") String teacherId,
+            @Field("token") String token, @Field("schoolId") String schoolId);
 }

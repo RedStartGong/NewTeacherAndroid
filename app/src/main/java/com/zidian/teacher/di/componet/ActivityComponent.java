@@ -7,7 +7,7 @@ import com.zidian.teacher.ui.course.activity.AttendanceActivity;
 import com.zidian.teacher.ui.course.activity.AttendanceStatisticsActivity;
 import com.zidian.teacher.ui.course.activity.CourseInfoActivity;
 import com.zidian.teacher.ui.evaluate.activity.ApplyToEvaActivity;
-import com.zidian.teacher.ui.evaluate.activity.CheckActivity;
+import com.zidian.teacher.ui.evaluate.activity.CheckColleagueEvaActivity;
 import com.zidian.teacher.ui.evaluate.activity.ColleagueEvaActivity;
 import com.zidian.teacher.ui.evaluate.activity.EvaluateActivity;
 import com.zidian.teacher.ui.evaluate.activity.InviteActivity;
@@ -60,5 +60,5 @@ public interface ActivityComponent {
 
     void inject(EvaluateActivity evaluateActivity);
 
-    void inject(CheckActivity checkActivity);
+    void inject(CheckColleagueEvaActivity checkColleagueEvaActivity);
 }

@@ -7,11 +7,21 @@
 
     <include layout="@layout/toolbar" />
 
-    <com.zidian.teacher.recyclerviewpager.recycleview.RecyclerViewPager
-        android:id="@+id/viewpager"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        app:rvp_singlePageFling="true"
-        app:rvp_triggerOffset="0.1" />
+        android:layout_height="match_parent">
+
+        <com.zidian.teacher.recyclerviewpager.recycleview.RecyclerViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            app:rvp_singlePageFling="true"
+            app:rvp_triggerOffset="0.1" />
+
+        <include layout="@layout/view_loading" />
+
+        <include layout="@layout/view_error" />
+    </FrameLayout>
+
 </LinearLayout>

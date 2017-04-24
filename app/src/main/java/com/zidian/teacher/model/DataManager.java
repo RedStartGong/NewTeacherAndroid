@@ -3,6 +3,7 @@ package com.zidian.teacher.model;
 
 import com.zidian.teacher.model.entity.remote.AttendanceStatistics;
 import com.zidian.teacher.model.entity.remote.AttendanceStudent;
+import com.zidian.teacher.model.entity.remote.CheckColleagueEva;
 import com.zidian.teacher.model.entity.remote.Class;
 import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.model.entity.remote.EvaluateCourse;
@@ -163,6 +164,11 @@ public final class DataManager {
     public Observable<NoDataResult> changeEvaState(
             String recordId, String requestState, String teacherId, String token, String schoolId) {
         return service.changeEvaState(recordId, requestState, teacherId, token, schoolId);
+    }
+
+    public Observable<HttpResult<CheckColleagueEva>> checkColleagueEva(
+            String recordId, String teacherId, String token, String schoolId) {
+        return service.checkColleagueEva(recordId, teacherId, token, schoolId);
     }
 
 }

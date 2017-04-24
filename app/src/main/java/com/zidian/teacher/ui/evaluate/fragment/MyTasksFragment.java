@@ -12,6 +12,7 @@ import com.zidian.teacher.base.BaseFragment;
 import com.zidian.teacher.model.entity.remote.MyTask;
 import com.zidian.teacher.presenter.MyTaskPresenter;
 import com.zidian.teacher.presenter.contract.MyTaskContract;
+import com.zidian.teacher.ui.evaluate.activity.CheckColleagueEvaActivity;
 import com.zidian.teacher.ui.evaluate.activity.EvaluateActivity;
 import com.zidian.teacher.ui.evaluate.activity.MyTaskActivity;
 import com.zidian.teacher.ui.evaluate.adapter.MyTaskAdapter;
@@ -49,6 +50,7 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
 
     private String taskType;
     private List<MyTask> myTasks;
+    private static final int REQUEST_EVALUATE = 1;
 
     public static MyTasksFragment newInstance(@MyTaskActivity.TaskType String type) {
 
@@ -116,7 +118,7 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
                 intent.putExtra("toTeacherId", myTasks.get(position).getToTeacherId());
                 intent.putExtra("recordId", myTasks.get(position).getRecordId());
                 intent.putExtra("evaluateType", myTasks.get(position).getEvaluationType());
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_EVALUATE);
             }
 
             @Override
@@ -133,7 +135,9 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
 
             @Override
             public void colleagueCheck(int position) {
-                SnackbarUtils.showShort(errorView, position + "");
+                Intent intent = new Intent(activity, CheckColleagueEvaActivity.class);
+                intent.putExtra("recordId", myTasks.get(position).getRecordId());
+                startActivity(intent);
             }
 
             @Override
@@ -148,9 +152,29 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
 
             @Override
             public void supervisorEvaluate(int position) {
-
+                Intent intent = new Intent(activity, EvaluateActivity.class);
+                intent.putExtra("teacherType", myTasks.get(position).getEvaluationType());
+                intent.putExtra("toTeacherId", myTasks.get(position).getToTeacherId());
+                intent.putExtra("recordId", myTasks.get(position).getRecordId());
+                intent.putExtra("evaluateType", myTasks.get(position).getEvaluationType());
+                startActivityForResult(intent, REQUEST_EVALUATE);
             }
         });
+    }
+
+    /**
+     * 根据返回值判断是否刷新界面
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_EVALUATE && resultCode == RESULT_OK) {
+            adapter.setTasks(null);
+            presenter.getTasks(taskType);
+        }
     }
 
     @Override

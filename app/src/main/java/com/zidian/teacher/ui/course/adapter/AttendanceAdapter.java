@@ -108,7 +108,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     .centerCrop()
                     .into(((ItemViewHolder) holder).civStudentPortrait);
             if (students.get(position).isSelect()) {
-                ((ItemViewHolder) holder).ivSelector.setBackgroundResource(R.drawable.ic_checked);
+                ((ItemViewHolder) holder).ivSelector.setBackgroundResource(R.drawable.ic_tag_checked);
             } else {
                 ((ItemViewHolder) holder).ivSelector.setBackgroundResource(R.drawable.ic_un_checked);
 

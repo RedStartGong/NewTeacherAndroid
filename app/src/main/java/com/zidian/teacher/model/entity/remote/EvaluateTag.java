@@ -15,12 +15,14 @@ public class EvaluateTag {
      * threeindexname : 人格成长
      * indexName : 教学态度
      * label : [{"labelName":"自带爹妈光环"},{"labelName":"他是谁"}]
+     * threeIndexQuestionTea : 问题
      */
 
     private String packageName;
     @SerializedName("threeindexname")
     private String threeIndexName;
     private String indexName;
+    private String threeIndexQuestionTea;
     private List<LabelBean> label;
 
     public String getPackageName() {
@@ -29,6 +31,22 @@ public class EvaluateTag {
 
     public void setPackageName(String packageName) {
         this.packageName = packageName;
+    }
+
+    public String getThreeIndexName() {
+        return threeIndexName;
+    }
+
+    public void setThreeIndexName(String threeIndexName) {
+        this.threeIndexName = threeIndexName;
+    }
+
+    public String getThreeIndexQuestionTea() {
+        return threeIndexQuestionTea;
+    }
+
+    public void setThreeIndexQuestionTea(String threeIndexQuestionTea) {
+        this.threeIndexQuestionTea = threeIndexQuestionTea;
     }
 
     public String getThreeindexname() {

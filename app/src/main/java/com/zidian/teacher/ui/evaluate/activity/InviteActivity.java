@@ -1,6 +1,7 @@
 package com.zidian.teacher.ui.evaluate.activity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -271,9 +272,9 @@ public class InviteActivity extends BaseActivity implements InviteContract.View 
                 .title("温馨提示")
                 .positiveText("确定")
                 .content("邀请发起成功，请在我的任务里面查看")
-                .onAny(new MaterialDialog.SingleButtonCallback() {
+                .dismissListener(new DialogInterface.OnDismissListener() {
                     @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                    public void onDismiss(DialogInterface dialog) {
                         finish();
                     }
                 })
