@@ -1,6 +1,8 @@
 package com.zidian.teacher.ui.evaluate.adapter;
 
 import android.content.Context;
+import android.support.design.widget.TextInputLayout;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,6 +34,8 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
     private List<EvaluateTag> mBeans = new ArrayList<>();
     Map<Integer, String> map = new HashMap<Integer, String>();
     private static final String[] TAGS = {"非常符合", "比较符合", "一般符合", "比较不符合", "非常不符合"};
+    private String customEva;
+    private SimpleViewHolder holder;
 
     public static class SimpleViewHolder extends RecyclerView.ViewHolder {
         public TagTextAdapter tagTextAdapter1;
@@ -52,6 +56,8 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
         TextView title4;
         ImageView arrowBack;
         ImageView arrowNext;
+        TextInputLayout tilCustomEva;
+        AppCompatEditText etCustomEva;
 
         public SimpleViewHolder(View view) {
             super(view);
@@ -70,10 +76,12 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
             title2 = (TextView) view.findViewById(R.id.item_title2);
             title3 = (TextView) view.findViewById(R.id.item_title3);
             title4 = (TextView) view.findViewById(R.id.item_title4);
+            tilCustomEva = (TextInputLayout) view.findViewById(R.id.til_custom_eva);
+            etCustomEva = (AppCompatEditText) view.findViewById(R.id.et_custom_eva);
         }
     }
 
-    public EvaluateAdapter( Context context, List<EvaluateTag> beans) {
+    public EvaluateAdapter(Context context, List<EvaluateTag> beans) {
         mContext = context;
         mBeans = beans;
         itemCount = beans.size() % 4 == 0 ? beans.size() / 4 : (beans.size() / 4 + 1);
@@ -95,13 +103,17 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
 
     @Override
     public void onBindViewHolder(SimpleViewHolder holder, final int position) {
-
+        this.holder = holder;
 
         if (mBeans.size() % 4 != 0) {
 
             if (position == itemCount - 1) {
                 holder.arrowNext.setVisibility(View.GONE);
                 holder.arrowBack.setVisibility(View.VISIBLE);
+                holder.tilCustomEva.setVisibility(View.VISIBLE);
+                holder.tilCustomEva.setCounterMaxLength(100);
+                holder.tilCustomEva.setCounterEnabled(true);
+                customEva = holder.etCustomEva.getText().toString().trim();
                 if (mBeans.size() % 4 == 3) {
                     holder.card4.setVisibility(View.INVISIBLE);
                     holder.tagTextAdapter1 = new TagTextAdapter<>(mContext);
@@ -237,7 +249,8 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
 
                         sb.append(mBeans.get(position).getLabel().get(i).getLabelName());
                     }
-                    map.put(position * 4, mBeans.get(position * 4).getPackageName() + "!" + mBeans.get(position * 4).getIndexName() + "!" + sb.toString());
+                    map.put(position * 4, mBeans.get(position * 4).getPackageName() + "!" +
+                            mBeans.get(position * 4).getIndexName() + "!" + sb.toString());
                 } else {
                     data.put("tagEvaluate1" + position, 0);
                 }
@@ -254,7 +267,8 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
                         data.put("tagEvaluate2" + position, i);
                         sb.append(mBeans.get(position).getLabel().get(i).getLabelName());
                     }
-                    map.put(position * 4 + 1, mBeans.get(position * 4 + 1).getPackageName() + "!" + mBeans.get(position * 4 + 1).getIndexName() + "!" + sb.toString());
+                    map.put(position * 4 + 1, mBeans.get(position * 4 + 1).getPackageName() + "!" +
+                            mBeans.get(position * 4 + 1).getIndexName() + "!" + sb.toString());
 
                 } else {
                     data.put("tagEvaluate2" + position, 0);
@@ -273,7 +287,8 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
                         data.put("tagEvaluate3" + position, i);
                         sb.append(mBeans.get(position).getLabel().get(i).getLabelName());
                     }
-                    map.put(position * 4 + 2, mBeans.get(position * 4 + 2).getPackageName() + "!" + mBeans.get(position * 4 + 2).getIndexName() + "!" + sb.toString());
+                    map.put(position * 4 + 2, mBeans.get(position * 4 + 2).getPackageName() + "!" +
+                            mBeans.get(position * 4 + 2).getIndexName() + "!" + sb.toString());
                 } else {
                     data.put("tagEvaluate3" + position, 0);
                 }
@@ -290,7 +305,8 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
                         data.put("tagEvaluate4" + position, i);
                         sb.append(mBeans.get(position).getLabel().get(i).getLabelName());
                     }
-                    map.put(position * 4 + 3, mBeans.get(position * 4 + 3).getPackageName() + "!" + mBeans.get(position * 4 + 3).getIndexName() + "!" + sb.toString());
+                    map.put(position * 4 + 3, mBeans.get(position * 4 + 3).getPackageName() + "!" +
+                            mBeans.get(position * 4 + 3).getIndexName() + "!" + sb.toString());
                 } else {
                     data.put("tagEvaluate4" + position, 0);
                 }
@@ -303,6 +319,15 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
     @Override
     public int getItemCount() {
         return itemCount;
+    }
+
+    /**
+     * 获取自定义评价
+     *
+     * @return
+     */
+    public String getCustomEva() {
+        return holder.etCustomEva.getText().toString().trim();
     }
 
     public Map<Integer, String> getSelect() {
@@ -320,6 +345,7 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
 
     /**
      * 设置新的标签
+     *
      * @return
      */
     public List<String> getNewTags() {

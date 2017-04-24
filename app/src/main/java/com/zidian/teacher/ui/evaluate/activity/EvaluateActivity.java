@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.zidian.teacher.R;
@@ -62,8 +64,9 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
 
     @Override
     protected void initViewAndData() {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         Intent intent = getIntent();
-        teacherType = String.valueOf(intent.getIntExtra("teacherType",0));
+        teacherType = String.valueOf(intent.getIntExtra("teacherType", 0));
         toTeacherId = intent.getStringExtra("toTeacherId");
         recordId = String.valueOf(intent.getIntExtra("recordId", 0));
         evaluateType = String.valueOf(intent.getIntExtra("evaluateType", 0));
@@ -167,14 +170,21 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_evaluate,menu);
+        getMenuInflater().inflate(R.menu.menu_evaluate, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        presenter.evaluate(evaluateType, teacherType, toTeacherId,recordId, getEvaluateLabel(), "自定义评语" );
+        if (getEvaluateLabel() == null) {
+            SnackbarUtils.showShort(toolbar, "请左右滑动选择标签");
+            return true;
+        }
+        if (TextUtils.isEmpty(getCustomEva())) {
+            SnackbarUtils.showShort(toolbar, "请输入自定义评价");
+            return true;
+        }
+        presenter.evaluate(evaluateType, teacherType, toTeacherId, recordId, getEvaluateLabel(), getCustomEva());
         return super.onOptionsItemSelected(item);
     }
 
@@ -196,6 +206,15 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
             result += "," + map.get(i);
         }
         return result;
+    }
+
+    /**
+     * 获取自定义评价
+     *
+     * @return
+     */
+    private String getCustomEva() {
+        return adapter.getCustomEva();
     }
 
     @Override
