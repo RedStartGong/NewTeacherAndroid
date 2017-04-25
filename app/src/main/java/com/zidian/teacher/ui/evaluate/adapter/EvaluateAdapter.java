@@ -1,6 +1,7 @@
 package com.zidian.teacher.ui.evaluate.adapter;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.CardView;
@@ -251,8 +252,11 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
 
                         data.put("tagEvaluate1" + position, i);
 
-                        sb.append(beans.get(position).getLabel().get(i).getLabelName());
+                        sb.append(beans.get(position * 4).getLabel().get(i).getLabelName());
                     }
+//                    Snackbar.make(parent, "三级指标:"+ beans.get(position * 4 ).getThreeIndexName() +
+//                            "-选择的标签:" + sb.toString(), Snackbar.LENGTH_LONG)
+//                            .setAction("Action", null).show();
                     map.put(position * 4, beans.get(position * 4).getPackageName() + "!" +
                             beans.get(position * 4).getThreeIndexName() + "!" + sb.toString());
                 } else {
@@ -269,8 +273,11 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
                     StringBuilder sb = new StringBuilder();
                     for (int i : selectedList) {
                         data.put("tagEvaluate2" + position, i);
-                        sb.append(beans.get(position).getLabel().get(i).getLabelName());
+                        sb.append(beans.get(position * 4 + 1).getLabel().get(i).getLabelName());
                     }
+//                    Snackbar.make(parent, "三级指标:"+ beans.get(position * 4 + 1).getThreeIndexName() +
+//                            "-选择的标签:" + sb.toString(), Snackbar.LENGTH_LONG)
+//                            .setAction("Action", null).show();
                     map.put(position * 4 + 1, beans.get(position * 4 + 1).getPackageName() + "!" +
                             beans.get(position * 4 + 1).getThreeIndexName() + "!" + sb.toString());
 
@@ -288,9 +295,13 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
                 if (selectedList != null && selectedList.size() > 0) {
                     StringBuilder sb = new StringBuilder();
                     for (int i : selectedList) {
+
                         data.put("tagEvaluate3" + position, i);
-                        sb.append(beans.get(position).getLabel().get(i).getLabelName());
+                        sb.append(beans.get(position * 4 + 2).getLabel().get(i).getLabelName());
                     }
+//                    Snackbar.make(parent, "三级指标:"+ beans.get(position * 4 + 2).getThreeIndexName() +
+//                            "-选择的标签:" + sb.toString(), Snackbar.LENGTH_LONG)
+//                            .setAction("Action", null).show();
                     map.put(position * 4 + 2, beans.get(position * 4 + 2).getPackageName() + "!" +
                             beans.get(position * 4 + 2).getThreeIndexName() + "!" + sb.toString());
                 } else {
@@ -307,8 +318,11 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
                     StringBuilder sb = new StringBuilder();
                     for (int i : selectedList) {
                         data.put("tagEvaluate4" + position, i);
-                        sb.append(beans.get(position).getLabel().get(i).getLabelName());
+                        sb.append(beans.get(position * 4 + 3).getLabel().get(i).getLabelName());
                     }
+//                    Snackbar.make(parent, "三级指标:"+ beans.get(position * 4 + 1).getThreeIndexName() +
+//                            "-选择的标签:" + sb.toString(), Snackbar.LENGTH_LONG)
+//                            .setAction("Action", null).show();
                     map.put(position * 4 + 3, beans.get(position * 4 + 3).getPackageName() + "!" +
                             beans.get(position * 4 + 3).getThreeIndexName() + "!" + sb.toString());
                 } else {
