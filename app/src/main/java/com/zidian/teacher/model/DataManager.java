@@ -4,6 +4,7 @@ package com.zidian.teacher.model;
 import com.zidian.teacher.model.entity.remote.AttendanceStatistics;
 import com.zidian.teacher.model.entity.remote.AttendanceStudent;
 import com.zidian.teacher.model.entity.remote.CheckColleagueEva;
+import com.zidian.teacher.model.entity.remote.CheckSupervisorEva;
 import com.zidian.teacher.model.entity.remote.Class;
 import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.model.entity.remote.EvaluateCourse;
@@ -139,10 +140,10 @@ public final class DataManager {
     }
 
     public Observable<NoDataResult> addSupervisorEva(
-            String teacherId, String teacherName, String requestedPersonId, String requestedPersonName,
+            String teacherId, String teacherName, String college, String requestedPersonId, String requestedPersonName,
             String courseId, String courseName, String teachingCalendar, String classroom,
             String teacherType, String token, String schoolId) {
-        return service.addSupervisorEva(teacherId, teacherName, requestedPersonId, requestedPersonName,
+        return service.addSupervisorEva(teacherId, teacherName, college, requestedPersonId, requestedPersonName,
                 courseId, courseName, teachingCalendar, classroom, teacherType, token, schoolId);
     }
 
@@ -169,6 +170,11 @@ public final class DataManager {
     public Observable<HttpResult<CheckColleagueEva>> checkColleagueEva(
             String recordId, String teacherId, String token, String schoolId) {
         return service.checkColleagueEva(recordId, teacherId, token, schoolId);
+    }
+
+    public Observable<HttpResult<CheckSupervisorEva>> checkSupervisorEva(
+            String recordId, String teacherId, String token, String schoolId) {
+        return service.checkSupervisorEva(recordId, teacherId, token, schoolId);
     }
 
 }

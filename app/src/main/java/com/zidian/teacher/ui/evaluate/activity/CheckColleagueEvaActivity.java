@@ -30,8 +30,8 @@ import static com.zidian.teacher.util.Preconditions.checkNotNull;
 public class CheckColleagueEvaActivity extends BaseActivity implements CheckColleagueEvaContract.View {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.view_pager)
-    RecyclerViewPager viewPager;
+    @BindView(R.id.recycler_view_pager)
+    RecyclerViewPager recyclerViewPager;
     @BindView(R.id.loading_view)
     ProgressBar loadingView;
     @BindView(R.id.error_view)
@@ -72,16 +72,16 @@ public class CheckColleagueEvaActivity extends BaseActivity implements CheckColl
 
         LinearLayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,
                 false);
-        viewPager.setLayoutManager(layout);
-        viewPager.setHasFixedSize(true);
-        viewPager.setLongClickable(true);
-        viewPager.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerViewPager.setLayoutManager(layout);
+        recyclerViewPager.setHasFixedSize(true);
+        recyclerViewPager.setLongClickable(true);
+        recyclerViewPager.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int i, int i2) {
-                int childCount = viewPager.getChildCount();
-                int width = viewPager.getChildAt(0).getWidth();
-                int padding = (viewPager.getWidth() - width) / 2;
+                int childCount = recyclerViewPager.getChildCount();
+                int width = recyclerViewPager.getChildAt(0).getWidth();
+                int padding = (recyclerViewPager.getWidth() - width) / 2;
 
                 for (int j = 0; j < childCount; j++) {
                     View v = recyclerView.getChildAt(j);
@@ -107,36 +107,36 @@ public class CheckColleagueEvaActivity extends BaseActivity implements CheckColl
                 }
             }
         });
-        viewPager.addOnPageChangedListener(new RecyclerViewPager.OnPageChangedListener() {
+        recyclerViewPager.addOnPageChangedListener(new RecyclerViewPager.OnPageChangedListener() {
             @Override
             public void OnPageChanged(int oldPosition, int newPosition) {
                 Log.d("test", "oldPosition:" + oldPosition + " newPosition:" + newPosition);
             }
         });
 
-        viewPager.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+        recyclerViewPager.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                if (viewPager.getChildCount() < 3) {
-                    if (viewPager.getChildAt(1) != null) {
-                        if (viewPager.getCurrentPosition() == 0) {
-                            View v1 = viewPager.getChildAt(1);
+                if (recyclerViewPager.getChildCount() < 3) {
+                    if (recyclerViewPager.getChildAt(1) != null) {
+                        if (recyclerViewPager.getCurrentPosition() == 0) {
+                            View v1 = recyclerViewPager.getChildAt(1);
                             v1.setScaleY(0.9f);
                             v1.setScaleX(0.9f);
                         } else {
-                            View v1 = viewPager.getChildAt(0);
+                            View v1 = recyclerViewPager.getChildAt(0);
                             v1.setScaleY(0.9f);
                             v1.setScaleX(0.9f);
                         }
                     }
                 } else {
-                    if (viewPager.getChildAt(0) != null) {
-                        View v0 = viewPager.getChildAt(0);
+                    if (recyclerViewPager.getChildAt(0) != null) {
+                        View v0 = recyclerViewPager.getChildAt(0);
                         v0.setScaleY(0.9f);
                         v0.setScaleX(0.9f);
                     }
-                    if (viewPager.getChildAt(2) != null) {
-                        View v2 = viewPager.getChildAt(2);
+                    if (recyclerViewPager.getChildAt(2) != null) {
+                        View v2 = recyclerViewPager.getChildAt(2);
                         v2.setScaleY(0.9f);
                         v2.setScaleX(0.9f);
                     }
@@ -164,7 +164,7 @@ public class CheckColleagueEvaActivity extends BaseActivity implements CheckColl
         errorView.setVisibility(View.GONE);
         CheckAdapter adapter = new CheckAdapter(this, checkColleagueEva.getMapList(),
                 checkColleagueEva.getEvaluateComment());
-        viewPager.setAdapter(adapter);
+        recyclerViewPager.setAdapter(adapter);
     }
 
 

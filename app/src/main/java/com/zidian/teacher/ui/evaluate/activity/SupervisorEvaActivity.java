@@ -106,6 +106,7 @@ public class SupervisorEvaActivity extends BaseActivity implements SupervisorCho
     private List<String> teachers;
     private List<String> stringCourses;
     private List<String> stringCalendars;
+    private String college;
     private String requestTeacherName;
     private String requestTeacherId;
     private String courseId;
@@ -130,6 +131,7 @@ public class SupervisorEvaActivity extends BaseActivity implements SupervisorCho
                     @Override
                     public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence college) {
                         tvCollege.setText(college);
+                        college = college.toString();
                         tvTeacherName.setText("");
                         tvCourse.setText("");
                         tvTeachingDate.setText("");
@@ -284,7 +286,7 @@ public class SupervisorEvaActivity extends BaseActivity implements SupervisorCho
             SnackbarUtils.showShort(toolbar, "请选择教学日历");
             return;
         }
-        presenter.addSupervisorEva(requestTeacherId, requestTeacherName, courseId, courseName,
+        presenter.addSupervisorEva(requestTeacherId, requestTeacherName,college, courseId, courseName,
                 teachingCalendar, classroom);
     }
 

@@ -4,6 +4,7 @@ package com.zidian.teacher.model.network;
 import com.zidian.teacher.model.entity.remote.AttendanceStatistics;
 import com.zidian.teacher.model.entity.remote.AttendanceStudent;
 import com.zidian.teacher.model.entity.remote.CheckColleagueEva;
+import com.zidian.teacher.model.entity.remote.CheckSupervisorEva;
 import com.zidian.teacher.model.entity.remote.Class;
 import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.model.entity.remote.EvaluateCourse;
@@ -24,9 +25,11 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -180,7 +183,7 @@ public interface TeacherService {
      * 获取评价他人时的课程信息
      */
     @FormUrlEncoded
-    @POST("page/evaluateBySupervisor /selectAll")
+    @POST("page/evaluateBySupervisor/selectAll")
     Observable<HttpResult<List<EvaluateCourse>>> getEvaluateCourses(
             @Field("teacherId") String teacherId, @Field("token") String token, @Field("schoolId") String schoolId);
 
@@ -212,11 +215,12 @@ public interface TeacherService {
     @POST("page/evaluateBySupervisor/add")
     Observable<NoDataResult> addSupervisorEva(
             @Field("initateTheRequestId") String teacherId, @Field("initateTheRequestName") String teacherName,
-            @Field("theRequestedPersonId") String requestedPersonId, @Field("theRequestedPersonName") String requestedPersonName,
-            @Field("courseId") String courseId, @Field("courseName") String courseName,
-            @Field("teachingCalendarTime") String teachingCalendar, @Field("courseClassroom") String classroom,
-            @Field("teacherType") String teacherType, @Field("token") String token,
-            @Field("schoolId") String schoolId);
+            @Field("theRequestedPersonCollege") String theRequestedPersonCollege,
+            @Field("theRequestedPersonId") String requestedPersonId,
+            @Field("theRequestedPersonName") String requestedPersonName, @Field("courseId") String courseId,
+            @Field("courseName") String courseName, @Field("teachingCalendarTime") String teachingCalendar,
+            @Field("courseClassroom") String classroom, @Field("teacherType") String teacherType,
+            @Field("token") String token, @Field("schoolId") String schoolId);
 
     /**
      * 同行评价，查看标签
@@ -253,9 +257,18 @@ public interface TeacherService {
     /**
      * 查看评价详情
      */
-    @FormUrlEncoded
-    @POST("ToEvaluateOthers/evaluationDetails")
+
+    @GET("ToEvaluateOthers/evaluationDetails")
     Observable<HttpResult<CheckColleagueEva>> checkColleagueEva(
-            @Field("recordId") String recordId, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") String schoolId);
+            @Query("recordId") String recordId, @Query("teacherId") String teacherId,
+            @Query("token") String token, @Query("schoolId") String schoolId);
+
+    /**
+     * 查看督导评价详情rest/page/evaluateBySupervisor/evaluationDetails
+
+     */
+    @GET("page/evaluateBySupervisor/evaluationDetails")
+    Observable<HttpResult<CheckSupervisorEva>> checkSupervisorEva(
+            @Query("recordId") String recordId, @Query("teacherId") String teacherId,
+            @Query("token") String token, @Query("schoolId") String schoolId);
 }

@@ -13,6 +13,7 @@ import com.zidian.teacher.model.entity.remote.MyTask;
 import com.zidian.teacher.presenter.MyTaskPresenter;
 import com.zidian.teacher.presenter.contract.MyTaskContract;
 import com.zidian.teacher.ui.evaluate.activity.CheckColleagueEvaActivity;
+import com.zidian.teacher.ui.evaluate.activity.CheckSupervisorEvaActivity;
 import com.zidian.teacher.ui.evaluate.activity.EvaluateActivity;
 import com.zidian.teacher.ui.evaluate.activity.MyTaskActivity;
 import com.zidian.teacher.ui.evaluate.adapter.MyTaskAdapter;
@@ -142,12 +143,17 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
 
             @Override
             public void supervisorCheck(int position) {
-                SnackbarUtils.showShort(errorView, position + "");
+                Intent intent = new Intent(activity, CheckSupervisorEvaActivity.class);
+                intent.putExtra("recordId", myTasks.get(position).getRecordId());
+                startActivity(intent);
             }
 
             @Override
             public void supervisorConfirm(int position) {
-
+                Intent intent = new Intent(activity, CheckSupervisorEvaActivity.class);
+                intent.putExtra("recordId", myTasks.get(position).getRecordId());
+                intent.putExtra("needConfirm",true);
+                startActivity(intent);
             }
 
             @Override

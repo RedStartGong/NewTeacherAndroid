@@ -1,67 +1,52 @@
 package com.zidian.teacher.ui.evaluate.activity;
 
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
-import com.zidian.teacher.model.entity.remote.EvaluateTag;
-import com.zidian.teacher.presenter.EvaluatePresenter;
-import com.zidian.teacher.presenter.contract.EvaluateContract;
+import com.zidian.teacher.model.entity.remote.CheckSupervisorEva;
+import com.zidian.teacher.presenter.CheckSupervisorEvaPresenter;
+import com.zidian.teacher.presenter.contract.CheckSupervisorEvaContract;
 import com.zidian.teacher.recyclerviewpager.recycleview.RecyclerViewPager;
-import com.zidian.teacher.ui.evaluate.adapter.EvaluateAdapter;
-import com.zidian.teacher.util.SnackbarUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.zidian.teacher.ui.evaluate.adapter.SupervisorCheckAdapter;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 
+import static com.zidian.teacher.util.Preconditions.checkNotNull;
+
 /**
- * 评价界面
- * Created by GongCheng on 2017/4/20.
+ * Created by GongCheng on 2017/4/25.
  */
 
-public class EvaluateActivity extends BaseActivity implements EvaluateContract.View {
+public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSupervisorEvaContract.View {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.recycler_view_pager)
     RecyclerViewPager recyclerViewPager;
-    @BindView(R.id.error_view)
-    TextView errorView;
     @BindView(R.id.loading_view)
     ProgressBar loadingView;
+    @BindView(R.id.error_view)
+    TextView errorView;
+    @BindView(R.id.ll_need_confirm)
+    LinearLayout llNeedConfirm;
 
     @Inject
-    EvaluatePresenter presenter;
-
-    private EvaluateAdapter adapter;
-    private List<EvaluateTag> evaluateTags;
-    private ProgressDialog progressDialog;
-    private String teacherType;
-    private String toTeacherId;
-    private String recordId;
-    private String evaluateType;
+    CheckSupervisorEvaPresenter presenter;
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_evaluate;
+        return R.layout.activity_check_supervisor_eva;
     }
 
     @Override
@@ -71,24 +56,26 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
 
     @Override
     protected void initViewAndData() {
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         Intent intent = getIntent();
-        teacherType = String.valueOf(intent.getIntExtra("teacherType", 0));
-        toTeacherId = intent.getStringExtra("toTeacherId");
-        recordId = String.valueOf(intent.getIntExtra("recordId", 0));
-        evaluateType = String.valueOf(intent.getIntExtra("evaluateType", 0));
-
-        errorView.setVisibility(View.GONE);
-        evaluateTags = new ArrayList<>();
-        toolbar.setTitle("标签评价");
+        String recordId = String.valueOf(intent.getIntExtra("recordId", 0));
+        boolean needConfirm = intent.getBooleanExtra("needConfirm", false);
+        toolbar.setTitle("督导评价");
         setToolbarBack(toolbar);
-        setSupportActionBar(toolbar);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("加载中...");
-
-        presenter.attachView(this);
-        presenter.getEvaluateTags();
+        errorView.setVisibility(View.GONE);
+        if (!needConfirm) {
+            llNeedConfirm.setVisibility(View.GONE);
+        }
+        //初始化recyclerViewPager
         initRecyclerView();
+        checkNotNull(presenter);
+        presenter.attachView(this);
+        presenter.getEvaTags(recordId);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.deAttachView();
     }
 
     private void initRecyclerView() {
@@ -110,7 +97,6 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
                     View v = recyclerView.getChildAt(j);
                     //往左 从 padding 到 -(v.getWidth()-padding) 的过程中，由大到小
                     float rate = 0;
-                    ;
                     if (v.getLeft() <= padding) {
                         if (v.getLeft() >= padding - v.getWidth()) {
                             rate = (padding - v.getLeft()) * 1f / v.getWidth();
@@ -140,7 +126,8 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
 
         recyclerViewPager.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+            public void onLayoutChange(View v, int left, int top, int right, int bottom,
+                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 if (recyclerViewPager.getChildCount() < 3) {
                     if (recyclerViewPager.getChildAt(1) != null) {
                         if (recyclerViewPager.getCurrentPosition() == 0) {
@@ -171,105 +158,24 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.deAttachView();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_evaluate, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (getEvaluateLabel() == null) {
-            SnackbarUtils.showShort(toolbar, "请左右滑动选择标签");
-            return true;
-        }
-        if (TextUtils.isEmpty(getCustomEva())) {
-            SnackbarUtils.showShort(toolbar, "请输入自定义评价");
-            return true;
-        }
-        presenter.evaluate(evaluateType, teacherType, toTeacherId, recordId, getEvaluateLabel(), getCustomEva());
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * 获取评价的内容
-     */
-    private String getEvaluateLabel() {
-        Map<Integer, String> map = adapter.getSelect();
-        String result = "";
-
-        result = map.get(0);
-
-        for (int i = 1; i < evaluateTags.size(); i++) {
-
-            if (map.get(i) == null) {
-                result = null;
-                break;
-            }
-            result += "," + map.get(i);
-        }
-        return result;
-    }
-
-    /**
-     * 获取自定义评价
-     *
-     * @return
-     */
-    private String getCustomEva() {
-        return adapter.getCustomEva();
-    }
-
-    @Override
     public void showError(Throwable e) {
-        SnackbarUtils.showShort(toolbar, e.getMessage());
-
-        loadingView.setVisibility(View.GONE);
-        progressDialog.dismiss();
-    }
-
-    @Override
-    public void showEvaluateTags(List<EvaluateTag> evaluateTags) {
-        progressDialog.dismiss();
-        errorView.setVisibility(View.GONE);
-        loadingView.setVisibility(View.GONE);
-        this.evaluateTags = evaluateTags;
-        adapter = new EvaluateAdapter(this, evaluateTags);
-        recyclerViewPager.setAdapter(adapter);
-    }
-
-    @Override
-    public void showTagsError(Throwable e) {
-        progressDialog.dismiss();
         errorView.setVisibility(View.VISIBLE);
         errorView.setText(e.getMessage());
+        loadingView.setVisibility(View.GONE);
     }
 
     @Override
     public void showLoading() {
-        progressDialog.show();
+        loadingView.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void showSuccess() {
-        progressDialog.dismiss();
-        new MaterialDialog.Builder(this)
-                .title("温馨提示")
-                .content("评价成功!")
-                .positiveText("确定")
-                .dismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        finish();
-                    }
-                })
-                .show();
-        //评价成功，返回RESULT_OK
-        setResult(RESULT_OK);
+    public void showEvaTags(CheckSupervisorEva checkSupervisorEva) {
+        loadingView.setVisibility(View.GONE);
+        errorView.setVisibility(View.GONE);
+        SupervisorCheckAdapter adapter = new SupervisorCheckAdapter(this, checkSupervisorEva.getMapList(),
+                checkSupervisorEva.getEvaluateComment());
+        recyclerViewPager.setAdapter(adapter);
     }
+
 }

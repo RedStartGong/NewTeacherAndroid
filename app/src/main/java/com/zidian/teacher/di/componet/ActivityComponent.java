@@ -3,11 +3,13 @@ package com.zidian.teacher.di.componet;
 
 import com.zidian.teacher.di.PerActivity;
 import com.zidian.teacher.di.module.ActivityModule;
+import com.zidian.teacher.model.entity.remote.CheckSupervisorEva;
 import com.zidian.teacher.ui.course.activity.AttendanceActivity;
 import com.zidian.teacher.ui.course.activity.AttendanceStatisticsActivity;
 import com.zidian.teacher.ui.course.activity.CourseInfoActivity;
 import com.zidian.teacher.ui.evaluate.activity.ApplyToEvaActivity;
 import com.zidian.teacher.ui.evaluate.activity.CheckColleagueEvaActivity;
+import com.zidian.teacher.ui.evaluate.activity.CheckSupervisorEvaActivity;
 import com.zidian.teacher.ui.evaluate.activity.ColleagueEvaActivity;
 import com.zidian.teacher.ui.evaluate.activity.EvaluateActivity;
 import com.zidian.teacher.ui.evaluate.activity.InviteActivity;
@@ -61,4 +63,6 @@ public interface ActivityComponent {
     void inject(EvaluateActivity evaluateActivity);
 
     void inject(CheckColleagueEvaActivity checkColleagueEvaActivity);
+
+    void inject(CheckSupervisorEvaActivity checkSupervisorEvaActivity);
 }

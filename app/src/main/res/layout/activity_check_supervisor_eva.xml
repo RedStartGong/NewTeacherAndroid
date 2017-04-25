@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.zidian.teacher.recyclerviewpager.recycleview.RecyclerViewPager
+            android:id="@+id/recycler_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.zidian.teacher.recyclerviewpager.recycleview.RecyclerViewPager>
+
+        <include layout="@layout/view_loading" />
+
+        <include layout="@layout/view_error" />
+
+        <LinearLayout
+            android:id="@+id/ll_need_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/white_text_color"
+            android:orientation="horizontal"
+            android:padding="6dp">
+
+            <Button
+                android:id="@+id/btn_raise_objection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="提出异议" />
+
+            <Button
+                android:id="@+id/btn_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_common_btn"
+                android:text="确定"
+                android:textColor="@color/white_text_color" />
+        </LinearLayout>
+    </FrameLayout>
+
+
+</LinearLayout>

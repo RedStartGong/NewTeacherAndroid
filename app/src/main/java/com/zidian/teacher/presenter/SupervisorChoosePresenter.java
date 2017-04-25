@@ -63,10 +63,10 @@ public class SupervisorChoosePresenter extends RxPresenter<SupervisorChooseContr
     }
 
     @Override
-    public void addSupervisorEva(String requestedPersonId, String requestedPersonName, String courseId,
+    public void addSupervisorEva(String requestedPersonId, String requestedPersonName,String college, String courseId,
                                  String courseName, String teachingCalendar, String classroom) {
         Subscription subscription = dataManager.addSupervisorEva(SharedPreferencesUtils.getUserName(),
-                SharedPreferencesUtils.getTeacherName(), requestedPersonId, requestedPersonName, courseId,
+                SharedPreferencesUtils.getTeacherName(),college, requestedPersonId, requestedPersonName, courseId,
                 courseName, teachingCalendar, classroom,"9", SharedPreferencesUtils.getToken(),
                 SharedPreferencesUtils.getSchoolId())
                 .compose(RxUtils.<NoDataResult>rxSchedulerIo())
