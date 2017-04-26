@@ -106,6 +106,8 @@ dependencies {
     compile rootProject.ext.imageSelector
     //fragmentation
     compile rootProject.ext.fragmentation
+    //eventBus
+    compile rootProject.ext.eventBus
     //leakCanary
     debugCompile rootProject.ext.leakCanaryDebug
     releaseCompile rootProject.ext.leakCanaryRelease

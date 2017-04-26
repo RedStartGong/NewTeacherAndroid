@@ -23,6 +23,8 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.yokeyword.fragmentation.SupportActivity;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 import static dagger.internal.Preconditions.checkNotNull;
 
@@ -34,7 +36,7 @@ import static dagger.internal.Preconditions.checkNotNull;
 public abstract class BaseActivity extends SupportActivity {
     private Unbinder unbinder;
     protected ActivityComponent activityComponent;
-
+    private CompositeSubscription subscriptions;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public abstract class BaseActivity extends SupportActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        unSubscribe();
     }
 
     @SuppressWarnings("deprecation")
@@ -86,6 +89,19 @@ public abstract class BaseActivity extends SupportActivity {
                 onBackPressedSupport();
             }
         });
+    }
+
+    protected void addSubscribe(Subscription subscription) {
+        if (subscriptions == null) {
+            subscriptions = new CompositeSubscription();
+        }
+        subscriptions.add(subscription);
+    }
+
+    private void unSubscribe() {
+        if (subscriptions != null) {
+            subscriptions.unsubscribe();
+        }
     }
 
 

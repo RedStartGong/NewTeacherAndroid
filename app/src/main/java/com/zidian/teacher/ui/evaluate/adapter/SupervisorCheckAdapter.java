@@ -162,6 +162,7 @@ public class SupervisorCheckAdapter extends RecyclerView.Adapter<SupervisorCheck
                     holder.title1.setText(beans.get(position * 4).getThreeIndexQuestionTea());
                 }
             } else {
+                holder.llCustomEva.setVisibility(View.GONE);
                 if (position == 0) {
                     holder.arrowNext.setVisibility(View.VISIBLE);
                     holder.arrowBack.setVisibility(View.GONE);
@@ -203,11 +204,14 @@ public class SupervisorCheckAdapter extends RecyclerView.Adapter<SupervisorCheck
         } else {
             holder.arrowNext.setVisibility(View.VISIBLE);
             holder.arrowBack.setVisibility(View.VISIBLE);
+            holder.llCustomEva.setVisibility(View.GONE);
             if (position == itemCount - 1) {
+                holder.llCustomEva.setVisibility(View.VISIBLE);
                 holder.arrowNext.setVisibility(View.GONE);
                 holder.arrowBack.setVisibility(View.VISIBLE);
             }
             if (position == 0) {
+                holder.llCustomEva.setVisibility(View.GONE);
                 holder.arrowNext.setVisibility(View.VISIBLE);
                 holder.arrowBack.setVisibility(View.GONE);
             }

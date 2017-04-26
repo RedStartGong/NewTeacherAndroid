@@ -49,7 +49,6 @@ ext {
     rxBindingDesign = "com.jakewharton.rxbinding:rxbinding-design:$rxBindingVersion"
     rxBindingRecyclerView = "com.jakewharton.rxbinding:rxbinding-recyclerview-v7:$rxBindingVersion"
     //Inject
-    //Inject
     butterKnifeVersion = '8.5.1'
     dagger2Version = '2.9'
 
@@ -73,6 +72,8 @@ ext {
     materialSpinner = 'com.jaredrummler:material-spinner:1.1.0'
     materialDatePicker = 'co.infinum:materialdatetimepicker-support:3.1.3'
     imageSelector =  'com.yuyh.imgsel:library:1.2.0'
+    //EventBus
+    eventBus =  'org.greenrobot:eventbus:3.0.0'
 
     //leakCanary
     leakCanaryDebug  = 'com.squareup.leakcanary:leakcanary-android:1.5'

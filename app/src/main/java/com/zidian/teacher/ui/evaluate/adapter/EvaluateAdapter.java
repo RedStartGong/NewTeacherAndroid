@@ -161,6 +161,7 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
                     holder.title1.setText(beans.get(position * 4).getThreeIndexQuestionTea());
                 }
             } else {
+                holder.llCustomEva.setVisibility(View.GONE);
                 if (position == 0) {
                     holder.arrowNext.setVisibility(View.VISIBLE);
                     holder.arrowBack.setVisibility(View.GONE);
@@ -196,13 +197,16 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
         } else {
             holder.arrowNext.setVisibility(View.VISIBLE);
             holder.arrowBack.setVisibility(View.VISIBLE);
+            holder.llCustomEva.setVisibility(View.GONE);
             if (position == itemCount - 1) {
                 holder.arrowNext.setVisibility(View.GONE);
                 holder.arrowBack.setVisibility(View.VISIBLE);
+                holder.llCustomEva.setVisibility(View.VISIBLE);
             }
             if (position == 0) {
                 holder.arrowNext.setVisibility(View.VISIBLE);
                 holder.arrowBack.setVisibility(View.GONE);
+                holder.llCustomEva.setVisibility(View.GONE);
             }
             holder.tagTextAdapter1 = new TagTextAdapter<>(context);
             holder.tagTextAdapter2 = new TagTextAdapter<>(context);

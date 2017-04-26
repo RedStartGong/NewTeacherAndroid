@@ -1,6 +1,8 @@
 package com.zidian.teacher.ui.evaluate.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
 import com.zidian.teacher.model.entity.remote.CheckSupervisorEva;
@@ -18,10 +22,12 @@ import com.zidian.teacher.presenter.CheckSupervisorEvaPresenter;
 import com.zidian.teacher.presenter.contract.CheckSupervisorEvaContract;
 import com.zidian.teacher.recyclerviewpager.recycleview.RecyclerViewPager;
 import com.zidian.teacher.ui.evaluate.adapter.SupervisorCheckAdapter;
+import com.zidian.teacher.util.SnackbarUtils;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 import static com.zidian.teacher.util.Preconditions.checkNotNull;
 
@@ -44,6 +50,9 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
     @Inject
     CheckSupervisorEvaPresenter presenter;
 
+    private ProgressDialog progressDialog;
+    private String recordId;
+
     @Override
     protected int getLayout() {
         return R.layout.activity_check_supervisor_eva;
@@ -57,7 +66,7 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
     @Override
     protected void initViewAndData() {
         Intent intent = getIntent();
-        String recordId = String.valueOf(intent.getIntExtra("recordId", 0));
+        recordId = String.valueOf(intent.getIntExtra("recordId", 0));
         boolean needConfirm = intent.getBooleanExtra("needConfirm", false);
         toolbar.setTitle("督导评价");
         setToolbarBack(toolbar);
@@ -157,6 +166,29 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
         });
     }
 
+    @OnClick(R.id.btn_raise_objection)
+    public void raiseObjection() {
+        Intent intent = new Intent(this, SupervisorFeedbackActivity.class);
+        intent.putExtra("recordId", recordId);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.btn_confirm)
+    public void confirm() {
+        new MaterialDialog.Builder(this)
+                .title("提示")
+                .content("是否对评价的结果无异议？")
+                .positiveText("确定")
+                .negativeText("取消")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        presenter.confirm(recordId);
+                    }
+                })
+                .show();
+    }
+
     @Override
     public void showError(Throwable e) {
         errorView.setVisibility(View.VISIBLE);
@@ -166,7 +198,9 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
 
     @Override
     public void showLoading() {
-        loadingView.setVisibility(View.VISIBLE);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("加载中...");
+        progressDialog.show();
     }
 
     @Override
@@ -176,6 +210,19 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
         SupervisorCheckAdapter adapter = new SupervisorCheckAdapter(this, checkSupervisorEva.getMapList(),
                 checkSupervisorEva.getEvaluateComment());
         recyclerViewPager.setAdapter(adapter);
+    }
+
+    @Override
+    public void showFeedbackSucceed() {
+        progressDialog.dismiss();
+        setResult(RESULT_OK);
+        finish();
+    }
+
+    @Override
+    public void showFeedbackError(Throwable throwable) {
+        progressDialog.dismiss();
+        SnackbarUtils.showShort(toolbar, throwable.getMessage());
     }
 
 }

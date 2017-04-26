@@ -264,11 +264,20 @@ public interface TeacherService {
             @Query("token") String token, @Query("schoolId") String schoolId);
 
     /**
-     * 查看督导评价详情rest/page/evaluateBySupervisor/evaluationDetails
-
+     * 查看督导评价详情
      */
     @GET("page/evaluateBySupervisor/evaluationDetails")
     Observable<HttpResult<CheckSupervisorEva>> checkSupervisorEva(
             @Query("recordId") String recordId, @Query("teacherId") String teacherId,
             @Query("token") String token, @Query("schoolId") String schoolId);
+
+    /**
+     * 添加督导评价反馈，contentFeedback 为空时表示确认
+     */
+    @FormUrlEncoded
+    @POST("page/evaluateBySupervisor/addFeedback")
+    Observable<NoDataResult> supervisorFeedback(
+            @Field("contentFeedback") String contentFeedback, @Field("recordId") String recordId,
+            @Field("teacherId") String teacherId, @Field("token") String token,
+            @Field("schoolId") String schoolId);
 }

@@ -153,7 +153,7 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
                 Intent intent = new Intent(activity, CheckSupervisorEvaActivity.class);
                 intent.putExtra("recordId", myTasks.get(position).getRecordId());
                 intent.putExtra("needConfirm",true);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_EVALUATE);
             }
 
             @Override
@@ -163,7 +163,7 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
                 intent.putExtra("toTeacherId", myTasks.get(position).getToTeacherId());
                 intent.putExtra("recordId", myTasks.get(position).getRecordId());
                 intent.putExtra("evaluateType", myTasks.get(position).getEvaluationType());
-                startActivityForResult(intent, REQUEST_EVALUATE);
+                startActivity(intent);
             }
         });
     }

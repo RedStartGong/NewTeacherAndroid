@@ -36,6 +36,7 @@
         <activity android:name=".ui.evaluate.activity.EvaluateActivity"/>
         <activity android:name=".ui.evaluate.activity.CheckColleagueEvaActivity"/>
         <activity android:name=".ui.evaluate.activity.CheckSupervisorEvaActivity"/>
+        <activity android:name=".ui.evaluate.activity.SupervisorFeedbackActivity"/>
     </application>
 
 </manifest>

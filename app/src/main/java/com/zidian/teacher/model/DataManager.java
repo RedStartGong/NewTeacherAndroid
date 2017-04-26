@@ -177,4 +177,9 @@ public final class DataManager {
         return service.checkSupervisorEva(recordId, teacherId, token, schoolId);
     }
 
+    public Observable<NoDataResult> supervisorFeedback(
+            String contentFeedback, String recordId, String teacherId, String token, String schoolId) {
+        return service.supervisorFeedback(contentFeedback, recordId, teacherId, token, schoolId);
+    }
+
 }

@@ -14,10 +14,14 @@ public interface CheckSupervisorEvaContract {
 
         void showEvaTags(CheckSupervisorEva checkSupervisorEva);
 
+        void showFeedbackSucceed();
+
+        void showFeedbackError(Throwable throwable);
     }
 
     interface Presenter extends BasePresenter<CheckSupervisorEvaContract.View> {
         void getEvaTags(String recordId);
 
+        void confirm(String recordId);
     }
 }
