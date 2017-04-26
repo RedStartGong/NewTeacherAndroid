@@ -179,17 +179,11 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         ((SupervisorHolder) holder).viewUntreated.setVisibility(View.VISIBLE);
                     }
                     break;
-                case 2:
-                    if (myRole == 0) {
-                        ((SupervisorHolder) holder).viewCheck.setVisibility(View.VISIBLE);
-                        ((SupervisorHolder) holder).viewFinished.setVisibility(View.GONE);
-                    } else {
-                        ((SupervisorHolder) holder).viewCheck.setVisibility(View.GONE);
-                        ((SupervisorHolder) holder).viewFinished.setVisibility(View.VISIBLE);
-                    }
+                case 3:
+                    ((SupervisorHolder) holder).viewCheck.setVisibility(View.VISIBLE);
                     break;
             }
-            if (myRole== 0) {//我发起请求
+            if (myRole == 0) {//我发起请求
                 ((SupervisorHolder) holder).tvEvaluateName.setText("我");
                 ((SupervisorHolder) holder).tvEvaluatedName.setText(
                         context.getString(R.string.others_course, tasks.get(position).getToTeacherName()));
