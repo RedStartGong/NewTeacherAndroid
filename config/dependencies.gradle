@@ -65,6 +65,10 @@ ext {
     //View
     //CircleImageView
     circleImageView =  'de.hdodenhof:circleimageview:2.0.0'
+    //chipsLayoutManager
+    chipsLayoutManager =  'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
+    //searchView
+    searchView =  'com.miguelcatalan:materialsearchview:1.4.0'
     //fragmentation
     fragmentation = 'me.yokeyword:fragmentation:0.10.1'
     //MaterialDialogs

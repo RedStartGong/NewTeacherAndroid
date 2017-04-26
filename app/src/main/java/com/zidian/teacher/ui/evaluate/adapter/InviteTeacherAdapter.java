@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.zidian.teacher.R;
 import com.zidian.teacher.model.entity.remote.InviteTeacher;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,10 +30,16 @@ public class InviteTeacherAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+        teachers = new ArrayList<>();
     }
 
     public void setTeachers(List<InviteTeacher> teachers) {
         this.teachers = teachers;
+        notifyDataSetChanged();
+    }
+
+    public void addTeachers(List<InviteTeacher> teachers) {
+        this.teachers.addAll(teachers);
         notifyDataSetChanged();
     }
 
@@ -44,7 +51,7 @@ public class InviteTeacherAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override
-    public void onBindViewHolder( RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ItemViewHolder) {
             ((ItemViewHolder) holder).tvTeacherName.setText(teachers.get(position).getTeacherName());
             ((ItemViewHolder) holder).tvTeacherCollege.setText(teachers.get(position).getTeacherCollege());

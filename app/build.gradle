@@ -106,6 +106,10 @@ dependencies {
     compile rootProject.ext.imageSelector
     //fragmentation
     compile rootProject.ext.fragmentation
+    //chipsLayoutManager
+    compile rootProject.ext.chipsLayoutManager
+    //searchView
+    compile rootProject.ext.searchView
     //eventBus
     compile rootProject.ext.eventBus
     //leakCanary

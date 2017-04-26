@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="48dp"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:gravity="center_vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="32dp"
+    android:gravity="center"
+    android:background="@drawable/bg_chips"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="5dp"
     android:orientation="horizontal">
     <TextView
         android:id="@+id/tv_invite_teacher_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size_h3"
+        android:textSize="@dimen/text_size_h4"
         android:text="小王" />
 
     <TextView
@@ -18,6 +21,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:textSize="@dimen/text_size_h3"
+        android:textSize="@dimen/text_size_h4"
         android:text="计算机学院"/>
+    <ImageView
+        android:id="@+id/iv_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?android:selectableItemBackground"
+
+        android:src="@drawable/ic_cancel_24dp"/>
 </LinearLayout>

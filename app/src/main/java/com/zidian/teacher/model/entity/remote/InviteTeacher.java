@@ -41,4 +41,9 @@ public class InviteTeacher implements Serializable{
     public void setTeacherId(String teacherId) {
         this.teacherId = teacherId;
     }
+
+    @Override
+    public String toString() {
+        return teacherName + "(" + teacherCollege + ")";
+    }
 }
