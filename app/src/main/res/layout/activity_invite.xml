@@ -119,7 +119,7 @@
                 android:id="@+id/et_invitation_language"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="请填写邀请语,(限20字)" />
+                android:hint="请填写邀请语(限20字)" />
         </android.support.design.widget.TextInputLayout>
 
         <Button

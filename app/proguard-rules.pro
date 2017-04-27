@@ -31,9 +31,6 @@
 -keepattributes *Annotation*,Signature
 -keepattributes EnclosingMethod
 
--keep public class com.google.vending.licensing.ILicensingService
--keep public class com.android.vending.licensing.ILicensingService
-
 -keep public class * extends android.app.Activity
 -keep public class * extends android.app.Application
 -keep public class * extends android.app.Service
@@ -107,6 +104,9 @@
 # retrofit2
 -dontwarn retrofit2.**
 -keep class retrofit2.** { *; }
+-keepclasseswithmembers class * {
+      @retrofit2.http.* <methods>;
+}
 # -keepattributes Signature
 -keepattributes Exceptions
 
@@ -125,7 +125,7 @@
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 -dontwarn okio.**
 
-# butterknife7
+# butterknife8
 -keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**
 -keep class **$$ViewBinder { *; }
@@ -183,3 +183,17 @@
 # http://proguard.sourceforge.net/manual/examples.html#stacktrace
 -renamesourcefileattribute SourceFile
 -keepattributes SourceFile,LineNumberTable
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
+
+##
+## Disable logging
+##
+
+# Disable Android logging for release builds
+
+ -dontwarn com.beloo.widget.chipslayoutmanager.Orientation

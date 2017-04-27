@@ -188,8 +188,8 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
             SnackbarUtils.showShort(toolbar, "请左右滑动选择标签");
             return true;
         }
-        if (TextUtils.isEmpty(getCustomEva())) {
-            SnackbarUtils.showShort(toolbar, "请输入自定义评价");
+        if (getCustomEva().length() > 50) {
+            SnackbarUtils.showShort(toolbar, "自定义评价不能超过50个字符");
             return true;
         }
         presenter.evaluate(evaluateType, teacherType, toTeacherId, recordId, getEvaluateLabel(), getCustomEva());

@@ -234,6 +234,10 @@ public class InviteActivity extends BaseActivity implements InviteContract.View 
         }
         String classRoom = tvClassroom.getText().toString().trim();
         String invitationLanguage = etInvitationLanguage.getText().toString().trim();
+        if (invitationLanguage.length() > 20) {
+            SnackbarUtils.showShort(toolbar, "邀请语不能超过20个字符");
+            return;
+        }
         presenter.invite(json, college, courseId, courseName, teachingDate, classRoom,
                 invitationLanguage);
     }

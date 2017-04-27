@@ -6,7 +6,9 @@ import com.zidian.teacher.model.entity.remote.AttendanceStudent;
 import com.zidian.teacher.model.entity.remote.CheckColleagueEva;
 import com.zidian.teacher.model.entity.remote.CheckSupervisorEva;
 import com.zidian.teacher.model.entity.remote.Class;
+import com.zidian.teacher.model.entity.remote.ColleagueEva;
 import com.zidian.teacher.model.entity.remote.Course;
+import com.zidian.teacher.model.entity.remote.CustomEva;
 import com.zidian.teacher.model.entity.remote.EvaluateCourse;
 import com.zidian.teacher.model.entity.remote.EvaluateTag;
 import com.zidian.teacher.model.entity.remote.HttpResult;
@@ -18,6 +20,8 @@ import com.zidian.teacher.model.entity.remote.NoDataResult;
 import com.zidian.teacher.model.entity.remote.PersonInfo;
 import com.zidian.teacher.model.entity.remote.Questionnaire;
 import com.zidian.teacher.model.entity.remote.School;
+import com.zidian.teacher.model.entity.remote.StudentEva;
+import com.zidian.teacher.model.entity.remote.EvaTwoIndex;
 
 import java.util.List;
 
@@ -278,6 +282,54 @@ public interface TeacherService {
     @POST("page/evaluateBySupervisor/addFeedback")
     Observable<NoDataResult> supervisorFeedback(
             @Field("contentFeedback") String contentFeedback, @Field("recordId") String recordId,
+            @Field("teacherId") String teacherId, @Field("token") String token,
+            @Field("schoolId") String schoolId);
+
+    /**
+     * 查看学生评价统计
+     */
+    @FormUrlEncoded
+    @POST("EvaluateByStudent/studentEvaluation")
+    Observable<HttpResult<StudentEva>> studentEva(
+            @Field("teacherId") String teacherId, @Field("token") String token,
+            @Field("schoolId") String schoolId);
+
+    /**
+     * 查看学生评价二级指标
+     */
+    @FormUrlEncoded
+    @POST("EvaluateByStudent/studentEvaluationTwoIndex")
+    Observable<HttpResult<List<EvaTwoIndex>>> studentEvaTwoIndex(
+            @Field("indexName") String indexName, @Field("teacherId") String teacherId,
+            @Field("token") String token, @Field("schoolId") String schoolId);
+
+    /**
+     * 查看督导/同行评价
+     */
+    @FormUrlEncoded
+    @POST("EvaluateTeacher/teacherEvaluation")
+    Observable<HttpResult<List<ColleagueEva>>> colleagueEva(
+            @Field("evaluateType") String evaluateType, @Field("teacherId") String teacherId,
+            @Field("token") String token, @Field("schoolId") String schoolId);
+
+    /**
+     * 查看督导/同行评价二级指标
+     */
+    @FormUrlEncoded
+    @POST("EvaluateTeacher/teacherEvaluateTwoIndex")
+    Observable<HttpResult<List<EvaTwoIndex>>> colleagueEvaTwoIndex(
+            @Field("evaluateType") String evaluateType, @Field("indexName") String indexName,
+            @Field("teacherId") String teacherId, @Field("token") String token,
+            @Field("schoolId") String schoolId);
+
+    /**
+     * 自定义评价
+     */
+    @FormUrlEncoded
+    @POST("EvaluateTeacher/CustomEvaluation")
+    Observable<HttpResult<CustomEva>> customEva(
+            @Field("startrow") String startRow, @Field("pageSize") String pageSize,
+            @Field("operatorId") String operatorId, @Field("operatorType") String operatorType,
             @Field("teacherId") String teacherId, @Field("token") String token,
             @Field("schoolId") String schoolId);
 }

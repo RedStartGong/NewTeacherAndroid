@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseFragment;
 import com.zidian.teacher.ui.evaluate.activity.ColleagueEvaActivity;
+import com.zidian.teacher.ui.evaluate.activity.MyEvaluateActivity;
 import com.zidian.teacher.ui.evaluate.activity.MyTaskActivity;
 import com.zidian.teacher.ui.evaluate.activity.SupervisorEvaActivity;
 import com.zidian.teacher.util.SharedPreferencesUtils;
@@ -61,6 +62,7 @@ public class EvaluateFragment extends BaseFragment {
                 startActivity(new Intent(activity, MyTaskActivity.class));
                 break;
             case R.id.ll_my_evaluate:
+                startActivity(new Intent(activity, MyEvaluateActivity.class));
                 break;
             case R.id.ll_colleague_evaluate:
                 startActivity(new Intent(activity, ColleagueEvaActivity.class));

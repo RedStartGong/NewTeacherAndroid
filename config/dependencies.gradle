@@ -63,6 +63,8 @@ ext {
     //sharedPreferences
     hawk =  'com.orhanobut:hawk:2.0.1'
     //View
+    //chart
+    MPAndroidChart = 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     //CircleImageView
     circleImageView =  'de.hdodenhof:circleimageview:2.0.0'
     //chipsLayoutManager

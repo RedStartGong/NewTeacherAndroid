@@ -1,0 +1,10 @@
+android {
+    signingConfigs {
+        release {
+            storeFile file('../config/keystore/ZidianTeacherKeystore.jks')
+            storePassword '123456'
+            keyAlias 'zidianTeacher'
+            keyPassword '123456'
+        }
+    }
+}

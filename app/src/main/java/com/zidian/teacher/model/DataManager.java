@@ -6,7 +6,9 @@ import com.zidian.teacher.model.entity.remote.AttendanceStudent;
 import com.zidian.teacher.model.entity.remote.CheckColleagueEva;
 import com.zidian.teacher.model.entity.remote.CheckSupervisorEva;
 import com.zidian.teacher.model.entity.remote.Class;
+import com.zidian.teacher.model.entity.remote.ColleagueEva;
 import com.zidian.teacher.model.entity.remote.Course;
+import com.zidian.teacher.model.entity.remote.CustomEva;
 import com.zidian.teacher.model.entity.remote.EvaluateCourse;
 import com.zidian.teacher.model.entity.remote.EvaluateTag;
 import com.zidian.teacher.model.entity.remote.HttpResult;
@@ -18,6 +20,8 @@ import com.zidian.teacher.model.entity.remote.NoDataResult;
 import com.zidian.teacher.model.entity.remote.PersonInfo;
 import com.zidian.teacher.model.entity.remote.Questionnaire;
 import com.zidian.teacher.model.entity.remote.School;
+import com.zidian.teacher.model.entity.remote.StudentEva;
+import com.zidian.teacher.model.entity.remote.EvaTwoIndex;
 import com.zidian.teacher.model.network.TeacherService;
 
 import java.util.List;
@@ -181,5 +185,32 @@ public final class DataManager {
             String contentFeedback, String recordId, String teacherId, String token, String schoolId) {
         return service.supervisorFeedback(contentFeedback, recordId, teacherId, token, schoolId);
     }
+
+    public Observable<HttpResult<StudentEva>> studentEva(String teacherId, String token, String schoolId) {
+        return service.studentEva(teacherId, token, schoolId);
+    }
+
+    public Observable<HttpResult<List<EvaTwoIndex>>> studentEvaTwoIndext(
+            String indexName, String teacherId, String token, String schoolId) {
+        return service.studentEvaTwoIndex(indexName, teacherId, token, schoolId);
+    }
+
+    public Observable<HttpResult<List<ColleagueEva>>> colleagueEva(
+            String evaluateType, String teacherId, String token, String schoolId) {
+        return service.colleagueEva(evaluateType, teacherId, token, schoolId);
+    }
+
+    public Observable<HttpResult<List<EvaTwoIndex>>> colleagueEvaTwoIndex(
+            String evaluateType, String indexName, String teacherId, String token,
+            String schoolId) {
+        return service.colleagueEvaTwoIndex(evaluateType, indexName, teacherId, token, schoolId);
+    }
+
+    public Observable<HttpResult<CustomEva>> customEva(
+            String startRow, String pageSize, String operatorId, String operatorType,
+            String teacherId, String token, String schoolId) {
+        return service.customEva(startRow, pageSize, operatorId, operatorType, teacherId, token, schoolId);
+    }
+
 
 }

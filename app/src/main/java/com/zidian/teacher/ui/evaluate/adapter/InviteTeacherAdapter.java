@@ -1,15 +1,12 @@
 package com.zidian.teacher.ui.evaluate.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zidian.teacher.R;
-import com.zidian.teacher.di.ActivityContext;
 import com.zidian.teacher.model.entity.remote.InviteTeacher;
 
 import org.json.JSONArray;
@@ -19,7 +16,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -33,12 +29,10 @@ import butterknife.OnClick;
 
 public class InviteTeacherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<InviteTeacher> teachers;
-    private Context context;
 
     @Inject
-    public InviteTeacherAdapter(@ActivityContext Context context) {
+    public InviteTeacherAdapter() {
         teachers = new ArrayList<>();
-        this.context = context;
     }
 
     public void setTeachers(List<InviteTeacher> teachers) {
