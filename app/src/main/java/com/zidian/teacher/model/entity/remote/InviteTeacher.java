@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by GongCheng on 2017/4/13.
  */
 
-public class InviteTeacher implements Serializable{
+public class InviteTeacher implements Serializable {
 
     /**
      * teacherCollege : 经济与管理学院
@@ -45,5 +45,19 @@ public class InviteTeacher implements Serializable{
     @Override
     public String toString() {
         return teacherName + "(" + teacherCollege + ")";
+    }
+
+    /**
+     * 用教师名字判断是否是同一个对象(去重)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        InviteTeacher teacher = (InviteTeacher) obj;
+        return teacherName.equals(teacher.teacherName);
+    }
+
+    @Override
+    public int hashCode() {
+        return teacherName.hashCode();
     }
 }

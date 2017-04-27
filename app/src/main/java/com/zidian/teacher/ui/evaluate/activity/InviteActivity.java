@@ -192,18 +192,8 @@ public class InviteActivity extends BaseActivity implements InviteContract.View 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_TEACHER && resultCode == RESULT_OK) {
-            InviteTeacher teacher = (InviteTeacher) data.getSerializableExtra("teacher");
-            tvInviteTeacherName.setText(teacher.getTeacherName());
-            JSONObject jsonObject = new JSONObject();
-            JSONArray jsonArray = new JSONArray();
-            try {
-                jsonObject.put("theRequestedPersonId", teacher.getTeacherId());
-                jsonObject.put("theRequestedPersonName", teacher.getTeacherName());
-                jsonArray.put(jsonObject);
-                json = jsonArray.toString();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            json = data.getStringExtra("teachers");
+            tvInviteTeacherName.setText("已添加");
         }
     }
 
