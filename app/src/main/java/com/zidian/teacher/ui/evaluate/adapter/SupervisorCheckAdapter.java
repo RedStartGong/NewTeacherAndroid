@@ -62,8 +62,6 @@ public class SupervisorCheckAdapter extends RecyclerView.Adapter<SupervisorCheck
         TextView title4;
         ImageView arrowBack;
         ImageView arrowNext;
-        TextView tvCustomEva;
-        TextView tvCustomEvaTitle;
         LinearLayout llCustomEva;
 
         public SimpleViewHolder(View view) {
@@ -83,8 +81,6 @@ public class SupervisorCheckAdapter extends RecyclerView.Adapter<SupervisorCheck
             title2 = (TextView) view.findViewById(R.id.item_title2);
             title3 = (TextView) view.findViewById(R.id.item_title3);
             title4 = (TextView) view.findViewById(R.id.item_title4);
-            tvCustomEva = (TextView) view.findViewById(R.id.tv_custom_eva);
-            tvCustomEvaTitle = (TextView) view.findViewById(R.id.tv_custom_eva_title);
             llCustomEva = (LinearLayout) view.findViewById(R.id.ll_custom_eva);
         }
     }
@@ -99,15 +95,12 @@ public class SupervisorCheckAdapter extends RecyclerView.Adapter<SupervisorCheck
     @Override
     public void onBindViewHolder(SimpleViewHolder holder, final int position) {
         this.holder = holder;
+        holder.llCustomEva.setVisibility(View.GONE);
         if (beans.size() % 4 != 0) {
 
             if (position == itemCount - 1) {
                 holder.arrowNext.setVisibility(View.GONE);
                 holder.arrowBack.setVisibility(View.VISIBLE);
-                holder.tvCustomEva.setText(customEva);
-                holder.tvCustomEva.setVisibility(View.VISIBLE);
-                holder.tvCustomEvaTitle.setVisibility(View.VISIBLE);
-                holder.llCustomEva.setVisibility(View.VISIBLE);
                 if (beans.size() % 4 == 3) {
                     holder.card4.setVisibility(View.INVISIBLE);
                     holder.tagTextAdapter1 = new TagTextAdapter<>(context);
@@ -162,7 +155,6 @@ public class SupervisorCheckAdapter extends RecyclerView.Adapter<SupervisorCheck
                     holder.title1.setText(beans.get(position * 4).getThreeIndexQuestionTea());
                 }
             } else {
-                holder.llCustomEva.setVisibility(View.GONE);
                 if (position == 0) {
                     holder.arrowNext.setVisibility(View.VISIBLE);
                     holder.arrowBack.setVisibility(View.GONE);
@@ -204,14 +196,11 @@ public class SupervisorCheckAdapter extends RecyclerView.Adapter<SupervisorCheck
         } else {
             holder.arrowNext.setVisibility(View.VISIBLE);
             holder.arrowBack.setVisibility(View.VISIBLE);
-            holder.llCustomEva.setVisibility(View.GONE);
             if (position == itemCount - 1) {
-                holder.llCustomEva.setVisibility(View.VISIBLE);
                 holder.arrowNext.setVisibility(View.GONE);
                 holder.arrowBack.setVisibility(View.VISIBLE);
             }
             if (position == 0) {
-                holder.llCustomEva.setVisibility(View.GONE);
                 holder.arrowNext.setVisibility(View.VISIBLE);
                 holder.arrowBack.setVisibility(View.GONE);
             }

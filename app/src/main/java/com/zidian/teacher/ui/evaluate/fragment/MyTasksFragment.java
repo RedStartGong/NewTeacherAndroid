@@ -170,10 +170,6 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
 
     /**
      * 根据返回值判断是否刷新界面
-     *
-     * @param requestCode
-     * @param resultCode
-     * @param data
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

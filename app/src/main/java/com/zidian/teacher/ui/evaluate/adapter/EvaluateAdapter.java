@@ -38,6 +38,8 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
     private static final String[] TAGS = {"非常符合", "比较符合", "一般符合", "比较不符合", "非常不符合"};
     private String customEva;
     private SimpleViewHolder holder;
+    //是否是督导
+    private boolean isSupervisor;
 
     public static class SimpleViewHolder extends RecyclerView.ViewHolder {
         public TagTextAdapter tagTextAdapter1;
@@ -85,14 +87,12 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
         }
     }
 
-    public EvaluateAdapter(Context context, List<EvaluateTag> beans) {
+    public EvaluateAdapter(Context context, List<EvaluateTag> beans, boolean isSupervisor) {
         this.context = context;
+        this.isSupervisor = isSupervisor;
         this.beans = beans;
         itemCount = beans.size() % 4 == 0 ? beans.size() / 4 : (beans.size() / 4 + 1);
-
-
     }
-
 
     public void addItem(int position) {
         final int id = currentItemId++;
@@ -113,7 +113,11 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
 
             if (position == itemCount - 1) {
                 holder.arrowNext.setVisibility(View.GONE);
-                holder.llCustomEva.setVisibility(View.VISIBLE);
+                if (isSupervisor) {
+                    holder.llCustomEva.setVisibility(View.GONE);
+                } else {
+                    holder.llCustomEva.setVisibility(View.VISIBLE);
+                }
                 holder.arrowBack.setVisibility(View.VISIBLE);
                 holder.tilCustomEva.setVisibility(View.VISIBLE);
                 holder.tilCustomEva.setCounterMaxLength(100);

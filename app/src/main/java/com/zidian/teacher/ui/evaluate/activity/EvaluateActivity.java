@@ -239,7 +239,11 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
         errorView.setVisibility(View.GONE);
         loadingView.setVisibility(View.GONE);
         this.evaluateTags = evaluateTags;
-        adapter = new EvaluateAdapter(this, evaluateTags);
+        if (evaluateType.equals("9")) {
+            adapter = new EvaluateAdapter(this, evaluateTags, true);
+        } else {
+            adapter = new EvaluateAdapter(this, evaluateTags, false);
+        }
         recyclerViewPager.setAdapter(adapter);
     }
 
