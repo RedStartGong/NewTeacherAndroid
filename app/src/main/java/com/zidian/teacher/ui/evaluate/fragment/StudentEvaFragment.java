@@ -1,6 +1,7 @@
 package com.zidian.teacher.ui.evaluate.fragment;
 
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,7 +14,6 @@ import com.zidian.teacher.model.entity.remote.StudentEva;
 import com.zidian.teacher.presenter.StudentEvaPresenter;
 import com.zidian.teacher.presenter.contract.StudentEvaContract;
 import com.zidian.teacher.ui.evaluate.adapter.StudentEvaAdapter;
-import com.zidian.teacher.ui.widget.RecyclerViewLinearDecoration;
 
 import javax.inject.Inject;
 
@@ -63,8 +63,7 @@ public class StudentEvaFragment extends BaseFragment implements StudentEvaContra
         checkNotNull(adapter);
         errorView.setVisibility(View.GONE);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-        recyclerView.addItemDecoration(new RecyclerViewLinearDecoration(activity,
-                RecyclerViewLinearDecoration.VERTICAL_LIST));
+        recyclerView.addItemDecoration(new DividerItemDecoration(activity, DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(adapter);
         presenter.attachView(this);
         presenter.getStudentEva();
