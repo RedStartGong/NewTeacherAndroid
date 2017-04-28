@@ -3,7 +3,6 @@ package com.zidian.teacher.ui.evaluate.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -50,7 +49,7 @@ public class StudentEvaFragment extends BaseFragment implements StudentEvaContra
 
     @Override
     protected int getLayout() {
-        return R.layout.fragment_student_eva;
+        return R.layout.fragment_base_eva;
     }
 
     @Override

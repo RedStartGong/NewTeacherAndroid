@@ -39,6 +39,7 @@
         <activity android:name=".ui.evaluate.activity.SupervisorFeedbackActivity"/>
         <activity android:name=".ui.evaluate.activity.MyEvaluateActivity"/>
         <activity android:name=".ui.evaluate.activity.StudentEvaTwoIndexActivity"/>
+        <activity android:name=".ui.evaluate.activity.ColleagueEvaTwoIndexActivity"/>
     </application>
 
 </manifest>

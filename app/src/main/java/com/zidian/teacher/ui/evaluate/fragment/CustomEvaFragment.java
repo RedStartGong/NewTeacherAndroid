@@ -21,7 +21,7 @@ public class CustomEvaFragment extends BaseFragment {
 
     @Override
     protected int getLayout() {
-        return R.layout.fragment_custom_eva;
+        return R.layout.fragment_base_eva;
     }
 
     @Override

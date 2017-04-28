@@ -28,7 +28,6 @@ public class StudentEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final static int TYPE_ITEM = 1;
     private StudentEva studentEva;
 
-    @SuppressWarnings("unused")
     @Inject
     public StudentEvaAdapter() {
 
@@ -114,11 +113,11 @@ public class StudentEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.evaluate_color)
+        @BindView(R.id.iv_evaluate_color)
         ImageView evaluateColor;
-        @BindView(R.id.evaluate_type)
+        @BindView(R.id.tv_evaluate_type)
         TextView evaluateType;
-        @BindView(R.id.evaluate_tag)
+        @BindView(R.id.tv_evaluate_tag)
         TextView evaluateTag;
 
         public ItemViewHolder(View itemView) {
