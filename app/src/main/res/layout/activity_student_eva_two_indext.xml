@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/bar_chart_two_index"
+            android:layout_width="match_parent"
+            android:layout_height="280dp">
+
+        </com.github.mikephil.charting.charts.BarChart>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_eva_tag"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="280dp">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <include layout="@layout/view_error" />
+
+        <include layout="@layout/view_loading" />
+    </FrameLayout>
 
 </LinearLayout>

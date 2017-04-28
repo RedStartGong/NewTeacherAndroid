@@ -11,10 +11,12 @@ import com.zidian.teacher.ui.evaluate.activity.ApplyToEvaActivity;
 import com.zidian.teacher.ui.evaluate.activity.CheckColleagueEvaActivity;
 import com.zidian.teacher.ui.evaluate.activity.CheckSupervisorEvaActivity;
 import com.zidian.teacher.ui.evaluate.activity.ColleagueEvaActivity;
+import com.zidian.teacher.ui.evaluate.activity.ColleagueEvaTwoIndexActivity;
 import com.zidian.teacher.ui.evaluate.activity.EvaluateActivity;
 import com.zidian.teacher.ui.evaluate.activity.InviteActivity;
 import com.zidian.teacher.ui.evaluate.activity.InviteSelectTeacherActivity;
 import com.zidian.teacher.ui.evaluate.activity.MyTaskActivity;
+import com.zidian.teacher.ui.evaluate.activity.StudentEvaTwoIndexActivity;
 import com.zidian.teacher.ui.evaluate.activity.SupervisorEvaActivity;
 import com.zidian.teacher.ui.evaluate.activity.SupervisorFeedbackActivity;
 import com.zidian.teacher.ui.main.LoginActivity;
@@ -68,4 +70,8 @@ public interface ActivityComponent {
     void inject(CheckSupervisorEvaActivity checkSupervisorEvaActivity);
 
     void inject(SupervisorFeedbackActivity supervisorFeedbackActivity);
+
+    void inject(StudentEvaTwoIndexActivity studentEvaTwoIndexActivity);
+
+    void inject(ColleagueEvaTwoIndexActivity colleagueEvaTwoIndexActivity);
 }

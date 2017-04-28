@@ -18,8 +18,6 @@ import butterknife.OnClick;
 public class ColleagueEvaActivity extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.iv_evaluate_bg)
-    ImageView ivEvaluateBg;
 
     @Override
     protected int getLayout() {
@@ -35,7 +33,6 @@ public class ColleagueEvaActivity extends BaseActivity {
     protected void initViewAndData() {
         toolbar.setTitle(R.string.colleague_evaluate);
         setToolbarBack(toolbar);
-        Glide.with(this).load(R.drawable.bg_evaluate).into(ivEvaluateBg);
     }
 
     /**

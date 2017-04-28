@@ -19,6 +19,7 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.zidian.teacher.R;
 
 import com.zidian.teacher.model.entity.remote.ColleagueEva;
+import com.zidian.teacher.ui.evaluate.chart.BarChartHelper;
 import com.zidian.teacher.util.ColorConstants;
 
 import java.text.DecimalFormat;
@@ -39,10 +40,11 @@ public class ColleagueEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private final static int TYPE_ITEM = 1;
 
     private List<ColleagueEva> data;
+    private BarChartHelper barChartHelper;
 
     @Inject
-    public ColleagueEvaAdapter() {
-
+    public ColleagueEvaAdapter(BarChartHelper barChartHelper) {
+        this.barChartHelper = barChartHelper;
     }
 
     @Override
@@ -70,7 +72,7 @@ public class ColleagueEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof TopViewHolder) {
-            initBarChart(((TopViewHolder) holder).colleagueBarChart);
+            barChartHelper.initBarChart(((TopViewHolder) holder).colleagueBarChart);
             ((TopViewHolder) holder).colleagueBarChart.setData(getBarData());
             ((TopViewHolder) holder).colleagueBarChart.invalidate();
         } else if (holder instanceof ItemViewHolder) {
@@ -114,49 +116,6 @@ public class ColleagueEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         } else {
             return TYPE_ITEM;
         }
-    }
-
-    /**
-     * 初始化条形图
-     *
-     * @param chart
-     */
-    private void initBarChart(BarChart chart) {
-        chart.setDescription(null);
-        //设置拦截所有触摸事件
-        chart.setTouchEnabled(false);
-
-        XAxis xAxis = chart.getXAxis();
-        xAxis.setDrawGridLines(false);
-        xAxis.setLabelCount(5);
-        xAxis.setTextSize(10f);
-        //X轴Value设计
-//        xAxis.setValueFormatter(valueFormatter);
-        xAxis.setGranularity(1);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setValueFormatter(new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return "";
-            }
-        });
-        //Y轴左侧
-        YAxis yl = chart.getAxisLeft();
-        yl.setDrawAxisLine(true);
-        yl.setDrawGridLines(false);
-        yl.setAxisMinimum(0f); // this replaces setStartAtZero(true)
-        //Y轴右侧
-        YAxis yr = chart.getAxisRight();
-        yr.setDrawAxisLine(true);
-        yr.setDrawGridLines(false);
-        yr.setAxisMinimum(0f);
-        chart.animateY(1500);
-        //图表说明设置
-        Legend l = chart.getLegend();
-        l.setPosition(Legend.LegendPosition.ABOVE_CHART_RIGHT);
-        l.setXEntrySpace(7f);
-        l.setYOffset(0f);
-        l.setEnabled(false);
     }
 
     /**

@@ -1,25 +1,130 @@
 package com.zidian.teacher.ui.evaluate.activity;
 
+import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
+import com.zidian.teacher.model.entity.remote.EvaTwoIndex;
+import com.zidian.teacher.presenter.ColleagueEvaTwoIndexPresenter;
+import com.zidian.teacher.presenter.contract.ColleagueEvaTwoIndexContract;
+import com.zidian.teacher.ui.evaluate.adapter.ChartOptionListAdapter;
+import com.zidian.teacher.ui.evaluate.chart.BarChartHelper;
+import com.zidian.teacher.util.ColorConstants;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
+
+import static com.zidian.teacher.util.Preconditions.checkNotNull;
 
 /**
  * Created by GongCheng on 2017/4/28.
  */
 
-public class ColleagueEvaTwoIndexActivity extends BaseActivity {
+public class ColleagueEvaTwoIndexActivity extends BaseActivity
+        implements ColleagueEvaTwoIndexContract.View {
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.tv_index_score)
+    TextView tvIndexScore;
+    @BindView(R.id.error_view)
+    TextView errorView;
+    @BindView(R.id.loading_view)
+    ProgressBar loadingView;
+    @BindView(R.id.rv_eva_tag)
+    RecyclerView rvEvaTag;
+    @BindView(R.id.bar_chart_two_index)
+    BarChart barChartTwoIndex;
+
+    @Inject
+    ColleagueEvaTwoIndexPresenter presenter;
+    @Inject
+    ChartOptionListAdapter adapter;
+    @Inject
+    BarChartHelper barChartHelper;
+
     @Override
     protected int getLayout() {
-        return R.layout.activity_student_eva_two_indext;
+        return R.layout.activity_colleague_eva_two_index;
     }
 
     @Override
     protected void initInject() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override
     protected void initViewAndData() {
+        checkNotNull(presenter);
+        checkNotNull(adapter);
+        checkNotNull(barChartHelper);
+        Intent intent = getIntent();
+        String indexName = intent.getStringExtra("indexName");
+        String evaluateType = intent.getStringExtra("evaluateType");
+        float indexScore = intent.getFloatExtra("indexScore", 0);
 
+        toolbar.setTitle(indexName);
+        setToolbarBack(toolbar);
+        tvIndexScore.setText(String.valueOf(indexScore));
+        errorView.setVisibility(View.GONE);
+        rvEvaTag.setLayoutManager(new LinearLayoutManager(this));
+        rvEvaTag.setAdapter(adapter);
+        barChartHelper.initBarChart(barChartTwoIndex);
+
+        presenter.attachView(this);
+        presenter.getEvaTwoIndex(evaluateType, indexName);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.deAttachView();
+    }
+
+    /**
+     * 得到BarChart的data
+     *
+     * @return
+     */
+    public BarData getBarData(List<EvaTwoIndex> evaTwoIndices) {
+        List<BarEntry> barEntries = new ArrayList<>();
+
+        for (int i = 0; i < evaTwoIndices.size(); i++) {
+            barEntries.add(new BarEntry(i + 1, evaTwoIndices.get(i).getTwoIndexScore()));
+        }
+        BarDataSet dataSet = new BarDataSet(barEntries, "BarChart");
+        dataSet.setColors(ColorConstants.CHART_COLORS);
+        BarData barData = new BarData(dataSet);
+        barData.setBarWidth(0.3f);
+        barData.setValueTextSize(12);
+        return barData;
+    }
+
+    @Override
+    public void showError(Throwable e) {
+        errorView.setVisibility(View.VISIBLE);
+        errorView.setText(e.getMessage());
+        loadingView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showEvaTwoIndex(List<EvaTwoIndex> evaTwoIndices) {
+        errorView.setVisibility(View.GONE);
+        loadingView.setVisibility(View.GONE);
+        adapter.setData(evaTwoIndices);
+        barChartTwoIndex.setData(getBarData(evaTwoIndices));
     }
 }
