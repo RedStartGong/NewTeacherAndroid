@@ -1,11 +1,19 @@
 package com.zidian.teacher.ui.evaluate.activity;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
+import com.zidian.teacher.base.BaseFragmentPagerAdapter;
+import com.zidian.teacher.ui.evaluate.fragment.ColleagueEvaFragment;
+import com.zidian.teacher.ui.evaluate.fragment.CustomEvaFragment;
+import com.zidian.teacher.ui.evaluate.fragment.StudentEvaFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -35,6 +43,19 @@ public class MyEvaluateActivity extends BaseActivity {
     protected void initViewAndData() {
         toolbar.setTitle("我的评价");
         setToolbarBack(toolbar);
-
+        List<Fragment> fragments = new ArrayList<>();
+        List<String> titles = new ArrayList<>();
+        titles.add("学生评价");
+        titles.add("同行评价");
+        titles.add("督导评价");
+        titles.add("自定义评价");
+        fragments.add(StudentEvaFragment.newInstance());
+        fragments.add(ColleagueEvaFragment.newInstance("colleagueEvaluation"));
+        fragments.add(ColleagueEvaFragment.newInstance("supervisorEvaluation"));
+        fragments.add(CustomEvaFragment.newInstance());
+        BaseFragmentPagerAdapter pagerAdapter = new BaseFragmentPagerAdapter(
+                getSupportFragmentManager(), fragments, titles);
+        vpMyEvaluate.setAdapter(pagerAdapter);
+        tlMyEvaluate.setupWithViewPager(vpMyEvaluate);
     }
 }

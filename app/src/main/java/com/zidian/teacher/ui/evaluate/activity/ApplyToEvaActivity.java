@@ -13,7 +13,6 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
-import com.zidian.teacher.model.DataManager;
 import com.zidian.teacher.model.entity.remote.EvaluateCourse;
 import com.zidian.teacher.presenter.ApplyToEvaPresenter;
 import com.zidian.teacher.presenter.contract.ApplyToEvaContract;
@@ -39,11 +38,6 @@ import static com.zidian.teacher.util.Preconditions.checkNotNull;
 public class ApplyToEvaActivity extends BaseActivity implements ApplyToEvaContract.View {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-
-    @Inject
-    DataManager dataManager;
-    @Inject
-    ApplyToEvaPresenter presenter;
     @BindView(R.id.tv_college)
     TextView tvCollege;
     @BindView(R.id.tv_teacher_name)
@@ -58,6 +52,9 @@ public class ApplyToEvaActivity extends BaseActivity implements ApplyToEvaContra
     TextInputLayout tilApplyLanguage;
     @BindView(R.id.et_apply_language)
     EditText etApplyLanguage;
+
+    @Inject
+    ApplyToEvaPresenter presenter;
 
     private ProgressDialog progressDialog;
     private List<EvaluateCourse> courses;
@@ -84,7 +81,6 @@ public class ApplyToEvaActivity extends BaseActivity implements ApplyToEvaContra
         checkNotNull(presenter);
         presenter.attachView(this);
         presenter.getEvaluateCourses();
-
     }
 
     @Override

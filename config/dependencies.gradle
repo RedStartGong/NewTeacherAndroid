@@ -27,8 +27,8 @@ ext {
     guava = "com.google.guava:guava:$guavaVersion"
 
     //Internet
-    retrofitVersion = '2.1.0'
-    okhttpVersion = '3.3.1'
+    retrofitVersion = '2.2.0'
+    okhttpVersion = '3.7.0'
     retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
     retrofitAdapterRxJava = "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
     retrofitConverterGson =  "com.squareup.retrofit2:converter-gson:$retrofitVersion"
