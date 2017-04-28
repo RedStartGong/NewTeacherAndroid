@@ -24,6 +24,7 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 
 /**
+ * 考勤 presenter
  * Created by GongCheng on 2017/4/8.
  */
 
@@ -60,12 +61,12 @@ public class AttendancePresenter extends RxPresenter<AttendanceContract.View> im
                     @Override
                     public Observable<List<AttendanceStudent.DataBean>> call(final AttendanceStudent attendanceStudent) {
                         if (attendanceStudent.getCode() != 200) {
-                           return Observable.error(new ApiException(attendanceStudent.getMessage()));
+                            return Observable.error(new ApiException(attendanceStudent.getMessage()));
                         } else {
-                           return Observable.create(new Observable.OnSubscribe<List<AttendanceStudent.DataBean>>() {
+                            return Observable.create(new Observable.OnSubscribe<List<AttendanceStudent.DataBean>>() {
                                 @Override
                                 public void call(Subscriber<? super List<AttendanceStudent.DataBean>> subscriber) {
-                                    try{
+                                    try {
                                         subscriber.onNext(attendanceStudent.getData());
                                         subscriber.onCompleted();
                                     } catch (Throwable throwable) {

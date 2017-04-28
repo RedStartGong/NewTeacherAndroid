@@ -16,6 +16,7 @@ import rx.Subscriber;
 import rx.Subscription;
 
 /**
+ * 查找邀请评价的老师 presenter
  * Created by GongCheng on 2017/4/14.
  */
 

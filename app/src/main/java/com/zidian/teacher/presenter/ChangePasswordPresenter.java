@@ -17,6 +17,7 @@ import rx.Subscription;
 import rx.functions.Func1;
 
 /**
+ * 修改密码 presenter
  * Created by GongCheng on 2017/4/6.
  */
 

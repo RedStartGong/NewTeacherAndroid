@@ -14,6 +14,7 @@ import rx.Subscriber;
 import rx.Subscription;
 
 /**
+ * 查看同行评价 presenter
  * Created by GongCheng on 2017/4/24.
  */
 

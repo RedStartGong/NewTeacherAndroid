@@ -17,6 +17,7 @@ import rx.Subscription;
 import rx.functions.Func1;
 
 /**
+ * 修改个人信息 presenter
  * Created by GongCheng on 2017/4/11.
  */
 

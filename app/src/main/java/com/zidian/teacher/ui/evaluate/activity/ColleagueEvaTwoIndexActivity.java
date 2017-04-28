@@ -31,6 +31,7 @@ import butterknife.BindView;
 import static com.zidian.teacher.util.Preconditions.checkNotNull;
 
 /**
+ * 同行/督导评价二级指标
  * Created by GongCheng on 2017/4/28.
  */
 
@@ -97,7 +98,7 @@ public class ColleagueEvaTwoIndexActivity extends BaseActivity
     /**
      * 得到BarChart的data
      *
-     * @return
+     * @return BarData
      */
     public BarData getBarData(List<EvaTwoIndex> evaTwoIndices) {
         List<BarEntry> barEntries = new ArrayList<>();

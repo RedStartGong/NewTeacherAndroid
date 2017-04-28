@@ -19,6 +19,7 @@ import rx.Subscription;
 import rx.functions.Func1;
 
 /**
+ * 督导评价查看课程信息 presenter
  * Created by GongCheng on 2017/4/18.
  */
 

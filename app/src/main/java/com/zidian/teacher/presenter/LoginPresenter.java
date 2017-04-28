@@ -23,6 +23,7 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 
 /**
+ * 登录 presenter
  * Created by GongCheng on 2017/3/20.
  */
 

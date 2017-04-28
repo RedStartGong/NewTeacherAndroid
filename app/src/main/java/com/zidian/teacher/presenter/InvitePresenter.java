@@ -19,6 +19,7 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 
 /**
+ * 邀请评价 presetner
  * Created by GongCheng on 2017/4/14.
  */
 

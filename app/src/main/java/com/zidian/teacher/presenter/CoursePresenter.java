@@ -16,6 +16,7 @@ import rx.Subscription;
 import rx.functions.Action1;
 
 /**
+ * 课程表 presenter
  * Created by GongCheng on 2017/4/7.
  */
 
