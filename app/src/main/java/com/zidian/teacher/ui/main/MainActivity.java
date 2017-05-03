@@ -9,7 +9,7 @@ import com.zidian.teacher.ui.course.fragment.CourseFragment;
 import com.zidian.teacher.ui.evaluate.fragment.EvaluateFragment;
 import com.zidian.teacher.ui.mine.fragment.MineContainerFragment;
 import com.zidian.teacher.ui.mine.fragment.MineFragment;
-import com.zidian.teacher.ui.questionnaire.QuestionnaireFragment;
+import com.zidian.teacher.ui.questionnaire.fragment.QuestionnaireFragment;
 import com.zidian.teacher.ui.widget.BottomBar;
 import com.zidian.teacher.ui.widget.BottomBarTab;
 import com.zidian.teacher.util.ActManager;

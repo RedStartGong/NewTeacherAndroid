@@ -3,11 +3,10 @@ package com.zidian.teacher.model.entity.remote;
 import java.util.List;
 
 /**
- * 问卷
- * Created by GongCheng on 2017/4/1.
+ * Created by GongCheng on 2017/5/3.
  */
 
-public class Questionnaire {
+public class MyQuesList {
 
     /**
      * pages : 2

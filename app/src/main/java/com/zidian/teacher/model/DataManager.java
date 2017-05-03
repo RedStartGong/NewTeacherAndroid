@@ -9,19 +9,22 @@ import com.zidian.teacher.model.entity.remote.Class;
 import com.zidian.teacher.model.entity.remote.ColleagueEva;
 import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.model.entity.remote.CustomEva;
+import com.zidian.teacher.model.entity.remote.EvaTwoIndex;
 import com.zidian.teacher.model.entity.remote.EvaluateCourse;
 import com.zidian.teacher.model.entity.remote.EvaluateTag;
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.InviteCourseResult;
 import com.zidian.teacher.model.entity.remote.InviteTeacher;
 import com.zidian.teacher.model.entity.remote.LoginResult;
+import com.zidian.teacher.model.entity.remote.MyQuesDetail;
+import com.zidian.teacher.model.entity.remote.MyQuesList;
 import com.zidian.teacher.model.entity.remote.MyTask;
 import com.zidian.teacher.model.entity.remote.NoDataResult;
 import com.zidian.teacher.model.entity.remote.PersonInfo;
-import com.zidian.teacher.model.entity.remote.Questionnaire;
+import com.zidian.teacher.model.entity.remote.QuesSurveyDetail;
+import com.zidian.teacher.model.entity.remote.QuesSurveyList;
 import com.zidian.teacher.model.entity.remote.School;
 import com.zidian.teacher.model.entity.remote.StudentEva;
-import com.zidian.teacher.model.entity.remote.EvaTwoIndex;
 import com.zidian.teacher.model.network.TeacherService;
 
 import java.util.List;
@@ -52,11 +55,6 @@ public final class DataManager {
 
     public Observable<LoginResult> login(String username, String password, String schoolId) {
         return service.login(username, password, schoolId);
-    }
-
-    public Observable<HttpResult<Questionnaire>> getQuestionnaire(
-            String startRow, String pageSize, String teacherId, String token, String schoolId) {
-        return service.getQuestionnaire(startRow, pageSize, teacherId, token, schoolId);
     }
 
     public Observable<HttpResult<PersonInfo>> getPersonInfo(
@@ -190,7 +188,7 @@ public final class DataManager {
         return service.studentEva(teacherId, token, schoolId);
     }
 
-    public Observable<HttpResult<List<EvaTwoIndex>>> studentEvaTwoIndext(
+    public Observable<HttpResult<List<EvaTwoIndex>>> studentEvaTwoIndex(
             String indexName, String teacherId, String token, String schoolId) {
         return service.studentEvaTwoIndex(indexName, teacherId, token, schoolId);
     }
@@ -210,6 +208,33 @@ public final class DataManager {
             String startRow, String pageSize, String operatorId, String operatorType,
             String teacherId, String token, String schoolId) {
         return service.customEva(startRow, pageSize, operatorId, operatorType, teacherId, token, schoolId);
+    }
+
+    public Observable<HttpResult<QuesSurveyList>> quesSurveyList(
+            String startRow, String pageSize, String teacherId, String token,
+            String schoolId) {
+        return service.quesSurveyList(startRow, pageSize, teacherId, token, schoolId);
+    }
+
+    public Observable<HttpResult<QuesSurveyDetail>> quesSurveyDetail(
+            String questionnaireId, String teacherId, String token, String schoolId) {
+        return service.quesSurveyDetail(questionnaireId, teacherId, token, schoolId);
+    }
+
+    public Observable<NoDataResult> quesSubmit(
+            String questionnaireSubmit, String teacherId, String token, String schoolId) {
+        return service.quesSubmit(questionnaireSubmit, teacherId, token, schoolId);
+    }
+
+    public Observable<HttpResult<MyQuesList>> myQuesList(
+            String startRow, String pageSize, String teacherId, String token,
+            String schoolId) {
+        return service.myQuesList(startRow, pageSize, teacherId, token, schoolId);
+    }
+
+    public Observable<HttpResult<List<MyQuesDetail>>> myQuesDetail(
+            String questionnaireId, String teacherId, String token, String schoolId) {
+        return service.myQuesDetail(questionnaireId, teacherId, token, schoolId);
     }
 
 

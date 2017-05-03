@@ -1,7 +1,9 @@
 package com.zidian.teacher.ui.mine.fragment;
 
+import android.app.ActivityOptions;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -79,7 +81,12 @@ public class MineFragment extends BaseFragment implements PersonInfoContract.Vie
                 }
                 Intent intent = new Intent(activity, ChangeInfoActivity.class);
                 intent.putExtra("personInfo", personInfo);
-                startActivityForResult(intent, INFO_CHANGED_CODE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivityForResult(intent, INFO_CHANGED_CODE,
+                            ActivityOptions.makeSceneTransitionAnimation(activity,cimPortrait,"shareView" ).toBundle());
+                } else {
+                    startActivityForResult(intent, INFO_CHANGED_CODE);
+                }
                 break;
             case R.id.ll_password:
                 start(ChangePasswordFragment.newInstance());

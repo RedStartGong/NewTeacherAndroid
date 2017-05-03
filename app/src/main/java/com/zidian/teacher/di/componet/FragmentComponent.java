@@ -11,7 +11,9 @@ import com.zidian.teacher.ui.evaluate.fragment.MyTasksFragment;
 import com.zidian.teacher.ui.evaluate.fragment.StudentEvaFragment;
 import com.zidian.teacher.ui.mine.fragment.ChangePasswordFragment;
 import com.zidian.teacher.ui.mine.fragment.MineFragment;
-import com.zidian.teacher.ui.questionnaire.QuestionnaireFragment;
+import com.zidian.teacher.ui.questionnaire.fragment.MyQuestionnaireFragment;
+import com.zidian.teacher.ui.questionnaire.fragment.QuestionnaireSurveyFragment;
+import com.zidian.teacher.ui.questionnaire.fragment.QuestionnaireFragment;
 
 import dagger.Component;
 
@@ -40,4 +42,8 @@ public interface FragmentComponent {
     void inject(ColleagueEvaFragment colleagueEvaFragment);
 
     void inject(CustomEvaFragment customEvaFragment);
+
+    void inject(MyQuestionnaireFragment myQuestionnaireFragment);
+
+    void inject(QuestionnaireSurveyFragment questionnaireSurveyFragment);
 }

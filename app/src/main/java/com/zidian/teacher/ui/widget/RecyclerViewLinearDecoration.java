@@ -67,6 +67,7 @@ public class RecyclerViewLinearDecoration extends RecyclerView.ItemDecoration {
             mDivider.setBounds(left, top, right, bottom);
             mDivider.draw(c);
         }
+        c.restore();
     }
 
     public void drawHorizontal(Canvas c, RecyclerView parent) {
@@ -83,6 +84,7 @@ public class RecyclerViewLinearDecoration extends RecyclerView.ItemDecoration {
             mDivider.setBounds(left, top, right, bottom);
             mDivider.draw(c);
         }
+        c.restore();
     }
 
     @Override

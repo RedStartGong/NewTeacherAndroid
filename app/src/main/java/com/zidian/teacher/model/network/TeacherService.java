@@ -9,19 +9,22 @@ import com.zidian.teacher.model.entity.remote.Class;
 import com.zidian.teacher.model.entity.remote.ColleagueEva;
 import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.model.entity.remote.CustomEva;
+import com.zidian.teacher.model.entity.remote.EvaTwoIndex;
 import com.zidian.teacher.model.entity.remote.EvaluateCourse;
 import com.zidian.teacher.model.entity.remote.EvaluateTag;
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.InviteCourseResult;
 import com.zidian.teacher.model.entity.remote.InviteTeacher;
 import com.zidian.teacher.model.entity.remote.LoginResult;
+import com.zidian.teacher.model.entity.remote.MyQuesDetail;
+import com.zidian.teacher.model.entity.remote.MyQuesList;
 import com.zidian.teacher.model.entity.remote.MyTask;
 import com.zidian.teacher.model.entity.remote.NoDataResult;
 import com.zidian.teacher.model.entity.remote.PersonInfo;
-import com.zidian.teacher.model.entity.remote.Questionnaire;
+import com.zidian.teacher.model.entity.remote.QuesSurveyDetail;
+import com.zidian.teacher.model.entity.remote.QuesSurveyList;
 import com.zidian.teacher.model.entity.remote.School;
 import com.zidian.teacher.model.entity.remote.StudentEva;
-import com.zidian.teacher.model.entity.remote.EvaTwoIndex;
 
 import java.util.List;
 
@@ -48,31 +51,18 @@ public interface TeacherService {
     @POST("page/shiro/school")
     Observable<HttpResult<List<School>>> getSchools();
 
+    /**
+     * 教师登录
+     */
     @FormUrlEncoded
     @POST("page/shiro/loginTeacher")
     Observable<LoginResult> login(
             @Field("username") String username, @Field("password") String password,
             @Field("schoolId") String schoolId);
 
-    @FormUrlEncoded
-    @POST("page/stuCou/select")
-    Observable<Object> getClassSchedule(
-            @Field("studentId") String studentId, @Field("token") String token,
-            @Field("schoolId") String schoolId);
-
-    @FormUrlEncoded
-    @POST("Questionnaire/selectQuestionnaire")
-    Observable<HttpResult<Questionnaire>> getQuestionnaire(
-            @Field("startrow") String startRow, @Field("pageSize") String pageSize,
-            @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") String schoolId);
-
-    @FormUrlEncoded
-    @POST("Questionnaire/selectQuestionnaireStatistics")
-    Observable<HttpResult<Object>> getQuestionnaireResult(
-            @Field("questionnaireId") String questionnaireId, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") String schoolId);
-
+    /**
+     * 获取个人信息
+     */
     @FormUrlEncoded
     @POST("teacher/selectMydata")
     Observable<HttpResult<PersonInfo>> getPersonInfo(
@@ -261,7 +251,6 @@ public interface TeacherService {
     /**
      * 查看评价详情
      */
-
     @GET("ToEvaluateOthers/evaluationDetails")
     Observable<HttpResult<CheckColleagueEva>> checkColleagueEva(
             @Query("recordId") String recordId, @Query("teacherId") String teacherId,
@@ -332,4 +321,51 @@ public interface TeacherService {
             @Field("operatorId") String operatorId, @Field("operatorType") String operatorType,
             @Field("teacherId") String teacherId, @Field("token") String token,
             @Field("schoolId") String schoolId);
+
+    /**
+     * 教师获取需要填写的问卷
+     */
+    @FormUrlEncoded
+    @POST("QuestionnaireTea/selectTeaQues")
+    Observable<HttpResult<QuesSurveyList>> quesSurveyList(
+            @Field("startrow") String startRow, @Field("pageSize") String pageSize,
+            @Field("teacherId") String teacherId, @Field("token") String token,
+            @Field("schoolId") String schoolId);
+
+    /**
+     * 教师查看需要填写问卷的详情
+     */
+    @FormUrlEncoded
+    @POST("QuestionnaireTea/teaSelectQuestionnaireParticulars")
+    Observable<HttpResult<QuesSurveyDetail>> quesSurveyDetail(
+            @Field("questionnaireId") String questionnaireId, @Field("teacherId") String teacherId,
+            @Field("token") String token, @Field("schoolId") String schoolId);
+
+    /**
+     * 教师提交问卷
+     */
+    @FormUrlEncoded
+    @POST("QuestionnaireTea/teaInsertQuestionnaireSubmit")
+    Observable<NoDataResult> quesSubmit(
+            @Field("questionnaireSubmit") String questionnaireSubmit, @Field("teacherId") String teacherId,
+            @Field("token") String token, @Field("schoolId") String schoolId);
+
+    /**
+     * 查看指定教师发布的全部问卷
+     */
+    @FormUrlEncoded
+    @POST("Questionnaire/selectQuestionnaire")
+    Observable<HttpResult<MyQuesList>> myQuesList(
+            @Field("startrow") String startRow, @Field("pageSize") String pageSize,
+            @Field("teacherId") String teacherId, @Field("token") String token,
+            @Field("schoolId") String schoolId);
+
+    /**
+     * 查看指定教师发布的问卷统计详情
+     */
+    @FormUrlEncoded
+    @POST("Questionnaire/selectQuestionnaireStatistics")
+    Observable<HttpResult<List<MyQuesDetail>>> myQuesDetail(
+            @Field("questionnaireId") String questionnaireId, @Field("teacherId") String teacherId,
+            @Field("token") String token, @Field("schoolId") String schoolId);
 }
