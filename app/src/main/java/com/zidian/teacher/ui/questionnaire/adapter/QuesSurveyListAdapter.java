@@ -10,7 +10,6 @@ import com.zidian.teacher.R;
 import com.zidian.teacher.model.entity.remote.QuesSurveyList;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -33,6 +32,7 @@ public class QuesSurveyListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public void setData(List<QuesSurveyList.QuestionnaireListBean> data) {
         this.data = data;
+        notifyDataSetChanged();
     }
 
 

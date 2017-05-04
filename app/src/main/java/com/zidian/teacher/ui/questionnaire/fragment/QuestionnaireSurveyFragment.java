@@ -1,8 +1,10 @@
 package com.zidian.teacher.ui.questionnaire.fragment;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -42,6 +44,8 @@ public class QuestionnaireSurveyFragment extends BaseFragment implements Questio
     @Inject
     QuesSurveyListAdapter adapter;
 
+    private FloatingActionButton fabAdd;
+
     private int row = 1;
     private List<QuesSurveyList.QuestionnaireListBean> questionnaireListBeanList;
 
@@ -69,10 +73,10 @@ public class QuestionnaireSurveyFragment extends BaseFragment implements Questio
         checkNotNull(presenter);
         checkNotNull(adapter);
 
+        errorView.setVisibility(View.GONE);
         questionnaireListBeanList = new ArrayList<>();
-
+        fabAdd = (FloatingActionButton) getParentFragment().getView().findViewById(R.id.fab_add_questionnaire);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
@@ -86,10 +90,26 @@ public class QuestionnaireSurveyFragment extends BaseFragment implements Questio
                 presenter.getQuestionnaireSurveyList(String.valueOf(row));
             }
         });
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 5) {
+                    fabAdd.hide();
+                } else {
+                    fabAdd.show();
+                }
+            }
+        });
         recyclerView.setAdapter(adapter);
         presenter.attachView(this);
         presenter.getQuestionnaireSurveyList(String.valueOf(row));
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -105,6 +125,8 @@ public class QuestionnaireSurveyFragment extends BaseFragment implements Questio
         if (row == 1) {
             errorView.setVisibility(View.VISIBLE);
             errorView.setText(e.getMessage());
+            questionnaireListBeanList.clear();
+            adapter.setData(questionnaireListBeanList);
         } else {
             errorView.setVisibility(View.GONE);
         }
@@ -113,25 +135,30 @@ public class QuestionnaireSurveyFragment extends BaseFragment implements Questio
 
     @Override
     public void showEmpty() {
-        loadingView.setVisibility(View.GONE);
-        errorView.setVisibility(View.VISIBLE);
-        errorView.setText("当前没有问卷");
+        if (row == 1) {
+            loadingView.setVisibility(View.GONE);
+            errorView.setVisibility(View.VISIBLE);
+            errorView.setText("当前没有问卷");
+        } else {
+            recyclerView.refreshComplete();
+        }
     }
 
     @Override
     public void showQuestionnaireSurveyList(QuesSurveyList quesSurveyList) {
         errorView.setVisibility(View.GONE);
         loadingView.setVisibility(View.GONE);
-
         recyclerView.refreshComplete();
         if (row == 1) {
-            questionnaireListBeanList.clear();
-        }
-        this.questionnaireListBeanList.addAll(quesSurveyList.getQuestionnaireList());
-        if (quesSurveyList.getPages() == this.questionnaireListBeanList.size()) {
-            recyclerView.noMoreLoading();
-        } else {
             recyclerView.refreshComplete();
+            questionnaireListBeanList.clear();
+        } else {
+            recyclerView.setLoadMoreGone();
+        }
+
+        this.questionnaireListBeanList.addAll(quesSurveyList.getQuestionnaireList());
+        if (quesSurveyList.getPages() == row) {
+            recyclerView.noMoreLoading();
         }
         adapter.setData(this.questionnaireListBeanList);
     }
