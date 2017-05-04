@@ -24,6 +24,8 @@ import com.zidian.teacher.ui.main.MainActivity;
 import com.zidian.teacher.ui.mine.activity.AboutActivity;
 import com.zidian.teacher.ui.mine.activity.ChangeInfoActivity;
 import com.zidian.teacher.ui.mine.activity.FeedbackActivity;
+import com.zidian.teacher.ui.questionnaire.activity.AddQuestionnaireActivity;
+import com.zidian.teacher.ui.questionnaire.activity.MyQuesDetailActivity;
 
 import dagger.Component;
 
@@ -74,4 +76,8 @@ public interface ActivityComponent {
     void inject(StudentEvaTwoIndexActivity studentEvaTwoIndexActivity);
 
     void inject(ColleagueEvaTwoIndexActivity colleagueEvaTwoIndexActivity);
+
+    void inject(MyQuesDetailActivity myQuesDetailActivity);
+
+    void inject(AddQuestionnaireActivity addQuestionnaireActivity);
 }

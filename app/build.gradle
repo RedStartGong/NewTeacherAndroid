@@ -100,7 +100,7 @@ dependencies {
     //sharedPreferences
     compile rootProject.ext.hawk
     //MPAndroidChart
-    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    compile rootProject.ext.MPAndroidChart
     //CircleImageView
     compile rootProject.ext.circleImageView
     //dialogs

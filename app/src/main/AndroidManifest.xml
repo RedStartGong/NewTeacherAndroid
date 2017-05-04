@@ -42,6 +42,7 @@
         <activity android:name=".ui.evaluate.activity.StudentEvaTwoIndexActivity"/>
         <activity android:name=".ui.evaluate.activity.ColleagueEvaTwoIndexActivity"/>
         <activity android:name=".ui.questionnaire.activity.AddQuestionnaireActivity"/>
+        <activity android:name=".ui.questionnaire.activity.MyQuesDetailActivity"/>
     </application>
 
 </manifest>

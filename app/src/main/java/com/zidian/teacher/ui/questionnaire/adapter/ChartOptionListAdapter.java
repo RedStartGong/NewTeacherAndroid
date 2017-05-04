@@ -1,4 +1,4 @@
-package com.zidian.teacher.ui.evaluate.adapter;
+package com.zidian.teacher.ui.questionnaire.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,39 +8,32 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zidian.teacher.R;
-
-import com.zidian.teacher.model.entity.remote.EvaTwoIndex;
+import com.zidian.teacher.model.entity.remote.MyQuesDetail;
 import com.zidian.teacher.util.ColorConstants;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by GongCheng on 2016/11/15.
  * 图标描述Adapter
+ * Created by GongCheng on 2016/11/15.
  */
 
 public class ChartOptionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<EvaTwoIndex> data;
+    private List<MyQuesDetail.StatisticalBean> describes;
 
-    @Inject
-    public ChartOptionListAdapter() {
-
-    }
-
-    public void setData(List<EvaTwoIndex> data) {
-        this.data = data;
+    public void setData(List<MyQuesDetail.StatisticalBean> describes) {
+        this.describes = describes;
         notifyDataSetChanged();
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_two_index_tag, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_questionnare_option_describe, parent, false);
 
         return new OptionViewHolder(view);
     }
@@ -48,23 +41,28 @@ public class ChartOptionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof OptionViewHolder) {
-            ((OptionViewHolder) holder).tvOptionDescribe.setText(data.get(position).getTwoIndexName());
-            ((OptionViewHolder) holder).tvOptionColor.setBackgroundColor(ColorConstants.CHART_COLORS[position]);
+            ((OptionViewHolder) holder).optionDescribeTv.setText(describes.get(position).getOptionsDescribe());
+            ((OptionViewHolder) holder).optionColorIv.setBackgroundColor(ColorConstants.CHART_COLORS[position]);
+            ((OptionViewHolder) holder).tvOptionCount.setText(
+                    holder.itemView.getContext().getString(R.string.option_count,describes.get(position).getStisNum()));
         }
     }
 
     @Override
     public int getItemCount() {
-        return data == null ? 0 : data.size();
+        return describes == null ? 0 : describes.size();
     }
 
     class OptionViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_option_color)
-        ImageView tvOptionColor;
+        ImageView optionColorIv;
         @BindView(R.id.tv_option_describe)
-        TextView tvOptionDescribe;
+        TextView optionDescribeTv;
+        @BindView(R.id.tv_option_count)
+        TextView tvOptionCount;
 
-        public OptionViewHolder(View itemView) {
+
+        OptionViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
 

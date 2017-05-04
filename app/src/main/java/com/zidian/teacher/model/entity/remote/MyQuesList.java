@@ -38,12 +38,22 @@ public class MyQuesList {
          * chooseNumber : 4
          * questionnaireTitle : 你们好吗
          * releaseTime : 2016-8-8 17-47
+         * questionnaireId : 11
          */
 
         private int notChooseNumber;
         private int chooseNumber;
         private String questionnaireTitle;
         private String releaseTime;
+        private int questionnaireId;
+
+        public int getQuestionnaireId() {
+            return questionnaireId;
+        }
+
+        public void setQuestionnaireId(int questionnaireId) {
+            this.questionnaireId = questionnaireId;
+        }
 
         public int getNotChooseNumber() {
             return notChooseNumber;

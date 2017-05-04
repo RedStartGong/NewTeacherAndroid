@@ -1,4 +1,4 @@
-package com.zidian.teacher.ui.evaluate.chart;
+package com.zidian.teacher.ui.widget;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -10,6 +10,7 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import javax.inject.Inject;
 
 /**
+ * 条形图帮助类
  * Created by GongCheng on 2017/4/28.
  */
 

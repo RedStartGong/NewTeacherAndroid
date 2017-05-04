@@ -17,7 +17,7 @@ import com.zidian.teacher.model.entity.remote.EvaTwoIndex;
 import com.zidian.teacher.presenter.StudentEvaTwoIndexPresenter;
 import com.zidian.teacher.presenter.contract.StudentEvaTwoIndexContract;
 import com.zidian.teacher.ui.evaluate.adapter.ChartOptionListAdapter;
-import com.zidian.teacher.ui.evaluate.chart.BarChartHelper;
+import com.zidian.teacher.ui.widget.BarChartHelper;
 import com.zidian.teacher.util.ColorConstants;
 
 import java.util.ArrayList;
