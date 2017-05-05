@@ -1,7 +1,6 @@
 package com.zidian.teacher.ui.questionnaire.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,6 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * 我的问卷详情 adapter
  * Created by GongCheng on 2017/5/4.
  */
 

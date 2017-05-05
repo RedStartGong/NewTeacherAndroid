@@ -26,6 +26,7 @@ import com.zidian.teacher.ui.mine.activity.ChangeInfoActivity;
 import com.zidian.teacher.ui.mine.activity.FeedbackActivity;
 import com.zidian.teacher.ui.questionnaire.activity.AddQuestionnaireActivity;
 import com.zidian.teacher.ui.questionnaire.activity.MyQuesDetailActivity;
+import com.zidian.teacher.ui.questionnaire.activity.QuesSurveyDetailActivity;
 
 import dagger.Component;
 
@@ -80,4 +81,6 @@ public interface ActivityComponent {
     void inject(MyQuesDetailActivity myQuesDetailActivity);
 
     void inject(AddQuestionnaireActivity addQuestionnaireActivity);
+
+    void inject(QuesSurveyDetailActivity quesSurveyDetailActivity);
 }

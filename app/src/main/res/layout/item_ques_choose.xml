@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:paddingBottom="10dp"
+    android:orientation="vertical"
+    app:cardBackgroundColor="@color/white_text_color"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="1dp"
+    app:contentPadding="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_option_Title"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="#ededed"
+            android:textSize="15sp"
+            android:textColor="#9ccc59"
+            android:text="A"/>
+
+        <TextView
+            android:id="@+id/tv_option_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:gravity="center_vertical"
+            android:background="@color/white_text_color"
+            android:textSize="13sp"
+            android:textColor="#9a9c96"
+            android:text="非常满意"/>
+
+        <ImageView
+            android:id="@+id/iv_choose"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_selected"/>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

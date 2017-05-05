@@ -1,5 +1,7 @@
 package com.zidian.teacher.ui.questionnaire.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zidian.teacher.R;
+import com.zidian.teacher.di.ActivityContext;
 import com.zidian.teacher.model.entity.remote.QuesSurveyList;
+import com.zidian.teacher.ui.questionnaire.activity.QuesSurveyDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +22,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * 问卷调查 adapter
  * Created by GongCheng on 2017/4/5.
  */
 
 public class QuesSurveyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<QuesSurveyList.QuestionnaireListBean> data;
+    private Context context;
 
     @Inject
-    public QuesSurveyListAdapter() {
+    public QuesSurveyListAdapter(@ActivityContext Context context) {
+        this.context =context;
         data = new ArrayList<>();
     }
 
@@ -44,11 +51,19 @@ public class QuesSurveyListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ViewHolder) {
             ((ViewHolder) holder).tvTitle.setText(data.get(position).getQuestionnaireTitle());
             ((ViewHolder) holder).tvPublisher.setText(data.get(position).getPublisher());
             ((ViewHolder) holder).tvTime.setText(data.get(position).getReleaseTime());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, QuesSurveyDetailActivity.class);
+                    intent.putExtra("questionnaireId", data.get(position).getQuestionnaireId());
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 

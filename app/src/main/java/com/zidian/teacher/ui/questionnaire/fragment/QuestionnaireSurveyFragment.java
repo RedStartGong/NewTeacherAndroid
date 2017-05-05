@@ -15,8 +15,13 @@ import com.zidian.teacher.model.entity.remote.QuesSurveyList;
 import com.zidian.teacher.presenter.QuestionnaireSurveyPresenter;
 import com.zidian.teacher.presenter.contract.QuestionnaireSurveyContract;
 import com.zidian.teacher.ui.questionnaire.adapter.QuesSurveyListAdapter;
+import com.zidian.teacher.ui.questionnaire.event.QuesSurveyFinishEvent;
 import com.zidian.teacher.ui.widget.RecyclerViewLinearDecoration;
 import com.zidian.xrecyclerview.XRecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +71,7 @@ public class QuestionnaireSurveyFragment extends BaseFragment implements Questio
     @Override
     protected void initInject() {
         getFragmentComponent().inject(this);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -116,6 +122,15 @@ public class QuestionnaireSurveyFragment extends BaseFragment implements Questio
     public void onDestroyView() {
         super.onDestroyView();
         presenter.deAttachView();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void freshList(QuesSurveyFinishEvent event) {
+        if (event.isSuccess()) {
+            row = 1;
+            presenter.getQuestionnaireSurveyList(String.valueOf(row));
+        }
     }
 
     @Override

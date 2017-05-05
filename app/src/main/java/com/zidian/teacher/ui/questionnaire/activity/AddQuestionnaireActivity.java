@@ -15,7 +15,7 @@ public class AddQuestionnaireActivity extends BaseActivity {
 
     @Override
     protected void initInject() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override

@@ -368,4 +368,22 @@ public interface TeacherService {
     Observable<HttpResult<List<MyQuesDetail>>> myQuesDetail(
             @Field("questionnaireId") String questionnaireId, @Field("teacherId") String teacherId,
             @Field("token") String token, @Field("schoolId") String schoolId);
+
+    /**
+     * 查看教师所教的所有班级
+     */
+    @FormUrlEncoded
+    @POST("teacher/selectClassByTeacher")
+    Observable<NoDataResult> getAllClasses(
+            @Field("teacherId") String teacherId, @Field("token") String token,
+            @Field("schoolId") String schoolId);
+
+    /**
+     * 教师发布问卷
+     */
+    @FormUrlEncoded
+    @POST("Questionnaire/teacherInsertQuestionnaire")
+    Observable<NoDataResult> addQuestionnaire(
+            @Field("questionnaire") String questionnaire, @Field("teacherId") String teacherId,
+            @Field("token") String token, @Field("schoolId") String schoolId);
 }
