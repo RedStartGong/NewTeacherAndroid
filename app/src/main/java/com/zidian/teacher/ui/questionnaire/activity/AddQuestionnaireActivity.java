@@ -77,8 +77,8 @@ public class AddQuestionnaireActivity extends BaseActivity implements Questionna
         checkNotNull(presenter);
 
         toolbar.setTitle("新增问卷");
-        setToolbarBack(toolbar);
         setSupportActionBar(toolbar);
+        setToolbarBack(toolbar);
         questionAddBeanList = addQuestion(questionAddBeanList);
         adapterList = filtrateData(questionAddBeanList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -104,7 +104,10 @@ public class AddQuestionnaireActivity extends BaseActivity implements Questionna
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        presenter.addQuestionnaire(getQuestionnaireResult());
+        if (item.getGroupId() == R.id.confirm) {
+            presenter.addQuestionnaire(getQuestionnaireResult());
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -358,7 +361,6 @@ public class AddQuestionnaireActivity extends BaseActivity implements Questionna
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
         Log.e("T", json + "");
         return json;

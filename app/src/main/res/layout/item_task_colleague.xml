@@ -94,5 +94,9 @@
         android:text="查看"
         android:textColor="@color/colorPrimary"
         android:visibility="gone" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/divider_color"/>
 
 </LinearLayout>

@@ -81,8 +81,9 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
         errorView.setVisibility(View.GONE);
         evaluateTags = new ArrayList<>();
         toolbar.setTitle("标签评价");
-        setToolbarBack(toolbar);
         setSupportActionBar(toolbar);
+        setToolbarBack(toolbar);
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("加载中...");
 

@@ -53,4 +53,8 @@
         android:gravity="center"
         android:text="已完成"
         android:visibility="gone" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/divider_color"/>
 </LinearLayout>

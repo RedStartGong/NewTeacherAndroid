@@ -18,7 +18,6 @@ import com.zidian.teacher.ui.evaluate.activity.EvaluateActivity;
 import com.zidian.teacher.ui.evaluate.activity.MyTaskActivity;
 import com.zidian.teacher.ui.evaluate.adapter.MyTaskAdapter;
 import com.zidian.teacher.ui.evaluate.listener.MyTaskOnClickListener;
-import com.zidian.teacher.ui.widget.RecyclerViewLinearDecoration;
 import com.zidian.teacher.util.SnackbarUtils;
 import com.zidian.xrecyclerview.XRecyclerView;
 
@@ -83,8 +82,6 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
         presenter.getTasks(taskType);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setLoadingMoreEnabled(false);
-        recyclerView.addItemDecoration(new RecyclerViewLinearDecoration(activity,
-                RecyclerViewLinearDecoration.VERTICAL_LIST));
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
