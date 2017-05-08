@@ -257,7 +257,6 @@ public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.SimpleViewHo
             holder.tagTextAdapter4.setSelectCount(data.get("tagEvaluate4" + position));
         }
 
-
     }
 
     @Override
