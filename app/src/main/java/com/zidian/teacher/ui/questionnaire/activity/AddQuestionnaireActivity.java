@@ -1,22 +1,29 @@
 package com.zidian.teacher.ui.questionnaire.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
 import com.zidian.teacher.presenter.QuestionnaireAddPresenter;
+import com.zidian.teacher.presenter.contract.QuestionnaireAddContract;
 import com.zidian.teacher.ui.questionnaire.adapter.QuestionnaireAddAdapter;
 import com.zidian.teacher.ui.questionnaire.bean.QuestionAddBean;
+import com.zidian.teacher.ui.questionnaire.event.QuesAddEvent;
 import com.zidian.teacher.util.SharedPreferencesUtils;
+import com.zidian.teacher.util.SnackbarUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,10 +39,11 @@ import butterknife.OnClick;
 import static com.zidian.teacher.util.Preconditions.checkNotNull;
 
 /**
+ * 添加问卷 activity
  * Created by GongCheng on 2017/5/4.
  */
 
-public class AddQuestionnaireActivity extends BaseActivity {
+public class AddQuestionnaireActivity extends BaseActivity implements QuestionnaireAddContract.View{
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_ques_title)
@@ -48,9 +56,11 @@ public class AddQuestionnaireActivity extends BaseActivity {
     @Inject
     QuestionnaireAddPresenter presenter;
 
+    private static final int REQUEST_CLASS = 1;
     private QuestionnaireAddAdapter adapter;
     private List<QuestionAddBean> questionAddBeanList = new ArrayList<>();
     private List<QuestionAddBean> adapterList = new ArrayList<>();
+    private ProgressDialog progressDialog;
 
     @Override
     protected int getLayout() {
@@ -68,16 +78,43 @@ public class AddQuestionnaireActivity extends BaseActivity {
 
         toolbar.setTitle("新增问卷");
         setToolbarBack(toolbar);
-
+        setSupportActionBar(toolbar);
         questionAddBeanList = addQuestion(questionAddBeanList);
         adapterList = filtrateData(questionAddBeanList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new QuestionnaireAddAdapter(this, adapterList);
         recyclerView.setAdapter(adapter);
-
+        //初始化 adapter 的事件
+        initAdapterListener();
         int x = adapter.getItemCount();
+        presenter.attachView(this);
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_select, menu);
+        return true;
+    }
 
+    /**
+     * 菜单点击事件
+     *
+     * @param item menuItem
+     * @return boolean
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        presenter.addQuestionnaire(getQuestionnaireResult());
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.deAttachView();
+    }
+
+    private void initAdapterListener() {
         adapter.setOnFootItemClickListener(new QuestionnaireAddAdapter.OnFootItemClickListener() {
             @Override
             public void onFootItemClick(int position) {
@@ -108,7 +145,6 @@ public class AddQuestionnaireActivity extends BaseActivity {
                 adapter.notifyDataSetChanged();
             }
         });
-
     }
 
     private List<QuestionAddBean> filtrateData(List<QuestionAddBean> datas) {
@@ -138,9 +174,24 @@ public class AddQuestionnaireActivity extends BaseActivity {
     public void selectObject() {
 
         Intent intent = new Intent();
-//        intent.setClass(this, ClassListActivity.class);
-        startActivityForResult(intent, 7000);
+        intent.setClass(this, SelectClassActivity.class);
+        startActivityForResult(intent, REQUEST_CLASS);
 
+    }
+
+
+    /**
+     * 选择班级的返回结果
+     *
+     * @param requestCode 请求码
+     * @param resultCode  结果码
+     * @param data        返回data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CLASS && resultCode == RESULT_OK) {
+            tvClasses.setText(data.getStringExtra("classes"));
+        }
     }
 
     private List<QuestionAddBean> addQuestion(List<QuestionAddBean> datas) {
@@ -313,4 +364,27 @@ public class AddQuestionnaireActivity extends BaseActivity {
         return json;
     }
 
+    @Override
+    public void showError(Throwable e) {
+        SnackbarUtils.showShort(toolbar, e.getMessage());
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void showLoading() {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("加载中...");
+        }
+        progressDialog.show();
+
+    }
+
+    @Override
+    public void showSuccess() {
+        progressDialog.dismiss();
+        Toast.makeText(this, "发布问卷成功", Toast.LENGTH_SHORT).show();
+        EventBus.getDefault().post(new QuesAddEvent(true));
+        finish();
+    }
 }

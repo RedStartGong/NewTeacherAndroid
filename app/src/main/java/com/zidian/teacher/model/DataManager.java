@@ -24,6 +24,7 @@ import com.zidian.teacher.model.entity.remote.PersonInfo;
 import com.zidian.teacher.model.entity.remote.QuesSurveyDetail;
 import com.zidian.teacher.model.entity.remote.QuesSurveyList;
 import com.zidian.teacher.model.entity.remote.School;
+import com.zidian.teacher.model.entity.remote.SelectClass;
 import com.zidian.teacher.model.entity.remote.StudentEva;
 import com.zidian.teacher.model.network.TeacherService;
 
@@ -240,6 +241,11 @@ public final class DataManager {
     public Observable<NoDataResult> addQuestionnaire(
             String questionnaire, String teacherId, String token, String schoolId) {
         return service.addQuestionnaire(questionnaire, teacherId, token, schoolId);
+    }
+
+    public Observable<SelectClass> getAllClasses(
+            String teacherId, String token, String schoolId) {
+        return service.getAllClasses(teacherId, token, schoolId);
     }
 
 

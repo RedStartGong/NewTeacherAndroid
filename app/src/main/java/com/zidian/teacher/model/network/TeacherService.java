@@ -24,6 +24,7 @@ import com.zidian.teacher.model.entity.remote.PersonInfo;
 import com.zidian.teacher.model.entity.remote.QuesSurveyDetail;
 import com.zidian.teacher.model.entity.remote.QuesSurveyList;
 import com.zidian.teacher.model.entity.remote.School;
+import com.zidian.teacher.model.entity.remote.SelectClass;
 import com.zidian.teacher.model.entity.remote.StudentEva;
 
 import java.util.List;
@@ -374,7 +375,7 @@ public interface TeacherService {
      */
     @FormUrlEncoded
     @POST("teacher/selectClassByTeacher")
-    Observable<NoDataResult> getAllClasses(
+    Observable<SelectClass> getAllClasses(
             @Field("teacherId") String teacherId, @Field("token") String token,
             @Field("schoolId") String schoolId);
 

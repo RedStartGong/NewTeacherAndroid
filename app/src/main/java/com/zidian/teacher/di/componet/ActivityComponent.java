@@ -3,7 +3,6 @@ package com.zidian.teacher.di.componet;
 
 import com.zidian.teacher.di.PerActivity;
 import com.zidian.teacher.di.module.ActivityModule;
-import com.zidian.teacher.model.entity.remote.CheckSupervisorEva;
 import com.zidian.teacher.ui.course.activity.AttendanceActivity;
 import com.zidian.teacher.ui.course.activity.AttendanceStatisticsActivity;
 import com.zidian.teacher.ui.course.activity.CourseInfoActivity;
@@ -27,6 +26,7 @@ import com.zidian.teacher.ui.mine.activity.FeedbackActivity;
 import com.zidian.teacher.ui.questionnaire.activity.AddQuestionnaireActivity;
 import com.zidian.teacher.ui.questionnaire.activity.MyQuesDetailActivity;
 import com.zidian.teacher.ui.questionnaire.activity.QuesSurveyDetailActivity;
+import com.zidian.teacher.ui.questionnaire.activity.SelectClassActivity;
 
 import dagger.Component;
 
@@ -83,4 +83,6 @@ public interface ActivityComponent {
     void inject(AddQuestionnaireActivity addQuestionnaireActivity);
 
     void inject(QuesSurveyDetailActivity quesSurveyDetailActivity);
+
+    void inject(SelectClassActivity selectClassActivity);
 }
