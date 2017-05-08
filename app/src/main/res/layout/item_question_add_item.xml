@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:orientation="vertical"
+    android:background="#F6F5FA">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45dp"
+        android:background="@drawable/bg_edit_rounded">
+
+        <ImageView
+            android:id="@+id/question_delete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_delete_questionnaire" />
+
+        <EditText
+            android:id="@+id/question_add_title"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_edit_rounded"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:textColorHint="#7E7E7E"
+            android:hint="请输入答案选项" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

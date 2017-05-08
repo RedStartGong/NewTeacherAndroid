@@ -1,6 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <include layout="@layout/toolbar"/>
+    <EditText
+        android:id="@+id/tv_ques_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_edit_rounded"
+        android:maxLines="1"
+        android:textSize="14sp"
+        android:textColorHint="#7E7E7E"
+        android:hint="请输入问卷标题" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/divider_color" />
+
+    <RelativeLayout
+        android:id="@+id/tv_publish_object"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/selector_touch_bg">
+
+
+        <TextView
+            android:id="@+id/obj_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="12dp"
+            android:gravity="center_vertical"
+            android:textSize="14sp"
+            android:text="选择发布对象" />
+
+        <ImageView
+            android:id="@+id/iv_right_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_chevron_right_24dp"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:id="@+id/tv_classes"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/iv_right_arrow"
+            android:layout_toRightOf="@id/obj_text"
+            android:gravity="center_vertical|right"
+            android:maxLines="1"
+            tools:text="材控20153,机自20153" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@null"
+        android:scrollbars="none" />
 </LinearLayout>

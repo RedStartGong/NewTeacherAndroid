@@ -20,8 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public final class ServiceFactory {
     private static final String TAG = "HTTP";
     /**
-     *  release： http://103.231.69.80:80//rest/
-     *  debug：http://192.168.0.115:8080//rest/
+     * release： http://103.231.69.80:80//rest/
+     * debug：http://192.168.0.115:8080//rest/
      */
     private static final String BASE_URL = "http://192.168.0.115:8080//rest/";
 
@@ -38,6 +38,7 @@ public final class ServiceFactory {
     private static OkHttpClient makeOkHttpClient() {
         return new OkHttpClient.Builder()
                 .addNetworkInterceptor(makeLoggingInterceptor())
+                .addNetworkInterceptor(makeResponseCodeInterceptor())
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
                 .build();
@@ -53,5 +54,10 @@ public final class ServiceFactory {
         loggingInterceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY
                 : HttpLoggingInterceptor.Level.NONE);
         return loggingInterceptor;
+    }
+
+    private static ResponseCodeInterceptor makeResponseCodeInterceptor() {
+        ResponseCodeInterceptor responseCodeInterceptor = new ResponseCodeInterceptor();
+        return responseCodeInterceptor;
     }
 }

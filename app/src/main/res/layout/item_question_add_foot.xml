@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F6F5FA">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_edit_rounded">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_add_questionnaire" />
+
+        <TextView
+            android:id="@+id/question_add_title"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:gravity="center_vertical"
+
+            android:maxLines="3"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:textColorHint="#7E7E7E"
+            android:text="添加题目" />
+    </LinearLayout>
+</LinearLayout>

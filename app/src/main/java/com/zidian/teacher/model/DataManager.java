@@ -237,5 +237,10 @@ public final class DataManager {
         return service.myQuesDetail(questionnaireId, teacherId, token, schoolId);
     }
 
+    public Observable<NoDataResult> addQuestionnaire(
+            String questionnaire, String teacherId, String token, String schoolId) {
+        return service.addQuestionnaire(questionnaire, teacherId, token, schoolId);
+    }
+
 
 }
