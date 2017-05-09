@@ -11,8 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.zidian.teacher.BuildConfig;
 import com.zidian.teacher.R;
@@ -36,15 +36,15 @@ public class WelcomeActivity extends AppCompatActivity {
     View indicatorPage1;
     @BindView(R.id.indicator_page2)
     View indicatorPage2;
-    @BindView(R.id.tv_start)
-    TextView tvStart;
+    @BindView(R.id.btn_start)
+    Button btnStart;
 
     private Unbinder unbinder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (BuildConfig.VERSION_NAME.equals(SharedPreferencesUtils.getVersionName())) {
+        if (!BuildConfig.DEBUG && BuildConfig.VERSION_NAME.equals(SharedPreferencesUtils.getVersionName())) {
             startActivity(new Intent(this, LoadActivity.class));
             finish();
         } else {
@@ -56,6 +56,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private void initView() {
         unbinder = ButterKnife.bind(this);
         SharedPreferencesUtils.setVersionName(BuildConfig.VERSION_NAME);
+        indicatorPage1.setSelected(true);
         WelcomePagerAdapter pagerAdapter = new WelcomePagerAdapter(getSupportFragmentManager());
         vpWelcome.setAdapter(pagerAdapter);
         vpWelcome.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -67,11 +68,9 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 if (position == 1) {
-                    tvStart.setVisibility(View.VISIBLE);
                     indicatorPage1.setSelected(false);
                     indicatorPage2.setSelected(true);
                 } else {
-                    tvStart.setVisibility(View.GONE);
                     indicatorPage1.setSelected(true);
                     indicatorPage2.setSelected(false);
                 }
@@ -84,7 +83,7 @@ public class WelcomeActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick(R.id.tv_start)
+    @OnClick(R.id.btn_start)
     public void startLogin() {
         startActivity(new Intent(this, LoginActivity.class));
     }
