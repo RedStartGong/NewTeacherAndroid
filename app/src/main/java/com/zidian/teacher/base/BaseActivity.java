@@ -41,6 +41,12 @@ public abstract class BaseActivity extends SupportActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //如果判断为已经登录，则直接跳过登录界面
+        if (this instanceof LoginActivity) {
+            if (SharedPreferencesUtils.getIsLogin()) {
+                startActivity(new Intent(this, MainActivity.class));
+            }
+        }
         setContentView(getLayout());
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         unbinder = ButterKnife.bind(this);
