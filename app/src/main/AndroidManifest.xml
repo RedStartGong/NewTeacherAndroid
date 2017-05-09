@@ -26,7 +26,10 @@
         </activity>
         <activity
             android:name=".ui.main.LoginActivity"
-            android:noHistory="true"/>
+            android:noHistory="true" />
+        <activity
+            android:name=".ui.main.LoadActivity"
+            android:noHistory="true" />
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.mine.activity.AboutActivity" />
         <activity android:name=".ui.mine.activity.ChangeInfoActivity" />

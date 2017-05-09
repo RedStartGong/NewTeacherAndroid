@@ -24,7 +24,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
- * 欢迎界面
+ * 更新版本名后的欢迎界面
  * Created by GongCheng on 2017/5/9.
  */
 
@@ -45,7 +45,7 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (BuildConfig.VERSION_NAME.equals(SharedPreferencesUtils.getVersionName())) {
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, LoadActivity.class));
             finish();
         } else {
             setContentView(R.layout.activity_welcome);

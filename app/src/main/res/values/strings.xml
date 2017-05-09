@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">孜点教师</string>
     <string name="version">%1$s版本</string>
+    <!--Welcome-->
+    <string name="slogan_text">孜孜不倦，点点滴滴</string>
     <!--LoginActivity-->
     <string name="input_username_please">请输入用户名</string>
     <string name="input_password_please">请输入密码</string>
@@ -106,4 +108,5 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+
 </resources>
