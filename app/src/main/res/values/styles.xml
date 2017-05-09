@@ -16,7 +16,7 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-    
+
     <!--MineFragment-->
     <style name="MineClickableLinearLayoutStyle">
         <item name="android:layout_width">match_parent</item>
@@ -78,6 +78,7 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:orientation">horizontal</item>
     </style>
+
     <style name="EvaluateItemChooseLinearLayoutStyle" parent="EvaluateClickableLinearLayoutStyle">
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>

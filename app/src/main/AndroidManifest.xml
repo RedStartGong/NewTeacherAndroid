@@ -3,7 +3,7 @@
     package="com.zidian.teacher">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.main.LoginActivity"
+            android:name=".ui.main.WelcomeActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.main.LoginActivity"
+            android:noHistory="true"/>
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.mine.activity.AboutActivity" />
         <activity android:name=".ui.mine.activity.ChangeInfoActivity" />
@@ -37,17 +40,17 @@
         <activity android:name=".ui.evaluate.activity.ApplyToEvaActivity" />
         <activity android:name=".ui.evaluate.activity.InviteSelectTeacherActivity" />
         <activity android:name=".ui.evaluate.activity.SupervisorEvaActivity" />
-        <activity android:name=".ui.evaluate.activity.EvaluateActivity"/>
-        <activity android:name=".ui.evaluate.activity.CheckColleagueEvaActivity"/>
-        <activity android:name=".ui.evaluate.activity.CheckSupervisorEvaActivity"/>
-        <activity android:name=".ui.evaluate.activity.SupervisorFeedbackActivity"/>
-        <activity android:name=".ui.evaluate.activity.MyEvaluateActivity"/>
-        <activity android:name=".ui.evaluate.activity.StudentEvaTwoIndexActivity"/>
-        <activity android:name=".ui.evaluate.activity.ColleagueEvaTwoIndexActivity"/>
-        <activity android:name=".ui.questionnaire.activity.AddQuestionnaireActivity"/>
-        <activity android:name=".ui.questionnaire.activity.MyQuesDetailActivity"/>
-        <activity android:name=".ui.questionnaire.activity.QuesSurveyDetailActivity"/>
-        <activity android:name=".ui.questionnaire.activity.SelectClassActivity"/>
+        <activity android:name=".ui.evaluate.activity.EvaluateActivity" />
+        <activity android:name=".ui.evaluate.activity.CheckColleagueEvaActivity" />
+        <activity android:name=".ui.evaluate.activity.CheckSupervisorEvaActivity" />
+        <activity android:name=".ui.evaluate.activity.SupervisorFeedbackActivity" />
+        <activity android:name=".ui.evaluate.activity.MyEvaluateActivity" />
+        <activity android:name=".ui.evaluate.activity.StudentEvaTwoIndexActivity" />
+        <activity android:name=".ui.evaluate.activity.ColleagueEvaTwoIndexActivity" />
+        <activity android:name=".ui.questionnaire.activity.AddQuestionnaireActivity" />
+        <activity android:name=".ui.questionnaire.activity.MyQuesDetailActivity" />
+        <activity android:name=".ui.questionnaire.activity.QuesSurveyDetailActivity" />
+        <activity android:name=".ui.questionnaire.activity.SelectClassActivity" />
     </application>
 
 </manifest>

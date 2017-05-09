@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,7 +44,7 @@ import static com.zidian.teacher.util.Preconditions.checkNotNull;
  * Created by GongCheng on 2017/5/4.
  */
 
-public class AddQuestionnaireActivity extends BaseActivity implements QuestionnaireAddContract.View{
+public class AddQuestionnaireActivity extends BaseActivity implements QuestionnaireAddContract.View {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_ques_title)
@@ -90,6 +91,7 @@ public class AddQuestionnaireActivity extends BaseActivity implements Questionna
         presenter.attachView(this);
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_select, menu);
@@ -104,9 +106,10 @@ public class AddQuestionnaireActivity extends BaseActivity implements Questionna
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getGroupId() == R.id.confirm) {
-            presenter.addQuestionnaire(getQuestionnaireResult());
+        if (TextUtils.isEmpty(getQuestionnaireResult())) {
+            return true;
         }
+        presenter.addQuestionnaire(getQuestionnaireResult());
 
         return super.onOptionsItemSelected(item);
     }

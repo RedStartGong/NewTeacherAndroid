@@ -103,4 +103,7 @@
      \n\n&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;“孜点”以智慧教育为核心，建立了打通人才培养全过程的大数据分析系统，助力高校构建教学评估的内部质量保证体系和外部质量保障体系。
         \n\n&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;“孜点”依托现代教育测评技术、学习分析和教育数据挖掘技术为用户提供“有用又有趣”的数据服务，使多主体深入互动，进而形成从社会需求到人才培养、
         从招生到就业、从教学到育人的教育新生态。</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

@@ -123,7 +123,9 @@ public class SharedPreferencesUtils {
 
     public static void clearAll() {
         String username = getUserName();
+        String versionName = getVersionName();
         Hawk.deleteAll();
         setUsername(username);
+        setVersionName(versionName);
     }
 }
