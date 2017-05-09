@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">孜点教师重构版</string>
+    <string name="app_name">孜点教师</string>
     <string name="version">%1$s版本</string>
     <!--LoginActivity-->
     <string name="input_username_please">请输入用户名</string>

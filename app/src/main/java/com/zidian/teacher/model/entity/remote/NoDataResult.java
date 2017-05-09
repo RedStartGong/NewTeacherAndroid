@@ -1,11 +1,13 @@
 package com.zidian.teacher.model.entity.remote;
 
+import java.io.Serializable;
+
 /**
  * 无data的返回值
  * Created by GongCheng on 2017/4/6.
  */
 
-public class NoDataResult {
+public class NoDataResult implements Serializable{
     private String message;
     private int code;
 

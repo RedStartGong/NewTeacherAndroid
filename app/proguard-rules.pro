@@ -69,6 +69,9 @@
 -keep class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator *;
 }
+-keep class * implements java.io.Serializable{
+*;
+}
 
 -keepclassmembers class **.R$* {
     public static <fields>;
@@ -113,6 +116,8 @@
 # gson
 -keep class sun.misc.Unsafe { *; }
 -keep class com.google.gson.stream.** { *; }
+# Application classes that will be serialized/deserialized over Gson
+-keep class com.zidian.teacher.model.** { *; }
 
 # okhttp3
 -keep class okhttp3.** { *; }
@@ -168,10 +173,21 @@
     rx.internal.util.atomic.LinkedQueueNode producerNode;
 }
 
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
+
 
 # bugly
 -keep public class com.tencent.bugly.**{*;}
-
+-dontwarn com.tencent.bugly.**
 # glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {

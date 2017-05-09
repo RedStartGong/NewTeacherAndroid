@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.zidian.teacher.di.componet.ApplicationComponent;
 import com.zidian.teacher.di.componet.DaggerApplicationComponent;
 import com.zidian.teacher.di.module.ApplicationModule;
@@ -33,6 +34,9 @@ public class App extends Application {
                 return;
             }
             LeakCanary.install(this);
+        } else {
+            //初始化腾讯Bugly，用于接收崩溃日志
+            CrashReport.initCrashReport(this,BuildConfig.BUGLY_APP_ID,true);
         }
     }
 

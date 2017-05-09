@@ -11,8 +11,9 @@ android {
         versionCode 10
         versionName "1.4.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        jackOptions {
-            enabled false
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
 
     }
@@ -23,15 +24,18 @@ android {
 
     buildTypes {
         debug {
+            buildConfigField  "String","BUGLY_APP_ID","\"7add987736\""
+            signingConfig signingConfigs.release
             minifyEnabled false
             zipAlignEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
+            buildConfigField  "String","BUGLY_APP_ID","\"7add987736\""
             signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
-            zipAlignEnabled false
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -123,8 +127,8 @@ dependencies {
     debugCompile rootProject.ext.leakCanaryDebug
     releaseCompile rootProject.ext.leakCanaryRelease
     testCompile rootProject.ext.leakCanaryTest
-    //测试
-    compile 'com.zhy:okhttputils:2.6.2'
+    //Bugly
+    compile rootProject.ext.bugly
 
 
 }
