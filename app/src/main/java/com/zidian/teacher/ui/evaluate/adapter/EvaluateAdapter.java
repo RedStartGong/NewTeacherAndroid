@@ -113,11 +113,7 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
 
             if (position == itemCount - 1) {
                 holder.arrowNext.setVisibility(View.GONE);
-                if (isSupervisor) {
-                    holder.llCustomEva.setVisibility(View.GONE);
-                } else {
-                    holder.llCustomEva.setVisibility(View.VISIBLE);
-                }
+                holder.llCustomEva.setVisibility(View.VISIBLE);
                 holder.arrowBack.setVisibility(View.VISIBLE);
                 holder.tilCustomEva.setVisibility(View.VISIBLE);
                 holder.tilCustomEva.setCounterMaxLength(100);

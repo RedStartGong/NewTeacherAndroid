@@ -49,6 +49,17 @@ public class PersonInfo implements Serializable {
     private int downloaded;
     @SerializedName("teachername")
     private String name;
+    /**
+     * byNumberOfPeerEvaluation : 12
+     * bySuperviseTheEvaluationNumber : 0
+     * superviseTheEvaluationNumber : 6
+     * numberOfPeerEvaluation : 2
+     */
+
+    private int byNumberOfPeerEvaluation;
+    private int bySuperviseTheEvaluationNumber;
+    private int superviseTheEvaluationNumber;
+    private int numberOfPeerEvaluation;
 
     public int getEvaluatedCount() {
         return evaluatedCount;
@@ -144,5 +155,37 @@ public class PersonInfo implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getByNumberOfPeerEvaluation() {
+        return byNumberOfPeerEvaluation;
+    }
+
+    public void setByNumberOfPeerEvaluation(int byNumberOfPeerEvaluation) {
+        this.byNumberOfPeerEvaluation = byNumberOfPeerEvaluation;
+    }
+
+    public int getBySuperviseTheEvaluationNumber() {
+        return bySuperviseTheEvaluationNumber;
+    }
+
+    public void setBySuperviseTheEvaluationNumber(int bySuperviseTheEvaluationNumber) {
+        this.bySuperviseTheEvaluationNumber = bySuperviseTheEvaluationNumber;
+    }
+
+    public int getSuperviseTheEvaluationNumber() {
+        return superviseTheEvaluationNumber;
+    }
+
+    public void setSuperviseTheEvaluationNumber(int superviseTheEvaluationNumber) {
+        this.superviseTheEvaluationNumber = superviseTheEvaluationNumber;
+    }
+
+    public int getNumberOfPeerEvaluation() {
+        return numberOfPeerEvaluation;
+    }
+
+    public void setNumberOfPeerEvaluation(int numberOfPeerEvaluation) {
+        this.numberOfPeerEvaluation = numberOfPeerEvaluation;
     }
 }

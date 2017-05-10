@@ -41,12 +41,16 @@ public class MineFragment extends BaseFragment implements PersonInfoContract.Vie
     CircleImageView cimPortrait;
     @BindView(R.id.tv_name)
     TextView tvName;
-    @BindView(R.id.tv_motto)
-    TextView tvMotto;
-    @BindView(R.id.tv_evaluate_count)
-    TextView tvEvaluateCount;
-    @BindView(R.id.tv_evaluated_count)
-    TextView tvEvaluatedCount;
+    @BindView(R.id.tv_supervisor_eva_me)
+    TextView tvSupervisorEvaMe;
+    @BindView(R.id.tv_student_eva_me)
+    TextView tvStudentEvaMe;
+    @BindView(R.id.tv_colleague_eva_me)
+    TextView tvColleagueEvaMe;
+    @BindView(R.id.tv_supervisor_evaluate)
+    TextView tvSupervisorEvaluate;
+    @BindView(R.id.tv_colleague_evaluate)
+    TextView tvColleagueEvaluate;
 
     @Inject
     PersonInfoPresenter presenter;
@@ -165,9 +169,12 @@ public class MineFragment extends BaseFragment implements PersonInfoContract.Vie
     @Override
     public void showInfo(PersonInfo personInfo) {
         tvName.setText(personInfo.getName());
-        tvMotto.setText(personInfo.getPersonSignature());
-        tvEvaluatedCount.setText(String.valueOf(personInfo.getEvaluatedCount()));
-        tvEvaluateCount.setText("0");
+        tvStudentEvaMe.setText(String.valueOf(personInfo.getEvaluatedCount()));
+        tvSupervisorEvaMe.setText(String.valueOf(personInfo.getBySuperviseTheEvaluationNumber()));
+        tvColleagueEvaMe.setText(String.valueOf(personInfo.getByNumberOfPeerEvaluation()));
+        tvColleagueEvaluate.setText(String.valueOf(personInfo.getNumberOfPeerEvaluation()));
+        tvSupervisorEvaluate.setText(String.valueOf(personInfo.getSuperviseTheEvaluationNumber()));
+
         Glide.with(this).load(personInfo.getPortrait())
                 .error(R.drawable.ic_teacher)
                 .into(cimPortrait);

@@ -50,8 +50,8 @@
     <string name="my_ques_num">%1$d.&#160;%2$s</string>
     <string name="option_count">%1$d人</string>
     <!--Mine-->
-    <string name="mine_evaluated">被评价</string>
-    <string name="mine_evaluate_others">评价他人</string>
+    <string name="mine_student_eva_me">学生评我次数</string>
+    <string name="mine_supervisor_evaluate_me">督导评我次数</string>
     <string name="mine_information">个人资料</string>
     <string name="mine_change_password">密码修改</string>
     <string name="mine_logout">退出登录</string>
