@@ -142,6 +142,8 @@
 -keepclasseswithmembernames class * {
     @butterknife.* <methods>;
 }
+# MPAndoird Chart
+-keep class com.github.mikephil.charting.** { *; }
 
 # dagger2 http://stackoverflow.com/questions/26024694/how-to-successfully-obfuscate-project-with-dagger-2-0-using-proguard
 
