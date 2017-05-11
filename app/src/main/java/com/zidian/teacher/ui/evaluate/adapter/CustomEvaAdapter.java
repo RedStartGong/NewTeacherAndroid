@@ -10,9 +10,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.zidian.teacher.R;
+import com.zidian.teacher.di.ActivityContext;
 import com.zidian.teacher.model.entity.remote.CustomEva;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,17 +28,21 @@ public class CustomEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private Context context;
     private List<CustomEva.ListBean> data;
-    private static boolean hasMore = true;
 
-    public CustomEvaAdapter(Context context, List<CustomEva.ListBean> data) {
+    @Inject
+    public CustomEvaAdapter(@ActivityContext Context context) {
         this.context = context;
+    }
+
+    public void setData(List<CustomEva.ListBean> data) {
         this.data = data;
+        notifyDataSetChanged();
     }
 
 
     @Override
     public int getItemCount() {
-        return data.size() == 0 ? 0 : data.size() + 1;
+        return data == null ? 0 : data.size();
     }
 
     @Override

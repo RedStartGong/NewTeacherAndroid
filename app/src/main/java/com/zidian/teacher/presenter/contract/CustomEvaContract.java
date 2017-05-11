@@ -12,8 +12,6 @@ public interface CustomEvaContract {
     interface View extends BaseView {
         void showLoading();
 
-        void loadingMore();
-
         void showCustomEva(CustomEva customEva);
     }
 

@@ -15,6 +15,9 @@ import com.zidian.teacher.presenter.contract.CustomEvaContract;
 import com.zidian.teacher.ui.evaluate.adapter.CustomEvaAdapter;
 import com.zidian.xrecyclerview.XRecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -35,8 +38,11 @@ public class CustomEvaFragment extends BaseFragment implements CustomEvaContract
 
     @Inject
     CustomEvaPresenter presenter;
+    @Inject
+    CustomEvaAdapter adapter;
 
     private int startRow = 1;
+    private List<CustomEva.ListBean> list;
 
     public static CustomEvaFragment newInstance() {
 
@@ -59,6 +65,7 @@ public class CustomEvaFragment extends BaseFragment implements CustomEvaContract
 
     @Override
     protected void initViewAndData() {
+        list = new ArrayList<>();
         errorView.setVisibility(View.GONE);
         recyclerView.setLoadingMoreEnabled(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
@@ -76,6 +83,7 @@ public class CustomEvaFragment extends BaseFragment implements CustomEvaContract
                 presenter.getCustomEva(String.valueOf(startRow));
             }
         });
+        recyclerView.setAdapter(adapter);
         checkNotNull(presenter);
         presenter.attachView(this);
         presenter.getCustomEva(String.valueOf(startRow));
@@ -83,10 +91,11 @@ public class CustomEvaFragment extends BaseFragment implements CustomEvaContract
 
     @Override
     public void showError(Throwable e) {
-        loadingView.setVisibility(View.GONE);
         if (startRow == 1) {
             errorView.setVisibility(View.VISIBLE);
             errorView.setText(e.getMessage());
+        } else {
+            loadingView.setVisibility(View.GONE);
         }
     }
 
@@ -96,14 +105,18 @@ public class CustomEvaFragment extends BaseFragment implements CustomEvaContract
     }
 
     @Override
-    public void loadingMore() {
-
-    }
-
-    @Override
     public void showCustomEva(CustomEva customEva) {
-        CustomEvaAdapter adapter = new CustomEvaAdapter(activity, customEva.getList());
+        errorView.setVisibility(View.GONE);
         loadingView.setVisibility(View.GONE);
-        recyclerView.setAdapter(adapter);
+        recyclerView.refreshComplete();
+        if (startRow == 1) {
+            this.list.clear();
+        }
+        this.list.addAll(customEva.getList());
+        if (customEva.getPages() == startRow) {
+            recyclerView.noMoreLoading();
+        }
+        adapter.setData(list);
+
     }
 }
