@@ -10,7 +10,7 @@ import com.zidian.teacher.model.entity.remote.CustomEva;
 
 public interface CustomEvaContract {
     interface View extends BaseView {
-        void showLoading();
+        void showEmpty();
 
         void showCustomEva(CustomEva customEva);
     }

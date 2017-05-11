@@ -1,5 +1,6 @@
 package com.zidian.teacher.ui.course.activity;
 
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -16,7 +17,6 @@ import com.zidian.teacher.presenter.AttendanceStatisticsPresenter;
 import com.zidian.teacher.presenter.contract.AttendanceStatisticsContract;
 import com.zidian.teacher.ui.course.adapter.AttendanceStatisticsAdapter;
 import com.zidian.teacher.ui.widget.CourseInfo;
-import com.zidian.teacher.ui.widget.RecyclerViewLinearDecoration;
 
 import java.util.Collections;
 import java.util.List;
@@ -79,7 +79,7 @@ public class AttendanceStatisticsActivity extends BaseActivity implements Attend
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new RecyclerViewLinearDecoration(this, RecyclerViewLinearDecoration.VERTICAL_LIST));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(adapter);
 
         presenter.attachView(this);

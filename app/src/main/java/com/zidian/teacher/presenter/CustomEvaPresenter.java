@@ -38,7 +38,6 @@ public class CustomEvaPresenter extends RxPresenter<CustomEvaContract.View> impl
                     @Override
                     public void onStart() {
                         super.onStart();
-                        view.showLoading();
                     }
 
                     @Override
@@ -53,7 +52,11 @@ public class CustomEvaPresenter extends RxPresenter<CustomEvaContract.View> impl
 
                     @Override
                     public void onNext(CustomEva customEva) {
-                        view.showCustomEva(customEva);
+                        if (customEva.getList() != null && customEva.getList().size() != 0) {
+                            view.showCustomEva(customEva);
+                        } else {
+                            view.showEmpty();
+                        }
                     }
                 });
         addSubscribe(subscription);

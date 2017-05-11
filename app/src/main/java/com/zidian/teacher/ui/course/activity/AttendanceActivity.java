@@ -2,6 +2,7 @@ package com.zidian.teacher.ui.course.activity;
 
 import android.app.ProgressDialog;
 import android.support.annotation.StringDef;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,7 +20,6 @@ import com.zidian.teacher.presenter.AttendancePresenter;
 import com.zidian.teacher.presenter.contract.AttendanceContract;
 import com.zidian.teacher.ui.course.adapter.AttendanceAdapter;
 import com.zidian.teacher.ui.widget.CourseInfo;
-import com.zidian.teacher.ui.widget.RecyclerViewLinearDecoration;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -92,7 +92,7 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
         progressDialog.setMessage(getString(R.string.attendance_loading));
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new RecyclerViewLinearDecoration(this, RecyclerViewLinearDecoration.VERTICAL_LIST));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         presenter.attachView(this);
         presenter.getClasses(courseInfo.getCourseId());

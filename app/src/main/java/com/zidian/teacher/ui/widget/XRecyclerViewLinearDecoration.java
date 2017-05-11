@@ -13,7 +13,7 @@ import android.view.View;
  * Created by GongCheng on 2017/4/8.
  */
 
-public class RecyclerViewLinearDecoration extends RecyclerView.ItemDecoration {
+public class XRecyclerViewLinearDecoration extends RecyclerView.ItemDecoration {
     private static final int[] ATTRS = new int[]{
             android.R.attr.listDivider
     };
@@ -26,7 +26,7 @@ public class RecyclerViewLinearDecoration extends RecyclerView.ItemDecoration {
 
     private int mOrientation;
 
-    public RecyclerViewLinearDecoration(Context context, int orientation) {
+    public XRecyclerViewLinearDecoration(Context context, int orientation) {
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
         a.recycle();
@@ -57,7 +57,8 @@ public class RecyclerViewLinearDecoration extends RecyclerView.ItemDecoration {
         final int right = parent.getWidth() - parent.getPaddingRight();
 
         final int childCount = parent.getChildCount();
-        for (int i = 0; i < childCount; i++) {
+        //专门为XRecyclerView设置 最后两条不绘制
+        for (int i = 0; i < childCount - 2; i++) {
             final View child = parent.getChildAt(i);
             android.support.v7.widget.RecyclerView v = new android.support.v7.widget.RecyclerView(parent.getContext());
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child

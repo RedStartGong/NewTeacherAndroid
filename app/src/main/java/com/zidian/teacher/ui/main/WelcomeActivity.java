@@ -44,7 +44,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!BuildConfig.DEBUG && BuildConfig.VERSION_NAME.equals(SharedPreferencesUtils.getVersionName())) {
+        if (BuildConfig.VERSION_NAME.equals(SharedPreferencesUtils.getVersionName())) {
             startActivity(new Intent(this, LoadActivity.class));
             finish();
         } else {

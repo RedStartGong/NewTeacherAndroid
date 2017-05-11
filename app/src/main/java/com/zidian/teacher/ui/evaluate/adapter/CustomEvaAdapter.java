@@ -13,6 +13,7 @@ import com.zidian.teacher.R;
 import com.zidian.teacher.di.ActivityContext;
 import com.zidian.teacher.model.entity.remote.CustomEva;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,6 +32,7 @@ public class CustomEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Inject
     public CustomEvaAdapter(@ActivityContext Context context) {
+        data = new ArrayList<>();
         this.context = context;
     }
 
@@ -42,7 +44,7 @@ public class CustomEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
-        return data == null ? 0 : data.size();
+        return data.size();
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.zidian.teacher.ui.evaluate.fragment;
 
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -13,6 +12,7 @@ import com.zidian.teacher.model.entity.remote.CustomEva;
 import com.zidian.teacher.presenter.CustomEvaPresenter;
 import com.zidian.teacher.presenter.contract.CustomEvaContract;
 import com.zidian.teacher.ui.evaluate.adapter.CustomEvaAdapter;
+import com.zidian.teacher.ui.widget.XRecyclerViewLinearDecoration;
 import com.zidian.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -25,6 +25,7 @@ import butterknife.BindView;
 import static com.zidian.teacher.util.Preconditions.checkNotNull;
 
 /**
+ * 自定义评价Fragment
  * Created by GongCheng on 2017/4/27.
  */
 
@@ -67,9 +68,9 @@ public class CustomEvaFragment extends BaseFragment implements CustomEvaContract
     protected void initViewAndData() {
         list = new ArrayList<>();
         errorView.setVisibility(View.GONE);
-        recyclerView.setLoadingMoreEnabled(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-        recyclerView.addItemDecoration(new DividerItemDecoration(activity, DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new XRecyclerViewLinearDecoration(activity,
+                XRecyclerViewLinearDecoration.VERTICAL_LIST));
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
@@ -91,17 +92,30 @@ public class CustomEvaFragment extends BaseFragment implements CustomEvaContract
 
     @Override
     public void showError(Throwable e) {
+
         if (startRow == 1) {
             errorView.setVisibility(View.VISIBLE);
             errorView.setText(e.getMessage());
-        } else {
-            loadingView.setVisibility(View.GONE);
+            this.list.clear();
+            adapter.setData(this.list);
+            recyclerView.refreshComplete();
+        }  else {
+            errorView.setVisibility(View.GONE);
         }
+        loadingView.setVisibility(View.GONE);
+
     }
 
+
     @Override
-    public void showLoading() {
-        errorView.setVisibility(View.GONE);
+    public void showEmpty() {
+        if (startRow == 1) {
+            errorView.setVisibility(View.VISIBLE);
+            errorView.setText("当前没有评价");
+            loadingView.setVisibility(View.GONE);
+        } else {
+            recyclerView.refreshComplete();
+        }
     }
 
     @Override
@@ -116,7 +130,7 @@ public class CustomEvaFragment extends BaseFragment implements CustomEvaContract
         if (customEva.getPages() == startRow) {
             recyclerView.noMoreLoading();
         }
-        adapter.setData(list);
+        adapter.setData(this.list);
 
     }
 }

@@ -2,7 +2,6 @@ package com.zidian.teacher.ui.questionnaire.fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,7 +15,6 @@ import com.zidian.teacher.presenter.QuestionnaireSurveyPresenter;
 import com.zidian.teacher.presenter.contract.QuestionnaireSurveyContract;
 import com.zidian.teacher.ui.questionnaire.adapter.QuesSurveyListAdapter;
 import com.zidian.teacher.ui.questionnaire.event.QuesSurveyFinishEvent;
-import com.zidian.teacher.ui.widget.RecyclerViewLinearDecoration;
 import com.zidian.xrecyclerview.XRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -168,8 +166,6 @@ public class QuestionnaireSurveyFragment extends BaseFragment implements Questio
         if (row == 1) {
             recyclerView.refreshComplete();
             questionnaireListBeanList.clear();
-        } else {
-            recyclerView.setLoadMoreGone();
         }
 
         this.questionnaireListBeanList.addAll(quesSurveyList.getQuestionnaireList());
