@@ -38,6 +38,7 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void setTasks(List<MyTask> tasks) {
         this.tasks = tasks;
+        notifyDataSetChanged();
     }
 
     public void removeTask(int position) {

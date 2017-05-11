@@ -116,6 +116,7 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
                 intent.putExtra("toTeacherId", myTasks.get(position).getToTeacherId());
                 intent.putExtra("recordId", myTasks.get(position).getRecordId());
                 intent.putExtra("evaluateType", myTasks.get(position).getEvaluationType());
+                intent.putExtra("position", position);
                 startActivityForResult(intent, REQUEST_EVALUATE);
             }
 
@@ -150,6 +151,7 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
                 Intent intent = new Intent(activity, CheckSupervisorEvaActivity.class);
                 intent.putExtra("recordId", myTasks.get(position).getRecordId());
                 intent.putExtra("needConfirm",true);
+                intent.putExtra("position", position);
                 startActivityForResult(intent, REQUEST_EVALUATE);
             }
 
@@ -160,7 +162,8 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
                 intent.putExtra("toTeacherId", myTasks.get(position).getToTeacherId());
                 intent.putExtra("recordId", myTasks.get(position).getRecordId());
                 intent.putExtra("evaluateType", myTasks.get(position).getEvaluationType());
-                startActivity(intent);
+                intent.putExtra("position", position);
+                startActivityForResult(intent, REQUEST_EVALUATE);
             }
         });
     }
@@ -171,7 +174,7 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_EVALUATE && resultCode == RESULT_OK) {
-            adapter.setTasks(null);
+            adapter.removeTask(data.getIntExtra("position", 0));
             presenter.getTasks(taskType);
         }
     }

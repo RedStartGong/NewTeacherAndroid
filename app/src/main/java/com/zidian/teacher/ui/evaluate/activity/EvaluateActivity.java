@@ -58,6 +58,8 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
     private String toTeacherId;
     private String recordId;
     private String evaluateType;
+    //评价的条目
+    private int position;
 
     @Override
     protected int getLayout() {
@@ -77,6 +79,7 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
         toTeacherId = intent.getStringExtra("toTeacherId");
         recordId = String.valueOf(intent.getIntExtra("recordId", 0));
         evaluateType = String.valueOf(intent.getIntExtra("evaluateType", 0));
+        position = intent.getIntExtra("position", 0);
 
         errorView.setVisibility(View.GONE);
         evaluateTags = new ArrayList<>();
@@ -275,6 +278,8 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
                 })
                 .show();
         //评价成功，返回RESULT_OK
-        setResult(RESULT_OK);
+        Intent intent = new Intent();
+        intent.putExtra("position", position);
+        setResult(RESULT_OK, intent);
     }
 }

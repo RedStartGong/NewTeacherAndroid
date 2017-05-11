@@ -52,6 +52,8 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
 
     private ProgressDialog progressDialog;
     private String recordId;
+    //确认的任务条目
+    private int position;
 
     @Override
     protected int getLayout() {
@@ -68,6 +70,7 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
         Intent intent = getIntent();
         recordId = String.valueOf(intent.getIntExtra("recordId", 0));
         boolean needConfirm = intent.getBooleanExtra("needConfirm", false);
+        position = intent.getIntExtra("position", 0);
         toolbar.setTitle("督导评价");
         setToolbarBack(toolbar);
         errorView.setVisibility(View.GONE);
@@ -215,7 +218,9 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
     @Override
     public void showFeedbackSucceed() {
         progressDialog.dismiss();
-        setResult(RESULT_OK);
+        Intent intent = new Intent();
+        intent.putExtra("position",position);
+        setResult(RESULT_OK, intent);
         finish();
     }
 
