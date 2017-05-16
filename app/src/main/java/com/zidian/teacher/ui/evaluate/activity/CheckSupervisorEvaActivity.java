@@ -22,7 +22,12 @@ import com.zidian.teacher.presenter.CheckSupervisorEvaPresenter;
 import com.zidian.teacher.presenter.contract.CheckSupervisorEvaContract;
 import com.zidian.teacher.recyclerviewpager.recycleview.RecyclerViewPager;
 import com.zidian.teacher.ui.evaluate.adapter.SupervisorCheckAdapter;
+import com.zidian.teacher.ui.evaluate.event.FeedbackEvent;
 import com.zidian.teacher.util.SnackbarUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
@@ -63,6 +68,7 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
     @Override
     protected void initInject() {
         getActivityComponent().inject(this);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -88,6 +94,7 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
     protected void onDestroy() {
         super.onDestroy();
         presenter.deAttachView();
+        EventBus.getDefault().unregister(this);
     }
 
     private void initRecyclerView() {
@@ -174,6 +181,18 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
         Intent intent = new Intent(this, SupervisorFeedbackActivity.class);
         intent.putExtra("recordId", recordId);
         startActivity(intent);
+    }
+
+    /**
+     * {@link EventBus}反馈是否成功
+     *
+     * @param event 反馈事件
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void FeedBackSuccess(FeedbackEvent event) {
+        if (event.isSuccess()) {
+            finish();
+        }
     }
 
     @OnClick(R.id.btn_confirm)

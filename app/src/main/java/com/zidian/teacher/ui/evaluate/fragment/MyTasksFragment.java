@@ -17,9 +17,14 @@ import com.zidian.teacher.ui.evaluate.activity.CheckSupervisorEvaActivity;
 import com.zidian.teacher.ui.evaluate.activity.EvaluateActivity;
 import com.zidian.teacher.ui.evaluate.activity.MyTaskActivity;
 import com.zidian.teacher.ui.evaluate.adapter.MyTaskAdapter;
+import com.zidian.teacher.ui.evaluate.event.FeedbackEvent;
 import com.zidian.teacher.ui.evaluate.listener.MyTaskOnClickListener;
 import com.zidian.teacher.util.SnackbarUtils;
 import com.zidian.xrecyclerview.XRecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +75,7 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
     @Override
     protected void initInject() {
         getFragmentComponent().inject(this);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -101,6 +107,21 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
     public void onDestroyView() {
         super.onDestroyView();
         presenter.deAttachView();
+        EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * {@link EventBus} 接收event刷新界面
+     *
+     * @param event {@link FeedbackEvent}
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void feedbackSuccess(FeedbackEvent event) {
+        if (event.isSuccess()) {
+            myTasks.clear();
+            adapter.setTasks(myTasks);
+            presenter.getTasks(taskType);
+        }
     }
 
     /**

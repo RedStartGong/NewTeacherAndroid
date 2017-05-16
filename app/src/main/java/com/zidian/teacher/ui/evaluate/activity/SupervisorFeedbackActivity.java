@@ -11,6 +11,9 @@ import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
 import com.zidian.teacher.presenter.SupervisorFeedbackPresenter;
 import com.zidian.teacher.presenter.contract.SupervisorFeedbackContract;
+import com.zidian.teacher.ui.evaluate.event.FeedbackEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
@@ -101,6 +104,7 @@ public class SupervisorFeedbackActivity extends BaseActivity implements Supervis
     @Override
     public void showSuccess() {
         progressDialog.dismiss();
+        EventBus.getDefault().post(new FeedbackEvent(true));
         finish();
     }
 }
