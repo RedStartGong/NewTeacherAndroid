@@ -57,7 +57,6 @@ public final class ServiceFactory {
     }
 
     private static ResponseCodeInterceptor makeResponseCodeInterceptor() {
-        ResponseCodeInterceptor responseCodeInterceptor = new ResponseCodeInterceptor();
-        return responseCodeInterceptor;
+        return new ResponseCodeInterceptor();
     }
 }

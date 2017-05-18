@@ -1,6 +1,7 @@
 package com.zidian.teacher.ui.evaluate.fragment;
 
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -12,7 +13,6 @@ import com.zidian.teacher.model.entity.remote.CustomEva;
 import com.zidian.teacher.presenter.CustomEvaPresenter;
 import com.zidian.teacher.presenter.contract.CustomEvaContract;
 import com.zidian.teacher.ui.evaluate.adapter.CustomEvaAdapter;
-import com.zidian.teacher.ui.widget.XRecyclerViewLinearDecoration;
 import com.zidian.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -69,8 +69,7 @@ public class CustomEvaFragment extends BaseFragment implements CustomEvaContract
         list = new ArrayList<>();
         errorView.setVisibility(View.GONE);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-        recyclerView.addItemDecoration(new XRecyclerViewLinearDecoration(activity,
-                XRecyclerViewLinearDecoration.VERTICAL_LIST));
+        recyclerView.addItemDecoration(new DividerItemDecoration(activity, DividerItemDecoration.VERTICAL));
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {

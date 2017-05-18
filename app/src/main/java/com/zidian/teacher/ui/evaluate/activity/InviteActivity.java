@@ -37,6 +37,10 @@ import butterknife.OnClick;
 
 import static com.zidian.teacher.util.Preconditions.checkNotNull;
 
+/**
+ * 邀请评价
+ * Created by GongCheng on 2017/4/14.
+ */
 public class InviteActivity extends BaseActivity implements InviteContract.View {
 
     @BindView(R.id.toolbar)
@@ -128,11 +132,11 @@ public class InviteActivity extends BaseActivity implements InviteContract.View 
      * 选择课程
      */
     private void chooseCourse() {
-        if (courses.isEmpty()) {
+        if (courses == null ||courses.isEmpty()) {
             SnackbarUtils.showShort(toolbar, "当前没有可选课程");
             return;
         }
-        if (stringCourses.isEmpty()) {
+        if (stringCourses == null || stringCourses.isEmpty()) {
             for (int i = 0; i < courses.size(); i++) {
                 stringCourses.add(courses.get(i).getCourseName());
             }
