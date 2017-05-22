@@ -248,7 +248,7 @@ public class ChangeInfoActivity extends BaseActivity implements ChangeInfoContra
      * 图片选择器
      */
     private void pickImages() {
-        ImgSelConfig config = new ImgSelConfig.Builder(loader)
+        ImgSelConfig config = new ImgSelConfig.Builder(this, loader)
                 // 是否多选
                 .multiSelect(false)
                 // 确定按钮背景色

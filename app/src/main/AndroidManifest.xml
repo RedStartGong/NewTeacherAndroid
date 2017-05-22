@@ -57,6 +57,7 @@
         <activity android:name=".ui.questionnaire.activity.MyQuesDetailActivity" />
         <activity android:name=".ui.questionnaire.activity.QuesSurveyDetailActivity" />
         <activity android:name=".ui.questionnaire.activity.SelectClassActivity" />
+
     </application>
 
 </manifest>
