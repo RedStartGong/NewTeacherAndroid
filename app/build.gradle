@@ -24,14 +24,14 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField  "String","BUGLY_APP_ID","\"7add987736\""
+            buildConfigField "String", "BUGLY_APP_ID", "\"7add987736\""
             signingConfig signingConfigs.release
             minifyEnabled false
             zipAlignEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
-            buildConfigField  "String","BUGLY_APP_ID","\"7add987736\""
+            buildConfigField "String", "BUGLY_APP_ID", "\"7add987736\""
             signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
@@ -131,4 +131,5 @@ dependencies {
     compile rootProject.ext.bugly
 
 
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }

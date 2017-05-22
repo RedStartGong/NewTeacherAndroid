@@ -34,8 +34,8 @@
     <string name="colleague_evaluate">同行评价</string>
     <string name="colleague_invite_others">邀请</string>
     <string name="colleague_evaluate_others">评价他人</string>
-    <string name="introduce_invite">邀请指定的教师对自己的课程进行评价</string>
-    <string name="introduce_evaluate">向其他教师发起评价其课程的请求，若获得对方的同意则开始评价</string>
+    <string name="introduce_invite">邀请指定的教师对自己的课程进行评价。</string>
+    <string name="introduce_evaluate">向行课教师发起评价其课程的请求，若获得对方的同意则开始评价。</string>
     <string name="apply_evaluate_me">评我的课</string>
     <string name="evaluate_his_course">我评他的课</string>
     <string name="evaluate_my_course">评我的课</string>

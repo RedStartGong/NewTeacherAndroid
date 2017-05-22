@@ -3,6 +3,8 @@ package com.zidian.teacher;
 import android.app.Application;
 import android.content.Context;
 
+import com.orhanobut.hawk.Hawk;
+import com.orhanobut.hawk.HawkBuilder;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -23,7 +25,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        SharedPreferencesUtils.init(this);
+        Hawk.init(this).build();
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
