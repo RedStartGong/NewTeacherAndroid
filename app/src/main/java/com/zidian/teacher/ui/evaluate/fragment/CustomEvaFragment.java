@@ -66,6 +66,7 @@ public class CustomEvaFragment extends BaseFragment implements CustomEvaContract
 
     @Override
     protected void initViewAndData() {
+        startRow = 1;
         list = new ArrayList<>();
         errorView.setVisibility(View.GONE);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
