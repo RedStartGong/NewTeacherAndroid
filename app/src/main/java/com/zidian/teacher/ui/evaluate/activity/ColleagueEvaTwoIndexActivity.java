@@ -19,8 +19,10 @@ import com.zidian.teacher.presenter.ColleagueEvaTwoIndexPresenter;
 import com.zidian.teacher.presenter.contract.ColleagueEvaTwoIndexContract;
 import com.zidian.teacher.ui.evaluate.adapter.ChartOptionListAdapter;
 import com.zidian.teacher.ui.widget.BarChartHelper;
+import com.zidian.teacher.ui.widget.ChartDecimalFormatter;
 import com.zidian.teacher.util.ColorConstants;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +81,9 @@ public class ColleagueEvaTwoIndexActivity extends BaseActivity
 
         toolbar.setTitle(indexName);
         setToolbarBack(toolbar);
-        tvIndexScore.setText(String.valueOf(indexScore));
+        //格式化数字，保留小数点后两位
+        DecimalFormat decimalFormat = new DecimalFormat("##0.00");
+        tvIndexScore.setText(decimalFormat.format(indexScore));
         errorView.setVisibility(View.GONE);
         rvEvaTag.setLayoutManager(new LinearLayoutManager(this));
         rvEvaTag.setAdapter(adapter);
@@ -109,6 +113,7 @@ public class ColleagueEvaTwoIndexActivity extends BaseActivity
         BarDataSet dataSet = new BarDataSet(barEntries, "BarChart");
         dataSet.setColors(ColorConstants.CHART_COLORS);
         BarData barData = new BarData(dataSet);
+        barData.setValueFormatter(new ChartDecimalFormatter("##0.00"));
         barData.setBarWidth(0.3f);
         barData.setValueTextSize(12);
         return barData;

@@ -12,9 +12,9 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.zidian.teacher.R;
-
 import com.zidian.teacher.model.entity.remote.ColleagueEva;
 import com.zidian.teacher.ui.widget.BarChartHelper;
+import com.zidian.teacher.ui.widget.ChartDecimalFormatter;
 import com.zidian.teacher.util.ColorConstants;
 
 import java.text.DecimalFormat;
@@ -72,7 +72,7 @@ public class ColleagueEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((TopViewHolder) holder).colleagueBarChart.invalidate();
         } else if (holder instanceof ItemViewHolder) {
             ((ItemViewHolder) holder).evaluateColor.setBackgroundColor(ColorConstants.CHART_COLORS[position - 1]);
-            ((ItemViewHolder) holder).evaluateScored.setText(decimal(data.get(position - 1).getIndexScore()) + "");
+            ((ItemViewHolder) holder).evaluateScored.setText(decimal(data.get(position - 1).getIndexScore()));
             ((ItemViewHolder) holder).evaluateType.setText(data.get(position - 1).getIndexName());
             StringBuffer sb = new StringBuffer();
 
@@ -93,7 +93,7 @@ public class ColleagueEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 @Override
                 public void onClick(View v) {
                     onItemClickListener.onClick(data.get(holder.getAdapterPosition() - 1).getIndexName(),
-                            decimal(data.get(holder.getAdapterPosition() - 1).getIndexScore()));
+                            data.get(holder.getAdapterPosition() - 1).getIndexScore());
                 }
             });
         }
@@ -122,12 +122,13 @@ public class ColleagueEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         List<BarEntry> barEntries = new ArrayList<>();
 
         for (int i = 0; i < data.size(); i++) {
-            barEntries.add(new BarEntry(i + 1, decimal(data.get(i).getIndexScore())));
+            barEntries.add(new BarEntry(i + 1, data.get(i).getIndexScore()));
         }
         BarDataSet dataSet = new BarDataSet(barEntries, "BarChart");
         dataSet.setColors(ColorConstants.CHART_COLORS);
         BarData barData = new BarData(dataSet);
         barData.setBarWidth(0.3f);
+        barData.setValueFormatter(new ChartDecimalFormatter("##0.00"));
         barData.setValueTextSize(12);
         return barData;
     }
@@ -138,10 +139,9 @@ public class ColleagueEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      * @param f float number
      * @return  number
      */
-    private float decimal(float f) {
+    private String decimal(float f) {
         DecimalFormat decimalFormat = new DecimalFormat("##0.00");
-        String format = decimalFormat.format(f);
-        return Float.parseFloat(format);
+        return decimalFormat.format(f);
     }
 
     public void setData(List<ColleagueEva> data) {

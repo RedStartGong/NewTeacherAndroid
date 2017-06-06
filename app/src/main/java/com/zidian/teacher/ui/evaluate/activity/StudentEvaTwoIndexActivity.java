@@ -18,6 +18,7 @@ import com.zidian.teacher.presenter.StudentEvaTwoIndexPresenter;
 import com.zidian.teacher.presenter.contract.StudentEvaTwoIndexContract;
 import com.zidian.teacher.ui.evaluate.adapter.ChartOptionListAdapter;
 import com.zidian.teacher.ui.widget.BarChartHelper;
+import com.zidian.teacher.ui.widget.ChartDecimalFormatter;
 import com.zidian.teacher.util.ColorConstants;
 
 import java.util.ArrayList;
@@ -90,6 +91,7 @@ public class StudentEvaTwoIndexActivity extends BaseActivity implements StudentE
         BarDataSet dataSet = new BarDataSet(barEntries, "BarChart");
         dataSet.setColors(ColorConstants.CHART_COLORS);
         BarData barData = new BarData(dataSet);
+        barData.setValueFormatter(new ChartDecimalFormatter("##0.00"));
         barData.setBarWidth(0.3f);
         barData.setValueTextSize(12);
         return barData;
