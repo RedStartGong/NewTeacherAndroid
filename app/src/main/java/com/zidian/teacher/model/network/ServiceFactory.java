@@ -38,7 +38,8 @@ public final class ServiceFactory {
     private static OkHttpClient makeOkHttpClient() {
         return new OkHttpClient.Builder()
                 .addNetworkInterceptor(makeLoggingInterceptor())
-                .addNetworkInterceptor(makeResponseCodeInterceptor())
+                .addInterceptor(makeResponseCodeInterceptor())
+                .addNetworkInterceptor(new TokenInterceptor())
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
                 .build();

@@ -60,7 +60,7 @@ public final class DataManager {
 
     public Observable<HttpResult<PersonInfo>> getPersonInfo(
             String teacherId, String teacherType, String token, String schoolId) {
-        return service.getPersonInfo(teacherId, teacherType, token, schoolId);
+        return service.getPersonInfo(teacherType);
     }
 
     public Observable<NoDataResult> changePassword(
@@ -71,12 +71,12 @@ public final class DataManager {
 
     public Observable<HttpResult<List<Course>>> getCourses(
             String teacherId, String token, String schoolId) {
-        return service.getCourses(teacherId, token, schoolId);
+        return service.getCourses();
     }
 
     public Observable<HttpResult<List<Class>>> getClasses(
             String courseId, String teacherId, String token, String schoolId) {
-        return service.getClasses(courseId, teacherId, token, schoolId);
+        return service.getClasses(courseId);
     }
 
     public Observable<AttendanceStudent> getAttendanceStudent(

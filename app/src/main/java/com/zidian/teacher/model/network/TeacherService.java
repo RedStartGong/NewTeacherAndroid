@@ -66,9 +66,8 @@ public interface TeacherService {
      */
     @FormUrlEncoded
     @POST("teacher/selectMydata")
-    Observable<HttpResult<PersonInfo>> getPersonInfo(
-            @Field("teacherId") String teacherId, @Field("teacherType") String teacherType,
-            @Field("token") String token, @Field("schoolId") String schoolId);
+    Observable<HttpResult<PersonInfo>> getPersonInfo(@Field("teacherType") String teacherType
+    );
 
     /**
      * 修改密码
@@ -84,11 +83,8 @@ public interface TeacherService {
     /**
      * 获取课程表
      */
-    @FormUrlEncoded
     @POST("page/course/select")
-    Observable<HttpResult<List<Course>>> getCourses(
-            @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") String schoolId);
+    Observable<HttpResult<List<Course>>> getCourses();
 
     /**
      * 得到本节课上课班级
@@ -96,8 +92,7 @@ public interface TeacherService {
     @FormUrlEncoded
     @POST("page/attendance/selectClass")
     Observable<HttpResult<List<Class>>> getClasses(
-            @Field("courseId") String courseId, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") String schoolId);
+            @Field("courseId") String courseId);
 
     /**
      * 查看本节考勤学生
