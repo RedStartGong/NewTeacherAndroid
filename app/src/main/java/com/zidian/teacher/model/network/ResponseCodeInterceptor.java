@@ -51,7 +51,7 @@ public class ResponseCodeInterceptor implements Interceptor {
                 int code = jsonObject.getInt("code");
                 if (code == 202) {
                     //TODO 验证token
-                    Log.e("HTTP", "朋友，token失效了");
+                    Log.e("HTTP", "-->朋友，token失效了");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

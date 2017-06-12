@@ -25,7 +25,7 @@ public class TokenInterceptor implements Interceptor {
             return chain.proceed(original);
         }
         HttpUrl url = originalHttpUrl.newBuilder()
-                .addQueryParameter("token", SharedPreferencesUtils.getUserName())
+                .addQueryParameter("token", SharedPreferencesUtils.getToken())
                 .addQueryParameter("teacherId", SharedPreferencesUtils.getUserName())
                 .addQueryParameter("schoolId", SharedPreferencesUtils.getSchoolId())
                 .build();
