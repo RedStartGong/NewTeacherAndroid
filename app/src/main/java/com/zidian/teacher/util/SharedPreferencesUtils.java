@@ -85,7 +85,7 @@ public class SharedPreferencesUtils {
         return Hawk.get(SP_SCHOOL_ID);
     }
 
-    public static void  setSchoolId(String schoolId) {
+    public static void setSchoolId(String schoolId) {
         Hawk.put(SP_SCHOOL_ID, schoolId);
     }
 
