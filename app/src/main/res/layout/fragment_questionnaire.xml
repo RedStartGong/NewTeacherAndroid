@@ -40,8 +40,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_add_24dp"
         app:fabSize="normal"
-        app:layout_anchor="@+id/vp_questionnaire"
-        app:layout_anchorGravity="bottom|end"
+        android:layout_gravity="bottom|end"
         app:rippleColor="@color/colorPrimaryDark" />
 
 
