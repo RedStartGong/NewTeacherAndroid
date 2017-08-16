@@ -85,4 +85,5 @@ public interface ActivityComponent {
     void inject(QuesSurveyDetailActivity quesSurveyDetailActivity);
 
     void inject(SelectClassActivity selectClassActivity);
+
 }

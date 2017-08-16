@@ -15,18 +15,13 @@ import com.zidian.teacher.di.componet.DaggerActivityComponent;
 import com.zidian.teacher.di.module.ActivityModule;
 import com.zidian.teacher.ui.main.LoginActivity;
 import com.zidian.teacher.ui.main.MainActivity;
-import com.zidian.teacher.util.ActManager;
 import com.zidian.teacher.util.SharedPreferencesUtils;
-
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.yokeyword.fragmentation.SupportActivity;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
-
-import static dagger.internal.Preconditions.checkNotNull;
 
 /**
  * BaseActivity

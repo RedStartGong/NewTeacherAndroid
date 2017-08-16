@@ -138,7 +138,7 @@ public interface TeacherService {
      */
     @Multipart
     @POST("teacher/updateTeacherHeadPortrait")
-    Observable<NoDataResult> setPortrait(@Part("teacherId") RequestBody teacherId, @Part("token") RequestBody token,
+    Observable<NoDataResult> setPortrait(@Part("teacherId") RequestBody teacherId,@Part("token") RequestBody token,
                                          @Part("schoolId") RequestBody schoolId, @Part MultipartBody.Part file);
 
     /**

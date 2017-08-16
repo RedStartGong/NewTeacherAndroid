@@ -15,7 +15,6 @@ public class AttendanceStatistics {
      * studentUrl :
      * leaveEarlyNum : 0
      */
-
     private String LateNum;
     private String studentId;
     private String studentName;

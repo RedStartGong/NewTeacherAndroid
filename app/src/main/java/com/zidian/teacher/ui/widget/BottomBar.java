@@ -25,7 +25,6 @@ public class BottomBar extends LinearLayout {
     private boolean visible = true;
 
     private LinearLayout tabLayout;
-
     private LayoutParams tabParams;
     private int currentPosition = 0;
     private OnTabSelectedListener listener;

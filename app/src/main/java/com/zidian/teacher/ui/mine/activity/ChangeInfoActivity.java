@@ -284,6 +284,7 @@ public class ChangeInfoActivity extends BaseActivity implements ChangeInfoContra
             //创建多部分拿上面的请求体做参数
             //file 是上传是的参数key
             MultipartBody.Part image = MultipartBody.Part.createFormData("file", System.currentTimeMillis() + ".jpg", requestFile);
+
             RequestBody teacherId = RequestBody.create(MediaType.parse("multipart/form-data"), SharedPreferencesUtils.getUserName());
             RequestBody token = RequestBody.create(MediaType.parse("multipart/form-data"), SharedPreferencesUtils.getToken());
             RequestBody schoolId = RequestBody.create(MediaType.parse("multipart/form-data"), SharedPreferencesUtils.getSchoolId());
