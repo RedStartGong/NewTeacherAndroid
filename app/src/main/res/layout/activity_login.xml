@@ -44,6 +44,7 @@
         android:padding="10dp"
         android:textColor="@color/dark_text_color"
         android:textSize="17sp" />
+
     <LinearLayout
         android:id="@+id/ll_select_school"
         android:layout_width="match_parent"
@@ -51,6 +52,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="10dp"
+        android:background="@drawable/selector_touch_bg"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -59,11 +61,16 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_school" />
 
-        <Spinner
-            android:id="@+id/sp_school"
+        <TextView
+            android:id="@+id/tv_school"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:drawableRight="@drawable/ic_chevron_right_24dp"
+            android:hint="请选择学校"
+            android:paddingLeft="5dp"
+            android:textSize="17sp" />
     </LinearLayout>
+
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"

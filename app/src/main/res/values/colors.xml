@@ -15,6 +15,8 @@
     <color name="common_text_color">#aeaeae</color>
     <!--通用背景色-->
     <color name="common_bg">#ffffff</color>
+    <!--通用灰色背景色-->
+    <color name="common_gray_bg">#c2c4c7</color>
     <!--通用触摸背景色-->
     <color name="common_touch_bg">#E3E3E3</color>
     <!--灰色背景-->

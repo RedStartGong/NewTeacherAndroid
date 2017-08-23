@@ -20,14 +20,14 @@ public class TokenInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request original = chain.request();
         HttpUrl originalHttpUrl = original.url();
-        if (originalHttpUrl.toString().equals("http://103.231.69.80//rest/page/shiro/loginTeacher")
-                || originalHttpUrl.toString().equals("page/shiro/school")) {
+        if (originalHttpUrl.toString().equals(ServiceFactory.BASE_URL + "page/shiro/loginTeacher")
+                || originalHttpUrl.toString().equals(ServiceFactory.BASE_URL + "page/shiro/school")) {
             return chain.proceed(original);
         }
         HttpUrl url = originalHttpUrl.newBuilder()
                 .addQueryParameter("token", SharedPreferencesUtils.getToken())
-                .addQueryParameter("teacherId", SharedPreferencesUtils.getUserName())
-                .addQueryParameter("schoolId", SharedPreferencesUtils.getSchoolId())
+                .addQueryParameter("teacherId", String.valueOf(SharedPreferencesUtils.getTeacherId()))
+                .addQueryParameter("schoolId", String.valueOf(SharedPreferencesUtils.getSchoolId()))
                 .build();
 
         // Request customization: add request headers

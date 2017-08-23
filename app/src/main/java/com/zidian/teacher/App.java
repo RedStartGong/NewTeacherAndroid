@@ -4,14 +4,12 @@ import android.app.Application;
 import android.content.Context;
 
 import com.orhanobut.hawk.Hawk;
-import com.orhanobut.hawk.HawkBuilder;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.zidian.teacher.di.componet.ApplicationComponent;
 import com.zidian.teacher.di.componet.DaggerApplicationComponent;
 import com.zidian.teacher.di.module.ApplicationModule;
-import com.zidian.teacher.util.SharedPreferencesUtils;
 
 /**
  * application

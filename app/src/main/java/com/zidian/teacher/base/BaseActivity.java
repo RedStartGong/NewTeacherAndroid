@@ -13,8 +13,8 @@ import com.zidian.teacher.R;
 import com.zidian.teacher.di.componet.ActivityComponent;
 import com.zidian.teacher.di.componet.DaggerActivityComponent;
 import com.zidian.teacher.di.module.ActivityModule;
-import com.zidian.teacher.ui.main.LoginActivity;
-import com.zidian.teacher.ui.main.MainActivity;
+import com.zidian.teacher.ui.main.activity.LoginActivity;
+import com.zidian.teacher.ui.main.activity.MainActivity;
 import com.zidian.teacher.util.SharedPreferencesUtils;
 
 import butterknife.ButterKnife;

@@ -1,4 +1,4 @@
-package com.zidian.teacher.ui.main;
+package com.zidian.teacher.ui.main.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

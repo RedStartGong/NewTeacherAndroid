@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.main.WelcomeActivity"
+            android:name=".ui.main.activity.WelcomeActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,12 +28,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.main.LoginActivity"
-            android:noHistory="true" />
+            android:name=".ui.main.activity.LoginActivity" />
         <activity
-            android:name=".ui.main.LoadActivity"
+            android:name=".ui.main.activity.LoadActivity"
             android:noHistory="true" />
-        <activity android:name=".ui.main.MainActivity" />
+        <activity android:name=".ui.main.activity.MainActivity" />
         <activity android:name=".ui.mine.activity.AboutActivity" />
         <activity android:name=".ui.mine.activity.ChangeInfoActivity" />
         <activity android:name=".ui.course.activity.CourseInfoActivity" />
@@ -57,6 +56,7 @@
         <activity android:name=".ui.questionnaire.activity.MyQuesDetailActivity" />
         <activity android:name=".ui.questionnaire.activity.QuesSurveyDetailActivity" />
         <activity android:name=".ui.questionnaire.activity.SelectClassActivity" />
+        <activity android:name=".ui.main.activity.ChooseSchoolActivity"/>
 
     </application>
 

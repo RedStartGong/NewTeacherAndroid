@@ -1,4 +1,4 @@
-package com.zidian.teacher.ui.main;
+package com.zidian.teacher.ui.main.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
@@ -14,6 +15,7 @@ import com.zidian.teacher.model.entity.remote.School;
 import com.zidian.teacher.presenter.LoginPresenter;
 import com.zidian.teacher.presenter.contract.LoginContract;
 import com.zidian.teacher.ui.widget.ClearEditText;
+import com.zidian.teacher.util.ActManager;
 import com.zidian.teacher.util.SharedPreferencesUtils;
 import com.zidian.teacher.util.SnackbarUtils;
 
@@ -38,15 +40,16 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     ClearEditText etUsername;
     @BindView(R.id.et_password)
     ClearEditText etPassword;
-    @BindView(R.id.sp_school)
-    Spinner spSchool;
+    @BindView(R.id.tv_school)
+    TextView tvSchool;
 
     @Inject
     LoginPresenter presenter;
+    @Inject
+    ActManager actManager;
 
+    private static final int CHOOSE_SCHOOL = 1;
     private ProgressDialog progressDialog;
-    private ArrayAdapter<School> arrayAdapter;
-    private List<School> schools;
     private int schoolId;
 
     @Override
@@ -57,35 +60,18 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     protected void initInject() {
         getActivityComponent().inject(this);
+        actManager.addActivity(this);
     }
 
     @Override
     protected void initViewAndData() {
         checkNotNull(presenter);
         presenter.attachView(this);
-        schools = new ArrayList<>();
-        schools.add(new School(getString(R.string.select_school_please), 0));
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.login_loading));
         etUsername.setText(SharedPreferencesUtils.getUserName());
         etPassword.setText(SharedPreferencesUtils.getPassword());
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, schools);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spSchool.setAdapter(arrayAdapter);
-        spSchool.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position != 0) {
-                    schoolId = schools.get(position).getSchoolId();
-                }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        presenter.getSchools();
     }
 
     @Override
@@ -97,8 +83,22 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @OnClick(R.id.ll_select_school)
     public void getSchools() {
-        if (schools.size() <= 1) {
-            presenter.getSchools();
+        startActivityForResult(new Intent(this, ChooseSchoolActivity.class), CHOOSE_SCHOOL);
+    }
+    /**
+     * {@link ChooseSchoolActivity} 返回值
+     *
+     * @param requestCode requestCode
+     * @param resultCode  resultCode
+     * @param data        data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CHOOSE_SCHOOL && resultCode == RESULT_OK && data != null) {
+            School.SchoolBean bean = (School.SchoolBean) data.getSerializableExtra("school");
+            tvSchool.setText(bean.getSchoolName());
+            schoolId = bean.getSchoolId();
         }
     }
 
@@ -118,7 +118,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             SnackbarUtils.showShort(etUsername, getString(R.string.select_school_please));
             return;
         }
-        presenter.login(username, password, String.valueOf(schoolId));
+        presenter.login(username, password, schoolId);
     }
 
     @Override
@@ -132,15 +132,12 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         progressDialog.show();
     }
 
-    @Override
-    public void showSchool(List<School> schools) {
-        this.schools.addAll(schools);
-        arrayAdapter.notifyDataSetChanged();
-    }
 
     @Override
     public void showSuccess() {
         progressDialog.dismiss();
+        actManager.finishAllActivity();
+        this.overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
         startActivity(new Intent(this, MainActivity.class));
     }
 

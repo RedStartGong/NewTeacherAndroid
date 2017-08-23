@@ -10,19 +10,40 @@ import java.io.Serializable;
 public class LoginResult implements Serializable {
 
     /**
+     * jPush : js1006_1
      * message : 成功
+     * teacherType : 1
+     * teacherNumber : 1006
+     * token :  07d37f9acdba3ad042a52c05bac49fae
      * code : 200
-     * teacherId : 6283
-     * teacherName : 6283
-     * token :  9662804431d7090a35942d5f8d6c8569
-     * teacherType : 2为教师 9为督导
+     * teacherName : 景云
+     * teacherId : 17
      */
 
+    private String jPush;
     private String message;
-    private int code;
-    private String teacherId;
-    private String teacherName;
+    private int teacherType;
+    private String teacherNumber;
     private String token;
+    private int code;
+    private String teacherName;
+    private int teacherId;
+
+    public String getJPush() {
+        return jPush;
+    }
+
+    public void setJPush(String jPush) {
+        this.jPush = jPush;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public int getTeacherType() {
         return teacherType;
@@ -32,14 +53,20 @@ public class LoginResult implements Serializable {
         this.teacherType = teacherType;
     }
 
-    private int teacherType;
-
-    public String getMessage() {
-        return message;
+    public String getTeacherNumber() {
+        return teacherNumber;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setTeacherNumber(String teacherNumber) {
+        this.teacherNumber = teacherNumber;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public int getCode() {
@@ -50,14 +77,6 @@ public class LoginResult implements Serializable {
         this.code = code;
     }
 
-    public String getTeacherId() {
-        return teacherId;
-    }
-
-    public void setTeacherId(String teacherId) {
-        this.teacherId = teacherId;
-    }
-
     public String getTeacherName() {
         return teacherName;
     }
@@ -66,11 +85,11 @@ public class LoginResult implements Serializable {
         this.teacherName = teacherName;
     }
 
-    public String getToken() {
-        return token;
+    public int getTeacherId() {
+        return teacherId;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
     }
 }

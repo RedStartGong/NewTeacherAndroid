@@ -36,26 +36,7 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
     }
 
     @Override
-    public void getSchools() {
-        Subscription subscription = dataManager.getSchools()
-                .compose(RxUtils.<HttpResult<List<School>>>rxSchedulerIo())
-                .compose(RxUtils.<List<School>>handleHttpResult())
-                .subscribe(new Action1<List<School>>() {
-                    @Override
-                    public void call(List<School> schools) {
-                        view.showSchool(schools);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        view.showError(throwable);
-                    }
-                });
-        addSubscribe(subscription);
-    }
-
-    @Override
-    public void login(@NonNull String username, @NonNull final String password, @NonNull final String schoolId) {
+    public void login(@NonNull final String username, @NonNull final String password, @NonNull final int schoolId) {
         Subscription subscription = dataManager.login(username, password, schoolId)
                 .compose(RxUtils.<LoginResult>rxSchedulerIo())
                 .map(new Func1<LoginResult, LoginResult>() {
@@ -88,9 +69,10 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
                     @Override
                     public void onNext(LoginResult loginResult) {
                         SharedPreferencesUtils.setToken(loginResult.getToken());
-                        SharedPreferencesUtils.setUsername(loginResult.getTeacherId());
+                        SharedPreferencesUtils.setUsername(username);
                         SharedPreferencesUtils.setPassword(password);
                         SharedPreferencesUtils.setSchoolId(schoolId);
+                        SharedPreferencesUtils.setTeacherId(loginResult.getTeacherId());
                         SharedPreferencesUtils.setIsLogin(true);
                         SharedPreferencesUtils.setTeacherType(loginResult.getTeacherType());
                         SharedPreferencesUtils.setTeacherName(loginResult.getTeacherName());

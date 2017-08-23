@@ -18,8 +18,9 @@ import com.zidian.teacher.ui.evaluate.activity.MyTaskActivity;
 import com.zidian.teacher.ui.evaluate.activity.StudentEvaTwoIndexActivity;
 import com.zidian.teacher.ui.evaluate.activity.SupervisorEvaActivity;
 import com.zidian.teacher.ui.evaluate.activity.SupervisorFeedbackActivity;
-import com.zidian.teacher.ui.main.LoginActivity;
-import com.zidian.teacher.ui.main.MainActivity;
+import com.zidian.teacher.ui.main.activity.ChooseSchoolActivity;
+import com.zidian.teacher.ui.main.activity.LoginActivity;
+import com.zidian.teacher.ui.main.activity.MainActivity;
 import com.zidian.teacher.ui.mine.activity.AboutActivity;
 import com.zidian.teacher.ui.mine.activity.ChangeInfoActivity;
 import com.zidian.teacher.ui.mine.activity.FeedbackActivity;
@@ -86,4 +87,5 @@ public interface ActivityComponent {
 
     void inject(SelectClassActivity selectClassActivity);
 
+    void inject(ChooseSchoolActivity chooseSchoolActivity);
 }

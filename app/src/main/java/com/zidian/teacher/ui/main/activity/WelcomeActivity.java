@@ -1,4 +1,4 @@
-package com.zidian.teacher.ui.main;
+package com.zidian.teacher.ui.main.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,8 @@ import android.widget.ImageView;
 
 import com.zidian.teacher.BuildConfig;
 import com.zidian.teacher.R;
+import com.zidian.teacher.ui.main.activity.LoadActivity;
+import com.zidian.teacher.ui.main.activity.LoginActivity;
 import com.zidian.teacher.util.SharedPreferencesUtils;
 
 import butterknife.BindView;

@@ -45,6 +45,9 @@ public class SharedPreferencesUtils {
 
     private static final String SP_TEACHER_NAME = "teacherName";
 
+    private static final String SP_TEACHER_ID = "teacherId";
+
+
     public static void init(Context context) {
         Hawk.init(context).build();
     }
@@ -81,11 +84,11 @@ public class SharedPreferencesUtils {
         return Hawk.get(SP_TOKEN);
     }
 
-    public static String getSchoolId() {
+    public static int getSchoolId() {
         return Hawk.get(SP_SCHOOL_ID);
     }
 
-    public static void setSchoolId(String schoolId) {
+    public static void setSchoolId(int schoolId) {
         Hawk.put(SP_SCHOOL_ID, schoolId);
     }
 
@@ -119,6 +122,14 @@ public class SharedPreferencesUtils {
 
     public static int getTeacherType() {
         return Hawk.get(SP_TEACHER_TYPE);
+    }
+
+    public static void setTeacherId(int teacherId) {
+        Hawk.put("SP_TEACHER_ID", teacherId);
+    }
+
+    public static int getTeacherId() {
+        return Hawk.get("SP_TEACHER_ID");
     }
 
     public static void clearAll() {

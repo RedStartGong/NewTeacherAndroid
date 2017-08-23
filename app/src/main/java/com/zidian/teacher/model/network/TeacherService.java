@@ -59,7 +59,7 @@ public interface TeacherService {
     @POST("page/shiro/loginTeacher")
     Observable<LoginResult> login(
             @Field("username") String username, @Field("password") String password,
-            @Field("schoolId") String schoolId);
+            @Field("schoolId") int schoolId);
 
     /**
      * 获取个人信息
@@ -77,7 +77,7 @@ public interface TeacherService {
     Observable<NoDataResult> changePassword(
             @Field("teacherId") String teacherId, @Field("password") String password,
             @Field("password1") String password1, @Field("password2") String password2,
-            @Field("token") String token, @Field("schoolId") String schoolId
+            @Field("token") String token, @Field("schoolId") int schoolId
     );
 
     /**
@@ -102,7 +102,7 @@ public interface TeacherService {
     Observable<AttendanceStudent> getAttendanceStudents(
             @Field("courseWeeklyId") String courseWeeklyId, @Field("courseId") String courseId,
             @Field("className") String className, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") String schoolId);
+            @Field("token") String token, @Field("schoolId") int schoolId);
 
     /**
      * 设置考勤信息
@@ -112,7 +112,7 @@ public interface TeacherService {
     Observable<NoDataResult> setAttendance(
             @Field("student") String student, @Field("courseId") String courseId,
             @Field("courseWeeklyId") String courseWeeklyId, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") String schoolId);
+            @Field("token") String token, @Field("schoolId") int schoolId);
 
     /**
      * 考勤统计
@@ -122,7 +122,7 @@ public interface TeacherService {
     Observable<HttpResult<List<AttendanceStatistics>>> getAttendanceStatistics(
             @Field("courseId") String courseId, @Field("className") String className,
             @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") String schoolId);
+            @Field("schoolId") int schoolId);
 
     /**
      * 意见反馈
@@ -131,7 +131,7 @@ public interface TeacherService {
     @POST("page/suggestionFeedback/add")
     Observable<NoDataResult> feedback(
             @Field("feedbackId") String feedbackId, @Field("feedbackInformation") String feedbackInformation,
-            @Field("type") String type, @Field("token") String token, @Field("schoolId") String schoolId);
+            @Field("type") String type, @Field("token") String token, @Field("schoolId") int schoolId);
 
     /**
      * 修改头像
@@ -150,7 +150,7 @@ public interface TeacherService {
             @Field("personalizedSignature") String motto, @Field("teacherphoneNumber")
             String phoneNumber, @Field("teacherSex") String teacherSex, @Field("mybirthd") String birthday,
             @Field("mynickname") String nickName, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") String schoolId);
+            @Field("token") String token, @Field("schoolId") int schoolId);
 
     /**
      * 我的任务
@@ -159,7 +159,7 @@ public interface TeacherService {
     @POST("ToEvaluateOthers/myAssignment")
     Observable<HttpResult<List<MyTask>>> getMyTasks(
             @Field("requestState") String requestState, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") String schoolId);
+            @Field("token") String token, @Field("schoolId") int schoolId);
 
     /**
      * 获取邀请评价时的课程信息
@@ -167,7 +167,7 @@ public interface TeacherService {
     @FormUrlEncoded
     @POST("page/evaluateBySupervisor/inviteSelectAll")
     Observable<InviteCourseResult> getInviteCourses(@Field("teacherId") String teacherId, @Field("token") String token,
-                                                    @Field("schoolId") String schoolId);
+                                                    @Field("schoolId") int schoolId);
 
     /**
      * 获取评价他人时的课程信息
@@ -175,7 +175,7 @@ public interface TeacherService {
     @FormUrlEncoded
     @POST("page/evaluateBySupervisor/selectAll")
     Observable<HttpResult<List<EvaluateCourse>>> getEvaluateCourses(
-            @Field("teacherId") String teacherId, @Field("token") String token, @Field("schoolId") String schoolId);
+            @Field("teacherId") String teacherId, @Field("token") String token, @Field("schoolId") int schoolId);
 
     /**
      * 获取邀请评价的教师
@@ -183,7 +183,7 @@ public interface TeacherService {
     @FormUrlEncoded
     @POST("page/evaluateBySupervisor/selectTeacher")
     Observable<HttpResult<List<InviteTeacher>>> getInviteTeacher(@Field("condition") String condition, @Field("teacherId")
-            String teacherId, @Field("token") String token, @Field("schoolId") String schoolId);
+            String teacherId, @Field("token") String token, @Field("schoolId") int schoolId);
 
     /**
      * 邀请评价或申请评价他人
@@ -196,7 +196,7 @@ public interface TeacherService {
             @Field("teacherCollege") String teacherCollege, @Field("courseId") String courseId,
             @Field("courseName") String courseName, @Field("teachingCalendar") String teachingCalendar,
             @Field("courseClassroom") String classroom, @Field("requestExplain") String requestExplain,
-            @Field("token") String token, @Field("schoolId") String schoolId);
+            @Field("token") String token, @Field("schoolId") int schoolId);
 
     /**
      * 添加督导评价
@@ -210,7 +210,7 @@ public interface TeacherService {
             @Field("theRequestedPersonName") String requestedPersonName, @Field("courseId") String courseId,
             @Field("courseName") String courseName, @Field("teachingCalendarTime") String teachingCalendar,
             @Field("courseClassroom") String classroom, @Field("teacherType") String teacherType,
-            @Field("token") String token, @Field("schoolId") String schoolId);
+            @Field("token") String token, @Field("schoolId") int schoolId);
 
     /**
      * 同行评价，查看标签
@@ -220,7 +220,7 @@ public interface TeacherService {
     Observable<HttpResult<List<EvaluateTag>>> getEvaluateTags(
             @Field("packageName") String packageName, @Field("operatorId") String teacherId,
             @Field("operatorType") String operatorType, @Field("token") String token,
-            @Field("schoolId") String schoolId);
+            @Field("schoolId") int schoolId);
 
     /**
      * 评价别人
@@ -232,7 +232,7 @@ public interface TeacherService {
             @Field("byEvaluatePersonId") String evaluatedId, @Field("recordId") String recordId,
             @Field("evaluateLabel") String evaluateLabel, @Field("evaluateComment") String evaluateComment,
             @Field("colleagueId") String colleagueId, @Field("token") String token,
-            @Field("schoolId") String schoolId);
+            @Field("schoolId") int schoolId);
 
     /**
      * 修改评价状态
@@ -242,7 +242,7 @@ public interface TeacherService {
     Observable<NoDataResult> changeEvaState(
             @Field("recordId") String recordId, @Field("requestState") String requestState,
             @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") String schoolId);
+            @Field("schoolId") int schoolId);
 
     /**
      * 查看评价详情
@@ -250,7 +250,7 @@ public interface TeacherService {
     @GET("ToEvaluateOthers/evaluationDetails")
     Observable<HttpResult<CheckColleagueEva>> checkColleagueEva(
             @Query("recordId") String recordId, @Query("teacherId") String teacherId,
-            @Query("token") String token, @Query("schoolId") String schoolId);
+            @Query("token") String token, @Query("schoolId") int schoolId);
 
     /**
      * 查看督导评价详情
@@ -258,7 +258,7 @@ public interface TeacherService {
     @GET("page/evaluateBySupervisor/evaluationDetails")
     Observable<HttpResult<CheckSupervisorEva>> checkSupervisorEva(
             @Query("recordId") String recordId, @Query("teacherId") String teacherId,
-            @Query("token") String token, @Query("schoolId") String schoolId);
+            @Query("token") String token, @Query("schoolId") int schoolId);
 
     /**
      * 添加督导评价反馈，contentFeedback 为空时表示确认
@@ -268,7 +268,7 @@ public interface TeacherService {
     Observable<NoDataResult> supervisorFeedback(
             @Field("contentFeedback") String contentFeedback, @Field("recordId") String recordId,
             @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") String schoolId);
+            @Field("schoolId") int schoolId);
 
     /**
      * 查看学生评价统计
@@ -277,7 +277,7 @@ public interface TeacherService {
     @POST("EvaluateByStudent/studentEvaluation")
     Observable<HttpResult<StudentEva>> studentEva(
             @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") String schoolId);
+            @Field("schoolId") int schoolId);
 
     /**
      * 查看学生评价二级指标
@@ -286,7 +286,7 @@ public interface TeacherService {
     @POST("EvaluateByStudent/studentEvaluationTwoIndex")
     Observable<HttpResult<List<EvaTwoIndex>>> studentEvaTwoIndex(
             @Field("indexName") String indexName, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") String schoolId);
+            @Field("token") String token, @Field("schoolId") int schoolId);
 
     /**
      * 查看督导/同行评价
@@ -295,7 +295,7 @@ public interface TeacherService {
     @POST("EvaluateTeacher/teacherEvaluation")
     Observable<HttpResult<List<ColleagueEva>>> colleagueEva(
             @Field("evaluateType") String evaluateType, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") String schoolId);
+            @Field("token") String token, @Field("schoolId") int schoolId);
 
     /**
      * 查看督导/同行评价二级指标
@@ -305,7 +305,7 @@ public interface TeacherService {
     Observable<HttpResult<List<EvaTwoIndex>>> colleagueEvaTwoIndex(
             @Field("evaluateType") String evaluateType, @Field("indexName") String indexName,
             @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") String schoolId);
+            @Field("schoolId") int schoolId);
 
     /**
      * 自定义评价
@@ -316,7 +316,7 @@ public interface TeacherService {
             @Field("startrow") String startRow, @Field("pageSize") String pageSize,
             @Field("operatorId") String operatorId, @Field("operatorType") String operatorType,
             @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") String schoolId);
+            @Field("schoolId") int schoolId);
 
     /**
      * 教师获取需要填写的问卷
@@ -326,7 +326,7 @@ public interface TeacherService {
     Observable<HttpResult<QuesSurveyList>> quesSurveyList(
             @Field("startrow") String startRow, @Field("pageSize") String pageSize,
             @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") String schoolId);
+            @Field("schoolId") int schoolId);
 
     /**
      * 教师查看需要填写问卷的详情
@@ -335,7 +335,7 @@ public interface TeacherService {
     @POST("QuestionnaireTea/teaSelectQuestionnaireParticulars")
     Observable<HttpResult<QuesSurveyDetail>> quesSurveyDetail(
             @Field("questionnaireId") String questionnaireId, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") String schoolId);
+            @Field("token") String token, @Field("schoolId") int schoolId);
 
     /**
      * 教师提交问卷
@@ -344,7 +344,7 @@ public interface TeacherService {
     @POST("QuestionnaireTea/teaInsertQuestionnaireSubmit")
     Observable<NoDataResult> quesSubmit(
             @Field("questionnaireSubmit") String questionnaireSubmit, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") String schoolId);
+            @Field("token") String token, @Field("schoolId") int schoolId);
 
     /**
      * 查看指定教师发布的全部问卷
@@ -354,7 +354,7 @@ public interface TeacherService {
     Observable<HttpResult<MyQuesList>> myQuesList(
             @Field("startrow") String startRow, @Field("pageSize") String pageSize,
             @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") String schoolId);
+            @Field("schoolId") int schoolId);
 
     /**
      * 查看指定教师发布的问卷统计详情
@@ -363,7 +363,7 @@ public interface TeacherService {
     @POST("Questionnaire/selectQuestionnaireStatistics")
     Observable<HttpResult<List<MyQuesDetail>>> myQuesDetail(
             @Field("questionnaireId") String questionnaireId, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") String schoolId);
+            @Field("token") String token, @Field("schoolId") int schoolId);
 
     /**
      * 查看教师所教的所有班级
@@ -372,7 +372,7 @@ public interface TeacherService {
     @POST("teacher/selectClassByTeacher")
     Observable<SelectClass> getAllClasses(
             @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") String schoolId);
+            @Field("schoolId") int schoolId);
 
     /**
      * 教师发布问卷
@@ -381,5 +381,5 @@ public interface TeacherService {
     @POST("Questionnaire/teacherInsertQuestionnaire")
     Observable<NoDataResult> addQuestionnaire(
             @Field("questionnaire") String questionnaire, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") String schoolId);
+            @Field("token") String token, @Field("schoolId") int schoolId);
 }

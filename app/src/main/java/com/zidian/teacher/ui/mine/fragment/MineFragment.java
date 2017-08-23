@@ -15,7 +15,7 @@ import com.zidian.teacher.base.BaseFragment;
 import com.zidian.teacher.model.entity.remote.PersonInfo;
 import com.zidian.teacher.presenter.PersonInfoPresenter;
 import com.zidian.teacher.presenter.contract.PersonInfoContract;
-import com.zidian.teacher.ui.main.LoginActivity;
+import com.zidian.teacher.ui.main.activity.LoginActivity;
 import com.zidian.teacher.ui.mine.activity.AboutActivity;
 import com.zidian.teacher.ui.mine.activity.ChangeInfoActivity;
 import com.zidian.teacher.ui.mine.activity.FeedbackActivity;

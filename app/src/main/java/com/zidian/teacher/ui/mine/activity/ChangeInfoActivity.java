@@ -287,7 +287,7 @@ public class ChangeInfoActivity extends BaseActivity implements ChangeInfoContra
 
             RequestBody teacherId = RequestBody.create(MediaType.parse("multipart/form-data"), SharedPreferencesUtils.getUserName());
             RequestBody token = RequestBody.create(MediaType.parse("multipart/form-data"), SharedPreferencesUtils.getToken());
-            RequestBody schoolId = RequestBody.create(MediaType.parse("multipart/form-data"), SharedPreferencesUtils.getSchoolId());
+            RequestBody schoolId = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(SharedPreferencesUtils.getSchoolId()));
             presenter.setPortrait(teacherId, token, schoolId, image);
         }
     }

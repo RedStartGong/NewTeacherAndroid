@@ -1,5 +1,8 @@
 package com.zidian.teacher.model.entity.remote;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * 学校
  * Created by GongCheng on 2017/3/30.
@@ -7,37 +10,64 @@ package com.zidian.teacher.model.entity.remote;
 
 public class School {
 
-    public School(String schoolName, int schoolId) {
-        this.schoolName = schoolName;
-        this.schoolId = schoolId;
-    }
 
     /**
-     * schoolName : 四川理工学院
-     * schoolId : 1
+     * school : [{"schoolName":"孜点学院","schoolId":1}]
+     * addressId : 1
+     * addressName : 四川
      */
 
-    private String schoolName;
-    private int schoolId;
+    private int addressId;
+    private String addressName;
+    private List<SchoolBean> school;
 
-    public String getSchoolName() {
-        return schoolName;
+    public int getAddressId() {
+        return addressId;
     }
 
-    public void setSchoolName(String schoolName) {
-        this.schoolName = schoolName;
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 
-    public int getSchoolId() {
-        return schoolId;
+    public String getAddressName() {
+        return addressName;
     }
 
-    public void setSchoolId(int schoolId) {
-        this.schoolId = schoolId;
+    public void setAddressName(String addressName) {
+        this.addressName = addressName;
     }
 
-    @Override
-    public String toString() {
-        return getSchoolName();
+    public List<SchoolBean> getSchool() {
+        return school;
+    }
+
+    public void setSchool(List<SchoolBean> school) {
+        this.school = school;
+    }
+
+    public static class SchoolBean implements Serializable{
+        /**
+         * schoolName : 孜点学院
+         * schoolId : 1
+         */
+
+        private String schoolName;
+        private int schoolId;
+
+        public String getSchoolName() {
+            return schoolName;
+        }
+
+        public void setSchoolName(String schoolName) {
+            this.schoolName = schoolName;
+        }
+
+        public int getSchoolId() {
+            return schoolId;
+        }
+
+        public void setSchoolId(int schoolId) {
+            this.schoolId = schoolId;
+        }
     }
 }

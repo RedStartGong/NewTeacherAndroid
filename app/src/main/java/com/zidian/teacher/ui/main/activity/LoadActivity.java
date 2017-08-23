@@ -1,4 +1,4 @@
-package com.zidian.teacher.ui.main;
+package com.zidian.teacher.ui.main.activity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;

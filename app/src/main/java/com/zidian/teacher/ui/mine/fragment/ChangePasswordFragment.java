@@ -13,7 +13,7 @@ import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseBackFragment;
 import com.zidian.teacher.presenter.ChangePasswordPresenter;
 import com.zidian.teacher.presenter.contract.ChangePasswordContract;
-import com.zidian.teacher.ui.main.LoginActivity;
+import com.zidian.teacher.ui.main.activity.LoginActivity;
 import com.zidian.teacher.util.ActManager;
 import com.zidian.teacher.util.SharedPreferencesUtils;
 import com.zidian.teacher.util.SnackbarUtils;
