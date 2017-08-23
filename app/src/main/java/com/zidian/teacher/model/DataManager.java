@@ -36,6 +36,9 @@ import javax.inject.Singleton;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.Part;
 import rx.Observable;
 
 /**
@@ -65,9 +68,8 @@ public final class DataManager {
     }
 
     public Observable<NoDataResult> changePassword(
-            String teacherId, String password, String password1, String password2,
-            String token, int schoolId) {
-        return service.changePassword(teacherId, password, password1, password2, token, schoolId);
+            int teacherId, String password, String password1, String password2) {
+        return service.changePassword(teacherId, password, password1, password2);
     }
 
     public Observable<HttpResult<List<Course>>> getCourses(
@@ -80,7 +82,7 @@ public final class DataManager {
     }
 
     public Observable<HttpResult<List<StudentClass>>> getClasses(int teacherId, int courseId) {
-        return service.getClasses(teacherId,courseId);
+        return service.getClasses(teacherId, courseId);
     }
 
     /**
@@ -90,6 +92,7 @@ public final class DataManager {
             int teacherId, int courseId, int coursePlanId, String className) {
         return service.getAttendanceStudents(teacherId, courseId, coursePlanId, className);
     }
+
     /**
      * 设置考勤信息
      */
@@ -111,16 +114,14 @@ public final class DataManager {
         return service.feedback(feedbackId, feedbackInformation, type, token, schoolId);
     }
 
-    public Observable<NoDataResult> setPortrait(RequestBody teacherId, RequestBody token,
-                                                RequestBody schoolId, MultipartBody.Part file) {
-        return service.setPortrait(teacherId, token, schoolId, file);
-    }
-
-    public Observable<NoDataResult> setPersonInfo(
-            String motto, String phoneNumber, String teacherSex,
-            String birthday, String nickName, String teacherId, String token, int schoolId) {
-        return service.setPersonInfo(motto, phoneNumber, teacherSex, birthday, nickName, teacherId,
-                token, schoolId);
+    /**
+     * 修改个人信息(带头像)
+     */
+    public Observable<NoDataResult> changeUserInfo(
+            RequestBody teacherId, RequestBody aliasName, RequestBody phone,
+            RequestBody signName, RequestBody birthday, RequestBody sex,
+            MultipartBody.Part iconUrl) {
+        return service.changeUserInfo(teacherId, aliasName, phone, signName, birthday, sex, iconUrl);
     }
 
     public Observable<HttpResult<List<MyTask>>> getMyTasks(

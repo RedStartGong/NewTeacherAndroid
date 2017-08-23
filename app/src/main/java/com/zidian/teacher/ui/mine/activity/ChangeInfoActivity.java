@@ -70,6 +70,7 @@ public class ChangeInfoActivity extends BaseActivity implements ChangeInfoContra
 
     private static final int REQUEST_CODE = 0;
     private ProgressDialog progressDialog;
+    private String image;
 
     @Override
     protected int getLayout() {
@@ -144,7 +145,41 @@ public class ChangeInfoActivity extends BaseActivity implements ChangeInfoContra
         String sex = tvSex.getText().toString().trim();
         String birthday = tvBirthday.getText().toString().trim();
         String nickname = tvNickname.getText().toString().trim();
-        presenter.setPersonInfo(motto, phoneNumber, sex, birthday, nickname);
+        int sexInt;
+        if (sex.equals("男")) {
+            sexInt = 0;
+        } else if (sex.equals("女")) {
+            sexInt = 1;
+        } else {
+            sexInt = 2;
+        }
+        RequestBody requestTeacherId = RequestBody.create(MediaType.parse("multipart/form-data"),
+                String.valueOf(SharedPreferencesUtils.getTeacherId()));
+        RequestBody requestMotto = RequestBody.create(MediaType.parse("ext/plain;charset=UTF-8"),
+                motto);
+        RequestBody requestPhoneNumber = RequestBody.create(MediaType.parse("ext/plain;charset=UTF-8"),
+                phoneNumber);
+        RequestBody requestSex = RequestBody.create(MediaType.parse("multipart/form-data"),
+                String.valueOf(sexInt));
+        RequestBody requestBirthday = RequestBody.create(MediaType.parse("ext/plain;charset=UTF-8"),
+                birthday);
+        RequestBody requestNickname = RequestBody.create(MediaType.parse("ext/plain;charset=UTF-8"),
+                nickname);
+        RequestBody requestEmail = RequestBody.create(MediaType.parse("ext/plain;charset=UTF-8"),
+                "");
+        //带有头像
+        if (image != null) {
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/png"), image);
+            //创建多部分拿上面的请求体做参数
+            //file 是上传是的参数key
+            MultipartBody.Part file = MultipartBody.Part.createFormData("iconUrl", System.currentTimeMillis() + ".png", requestFile);
+            presenter.changeUserInfo(requestTeacherId, requestNickname, requestPhoneNumber, requestMotto, requestBirthday,
+                    requestSex, file);
+        } else {//不带头像
+            presenter.changeUserInfoNoImg(requestTeacherId, requestNickname, requestPhoneNumber, requestMotto, requestBirthday,
+                    requestSex);
+        }
+//        presenter.setPersonInfo(motto, phoneNumber, sex, birthday, nickname);
     }
 
     /**
@@ -278,17 +313,7 @@ public class ChangeInfoActivity extends BaseActivity implements ChangeInfoContra
             List<String> pathList = data.getStringArrayListExtra(ImgSelActivity.INTENT_RESULT);
 
             Glide.with(this).load(pathList.get(0)).into(civPortrait);
-            File file = new File(pathList.get(0));
-
-            RequestBody requestFile = RequestBody.create(MediaType.parse("application/otcet-stream"), file);
-            //创建多部分拿上面的请求体做参数
-            //file 是上传是的参数key
-            MultipartBody.Part image = MultipartBody.Part.createFormData("file", System.currentTimeMillis() + ".jpg", requestFile);
-
-            RequestBody teacherId = RequestBody.create(MediaType.parse("multipart/form-data"), SharedPreferencesUtils.getUserName());
-            RequestBody token = RequestBody.create(MediaType.parse("multipart/form-data"), SharedPreferencesUtils.getToken());
-            RequestBody schoolId = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(SharedPreferencesUtils.getSchoolId()));
-            presenter.setPortrait(teacherId, token, schoolId, image);
+            image = pathList.get(0);
         }
     }
 

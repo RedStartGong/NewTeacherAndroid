@@ -74,12 +74,10 @@ public interface TeacherService {
      * 修改密码
      */
     @FormUrlEncoded
-    @POST("teacher/updatePassword")
+    @POST("teacherAppL/updPassword")
     Observable<NoDataResult> changePassword(
-            @Field("teacherId") String teacherId, @Field("password") String password,
-            @Field("password1") String password1, @Field("password2") String password2,
-            @Field("token") String token, @Field("schoolId") int schoolId
-    );
+            @Field("teacherId") int teacherId, @Field("password") String password,
+            @Field("password1") String password1, @Field("password2") String password2);
 
     /**
      * 获取课程表
@@ -138,24 +136,16 @@ public interface TeacherService {
             @Field("feedbackId") String feedbackId, @Field("feedbackInformation") String feedbackInformation,
             @Field("type") String type, @Field("token") String token, @Field("schoolId") int schoolId);
 
-    /**
-     * 修改头像
-     */
-    @Multipart
-    @POST("teacher/updateTeacherHeadPortrait")
-    Observable<NoDataResult> setPortrait(@Part("teacherId") RequestBody teacherId,@Part("token") RequestBody token,
-                                         @Part("schoolId") RequestBody schoolId, @Part MultipartBody.Part file);
 
     /**
-     * 修改个人信息
+     * 修改个人信息(带头像)
      */
-    @FormUrlEncoded
-    @POST("teacher/updateMydata")
-    Observable<NoDataResult> setPersonInfo(
-            @Field("personalizedSignature") String motto, @Field("teacherphoneNumber")
-            String phoneNumber, @Field("teacherSex") String teacherSex, @Field("mybirthd") String birthday,
-            @Field("mynickname") String nickName, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") int schoolId);
+    @Multipart
+    @POST("page/studentApp/updateMe")
+    Observable<NoDataResult> changeUserInfo(
+            @Part("teacherId") RequestBody teacherId, @Part("aliasName") RequestBody aliasName,
+            @Part("phone") RequestBody phone, @Part("signName") RequestBody signName, @Part("birthday") RequestBody birthday,
+            @Part("sex") RequestBody sex, @Part MultipartBody.Part iconUrl);
 
     /**
      * 我的任务

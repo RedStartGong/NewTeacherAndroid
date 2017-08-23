@@ -100,7 +100,7 @@ public class AttendanceStatisticsActivity extends BaseActivity implements Attend
         errorView.setVisibility(View.VISIBLE);
         errorView.setText(e.getMessage());
         loadingView.setVisibility(View.GONE);
-        adapter.setAttendanceStatistics(Collections.EMPTY_LIST);
+        adapter.setAttendanceStatistics(Collections.<AttendanceStatistics>emptyList());
     }
 
     @Override

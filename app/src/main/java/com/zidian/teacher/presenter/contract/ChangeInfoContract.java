@@ -18,8 +18,11 @@ public interface ChangeInfoContract {
     }
 
     interface Presenter extends BasePresenter<ChangeInfoContract.View> {
-        void setPortrait(RequestBody teacherId, RequestBody token, RequestBody schoolId, MultipartBody.Part image);
+        void changeUserInfo(RequestBody teacherId, RequestBody aliasName, RequestBody phone,
+                             RequestBody signName, RequestBody birthday, RequestBody sex,
+                             MultipartBody.Part iconUrl);
 
-        void setPersonInfo(String motto, String phoneNumber, String teacherSex, String birthday, String nickName);
+        void changeUserInfoNoImg(RequestBody teacherId, RequestBody aliasName, RequestBody phone,
+                                 RequestBody signName, RequestBody birthday, RequestBody sex);
     }
 }

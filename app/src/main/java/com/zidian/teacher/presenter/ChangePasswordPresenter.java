@@ -1,5 +1,6 @@
 package com.zidian.teacher.presenter;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.zidian.teacher.base.RxPresenter;
@@ -31,42 +32,45 @@ public class ChangePasswordPresenter extends RxPresenter<ChangePasswordContract.
     }
 
     @Override
-    public void changePassword(@NonNull String password, @NonNull String password1, @NonNull String password2) {
-        Subscription subscription = dataManager.changePassword(SharedPreferencesUtils.getUserName(),
-                password, password1, password2, SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
-                .compose(RxUtils.<NoDataResult>rxSchedulerIo())
-                .map(new Func1<NoDataResult, NoDataResult>() {
-                    @Override
-                    public NoDataResult call(NoDataResult noDataResult) {
-                        if (noDataResult.getCode() != 200) {
-                            throw new ApiException(noDataResult.getMessage());
-                        } else {
-                            return noDataResult;
-                        }
-                    }
-                })
-                .subscribe(new Subscriber<NoDataResult>() {
-                    @Override
-                    public void onStart() {
-                        super.onStart();
-                        view.showLoading();
-                    }
+    public void changePassword(@NonNull final String password, @NonNull final String password1,
+                               @NonNull final String password2) {
+        view.showLoading();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Subscription subscription = dataManager.changePassword(SharedPreferencesUtils.getTeacherId(),
+                        password, password1, password2)
+                        .compose(RxUtils.<NoDataResult>rxSchedulerIo())
+                        .map(new Func1<NoDataResult, NoDataResult>() {
+                            @Override
+                            public NoDataResult call(NoDataResult noDataResult) {
+                                if (noDataResult.getCode() != 200) {
+                                    throw new ApiException(noDataResult.getMessage());
+                                } else {
+                                    return noDataResult;
+                                }
+                            }
+                        })
+                        .subscribe(new Subscriber<NoDataResult>() {
 
-                    @Override
-                    public void onCompleted() {
+                            @Override
+                            public void onCompleted() {
 
-                    }
+                            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        view.showError(e);
-                    }
+                            @Override
+                            public void onError(Throwable e) {
+                                view.showError(e);
+                            }
 
-                    @Override
-                    public void onNext(NoDataResult noDataResult) {
-                        view.showSuccess();
-                    }
-                });
-        addSubscribe(subscription);
+                            @Override
+                            public void onNext(NoDataResult noDataResult) {
+                                view.showSuccess();
+                            }
+                        });
+                addSubscribe(subscription);
+            }
+        }, 1000);
+
     }
 }

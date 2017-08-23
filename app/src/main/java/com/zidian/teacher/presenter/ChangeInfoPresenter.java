@@ -30,8 +30,11 @@ public class ChangeInfoPresenter extends RxPresenter<ChangeInfoContract.View> im
     }
 
     @Override
-    public void setPortrait(RequestBody teacherId, RequestBody token, RequestBody schoolId, MultipartBody.Part image) {
-        Subscription subscription = dataManager.setPortrait(teacherId, token, schoolId, image)
+    public void changeUserInfo(RequestBody teacherId, RequestBody aliasName, RequestBody phone,
+                               RequestBody signName, RequestBody birthday, RequestBody sex,
+                               MultipartBody.Part iconUrl) {
+        Subscription subscription = dataManager.changeUserInfo(teacherId, aliasName, phone,
+                signName, birthday, sex, iconUrl)
                 .compose(RxUtils.<NoDataResult>rxSchedulerIo())
                 .map(new Func1<NoDataResult, NoDataResult>() {
                     @Override
@@ -47,7 +50,7 @@ public class ChangeInfoPresenter extends RxPresenter<ChangeInfoContract.View> im
                     @Override
                     public void onStart() {
                         super.onStart();
-                        view.showLoading("正在上传头像");
+                        view.showLoading("上传中...");
                     }
 
                     @Override
@@ -69,42 +72,9 @@ public class ChangeInfoPresenter extends RxPresenter<ChangeInfoContract.View> im
     }
 
     @Override
-    public void setPersonInfo(String motto, String phoneNumber, String teacherSex, String birthday, String nickName) {
-        Subscription subscription = dataManager.setPersonInfo(motto, phoneNumber, teacherSex, birthday, nickName,
-                SharedPreferencesUtils.getUserName(), SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
-                .compose(RxUtils.<NoDataResult>rxSchedulerIo())
-                .map(new Func1<NoDataResult, NoDataResult>() {
-                    @Override
-                    public NoDataResult call(NoDataResult noDataResult) {
-                        if (noDataResult.getCode() != 200) {
-                            throw new ApiException(noDataResult.getMessage());
-                        } else {
-                            return noDataResult;
-                        }
-                    }
-                })
-                .subscribe(new Subscriber<NoDataResult>() {
-                    @Override
-                    public void onStart() {
-                        super.onStart();
-                        view.showLoading("正在修改个人信息");
-                    }
+    public void changeUserInfoNoImg(RequestBody teacherId, RequestBody aliasName,
+                                    RequestBody phone, RequestBody signName,
+                                    RequestBody birthday, RequestBody sex) {
 
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        view.showError(e);
-                    }
-
-                    @Override
-                    public void onNext(NoDataResult noDataResult) {
-                        view.showSuccess(noDataResult.getMessage());
-                    }
-                });
-        addSubscribe(subscription);
     }
 }
