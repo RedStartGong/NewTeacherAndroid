@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import com.zidian.teacher.base.RxPresenter;
 import com.zidian.teacher.model.DataManager;
 import com.zidian.teacher.model.entity.remote.AttendanceStatistics;
-import com.zidian.teacher.model.entity.remote.Class;
+import com.zidian.teacher.model.entity.remote.StudentClass;
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.presenter.contract.AttendanceStatisticsContract;
 import com.zidian.teacher.util.RxUtils;
@@ -34,15 +34,14 @@ public class AttendanceStatisticsPresenter extends RxPresenter<AttendanceStatist
     }
 
     @Override
-    public void getClasses( String courseId) {
-        Subscription subscription = dataManager.getClasses(courseId, SharedPreferencesUtils.getUserName(),
-                SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
-                .compose(RxUtils.<HttpResult<List<Class>>>rxSchedulerIo())
-                .compose(RxUtils.<List<Class>>handleHttpResult())
+    public void getClasses( int courseId) {
+        Subscription subscription = dataManager.getClasses(courseId)
+                .compose(RxUtils.<HttpResult<List<StudentClass>>>rxSchedulerIo())
+                .compose(RxUtils.<List<StudentClass>>handleHttpResult())
                 .retry()
-                .subscribe(new Action1<List<Class>>() {
+                .subscribe(new Action1<List<StudentClass>>() {
                     @Override
-                    public void call(List<Class> classes) {
+                    public void call(List<StudentClass> classes) {
                         view.showClasses(classes);
                     }
                 });
@@ -50,7 +49,7 @@ public class AttendanceStatisticsPresenter extends RxPresenter<AttendanceStatist
     }
 
     @Override
-    public void getAttendanceStatistics(@NonNull String courseId, @NonNull String className) {
+    public void getAttendanceStatistics(@NonNull int courseId, @NonNull String className) {
         Subscription subscription = dataManager.getAttendanceStatistics(courseId, className,
                 SharedPreferencesUtils.getUserName(), SharedPreferencesUtils.getToken(),
                 SharedPreferencesUtils.getSchoolId())

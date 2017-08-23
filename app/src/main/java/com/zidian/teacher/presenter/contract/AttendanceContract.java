@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import com.zidian.teacher.base.BasePresenter;
 import com.zidian.teacher.base.BaseView;
 import com.zidian.teacher.model.entity.remote.AttendanceStudent;
-import com.zidian.teacher.model.entity.remote.Class;
+import com.zidian.teacher.model.entity.remote.StudentClass;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
 
 public interface AttendanceContract {
     interface View extends BaseView {
-        void showClasses(List<Class> classes);
+        void showClasses(List<StudentClass> classes);
 
         void showLoadingStudents();
 
@@ -29,10 +29,10 @@ public interface AttendanceContract {
     }
 
     interface Presenter extends BasePresenter<AttendanceContract.View> {
-        void getClasses(@NonNull String courseId);
+        void getClasses(@NonNull int courseId);
 
-        void getAttendanceStudents(@NonNull String courseWeeklyId, @NonNull String courseId, @NonNull String className);
+        void getAttendanceStudents(@NonNull String courseWeeklyId, @NonNull int courseId, @NonNull String className);
 
-        void setAttendance(@NonNull String student, @NonNull String courseId, @NonNull String courseWeeklyId);
+        void setAttendance(@NonNull String student, @NonNull int courseId, @NonNull String courseWeeklyId);
     }
 }

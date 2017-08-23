@@ -5,7 +5,7 @@ import com.zidian.teacher.model.entity.remote.AttendanceStatistics;
 import com.zidian.teacher.model.entity.remote.AttendanceStudent;
 import com.zidian.teacher.model.entity.remote.CheckColleagueEva;
 import com.zidian.teacher.model.entity.remote.CheckSupervisorEva;
-import com.zidian.teacher.model.entity.remote.Class;
+import com.zidian.teacher.model.entity.remote.StudentClass;
 import com.zidian.teacher.model.entity.remote.ColleagueEva;
 import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.model.entity.remote.CourseTime;
@@ -36,7 +36,6 @@ import javax.inject.Singleton;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import retrofit2.http.Field;
 import rx.Observable;
 
 /**
@@ -80,26 +79,26 @@ public final class DataManager {
         return service.getCourseTime(teacherId, week);
     }
 
-    public Observable<HttpResult<List<Class>>> getClasses(
-            String courseId, String teacherId, String token, int schoolId) {
+    public Observable<HttpResult<List<StudentClass>>> getClasses(
+            int courseId) {
         return service.getClasses(courseId);
     }
 
     public Observable<AttendanceStudent> getAttendanceStudent(
-            String courseWeeklyId, String courseId, String className, String teacherId,
+            String courseWeeklyId, int courseId, String className, String teacherId,
             String token, int schoolId) {
         return service.getAttendanceStudents(courseWeeklyId, courseId, className, teacherId,
                 token, schoolId);
     }
 
     public Observable<NoDataResult> setAttendance(
-            String student, String courseId, String courseWeeklyId, String teacherId,
+            String student, int courseId, String courseWeeklyId, String teacherId,
             String token, int schoolId) {
         return service.setAttendance(student, courseId, courseWeeklyId, teacherId, token, schoolId);
     }
 
     public Observable<HttpResult<List<AttendanceStatistics>>> getAttendanceStatistics(
-            String courseId, String className, String teacherId, String token, int schoolId) {
+            int courseId, String className, String teacherId, String token, int schoolId) {
         return service.getAttendanceStatistics(courseId, className, teacherId, token, schoolId);
     }
 
@@ -142,7 +141,7 @@ public final class DataManager {
 
     public Observable<NoDataResult> inviteOrApply(
             String teacherId, String teacherName, String requestedPerson, String requestType,
-            String teacherCollege, String courseId, String courseName, String teachingCalendar,
+            String teacherCollege, int courseId, String courseName, String teachingCalendar,
             String classroom, String requestExplain, String token, int schoolId) {
         return service.inviteOrApply(teacherId, teacherName, requestedPerson, requestType, teacherCollege,
                 courseId, courseName, teachingCalendar, classroom, requestExplain, token, schoolId);
@@ -150,7 +149,7 @@ public final class DataManager {
 
     public Observable<NoDataResult> addSupervisorEva(
             String teacherId, String teacherName, String college, String requestedPersonId, String requestedPersonName,
-            String courseId, String courseName, String teachingCalendar, String classroom,
+            int courseId, String courseName, String teachingCalendar, String classroom,
             String teacherType, String token, int schoolId) {
         return service.addSupervisorEva(teacherId, teacherName, college, requestedPersonId, requestedPersonName,
                 courseId, courseName, teachingCalendar, classroom, teacherType, token, schoolId);

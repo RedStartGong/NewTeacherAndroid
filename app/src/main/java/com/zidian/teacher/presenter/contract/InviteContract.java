@@ -22,7 +22,7 @@ public interface InviteContract {
     interface Presenter extends BasePresenter<InviteContract.View> {
         void getInviteCourses();
 
-        void invite(String requestedPerson,  String teacherCollege, String courseId,
+        void invite(String requestedPerson,  String teacherCollege, int courseId,
                     String courseName, String teachingCalendar, String classroom, String requestExplain);
     }
 }

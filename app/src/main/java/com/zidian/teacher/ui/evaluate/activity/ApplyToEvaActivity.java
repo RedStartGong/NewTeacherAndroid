@@ -313,8 +313,8 @@ public class ApplyToEvaActivity extends BaseActivity implements ApplyToEvaContra
             SnackbarUtils.showShort(toolbar, "申请语不得超过20个字符");
             return;
         }
-        presenter.apply(requestedPerson, teacherCollege, courseId, courseName, teachingCalendar,
-                classroom, requestExplain);
+//        presenter.apply(requestedPerson, teacherCollege, courseId, courseName, teachingCalendar,
+//                classroom, requestExplain);
     }
 
 

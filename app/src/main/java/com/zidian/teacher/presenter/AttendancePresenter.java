@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import com.zidian.teacher.base.RxPresenter;
 import com.zidian.teacher.model.DataManager;
 import com.zidian.teacher.model.entity.remote.AttendanceStudent;
-import com.zidian.teacher.model.entity.remote.Class;
+import com.zidian.teacher.model.entity.remote.StudentClass;
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.NoDataResult;
 import com.zidian.teacher.model.network.ApiException;
@@ -37,15 +37,14 @@ public class AttendancePresenter extends RxPresenter<AttendanceContract.View> im
     }
 
     @Override
-    public void getClasses(@NonNull String courseId) {
-        Subscription subscription = dataManager.getClasses(courseId, SharedPreferencesUtils.getUserName(),
-                SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
-                .compose(RxUtils.<HttpResult<List<Class>>>rxSchedulerIo())
-                .compose(RxUtils.<List<Class>>handleHttpResult())
-                .retry()
-                .subscribe(new Action1<List<Class>>() {
+    public void getClasses(@NonNull int courseId) {
+        Subscription subscription = dataManager.getClasses(courseId)
+                .compose(RxUtils.<HttpResult<List<StudentClass>>>rxSchedulerIo())
+                .compose(RxUtils.<List<StudentClass>>handleHttpResult())
+                .retry(3)
+                .subscribe(new Action1<List<StudentClass>>() {
                     @Override
-                    public void call(List<Class> classes) {
+                    public void call(List<StudentClass> classes) {
                         view.showClasses(classes);
                     }
                 });
@@ -53,7 +52,7 @@ public class AttendancePresenter extends RxPresenter<AttendanceContract.View> im
     }
 
     @Override
-    public void getAttendanceStudents(@NonNull String courseWeeklyId, @NonNull String courseId, @NonNull String className) {
+    public void getAttendanceStudents(@NonNull String courseWeeklyId, @NonNull int courseId, @NonNull String className) {
         Subscription subscription = dataManager.getAttendanceStudent(courseWeeklyId, courseId, className,
                 SharedPreferencesUtils.getUserName(), SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
                 .compose(RxUtils.<AttendanceStudent>rxSchedulerIo())
@@ -103,7 +102,7 @@ public class AttendancePresenter extends RxPresenter<AttendanceContract.View> im
     }
 
     @Override
-    public void setAttendance(@NonNull String student, @NonNull String courseId, @NonNull String courseWeeklyId) {
+    public void setAttendance(@NonNull String student, @NonNull int courseId, @NonNull String courseWeeklyId) {
         Subscription subscription = dataManager.setAttendance(student, courseId, courseWeeklyId,
                 SharedPreferencesUtils.getUserName(), SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
                 .compose(RxUtils.<NoDataResult>rxSchedulerIo())

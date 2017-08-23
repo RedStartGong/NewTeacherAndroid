@@ -23,7 +23,7 @@ public interface SupervisorChooseContract {
     interface Presenter extends BasePresenter<SupervisorChooseContract.View> {
         void getEvaluateCourses();
 
-        void addSupervisorEva(String requestedPersonId, String requestedPersonName,String college, String courseId,
+        void addSupervisorEva(String requestedPersonId, String requestedPersonName,String college, int courseId,
                               String courseName, String teachingCalendar, String classroom);
     }
 }

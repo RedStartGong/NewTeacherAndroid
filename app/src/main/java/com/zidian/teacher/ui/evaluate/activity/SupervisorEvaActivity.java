@@ -286,8 +286,8 @@ public class SupervisorEvaActivity extends BaseActivity implements SupervisorCho
             SnackbarUtils.showShort(toolbar, "请选择教学日历");
             return;
         }
-        presenter.addSupervisorEva(requestTeacherId, requestTeacherName,college, courseId, courseName,
-                teachingCalendar, classroom);
+//        presenter.addSupervisorEva(requestTeacherId, requestTeacherName,college, courseId, courseName,
+//                teachingCalendar, classroom);
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.zidian.teacher.presenter.contract;
 import com.zidian.teacher.base.BasePresenter;
 import com.zidian.teacher.base.BaseView;
 import com.zidian.teacher.model.entity.remote.AttendanceStatistics;
-import com.zidian.teacher.model.entity.remote.Class;
+import com.zidian.teacher.model.entity.remote.StudentClass;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface AttendanceStatisticsContract {
     interface View extends BaseView {
-        void showClasses(List<Class> classes);
+        void showClasses(List<StudentClass> classes);
 
         void showLoading();
 
@@ -24,8 +24,8 @@ public interface AttendanceStatisticsContract {
     }
 
     interface Presenter extends BasePresenter<AttendanceStatisticsContract.View> {
-        void getClasses(String courseId);
+        void getClasses(int courseId);
 
-        void getAttendanceStatistics(String courseId, String className);
+        void getAttendanceStatistics(int courseId, String className);
     }
 }

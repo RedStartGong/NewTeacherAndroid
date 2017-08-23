@@ -53,7 +53,7 @@ public class InvitePresenter extends RxPresenter<InviteContract.View> implements
     }
 
     @Override
-    public void invite(String requestedPerson, String teacherCollege, String courseId, String courseName,
+    public void invite(String requestedPerson, String teacherCollege, int courseId, String courseName,
                        String teachingCalendar, String classroom, String requestExplain) {
         Subscription subscription = dataManager.inviteOrApply(SharedPreferencesUtils.getUserName(),
                 SharedPreferencesUtils.getTeacherName(), requestedPerson, "1", teacherCollege,

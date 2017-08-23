@@ -21,7 +21,7 @@ public class CourseInfo implements Serializable{
     private int weekday;
     private String classRoom;
     private String beginEndWeek;
-    private String courseId;
+    private int courseId;
     private String courseWeeklyId;
 
     public void setPoint(int fromX, int fromY, int toX, int toY) {
@@ -39,11 +39,11 @@ public class CourseInfo implements Serializable{
         this.courseWeeklyId = courseWeeklyId;
     }
 
-    public String getCourseId() {
+    public int getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(int courseId) {
         this.courseId = courseId;
     }
 

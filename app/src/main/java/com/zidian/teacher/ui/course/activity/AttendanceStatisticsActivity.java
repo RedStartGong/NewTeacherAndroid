@@ -12,7 +12,7 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
 import com.zidian.teacher.model.entity.remote.AttendanceStatistics;
-import com.zidian.teacher.model.entity.remote.Class;
+import com.zidian.teacher.model.entity.remote.StudentClass;
 import com.zidian.teacher.presenter.AttendanceStatisticsPresenter;
 import com.zidian.teacher.presenter.contract.AttendanceStatisticsContract;
 import com.zidian.teacher.ui.course.adapter.AttendanceStatisticsAdapter;
@@ -72,10 +72,10 @@ public class AttendanceStatisticsActivity extends BaseActivity implements Attend
         setToolbarBack(toolbar);
         errorView.setVisibility(View.GONE);
 
-        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<Class>() {
+        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<StudentClass>() {
             @Override
-            public void onItemSelected(MaterialSpinner materialSpinner, int i, long l, Class cls) {
-                presenter.getAttendanceStatistics(courseInfo.getCourseId(), cls.getClassId());
+            public void onItemSelected(MaterialSpinner materialSpinner, int i, long l, StudentClass cls) {
+                presenter.getAttendanceStatistics(courseInfo.getCourseId(), cls.getClassName());
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -101,10 +101,10 @@ public class AttendanceStatisticsActivity extends BaseActivity implements Attend
     }
 
     @Override
-    public void showClasses(List<Class> classes) {
+    public void showClasses(List<StudentClass> classes) {
         spinner.setItems(classes);
         //获取班级列表成功后获取第一个班级的考勤统计数据
-        presenter.getAttendanceStatistics(courseInfo.getCourseId(), classes.get(0).getClassId());
+        presenter.getAttendanceStatistics(courseInfo.getCourseId(), classes.get(0).getClassName());
     }
 
     @Override

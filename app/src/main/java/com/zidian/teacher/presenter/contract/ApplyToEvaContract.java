@@ -22,7 +22,7 @@ public interface ApplyToEvaContract {
     interface Presenter extends BasePresenter<ApplyToEvaContract.View> {
         void getEvaluateCourses();
 
-        void apply(String requestedPerson, String teacherCollege, String courseId, String courseName,
+        void apply(String requestedPerson, String teacherCollege, int courseId, String courseName,
                    String teachingCalendar, String classroom, String requestExplain);
     }
 }

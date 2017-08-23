@@ -15,7 +15,7 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
 import com.zidian.teacher.model.entity.remote.AttendanceStudent;
-import com.zidian.teacher.model.entity.remote.Class;
+import com.zidian.teacher.model.entity.remote.StudentClass;
 import com.zidian.teacher.presenter.AttendancePresenter;
 import com.zidian.teacher.presenter.contract.AttendanceContract;
 import com.zidian.teacher.ui.course.adapter.AttendanceAdapter;
@@ -55,7 +55,7 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
     @Inject
     AttendanceAdapter adapter;
 
-    private List<Class> classes;
+    private List<StudentClass> classes;
     private List<AttendanceStudent.DataBean> students;
     private CourseInfo courseInfo;
     private ProgressDialog progressDialog;
@@ -81,11 +81,11 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
         toolbar.setTitle(R.string.attendance);
         setToolbarBack(toolbar);
         errorView.setVisibility(View.GONE);
-        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<Class>() {
+        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<StudentClass>() {
             @Override
-            public void onItemSelected(MaterialSpinner materialSpinner, int i, long l, Class cls) {
+            public void onItemSelected(MaterialSpinner materialSpinner, int i, long l, StudentClass cls) {
                 presenter.getAttendanceStudents(courseInfo.getCourseWeeklyId(), courseInfo.getCourseId(),
-                        classes.get(i).getClassId());
+                        classes.get(i).getClassName());
             }
         });
         progressDialog = new ProgressDialog(this);
@@ -144,12 +144,12 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
     }
 
     @Override
-    public void showClasses(List<Class> classes) {
+    public void showClasses(List<StudentClass> classes) {
         this.classes = classes;
         spinner.setItems(classes);
         //获取班级列表成功后获取第一个班级的学生
         presenter.getAttendanceStudents(courseInfo.getCourseWeeklyId(), courseInfo.getCourseId(),
-                classes.get(0).getClassId());
+                classes.get(0).getClassName());
     }
 
     @Override

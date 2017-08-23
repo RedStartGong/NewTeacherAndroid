@@ -64,7 +64,7 @@ public class ApplyToEvaPresenter extends RxPresenter<ApplyToEvaContract.View>
     }
 
     @Override
-    public void apply(String requestedPerson, String teacherCollege, String courseId,
+    public void apply(String requestedPerson, String teacherCollege, int courseId,
                       String courseName, String teachingCalendar, String classroom,
                       String requestExplain) {
         Subscription subscription = dataManager.inviteOrApply(SharedPreferencesUtils.getUserName(),

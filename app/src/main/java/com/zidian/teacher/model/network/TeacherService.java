@@ -5,7 +5,7 @@ import com.zidian.teacher.model.entity.remote.AttendanceStatistics;
 import com.zidian.teacher.model.entity.remote.AttendanceStudent;
 import com.zidian.teacher.model.entity.remote.CheckColleagueEva;
 import com.zidian.teacher.model.entity.remote.CheckSupervisorEva;
-import com.zidian.teacher.model.entity.remote.Class;
+import com.zidian.teacher.model.entity.remote.StudentClass;
 import com.zidian.teacher.model.entity.remote.ColleagueEva;
 import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.model.entity.remote.CourseTime;
@@ -99,17 +99,17 @@ public interface TeacherService {
      * 得到本节课上课班级
      */
     @FormUrlEncoded
-    @POST("page/attendance/selectClass")
-    Observable<HttpResult<List<Class>>> getClasses(
-            @Field("courseId") String courseId);
+    @POST("attendanceRecordsL/selectClass")
+    Observable<HttpResult<List<StudentClass>>> getClasses(
+            @Field("courseId") int courseId);
 
     /**
      * 查看本节考勤学生
      */
     @FormUrlEncoded
-    @POST("page/attendance/select")
+    @POST("attendanceRecordsL/select")
     Observable<AttendanceStudent> getAttendanceStudents(
-            @Field("courseWeeklyId") String courseWeeklyId, @Field("courseId") String courseId,
+            @Field("courseWeeklyId") String courseWeeklyId, @Field("courseId") int courseId,
             @Field("className") String className, @Field("teacherId") String teacherId,
             @Field("token") String token, @Field("schoolId") int schoolId);
 
@@ -119,7 +119,7 @@ public interface TeacherService {
     @FormUrlEncoded
     @POST("page/attendance/add")
     Observable<NoDataResult> setAttendance(
-            @Field("student") String student, @Field("courseId") String courseId,
+            @Field("student") String student, @Field("courseId") int courseId,
             @Field("courseWeeklyId") String courseWeeklyId, @Field("teacherId") String teacherId,
             @Field("token") String token, @Field("schoolId") int schoolId);
 
@@ -129,7 +129,7 @@ public interface TeacherService {
     @FormUrlEncoded
     @POST("page/attendance/selectAll")
     Observable<HttpResult<List<AttendanceStatistics>>> getAttendanceStatistics(
-            @Field("courseId") String courseId, @Field("className") String className,
+            @Field("courseId") int courseId, @Field("className") String className,
             @Field("teacherId") String teacherId, @Field("token") String token,
             @Field("schoolId") int schoolId);
 
@@ -202,7 +202,7 @@ public interface TeacherService {
     Observable<NoDataResult> inviteOrApply(
             @Field("initiateTheRequestId") String teacherId, @Field("initiateTheRequestName") String teacherName,
             @Field("theRequestedPerson") String requestedPerson, @Field("requestType") String requestType,
-            @Field("teacherCollege") String teacherCollege, @Field("courseId") String courseId,
+            @Field("teacherCollege") String teacherCollege, @Field("courseId") int courseId,
             @Field("courseName") String courseName, @Field("teachingCalendar") String teachingCalendar,
             @Field("courseClassroom") String classroom, @Field("requestExplain") String requestExplain,
             @Field("token") String token, @Field("schoolId") int schoolId);
@@ -216,7 +216,7 @@ public interface TeacherService {
             @Field("initateTheRequestId") String teacherId, @Field("initateTheRequestName") String teacherName,
             @Field("theRequestedPersonCollege") String theRequestedPersonCollege,
             @Field("theRequestedPersonId") String requestedPersonId,
-            @Field("theRequestedPersonName") String requestedPersonName, @Field("courseId") String courseId,
+            @Field("theRequestedPersonName") String requestedPersonName, @Field("courseId") int courseId,
             @Field("courseName") String courseName, @Field("teachingCalendarTime") String teachingCalendar,
             @Field("courseClassroom") String classroom, @Field("teacherType") String teacherType,
             @Field("token") String token, @Field("schoolId") int schoolId);

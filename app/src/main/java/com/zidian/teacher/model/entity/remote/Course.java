@@ -30,6 +30,7 @@ public class Course {
     private long endTime;
     private int teacherId;
     private String courseName;
+    private int courseId;
 
     public long getStartTime() {
         return startTime;
@@ -100,5 +101,13 @@ public class Course {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    public int getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 }

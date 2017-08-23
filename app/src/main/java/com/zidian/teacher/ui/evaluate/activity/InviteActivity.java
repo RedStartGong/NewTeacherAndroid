@@ -124,7 +124,7 @@ public class InviteActivity extends BaseActivity implements InviteContract.View 
 
     private String college;
     private String json;
-    private String courseId;
+    private int courseId;
     private String courseName;
     private String teachingDate;
 
@@ -154,7 +154,7 @@ public class InviteActivity extends BaseActivity implements InviteContract.View 
                         //设置选择的学院(根据StringCourses的element)
                         college = courses.get(stringCourses.indexOf(course.toString())).getCourseCollege();
                         //设置选择学院的Id(方法同上)
-                        courseId = courses.get(stringCourses.indexOf(course.toString())).getCourseId();
+//                        courseId = courses.get(stringCourses.indexOf(course.toString())).getCourseId();
                     }
                 })
                 .show();
