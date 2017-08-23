@@ -2,6 +2,9 @@ package com.zidian.teacher.presenter;
 
 import com.zidian.teacher.base.RxPresenter;
 import com.zidian.teacher.model.DataManager;
+import com.zidian.teacher.model.entity.remote.CoursePlan;
+import com.zidian.teacher.model.entity.remote.EvaCourse;
+import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.InviteCourseResult;
 import com.zidian.teacher.model.entity.remote.NoDataResult;
 import com.zidian.teacher.model.network.ApiException;
@@ -13,6 +16,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import rx.Observer;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.functions.Action1;
@@ -31,22 +35,52 @@ public class InvitePresenter extends RxPresenter<InviteContract.View> implements
         this.dataManager = dataManager;
     }
 
+
     @Override
-    public void getInviteCourses() {
-        Subscription subscription = dataManager.getInviteCourses(SharedPreferencesUtils.getUserName(),
-                SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
-                .compose(RxUtils.<InviteCourseResult>rxSchedulerIo())
-                .retry()
-                .map(new Func1<InviteCourseResult, List<InviteCourseResult.CourseBean>>() {
+    public void getCourses() {
+        Subscription subscription = dataManager.getEvaCourses(
+                SharedPreferencesUtils.getTeacherId(), SharedPreferencesUtils.getTeacherId())
+                .compose(RxUtils.<HttpResult<List<EvaCourse>>>rxSchedulerIo())
+                .compose(RxUtils.<List<EvaCourse>>handleHttpResult())
+                .subscribe(new Subscriber<List<EvaCourse>>() {
                     @Override
-                    public List<InviteCourseResult.CourseBean> call(InviteCourseResult inviteCourseResult) {
-                        return inviteCourseResult.getCourse();
+                    public void onCompleted() {
+
                     }
-                })
-                .subscribe(new Action1<List<InviteCourseResult.CourseBean>>() {
+
                     @Override
-                    public void call(List<InviteCourseResult.CourseBean> courses) {
-                        view.showInviteCourses(courses);
+                    public void onError(Throwable e) {
+                        view.showError(e);
+                    }
+
+                    @Override
+                    public void onNext(List<EvaCourse> evaCourses) {
+                        view.showEvaCourses(evaCourses);
+                    }
+                });
+        addSubscribe(subscription);
+    }
+
+    @Override
+    public void getCoursePlans(int courseId) {
+        Subscription subscription = dataManager.getCoursePlans(
+                SharedPreferencesUtils.getTeacherId(), SharedPreferencesUtils.getTeacherId(), courseId)
+                .compose(RxUtils.<HttpResult<List<CoursePlan>>>rxSchedulerIo())
+                .compose(RxUtils.<List<CoursePlan>>handleHttpResult())
+                .subscribe(new Subscriber<List<CoursePlan>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        view.showError(e);
+                    }
+
+                    @Override
+                    public void onNext(List<CoursePlan> coursePlans) {
+                        view.showCoursePlans(coursePlans);
                     }
                 });
         addSubscribe(subscription);

@@ -1,7 +1,11 @@
 package com.zidian.teacher.presenter.contract;
 
+import android.support.annotation.NonNull;
+
 import com.zidian.teacher.base.BasePresenter;
 import com.zidian.teacher.base.BaseView;
+import com.zidian.teacher.model.entity.remote.College;
+import com.zidian.teacher.model.entity.remote.EvaTeacher;
 import com.zidian.teacher.model.entity.remote.InviteTeacher;
 
 import java.util.List;
@@ -16,10 +20,16 @@ public interface InviteSelectTeacherContract {
 
         void showEmpty();
 
-        void showInviteTeachers(List<InviteTeacher> teachers);
+        void showColleges(List<College> colleges);
+
+        void showTeachers(List<EvaTeacher> teachers);
+
     }
 
     interface Presenter extends BasePresenter<InviteSelectTeacherContract.View> {
-        void getInviteTeachers(String condition);
+        void getColleges();
+
+        void getTeachers(@NonNull int collegeId);
+
     }
 }

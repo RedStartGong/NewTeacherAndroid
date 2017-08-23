@@ -23,7 +23,7 @@ public final class ServiceFactory {
      * release： http://103.231.69.80:80//rest/
      * debug：http://192.168.0.115:8080//rest/
      */
-    public static final String BASE_URL = "http://192.168.0.108:8080//rest/";
+    public static final String BASE_URL = "http://192.168.0.108:8080/rest/";
 
     public static TeacherService makeStudentService() {
         Retrofit retrofit = new Retrofit.Builder()

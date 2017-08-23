@@ -5,6 +5,9 @@ import com.zidian.teacher.model.entity.remote.AttendanceStatistics;
 import com.zidian.teacher.model.entity.remote.AttendanceStudent;
 import com.zidian.teacher.model.entity.remote.CheckColleagueEva;
 import com.zidian.teacher.model.entity.remote.CheckSupervisorEva;
+import com.zidian.teacher.model.entity.remote.College;
+import com.zidian.teacher.model.entity.remote.CoursePlan;
+import com.zidian.teacher.model.entity.remote.EvaCourse;
 import com.zidian.teacher.model.entity.remote.StudentClass;
 import com.zidian.teacher.model.entity.remote.ColleagueEva;
 import com.zidian.teacher.model.entity.remote.Course;
@@ -27,6 +30,7 @@ import com.zidian.teacher.model.entity.remote.QuesSurveyList;
 import com.zidian.teacher.model.entity.remote.School;
 import com.zidian.teacher.model.entity.remote.SelectClass;
 import com.zidian.teacher.model.entity.remote.StudentEva;
+import com.zidian.teacher.model.entity.remote.EvaTeacher;
 
 import java.util.List;
 
@@ -126,7 +130,7 @@ public interface TeacherService {
     Observable<HttpResult<List<AttendanceStatistics>>> getAttendanceStatistics(
             @Field("courseId") int courseId, @Field("className") String className,
             @Field("teacherId") int teacherId);
-
+/********************************************************************/
     /**
      * 意见反馈
      */
@@ -147,9 +151,41 @@ public interface TeacherService {
             @Part("phone") RequestBody phone, @Part("signName") RequestBody signName, @Part("birthday") RequestBody birthday,
             @Part("sex") RequestBody sex, @Part MultipartBody.Part iconUrl);
 
+    /**************************************评价部分**************************************/
+
+    /**
+     * 获取学院列表
+     */
+    @FormUrlEncoded
+    @POST("EvaluateByTeacher/selectAllCollege")
+    Observable<HttpResult<List<College>>> getColleges(@Field("myId") int teacherId);
+
+    /**
+     * 获取一个学院的教师
+     */
+    @FormUrlEncoded
+    @POST("EvaluateByTeacher/selectTeacherByCollege")
+    Observable<HttpResult<List<EvaTeacher>>> getTeachers(@Field("myId")int teacherId,
+                                                         @Field("collegeId") int collegeId);
+    /**
+     * 获取某个教师所教的课程
+     */
+    @FormUrlEncoded
+    @POST("EvaluateByTeacher/selectCourseByTeacher")
+    Observable<HttpResult<List<EvaCourse>>> getEvaCourses(
+            @Field("myId") int teacherId, @Field("teacherId") int evaTeacherId);
+
+    /**
+     * 通过老师跟课程获取课堂
+     */
+    @FormUrlEncoded
+    @POST("EvaluateByTeacher/selectCoursePlan")
+    Observable<HttpResult<List<CoursePlan>>> getCoursePlans(
+            @Field("myId") int teacherId, @Field("teacherId") int evaTeacherId, @Field("courseId") int courseId);
     /**
      * 我的任务
      */
+    // TODO: 2017/8/23  我的任务
     @FormUrlEncoded
     @POST("ToEvaluateOthers/myAssignment")
     Observable<HttpResult<List<MyTask>>> getMyTasks(

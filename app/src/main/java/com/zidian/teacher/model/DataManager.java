@@ -5,6 +5,10 @@ import com.zidian.teacher.model.entity.remote.AttendanceStatistics;
 import com.zidian.teacher.model.entity.remote.AttendanceStudent;
 import com.zidian.teacher.model.entity.remote.CheckColleagueEva;
 import com.zidian.teacher.model.entity.remote.CheckSupervisorEva;
+import com.zidian.teacher.model.entity.remote.College;
+import com.zidian.teacher.model.entity.remote.CoursePlan;
+import com.zidian.teacher.model.entity.remote.EvaCourse;
+import com.zidian.teacher.model.entity.remote.EvaTeacher;
 import com.zidian.teacher.model.entity.remote.StudentClass;
 import com.zidian.teacher.model.entity.remote.ColleagueEva;
 import com.zidian.teacher.model.entity.remote.Course;
@@ -36,6 +40,8 @@ import javax.inject.Singleton;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -58,29 +64,48 @@ public final class DataManager {
         return service.getSchools();
     }
 
+    /**
+     * 登录
+     */
     public Observable<LoginResult> login(String username, String password, int schoolId) {
         return service.login(username, password, schoolId);
     }
 
+    /**
+     * 获取个人信息
+     */
+    // TODO: 2017/8/23 尚未完成
     public Observable<HttpResult<PersonInfo>> getPersonInfo(
             String teacherId, String teacherType, String token, int schoolId) {
         return service.getPersonInfo(teacherType);
     }
 
+    /**
+     * 修改密码
+     */
     public Observable<NoDataResult> changePassword(
             int teacherId, String password, String password1, String password2) {
         return service.changePassword(teacherId, password, password1, password2);
     }
 
+    /**
+     * 按周次获取课程表
+     */
     public Observable<HttpResult<List<Course>>> getCourses(
             int teacherId, int week) {
         return service.getCourses(teacherId, week);
     }
 
+    /**
+     * 获取课程时间
+     */
     public Observable<HttpResult<CourseTime>> getCourseTime(int teacherId, int week) {
         return service.getCourseTime(teacherId, week);
     }
 
+    /**
+     * 获取班级
+     */
     public Observable<HttpResult<List<StudentClass>>> getClasses(int teacherId, int courseId) {
         return service.getClasses(teacherId, courseId);
     }
@@ -122,6 +147,36 @@ public final class DataManager {
             RequestBody signName, RequestBody birthday, RequestBody sex,
             MultipartBody.Part iconUrl) {
         return service.changeUserInfo(teacherId, aliasName, phone, signName, birthday, sex, iconUrl);
+    }
+    /******************************************教评************************************************/
+    /**
+     * 获取学院列表
+     */
+    public Observable<HttpResult<List<College>>> getColleges(int teacherId) {
+        return service.getColleges(teacherId);
+    }
+
+    /**
+     * 获取一个学院的教师
+     */
+    public Observable<HttpResult<List<EvaTeacher>>> getTeachers(int teacherId, int collegeId) {
+        return service.getTeachers(teacherId, collegeId);
+    }
+
+    /**
+     * 获取某个教师所教的课程
+     */
+    public Observable<HttpResult<List<EvaCourse>>> getEvaCourses(
+            int teacherId, int evaTeacherId) {
+        return service.getEvaCourses(teacherId, evaTeacherId);
+    }
+
+    /**
+     * 通过老师跟课程获取课堂
+     */
+    public Observable<HttpResult<List<CoursePlan>>> getCoursePlans(
+            int teacherId, int evaTeacherId, int courseId) {
+        return service.getCoursePlans(teacherId, evaTeacherId, courseId);
     }
 
     public Observable<HttpResult<List<MyTask>>> getMyTasks(

@@ -15,9 +15,12 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager;
 import com.beloo.widget.chipslayoutmanager.SpacingItemDecoration;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
+import com.zidian.teacher.model.entity.remote.College;
+import com.zidian.teacher.model.entity.remote.EvaTeacher;
 import com.zidian.teacher.model.entity.remote.InviteTeacher;
 import com.zidian.teacher.presenter.InviteSelectTeacherPresenter;
 import com.zidian.teacher.presenter.contract.InviteSelectTeacherContract;
@@ -41,12 +44,10 @@ import static com.zidian.teacher.util.Preconditions.checkNotNull;
  */
 
 public class InviteSelectTeacherActivity extends BaseActivity implements InviteSelectTeacherContract.View {
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    @BindView(R.id.search_view)
-    MaterialSearchView searchView;
+    @BindView(R.id.spinner)
+    MaterialSpinner spinner;
     @BindView(R.id.tv_notice)
     TextView tv_notice;
 
@@ -69,9 +70,6 @@ public class InviteSelectTeacherActivity extends BaseActivity implements InviteS
 
     @Override
     protected void initViewAndData() {
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("选择您想邀请的老师");
-        setToolbarBack(toolbar);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("加载中...");
         ChipsLayoutManager chipsLayoutManager = ChipsLayoutManager.newBuilder(this)
@@ -84,30 +82,17 @@ public class InviteSelectTeacherActivity extends BaseActivity implements InviteS
 
         checkNotNull(presenter);
         presenter.attachView(this);
-        searchView.setHint("教师的名字、教师工号或学院名");
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+        presenter.getColleges();
+        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<College>() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                presenter.getInviteTeachers(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
+            public void onItemSelected(MaterialSpinner view, int position, long id, College item) {
+                int collegeId = item.getCollegeId();
+                presenter.getTeachers(collegeId);
             }
         });
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search, menu);
-        MenuItem menuItem = menu.findItem(R.id.search);
-        searchView.setMenuItem(menuItem);
-
-        return true;
-    }
 
     /**
      * 提交
@@ -115,17 +100,25 @@ public class InviteSelectTeacherActivity extends BaseActivity implements InviteS
     @OnClick(R.id.fab_submit)
     public void submit() {
         if (TextUtils.isEmpty(adapter.getTeachers())) {
-            SnackbarUtils.showShort(toolbar, "请选择教师");
+            SnackbarUtils.showShort(spinner, "请选择教师");
             return;
         }
         if (adapter.getTeachers().equals("30")) {
-            SnackbarUtils.showShort(toolbar, "选择的教师人数不得超多30");
+            SnackbarUtils.showShort(spinner, "选择的教师人数不得超多30");
             return;
         }
         Intent intent = new Intent();
         intent.putExtra("teachers", adapter.getTeachers());
-        setResult(RESULT_OK,intent);
+        setResult(RESULT_OK, intent);
         finish();
+    }
+
+    /**
+     * 返回按钮
+     */
+    @OnClick(R.id.iv_back)
+    public void back() {
+        onBackPressedSupport();
     }
 
     /**
@@ -133,9 +126,9 @@ public class InviteSelectTeacherActivity extends BaseActivity implements InviteS
      *
      * @param teachers List<InviteTeacher>
      */
-    private void addTeachers(final List<InviteTeacher> teachers) {
+    private void addTeachers(final List<EvaTeacher> teachers) {
         final Integer[] selected = new Integer[30];
-        final List<InviteTeacher> addTeachers = new ArrayList<>();
+        final List<EvaTeacher> addTeachers = new ArrayList<>();
         new MaterialDialog.Builder(this).title("请选择教师")
                 .items(teachers)
                 .itemsCallbackMultiChoice(new Integer[]{}, new MaterialDialog.ListCallbackMultiChoice() {
@@ -181,7 +174,7 @@ public class InviteSelectTeacherActivity extends BaseActivity implements InviteS
     @Override
     public void showError(Throwable e) {
         progressDialog.dismiss();
-        SnackbarUtils.showShort(toolbar, e.getMessage());
+        SnackbarUtils.showShort(spinner, e.getMessage());
     }
 
     @Override
@@ -193,12 +186,18 @@ public class InviteSelectTeacherActivity extends BaseActivity implements InviteS
     @Override
     public void showEmpty() {
         progressDialog.dismiss();
-        SnackbarUtils.showShort(toolbar, "没有搜索到相关教师");
+        SnackbarUtils.showShort(spinner, "没有搜索到相关教师");
     }
 
     @Override
-    public void showInviteTeachers(List<InviteTeacher> teachers) {
-        progressDialog.dismiss();
-        addTeachers(teachers);
+    public void showColleges(List<College> colleges) {
+        spinner.setItems(colleges);
     }
+
+    @Override
+    public void showTeachers(List<EvaTeacher> teachers) {
+        addTeachers(teachers);
+        tv_notice.setVisibility(View.GONE);
+    }
+
 }

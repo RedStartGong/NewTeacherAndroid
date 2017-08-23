@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zidian.teacher.R;
+import com.zidian.teacher.model.entity.remote.EvaTeacher;
 import com.zidian.teacher.model.entity.remote.InviteTeacher;
 
 import org.json.JSONArray;
@@ -28,14 +29,14 @@ import butterknife.OnClick;
  */
 
 public class InviteTeacherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<InviteTeacher> teachers;
+    private List<EvaTeacher> teachers;
 
     @Inject
     public InviteTeacherAdapter() {
         teachers = new ArrayList<>();
     }
 
-    public void setTeachers(List<InviteTeacher> teachers) {
+    public void setTeachers(List<EvaTeacher> teachers) {
         this.teachers = teachers;
         this.teachers = new ArrayList<>(new HashSet<>(this.teachers));
         notifyDataSetChanged();
@@ -68,7 +69,7 @@ public class InviteTeacherAdapter extends RecyclerView.Adapter<RecyclerView.View
         return jsonArray.toString();
     }
 
-    public void addTeachers(List<InviteTeacher> teachers) {
+    public void addTeachers(List<EvaTeacher> teachers) {
         this.teachers.addAll(teachers);
         this.teachers = new ArrayList<>(new HashSet<>(this.teachers));
         notifyDataSetChanged();
@@ -85,8 +86,6 @@ public class InviteTeacherAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ItemViewHolder) {
             ((ItemViewHolder) holder).tvTeacherName.setText(teachers.get(position).getTeacherName());
-            ((ItemViewHolder) holder).tvTeacherCollege.setText(teachers.get(position).getTeacherCollege());
-
         }
     }
 
