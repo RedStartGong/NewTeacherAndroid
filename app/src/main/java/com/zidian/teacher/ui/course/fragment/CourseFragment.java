@@ -3,18 +3,23 @@ package com.zidian.teacher.ui.course.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseFragment;
 import com.zidian.teacher.model.entity.remote.Course;
-import com.zidian.teacher.presenter.CoursePresenter;
-import com.zidian.teacher.presenter.contract.CourseContract;
+import com.zidian.teacher.model.entity.remote.CourseTime;
+import com.zidian.teacher.presenter.SchedulePresenter;
+import com.zidian.teacher.presenter.contract.ScheduleContract;
 import com.zidian.teacher.ui.course.activity.CourseInfoActivity;
 import com.zidian.teacher.ui.widget.CourseInfo;
 import com.zidian.teacher.ui.widget.ScheduleView;
 import com.zidian.teacher.util.SharedPreferencesUtils;
 import com.zidian.teacher.util.SnackbarUtils;
+import com.zidian.teacher.util.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,20 +35,24 @@ import static dagger.internal.Preconditions.checkNotNull;
  * Created by GongCheng on 2017/3/15.
  */
 
-public class CourseFragment extends BaseFragment implements CourseContract.View {
+public class CourseFragment extends BaseFragment implements ScheduleContract.View {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.schedule_view)
     ScheduleView scheduleView;
     @BindView(R.id.spinner)
     MaterialSpinner spinner;
+    @BindView(R.id.error_view)
+    TextView errorView;
+    @BindView(R.id.loading_view)
+    ProgressBar loadingView;
 
     @Inject
-    CoursePresenter presenter;
+    SchedulePresenter presenter;
 
-    private List<CourseInfo> classInfos;
-    private List<Course> courses;
     private int currentWeek;
+    private List<String> dateList;
+    private List<CourseInfo> courseInfoList;
 
     public static CourseFragment newInstance() {
 
@@ -66,9 +75,10 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
 
     @Override
     protected void initViewAndData() {
-        classInfos = new ArrayList<>();
-        courses = new ArrayList<>();
+        dateList = new ArrayList<>();
+        courseInfoList = new ArrayList<>();
         toolbar.setTitle(R.string.main_course);
+        errorView.setVisibility(View.GONE);
         spinner.setItems(getWeeks());
         //设置当前周
         currentWeek = SharedPreferencesUtils.getCurrentWeek() == 0 ? 1 : SharedPreferencesUtils.getCurrentWeek();
@@ -78,7 +88,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
             public void onItemSelected(MaterialSpinner materialSpinner, int i, long l, String item) {
                 currentWeek = i + 1;
                 SharedPreferencesUtils.setCurrentWeek(currentWeek);
-                setScheduleView();
+                presenter.getCourseTime(currentWeek);
             }
         });
         scheduleView.setOnItemClassClickListener(new ScheduleView.OnItemClassClickListener() {
@@ -91,51 +101,13 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
         });
         checkNotNull(presenter);
         presenter.attachView(this);
-        presenter.getCourse();
+        presenter.getCourseTime(currentWeek);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         presenter.deAttachView();
-    }
-
-    @Override
-    public void showError(Throwable e) {
-        SnackbarUtils.showShort(scheduleView, e.getMessage());
-    }
-
-    @Override
-    public void showCourse(List<Course> courses) {
-        this.courses = courses;
-        setScheduleView();
-    }
-
-    /**
-     * 设置课表
-     */
-    private void setScheduleView() {
-        if (courses.isEmpty()) {
-            presenter.getCourse();
-        } else {
-            classInfos.clear();
-            for (int i = 0; i < courses.size(); i++) {
-                if (courses.get(i).getBeginEndWeek().equals(String.valueOf(currentWeek))) {
-                    CourseInfo classInfo = new CourseInfo();
-                    classInfo.setClassname(courses.get(i).getCourseName());
-                    classInfo.setFromClassNum(getBeginClass(courses.get(i).getWeeklyQuarter()));
-                    classInfo.setClassNumLen(getClassLength(courses.get(i).getWeeklyQuarter()));
-                    classInfo.setClassRoom(courses.get(i).getClassRoom());
-                    classInfo.setWeekday(getWeekDay(courses.get(i).getWeeklyDay()));
-                    classInfo.setBeginEndWeek(courses.get(i).getBeginEndWeek());
-                    classInfo.setCourseId(courses.get(i).getCourseId());
-                    classInfo.setCourseWeeklyId(courses.get(i).getCourseWeeklyId());
-
-                    classInfos.add(classInfo);
-                }
-            }
-            scheduleView.setClassList(classInfos);
-        }
     }
 
     /**
@@ -151,49 +123,46 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
         return weeks;
     }
 
-    private int getBeginClass(String myClass) {
 
-        if (myClass.indexOf(",") == -1) {
-            return Integer.parseInt(myClass);
-        } else {
-            String b = myClass.substring(0, myClass.indexOf(","));
-            return Integer.parseInt(b);
-        }
+    @Override
+    public void showError(Throwable e) {
+        loadingView.setVisibility(View.GONE);
+        errorView.setVisibility(View.VISIBLE);
+        errorView.setText(e.getMessage());
+        scheduleView.setData(null, null);
     }
 
-    private int getClassLength(String myClass) {
-        if (myClass.lastIndexOf(",") != -1) {
-            String c = myClass.substring(myClass.lastIndexOf(",") + 1, myClass.length());
-            String b = myClass.substring(0, myClass.indexOf(","));
-            int i = Integer.parseInt(b);
-            int j = Integer.parseInt(c);
-            return j - i + 1;
-        } else {
-            return 1;
+    @Override
+    public void showSchedule(List<Course> courses) {
+        loadingView.setVisibility(View.GONE);
+        errorView.setVisibility(View.GONE);
+        for (int i = 0; i < courses.size(); i++) {
+            CourseInfo courseInfo = new CourseInfo();
+            courseInfo.setClassname(courses.get(i).getCourseName());
+            courseInfo.setFromClassNum(courses.get(i).getClassBegin());
+            courseInfo.setClassNumLen(courses.get(i).getClassEnd() - courses.get(i).getClassBegin() + 1);
+            courseInfo.setClassRoom(courses.get(i).getClassroom());
+            courseInfo.setWeekday(courses.get(i).getWeekDay());
+            courseInfo.setCourseId(String.valueOf(courses.get(i).getCoursePlanId()));
+            courseInfo.setBeginEndWeek(String.valueOf(currentWeek));
+            courseInfoList.add(courseInfo);
         }
+        scheduleView.setData(courseInfoList, dateList);
     }
 
-    private int getWeekDay(String weeklyDay) {
+    @Override
+    public void showLoading() {
+        scheduleView.setData(null, null);
+        loadingView.setVisibility(View.VISIBLE);
+    }
 
-        int day = 1;
-
-        if (weeklyDay.equals("周一")) {
-            day = 1;
-        } else if (weeklyDay.equals("周二")) {
-            day = 2;
-        } else if (weeklyDay.equals("周三")) {
-            day = 3;
-        } else if (weeklyDay.equals("周四")) {
-            day = 4;
-        } else if (weeklyDay.equals("周五")) {
-            day = 5;
-        } else if (weeklyDay.equals("周六")) {
-            day = 6;
-        } else if (weeklyDay.equals("周日")) {
-            day = 7;
+    @Override
+    public void showCourseTime(CourseTime courseTime) {
+        dateList.clear();
+        for (int i = 0; i < courseTime.getDayTime().size(); i++) {
+            dateList.add(TimeUtils.millis2String(courseTime.getDayTime().get(i).getTime(), "MM/dd"));
         }
-        return day;
-
+        presenter.getSchedule(currentWeek);
     }
 }
 

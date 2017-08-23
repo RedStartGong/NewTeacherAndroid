@@ -8,6 +8,7 @@ import com.zidian.teacher.model.entity.remote.CheckSupervisorEva;
 import com.zidian.teacher.model.entity.remote.Class;
 import com.zidian.teacher.model.entity.remote.ColleagueEva;
 import com.zidian.teacher.model.entity.remote.Course;
+import com.zidian.teacher.model.entity.remote.CourseTime;
 import com.zidian.teacher.model.entity.remote.CustomEva;
 import com.zidian.teacher.model.entity.remote.EvaTwoIndex;
 import com.zidian.teacher.model.entity.remote.EvaluateCourse;
@@ -83,9 +84,17 @@ public interface TeacherService {
     /**
      * 获取课程表
      */
-    @POST("page/course/select")
-    Observable<HttpResult<List<Course>>> getCourses();
+    @FormUrlEncoded
+    @POST("page/courseL/teacherSelectCourseZ")
+    Observable<HttpResult<List<Course>>> getCourses(@Field("teacherId") int teacherId, @Field("week") int week);
 
+    /**
+     * 查看课程时间
+     */
+    @FormUrlEncoded
+    @POST("page/courseL/selectCourseT")
+    Observable<HttpResult<CourseTime>> getCourseTime(
+            @Field("teacherId") int teacherId, @Field("week") int week);
     /**
      * 得到本节课上课班级
      */

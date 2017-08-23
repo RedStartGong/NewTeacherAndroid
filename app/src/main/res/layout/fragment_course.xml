@@ -12,10 +12,12 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         app:titleTextColor="@color/white_text_color">
+
         <LinearLayout
             android:layout_width="120dp"
             android:layout_height="match_parent"
             android:layout_gravity="end">
+
             <com.jaredrummler.materialspinner.MaterialSpinner
                 android:id="@+id/spinner"
                 android:layout_width="0dp"
@@ -24,14 +26,27 @@
                 android:background="@null"
                 app:ms_background_color="@color/colorPrimary"
                 app:ms_hide_arrow="false"
-                app:paddingStart="16dp"
-                app:ms_text_color="@color/white_text_color" />
+                app:ms_text_color="@color/white_text_color"
+                app:paddingStart="16dp" />
         </LinearLayout>
 
     </android.support.v7.widget.Toolbar>
 
-    <com.zidian.teacher.ui.widget.ScheduleView
-        android:id="@+id/schedule_view"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <include layout="@layout/view_loading" />
+
+        <include layout="@layout/view_error" />
+
+        <com.zidian.teacher.ui.widget.ScheduleView
+            android:id="@+id/schedule_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </FrameLayout>
+
+
 </LinearLayout>

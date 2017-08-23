@@ -8,6 +8,7 @@ import com.zidian.teacher.model.entity.remote.CheckSupervisorEva;
 import com.zidian.teacher.model.entity.remote.Class;
 import com.zidian.teacher.model.entity.remote.ColleagueEva;
 import com.zidian.teacher.model.entity.remote.Course;
+import com.zidian.teacher.model.entity.remote.CourseTime;
 import com.zidian.teacher.model.entity.remote.CustomEva;
 import com.zidian.teacher.model.entity.remote.EvaTwoIndex;
 import com.zidian.teacher.model.entity.remote.EvaluateCourse;
@@ -35,6 +36,7 @@ import javax.inject.Singleton;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.http.Field;
 import rx.Observable;
 
 /**
@@ -70,8 +72,12 @@ public final class DataManager {
     }
 
     public Observable<HttpResult<List<Course>>> getCourses(
-            String teacherId, String token, int schoolId) {
-        return service.getCourses();
+            int teacherId, int week) {
+        return service.getCourses(teacherId, week);
+    }
+
+    public Observable<HttpResult<CourseTime>> getCourseTime(int teacherId, int week) {
+        return service.getCourseTime(teacherId, week);
     }
 
     public Observable<HttpResult<List<Class>>> getClasses(

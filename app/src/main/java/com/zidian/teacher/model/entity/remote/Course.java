@@ -1,5 +1,7 @@
 package com.zidian.teacher.model.entity.remote;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by GongCheng on 2017/4/7.
  */
@@ -7,71 +9,91 @@ package com.zidian.teacher.model.entity.remote;
 public class Course {
 
     /**
-     * classRoom : D3-506
-     * beginEndWeek : 2
-     * weeklyDay : 周一
-     * weeklyQuarter : 1,2
-     * courseId : 1000001
-     * courseWeeklyId : 10650
-     * courseName : 工程制图A1
+     * startTime : 1497597600000
+     * id : 3133
+     * classroom : D3-306
+     * weekDay : 5
+     * weekPartBegin : 7
+     * classEnd : 8
+     * endTime : 1497601800000
+     * teacherId : 18
      */
 
-    private String classRoom;
-    private String beginEndWeek;
-    private String weeklyDay;
-    private String weeklyQuarter;
-    private String courseId;
-    private String courseWeeklyId;
+    private long startTime;
+    private int coursePlanId;
+    private String classroom;
+    private int weekDay;
+    @SerializedName("weekPartBegin")
+    private int classBegin;
+    @SerializedName("weekPartEnd")
+    private int classEnd;
+    private long endTime;
+    private int teacherId;
     private String courseName;
 
-    public String getClassRoom() {
-        return classRoom;
+    public long getStartTime() {
+        return startTime;
     }
 
-    public void setClassRoom(String classRoom) {
-        this.classRoom = classRoom;
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
     }
 
-    public String getBeginEndWeek() {
-        return beginEndWeek;
+    public int getCoursePlanId() {
+        return coursePlanId;
     }
 
-    public void setBeginEndWeek(String beginEndWeek) {
-        this.beginEndWeek = beginEndWeek;
+    public void setCoursePlanId(int coursePlanId) {
+        this.coursePlanId = coursePlanId;
     }
 
-    public String getWeeklyDay() {
-        return weeklyDay;
+    public String getClassroom() {
+        return classroom;
     }
 
-    public void setWeeklyDay(String weeklyDay) {
-        this.weeklyDay = weeklyDay;
+    public void setClassroom(String classroom) {
+        this.classroom = classroom;
     }
 
-    public String getWeeklyQuarter() {
-        return weeklyQuarter;
+    public int getWeekDay() {
+        return weekDay;
     }
 
-    public void setWeeklyQuarter(String weeklyQuarter) {
-        this.weeklyQuarter = weeklyQuarter;
+    public void setWeekDay(int weekDay) {
+        this.weekDay = weekDay;
     }
 
-    public String getCourseId() {
-        return courseId;
+    public int getClassBegin() {
+        return classBegin;
     }
 
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
+    public void setClassBegin(int classBegin) {
+        this.classBegin = classBegin;
     }
 
-    public String getCourseWeeklyId() {
-        return courseWeeklyId;
+    public int getClassEnd() {
+        return classEnd;
     }
 
-    public void setCourseWeeklyId(String courseWeeklyId) {
-        this.courseWeeklyId = courseWeeklyId;
+    public void setClassEnd(int classEnd) {
+        this.classEnd = classEnd;
     }
 
+    public long getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
+    }
+
+    public int getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
+    }
     public String getCourseName() {
         return courseName;
     }
