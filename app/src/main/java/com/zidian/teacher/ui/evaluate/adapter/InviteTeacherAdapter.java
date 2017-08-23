@@ -54,19 +54,12 @@ public class InviteTeacherAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (teachers.size() >= 30) {
             return "30";
         }
-        JSONArray jsonArray = new JSONArray();
-        try {
-            for (int i = 0; i < teachers.size(); i++) {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("theRequestedPersonId", teachers.get(i).getTeacherId());
-                jsonObject.put("theRequestedPersonName", teachers.get(i).getTeacherName());
-                jsonArray.put(jsonObject);
-            }
+        List<Integer> teacherIds = new ArrayList<>();
+        for (int i = 0; i < teachers.size(); i++) {
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+            teacherIds.add(teachers.get(i).getTeacherId());
         }
-        return jsonArray.toString();
+        return teacherIds.toString();
     }
 
     public void addTeachers(List<EvaTeacher> teachers) {

@@ -199,12 +199,14 @@ public final class DataManager {
         return service.getInviteTeacher(condition, teacherId, token, schoolId);
     }
 
-    public Observable<NoDataResult> inviteOrApply(
-            String teacherId, String teacherName, String requestedPerson, String requestType,
-            String teacherCollege, int courseId, String courseName, String teachingCalendar,
-            String classroom, String requestExplain, String token, int schoolId) {
-        return service.inviteOrApply(teacherId, teacherName, requestedPerson, requestType, teacherCollege,
-                courseId, courseName, teachingCalendar, classroom, requestExplain, token, schoolId);
+    /**
+     * 邀请或者申请评价别人
+     */
+    public Observable<NoDataResult> inviteOrApply(int teacherId, String toTeacherId,
+                                                  int requestType, String requestMessage,
+                                                  int evaluateType, int coursePlanId) {
+        return service.inviteOrApply(teacherId, toTeacherId, requestType,
+                requestMessage, evaluateType, coursePlanId);
     }
 
     public Observable<NoDataResult> addSupervisorEva(

@@ -183,6 +183,15 @@ public interface TeacherService {
     Observable<HttpResult<List<CoursePlan>>> getCoursePlans(
             @Field("myId") int teacherId, @Field("teacherId") int evaTeacherId, @Field("courseId") int courseId);
     /**
+     * 邀请评价或申请评价他人
+     */
+    @FormUrlEncoded
+    @POST("EvaluateByTeacher/invitationToEvaluate")
+    Observable<NoDataResult> inviteOrApply(
+            @Field("fromTeacherId") int teacherId, @Field("toTeacherId") String toTeacherId,
+            @Field("requestType") int requestType, @Field("requestMessage") String requestMessage,
+            @Field("evaluateType") int evaluateType, @Field("coursePlanId") int coursePlanId);
+    /**
      * 我的任务
      */
     // TODO: 2017/8/23  我的任务
@@ -216,18 +225,7 @@ public interface TeacherService {
     Observable<HttpResult<List<InviteTeacher>>> getInviteTeacher(@Field("condition") String condition, @Field("teacherId")
             String teacherId, @Field("token") String token, @Field("schoolId") int schoolId);
 
-    /**
-     * 邀请评价或申请评价他人
-     */
-    @FormUrlEncoded
-    @POST("ToEvaluateOthers/invitationToEvaluate")
-    Observable<NoDataResult> inviteOrApply(
-            @Field("initiateTheRequestId") String teacherId, @Field("initiateTheRequestName") String teacherName,
-            @Field("theRequestedPerson") String requestedPerson, @Field("requestType") String requestType,
-            @Field("teacherCollege") String teacherCollege, @Field("courseId") int courseId,
-            @Field("courseName") String courseName, @Field("teachingCalendar") String teachingCalendar,
-            @Field("courseClassroom") String classroom, @Field("requestExplain") String requestExplain,
-            @Field("token") String token, @Field("schoolId") int schoolId);
+
 
     /**
      * 添加督导评价

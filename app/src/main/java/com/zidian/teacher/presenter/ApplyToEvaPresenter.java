@@ -67,43 +67,43 @@ public class ApplyToEvaPresenter extends RxPresenter<ApplyToEvaContract.View>
     public void apply(String requestedPerson, String teacherCollege, int courseId,
                       String courseName, String teachingCalendar, String classroom,
                       String requestExplain) {
-        Subscription subscription = dataManager.inviteOrApply(SharedPreferencesUtils.getUserName(),
-                SharedPreferencesUtils.getTeacherName(), requestedPerson, "0", teacherCollege,
-                courseId, courseName, teachingCalendar, classroom, requestExplain, SharedPreferencesUtils.getToken(),
-                SharedPreferencesUtils.getSchoolId())
-                .compose(RxUtils.<NoDataResult>rxSchedulerIo())
-                .map(new Func1<NoDataResult, NoDataResult>() {
-                    @Override
-                    public NoDataResult call(NoDataResult noDataResult) {
-                        if (noDataResult.getCode() != 200) {
-                            throw new ApiException(noDataResult.getMessage());
-                        } else {
-                            return noDataResult;
-                        }
-                    }
-                })
-                .subscribe(new Subscriber<NoDataResult>() {
-                    @Override
-                    public void onStart() {
-                        super.onStart();
-                        view.showLoading();
-                    }
-
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        view.showError(e);
-                    }
-
-                    @Override
-                    public void onNext(NoDataResult noDataResult) {
-                        view.showSuccess();
-                    }
-                });
-        addSubscribe(subscription);
+//        Subscription subscription = dataManager.inviteOrApply(SharedPreferencesUtils.getUserName(),
+//                SharedPreferencesUtils.getTeacherName(), requestedPerson, "0", teacherCollege,
+//                courseId, courseName, teachingCalendar, classroom, requestExplain, SharedPreferencesUtils.getToken(),
+//                SharedPreferencesUtils.getSchoolId())
+//                .compose(RxUtils.<NoDataResult>rxSchedulerIo())
+//                .map(new Func1<NoDataResult, NoDataResult>() {
+//                    @Override
+//                    public NoDataResult call(NoDataResult noDataResult) {
+//                        if (noDataResult.getCode() != 200) {
+//                            throw new ApiException(noDataResult.getMessage());
+//                        } else {
+//                            return noDataResult;
+//                        }
+//                    }
+//                })
+//                .subscribe(new Subscriber<NoDataResult>() {
+//                    @Override
+//                    public void onStart() {
+//                        super.onStart();
+//                        view.showLoading();
+//                    }
+//
+//                    @Override
+//                    public void onCompleted() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        view.showError(e);
+//                    }
+//
+//                    @Override
+//                    public void onNext(NoDataResult noDataResult) {
+//                        view.showSuccess();
+//                    }
+//                });
+//        addSubscribe(subscription);
     }
 }

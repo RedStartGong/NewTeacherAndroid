@@ -29,7 +29,6 @@ public interface InviteContract {
         void getCoursePlans(int courseId);
 
 
-        void invite(String requestedPerson,  String teacherCollege, int courseId,
-                    String courseName, String teachingCalendar, String classroom, String requestExplain);
+        void invite( String toTeacherId, String requestMessage, int evaluateType, int coursePlanId);
     }
 }

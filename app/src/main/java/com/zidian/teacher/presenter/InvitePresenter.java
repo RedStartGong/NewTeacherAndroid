@@ -87,12 +87,9 @@ public class InvitePresenter extends RxPresenter<InviteContract.View> implements
     }
 
     @Override
-    public void invite(String requestedPerson, String teacherCollege, int courseId, String courseName,
-                       String teachingCalendar, String classroom, String requestExplain) {
-        Subscription subscription = dataManager.inviteOrApply(SharedPreferencesUtils.getUserName(),
-                SharedPreferencesUtils.getTeacherName(), requestedPerson, "1", teacherCollege,
-                courseId, courseName, teachingCalendar, classroom, requestExplain,
-                SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
+    public void invite(String toTeacherId, String requestMessage, int evaluateType, int coursePlanId) {
+        Subscription subscription = dataManager.inviteOrApply(SharedPreferencesUtils.getTeacherId(),
+                toTeacherId, 1, requestMessage, evaluateType, coursePlanId)
                 .compose(RxUtils.<NoDataResult>rxSchedulerIo())
                 .map(new Func1<NoDataResult, NoDataResult>() {
                     @Override

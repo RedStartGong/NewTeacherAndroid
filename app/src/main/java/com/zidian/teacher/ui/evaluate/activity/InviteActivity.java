@@ -16,7 +16,6 @@ import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
 import com.zidian.teacher.model.entity.remote.CoursePlan;
 import com.zidian.teacher.model.entity.remote.EvaCourse;
-import com.zidian.teacher.model.entity.remote.InviteCourseResult;
 import com.zidian.teacher.presenter.InvitePresenter;
 import com.zidian.teacher.presenter.contract.InviteContract;
 import com.zidian.teacher.util.SnackbarUtils;
@@ -113,7 +112,7 @@ public class InviteActivity extends BaseActivity implements InviteContract.View 
     }
 
     private String college;
-    private String json;
+    private String teacherIds;
     private int courseId;
     private String courseName;
     private String teachingDate;
@@ -184,7 +183,7 @@ public class InviteActivity extends BaseActivity implements InviteContract.View 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_TEACHER && resultCode == RESULT_OK) {
-            json = data.getStringExtra("teachers");
+            teacherIds = data.getStringExtra("teachers");
             tvInviteTeacherName.setText("已添加");
         }
     }
@@ -193,7 +192,7 @@ public class InviteActivity extends BaseActivity implements InviteContract.View 
      * 确认
      */
     private void confirm() {
-        if (TextUtils.isEmpty(json)) {
+        if (TextUtils.isEmpty(teacherIds)) {
             SnackbarUtils.showShort(toolbar, "请选择老师");
             return;
         }
@@ -210,6 +209,8 @@ public class InviteActivity extends BaseActivity implements InviteContract.View 
             SnackbarUtils.showShort(toolbar, "邀请语不能超过20个字符");
             return;
         }
+        // TODO: 2017/8/23 判断同行评价与督导评价 
+        presenter.invite(teacherIds, invitationLanguage, 2,coursePlanId);
 
     }
 
