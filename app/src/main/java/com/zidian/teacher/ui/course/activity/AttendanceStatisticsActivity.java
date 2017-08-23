@@ -18,6 +18,7 @@ import com.zidian.teacher.presenter.contract.AttendanceStatisticsContract;
 import com.zidian.teacher.ui.course.adapter.AttendanceStatisticsAdapter;
 import com.zidian.teacher.ui.widget.CourseInfo;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,6 +52,7 @@ public class AttendanceStatisticsActivity extends BaseActivity implements Attend
     AttendanceStatisticsAdapter adapter;
 
     private CourseInfo courseInfo;
+    private List<AttendanceStatistics> attendanceStatistics;
 
     @Override
     protected int getLayout() {
@@ -67,6 +69,7 @@ public class AttendanceStatisticsActivity extends BaseActivity implements Attend
         checkNotNull(presenter);
         checkNotNull(adapter);
 
+        attendanceStatistics = new ArrayList<>();
         courseInfo = (CourseInfo) getIntent().getSerializableExtra("courseInfo");
         toolbar.setTitle(getString(R.string.attendance_statistics));
         setToolbarBack(toolbar);
@@ -109,6 +112,8 @@ public class AttendanceStatisticsActivity extends BaseActivity implements Attend
 
     @Override
     public void showLoading() {
+        attendanceStatistics.clear();
+        adapter.setAttendanceStatistics(attendanceStatistics);
         loadingView.setVisibility(View.VISIBLE);
         errorView.setVisibility(View.GONE);
     }
@@ -121,6 +126,7 @@ public class AttendanceStatisticsActivity extends BaseActivity implements Attend
 
     @Override
     public void showStatistics(List<AttendanceStatistics> attendanceStatistics) {
-        adapter.setAttendanceStatistics(attendanceStatistics);
+        this.attendanceStatistics = attendanceStatistics;
+        adapter.setAttendanceStatistics(this.attendanceStatistics);
     }
 }

@@ -1,5 +1,6 @@
 package com.zidian.teacher.presenter;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.zidian.teacher.base.RxPresenter;
@@ -34,8 +35,8 @@ public class AttendanceStatisticsPresenter extends RxPresenter<AttendanceStatist
     }
 
     @Override
-    public void getClasses( int courseId) {
-        Subscription subscription = dataManager.getClasses(SharedPreferencesUtils.getTeacherId(),courseId)
+    public void getClasses(int courseId) {
+        Subscription subscription = dataManager.getClasses(SharedPreferencesUtils.getTeacherId(), courseId)
                 .compose(RxUtils.<HttpResult<List<StudentClass>>>rxSchedulerIo())
                 .compose(RxUtils.<List<StudentClass>>handleHttpResult())
                 .retry()
@@ -49,34 +50,35 @@ public class AttendanceStatisticsPresenter extends RxPresenter<AttendanceStatist
     }
 
     @Override
-    public void getAttendanceStatistics(@NonNull int courseId, @NonNull String className) {
-        Subscription subscription = dataManager.getAttendanceStatistics(courseId, className,
-                SharedPreferencesUtils.getTeacherId())
-                .compose(RxUtils.<HttpResult<List<AttendanceStatistics>>>rxSchedulerIo())
-                .compose(RxUtils.<List<AttendanceStatistics>>handleHttpResult())
-                .subscribe(new Subscriber<List<AttendanceStatistics>>() {
-                    @Override
-                    public void onStart() {
-                        super.onStart();
-                        view.showLoading();
-                    }
+    public void getAttendanceStatistics(@NonNull final int courseId, @NonNull final String className) {
+        view.showLoading();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Subscription subscription = dataManager.getAttendanceStatistics(courseId, className,
+                        SharedPreferencesUtils.getTeacherId())
+                        .compose(RxUtils.<HttpResult<List<AttendanceStatistics>>>rxSchedulerIo())
+                        .compose(RxUtils.<List<AttendanceStatistics>>handleHttpResult())
+                        .subscribe(new Subscriber<List<AttendanceStatistics>>() {
 
-                    @Override
-                    public void onCompleted() {
+                            @Override
+                            public void onCompleted() {
 
-                    }
+                            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        view.showError(e);
-                    }
+                            @Override
+                            public void onError(Throwable e) {
+                                view.showError(e);
+                            }
 
-                    @Override
-                    public void onNext(List<AttendanceStatistics> attendanceStatistics) {
-                        view.showSuccess();
-                        view.showStatistics(attendanceStatistics);
-                    }
-                });
-        addSubscribe(subscription);
+                            @Override
+                            public void onNext(List<AttendanceStatistics> attendanceStatistics) {
+                                view.showSuccess();
+                                view.showStatistics(attendanceStatistics);
+                            }
+                        });
+                addSubscribe(subscription);
+            }
+        }, 1000);
     }
 }
