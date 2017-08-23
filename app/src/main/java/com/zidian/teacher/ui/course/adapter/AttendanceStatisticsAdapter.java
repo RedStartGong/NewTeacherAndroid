@@ -63,36 +63,36 @@ public class AttendanceStatisticsAdapter extends RecyclerView.Adapter<RecyclerVi
         if (holder instanceof ItemViewHolder) {
             int index = position - 1;
             ((ItemViewHolder) holder).tvStudentName.setText(attendanceStatistics.get(index).getStudentName());
-            ((ItemViewHolder) holder).tvStudentId.setText(attendanceStatistics.get(index).getStudentId());
+            ((ItemViewHolder) holder).tvStudentId.setText(attendanceStatistics.get(index).getStudentNumber());
             Glide.with(context)
-                    .load(attendanceStatistics.get(index).getStudentUrl())
+                    .load(attendanceStatistics.get(index).getStudentIconUrl())
                     .placeholder(R.drawable.ic_student)
                     .centerCrop()
                     .into(((ItemViewHolder) holder).civStudentPortrait);
 
-            if (attendanceStatistics.get(index).getLateNum().equals("0")) {
+            if (attendanceStatistics.get(index).getBeLateNum() == 0) {
                 ((ItemViewHolder) holder).tvLate.setVisibility(View.INVISIBLE);
             } else {
                 ((ItemViewHolder) holder).tvLate.setVisibility(View.VISIBLE);
-                ((ItemViewHolder) holder).tvLate.setText(attendanceStatistics.get(index).getLateNum());
+                ((ItemViewHolder) holder).tvLate.setText(String.valueOf(attendanceStatistics.get(index).getBeLateNum()));
             }
-            if (attendanceStatistics.get(index).getLeaveEarlyNum().equals("0")) {
+            if (attendanceStatistics.get(index).getLeaveEarlyNum() == 0) {
                 ((ItemViewHolder) holder).tvLeaveEarly.setVisibility(View.INVISIBLE);
             } else {
                 ((ItemViewHolder) holder).tvLeaveEarly.setVisibility(View.VISIBLE);
-                ((ItemViewHolder) holder).tvLeaveEarly.setText(attendanceStatistics.get(index).getLeaveEarlyNum());
+                ((ItemViewHolder) holder).tvLeaveEarly.setText(String.valueOf(attendanceStatistics.get(index).getLeaveEarlyNum()));
             }
-            if (attendanceStatistics.get(index).getLeaveNum().equals("0")) {
+            if (attendanceStatistics.get(index).getLeaveNum() == 0) {
                 ((ItemViewHolder) holder).tvLeave.setVisibility(View.INVISIBLE);
             } else {
                 ((ItemViewHolder) holder).tvLeave.setVisibility(View.VISIBLE);
-                ((ItemViewHolder) holder).tvLeave.setText(attendanceStatistics.get(index).getLeaveNum());
+                ((ItemViewHolder) holder).tvLeave.setText(String.valueOf(attendanceStatistics.get(index).getLeaveNum()));
             }
-            if (attendanceStatistics.get(index).getTruantNum().equals("0")) {
+            if (attendanceStatistics.get(index).getTruantNum() == 0) {
                 ((ItemViewHolder) holder).tvAbsenteeism.setVisibility(View.INVISIBLE);
             } else {
                 ((ItemViewHolder) holder).tvAbsenteeism.setVisibility(View.VISIBLE);
-                ((ItemViewHolder) holder).tvAbsenteeism.setText(attendanceStatistics.get(index).getTruantNum());
+                ((ItemViewHolder) holder).tvAbsenteeism.setText(String.valueOf(attendanceStatistics.get(index).getTruantNum()));
             }
 
         }

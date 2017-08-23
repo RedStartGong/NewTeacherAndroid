@@ -56,6 +56,17 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btn_leave"
+                android:layout_width="0dp"
+                android:layout_height="28dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_leave"
+                android:gravity="center"
+                android:text="请假"
+                android:textColor="@color/white_text_color" />
+
+            <Button
                 android:id="@+id/btn_late"
                 android:layout_width="0dp"
                 android:layout_height="28dp"
@@ -88,16 +99,6 @@
                 android:text="旷课"
                 android:textColor="@color/white_text_color" />
 
-            <Button
-                android:id="@+id/btn_leave"
-                android:layout_width="0dp"
-                android:layout_height="28dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_leave"
-                android:gravity="center"
-                android:text="请假"
-                android:textColor="@color/white_text_color" />
 
             <TextView
                 android:id="@+id/btn_submit"

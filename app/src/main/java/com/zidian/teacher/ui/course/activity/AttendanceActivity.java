@@ -1,6 +1,7 @@
 package com.zidian.teacher.ui.course.activity;
 
 import android.app.ProgressDialog;
+import android.support.annotation.IntDef;
 import android.support.annotation.StringDef;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -56,7 +57,7 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
     AttendanceAdapter adapter;
 
     private List<StudentClass> classes;
-    private List<AttendanceStudent.DataBean> students;
+    private List<AttendanceStudent> students;
     private CourseInfo courseInfo;
     private ProgressDialog progressDialog;
 
@@ -84,8 +85,7 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<StudentClass>() {
             @Override
             public void onItemSelected(MaterialSpinner materialSpinner, int i, long l, StudentClass cls) {
-                presenter.getAttendanceStudents(courseInfo.getCourseWeeklyId(), courseInfo.getCourseId(),
-                        classes.get(i).getClassName());
+                presenter.getAttendanceStudents(courseInfo.getCourseId(), courseInfo.getCoursePlanId(), cls.getClassName());
             }
         });
         progressDialog = new ProgressDialog(this);
@@ -99,16 +99,20 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
 
     }
 
-    @StringDef({
+    /**
+     * 考勤状态
+     */
+    @IntDef({
             AttendanceStatus.LATE, AttendanceStatus.LEAVE_EARLY,
             AttendanceStatus.ABSENTEEISM, AttendanceStatus.LEAVE
     })
     @Retention(RetentionPolicy.SOURCE)
     public @interface AttendanceStatus {
-        String LATE = "1";
-        String LEAVE_EARLY = "2";
-        String ABSENTEEISM = "3";
-        String LEAVE = "4";
+        int NORMAL = 0;
+        int LEAVE = 1;
+        int LATE = 2;
+        int LEAVE_EARLY = 3;
+        int ABSENTEEISM = 4;
     }
 
     @OnClick({R.id.btn_late, R.id.btn_leave_early, R.id.btn_absenteeism, R.id.btn_leave, R.id.btn_submit})
@@ -127,7 +131,7 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
                 adapter.setStudentAttendance(AttendanceStatus.LEAVE);
                 break;
             case R.id.btn_submit:
-                presenter.setAttendance(adapter.getStudentJson(), courseInfo.getCourseId(), courseInfo.getCourseWeeklyId());
+                presenter.setAttendance(adapter.getStudentJson(), courseInfo.getCourseId(), courseInfo.getCoursePlanId());
                 break;
         }
     }
@@ -148,12 +152,14 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
         this.classes = classes;
         spinner.setItems(classes);
         //获取班级列表成功后获取第一个班级的学生
-        presenter.getAttendanceStudents(courseInfo.getCourseWeeklyId(), courseInfo.getCourseId(),
+        presenter.getAttendanceStudents(courseInfo.getCourseId(), courseInfo.getCoursePlanId(),
                 classes.get(0).getClassName());
     }
 
     @Override
     public void showLoadingStudents() {
+        students.clear();
+        adapter.setStudents(students);
         loadingView.setVisibility(View.VISIBLE);
     }
 
@@ -167,7 +173,7 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
     }
 
     @Override
-    public void showStudents(List<AttendanceStudent.DataBean> students) {
+    public void showStudents(List<AttendanceStudent> students) {
         loadingView.setVisibility(View.GONE);
         errorView.setVisibility(View.GONE);
         adapter.setStudents(students);

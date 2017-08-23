@@ -7,36 +7,75 @@ package com.zidian.teacher.model.entity.remote;
 public class AttendanceStatistics {
 
     /**
-     * LateNum : 0
-     * studentId : 1006
-     * studentName : 景云
+     * classId : 5
+     * studentId : 135
+     * normalNum : 0
+     * studentNumber : 1010
      * leaveNum : 0
+     * studentIconUrl :
+     * studentName : 凌仔芥
+     * beLateNum : 0
      * truantNum : 0
-     * studentUrl :
      * leaveEarlyNum : 0
      */
-    private String LateNum;
-    private String studentId;
+
+    private int classId;
+    private int studentId;
+    private int normalNum;
+    private String studentNumber;
+    private int leaveNum;
+    private String studentIconUrl;
     private String studentName;
-    private String leaveNum;
-    private String truantNum;
-    private String studentUrl;
-    private String leaveEarlyNum;
+    private int beLateNum;
+    private int truantNum;
+    private int leaveEarlyNum;
 
-    public String getLateNum() {
-        return LateNum;
+    public int getClassId() {
+        return classId;
     }
 
-    public void setLateNum(String LateNum) {
-        this.LateNum = LateNum;
+    public void setClassId(int classId) {
+        this.classId = classId;
     }
 
-    public String getStudentId() {
+    public int getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(int studentId) {
         this.studentId = studentId;
+    }
+
+    public int getNormalNum() {
+        return normalNum;
+    }
+
+    public void setNormalNum(int normalNum) {
+        this.normalNum = normalNum;
+    }
+
+    public String getStudentNumber() {
+        return studentNumber;
+    }
+
+    public void setStudentNumber(String studentNumber) {
+        this.studentNumber = studentNumber;
+    }
+
+    public int getLeaveNum() {
+        return leaveNum;
+    }
+
+    public void setLeaveNum(int leaveNum) {
+        this.leaveNum = leaveNum;
+    }
+
+    public String getStudentIconUrl() {
+        return studentIconUrl;
+    }
+
+    public void setStudentIconUrl(String studentIconUrl) {
+        this.studentIconUrl = studentIconUrl;
     }
 
     public String getStudentName() {
@@ -47,35 +86,27 @@ public class AttendanceStatistics {
         this.studentName = studentName;
     }
 
-    public String getLeaveNum() {
-        return leaveNum;
+    public int getBeLateNum() {
+        return beLateNum;
     }
 
-    public void setLeaveNum(String leaveNum) {
-        this.leaveNum = leaveNum;
+    public void setBeLateNum(int beLateNum) {
+        this.beLateNum = beLateNum;
     }
 
-    public String getTruantNum() {
+    public int getTruantNum() {
         return truantNum;
     }
 
-    public void setTruantNum(String truantNum) {
+    public void setTruantNum(int truantNum) {
         this.truantNum = truantNum;
     }
 
-    public String getStudentUrl() {
-        return studentUrl;
-    }
-
-    public void setStudentUrl(String studentUrl) {
-        this.studentUrl = studentUrl;
-    }
-
-    public String getLeaveEarlyNum() {
+    public int getLeaveEarlyNum() {
         return leaveEarlyNum;
     }
 
-    public void setLeaveEarlyNum(String leaveEarlyNum) {
+    public void setLeaveEarlyNum(int leaveEarlyNum) {
         this.leaveEarlyNum = leaveEarlyNum;
     }
 }

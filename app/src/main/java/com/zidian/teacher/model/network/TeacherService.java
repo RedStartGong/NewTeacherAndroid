@@ -100,38 +100,34 @@ public interface TeacherService {
      */
     @FormUrlEncoded
     @POST("attendanceRecordsL/selectClass")
-    Observable<HttpResult<List<StudentClass>>> getClasses(
-            @Field("courseId") int courseId);
+    Observable<HttpResult<List<StudentClass>>> getClasses(@Field("teacherId") int teacherId, @Field("courseId") int courseId);
 
     /**
      * 查看本节考勤学生
      */
     @FormUrlEncoded
     @POST("attendanceRecordsL/select")
-    Observable<AttendanceStudent> getAttendanceStudents(
-            @Field("courseWeeklyId") String courseWeeklyId, @Field("courseId") int courseId,
-            @Field("className") String className, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") int schoolId);
+    Observable<HttpResult<List<AttendanceStudent>>> getAttendanceStudents(
+            @Field("teacherId") int teacherId, @Field("courseId") int courseId,
+            @Field("coursePlanId") int coursePlanId, @Field("className") String className);
 
     /**
      * 设置考勤信息
      */
     @FormUrlEncoded
-    @POST("page/attendance/add")
+    @POST("attendanceRecordsL/add")
     Observable<NoDataResult> setAttendance(
             @Field("student") String student, @Field("courseId") int courseId,
-            @Field("courseWeeklyId") String courseWeeklyId, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") int schoolId);
+            @Field("coursePlanId") int coursePlanId, @Field("teacherId") int teacherId);
 
     /**
      * 考勤统计
      */
     @FormUrlEncoded
-    @POST("page/attendance/selectAll")
+    @POST("attendanceRecordsL/selectAll")
     Observable<HttpResult<List<AttendanceStatistics>>> getAttendanceStatistics(
             @Field("courseId") int courseId, @Field("className") String className,
-            @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") int schoolId);
+            @Field("teacherId") int teacherId);
 
     /**
      * 意见反馈

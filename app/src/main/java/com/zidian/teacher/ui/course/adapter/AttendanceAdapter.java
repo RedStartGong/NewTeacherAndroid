@@ -33,8 +33,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private  Context context;
-    private List<AttendanceStudent.DataBean> students;
+    private Context context;
+    private List<AttendanceStudent> students;
 
     @Inject
     public AttendanceAdapter(@ActivityContext Context context) {
@@ -42,7 +42,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.context = context;
     }
 
-    public void setStudents(List<AttendanceStudent.DataBean> students) {
+    public void setStudents(List<AttendanceStudent> students) {
         this.students = students;
         notifyDataSetChanged();
     }
@@ -60,7 +60,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             for (int i = 0; i < students.size(); i++) {
                 JSONObject jsonObjAnswer = new JSONObject();
                 jsonObjAnswer.put("studentId", students.get(i).getStudentId());
-                jsonObjAnswer.put("attendanceContent", students.get(i).getAttendance());
+                jsonObjAnswer.put("attendanceType", students.get(i).getAttendanceType());
                 jsonarray.put(jsonObjAnswer);
             }
             jsonResult = jsonarray.toString();
@@ -75,10 +75,10 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
      *
      * @param code 状态
      */
-    public void setStudentAttendance(@AttendanceActivity.AttendanceStatus String code) {
+    public void setStudentAttendance(@AttendanceActivity.AttendanceStatus int code) {
         for (int i = 0; i < students.size(); i++) {
             if (students.get(i).isSelect()) {
-                students.get(i).setAttendance(code);
+                students.get(i).setAttendanceType(code);
                 students.get(i).setSelect(false);
                 notifyItemChanged(i);
             }
@@ -101,9 +101,9 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (holder instanceof ItemViewHolder) {
 
             ((ItemViewHolder) holder).tvStudentName.setText(students.get(position).getStudentName());
-            ((ItemViewHolder) holder).tvStudentId.setText(students.get(position).getStudentId());
+            ((ItemViewHolder) holder).tvStudentId.setText(students.get(position).getStudentNumber());
             Glide.with(context)
-                    .load(students.get(position).getStudentHeadPortrait())
+                    .load(students.get(position).getStudentIconUrl())
                     .placeholder(R.drawable.ic_student)
                     .centerCrop()
                     .into(((ItemViewHolder) holder).civStudentPortrait);
@@ -114,27 +114,27 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             }
 
-            if (students.get(position).getAttendance().equals("0")) {
+            if (students.get(position).getAttendanceType() == AttendanceActivity.AttendanceStatus.NORMAL) {
                 ((ItemViewHolder) holder).tvAbsenteeism.setVisibility(View.GONE);
                 ((ItemViewHolder) holder).tvLeave.setVisibility(View.GONE);
                 ((ItemViewHolder) holder).tvLate.setVisibility(View.GONE);
                 ((ItemViewHolder) holder).tvLeaveEarly.setVisibility(View.GONE);
-            } else if (students.get(position).getAttendance().equals("1")) {
+            } else if (students.get(position).getAttendanceType() == AttendanceActivity.AttendanceStatus.LATE) {
                 ((ItemViewHolder) holder).tvAbsenteeism.setVisibility(View.GONE);
                 ((ItemViewHolder) holder).tvLeave.setVisibility(View.GONE);
                 ((ItemViewHolder) holder).tvLate.setVisibility(View.VISIBLE);
                 ((ItemViewHolder) holder).tvLeaveEarly.setVisibility(View.GONE);
-            } else if (students.get(position).getAttendance().equals("2")) {
+            } else if (students.get(position).getAttendanceType() == AttendanceActivity.AttendanceStatus.LEAVE_EARLY) {
                 ((ItemViewHolder) holder).tvAbsenteeism.setVisibility(View.GONE);
                 ((ItemViewHolder) holder).tvLeave.setVisibility(View.GONE);
                 ((ItemViewHolder) holder).tvLate.setVisibility(View.GONE);
                 ((ItemViewHolder) holder).tvLeaveEarly.setVisibility(View.VISIBLE);
-            } else if (students.get(position).getAttendance().equals("3")) {
+            } else if (students.get(position).getAttendanceType() == AttendanceActivity.AttendanceStatus.ABSENTEEISM) {
                 ((ItemViewHolder) holder).tvAbsenteeism.setVisibility(View.VISIBLE);
                 ((ItemViewHolder) holder).tvLeave.setVisibility(View.GONE);
                 ((ItemViewHolder) holder).tvLate.setVisibility(View.GONE);
                 ((ItemViewHolder) holder).tvLeaveEarly.setVisibility(View.GONE);
-            } else if (students.get(position).getAttendance().equals("4")) {
+            } else if (students.get(position).getAttendanceType() == AttendanceActivity.AttendanceStatus.LEAVE) {
                 ((ItemViewHolder) holder).tvAbsenteeism.setVisibility(View.GONE);
                 ((ItemViewHolder) holder).tvLeave.setVisibility(View.VISIBLE);
                 ((ItemViewHolder) holder).tvLate.setVisibility(View.GONE);
@@ -158,28 +158,28 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             ((ItemViewHolder) holder).tvAbsenteeism.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    students.get(position).setAttendance("0");
+                    students.get(position).setAttendanceType(0);
                     notifyItemChanged(position);
                 }
             });
             ((ItemViewHolder) holder).tvLeaveEarly.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    students.get(position).setAttendance("0");
+                    students.get(position).setAttendanceType(0);
                     notifyItemChanged(position);
                 }
             });
             ((ItemViewHolder) holder).tvLate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    students.get(position).setAttendance("0");
+                    students.get(position).setAttendanceType(0);
                     notifyItemChanged(position);
                 }
             });
             ((ItemViewHolder) holder).tvLeave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    students.get(position).setAttendance("0");
+                    students.get(position).setAttendanceType(0);
                     notifyItemChanged(position);
                 }
             });

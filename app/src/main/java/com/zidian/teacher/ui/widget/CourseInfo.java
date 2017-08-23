@@ -22,7 +22,7 @@ public class CourseInfo implements Serializable{
     private String classRoom;
     private String beginEndWeek;
     private int courseId;
-    private String courseWeeklyId;
+    private int coursePlanId;
 
     public void setPoint(int fromX, int fromY, int toX, int toY) {
         this.fromX = fromX;
@@ -31,12 +31,12 @@ public class CourseInfo implements Serializable{
         this.toY = toY;
     }
 
-    public String getCourseWeeklyId() {
-        return courseWeeklyId;
+    public int getCoursePlanId() {
+        return coursePlanId;
     }
 
-    public void setCourseWeeklyId(String courseWeeklyId) {
-        this.courseWeeklyId = courseWeeklyId;
+    public void setCoursePlanId(int coursePlanId) {
+        this.coursePlanId = coursePlanId;
     }
 
     public int getCourseId() {

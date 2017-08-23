@@ -79,27 +79,31 @@ public final class DataManager {
         return service.getCourseTime(teacherId, week);
     }
 
-    public Observable<HttpResult<List<StudentClass>>> getClasses(
-            int courseId) {
-        return service.getClasses(courseId);
+    public Observable<HttpResult<List<StudentClass>>> getClasses(int teacherId, int courseId) {
+        return service.getClasses(teacherId,courseId);
     }
 
-    public Observable<AttendanceStudent> getAttendanceStudent(
-            String courseWeeklyId, int courseId, String className, String teacherId,
-            String token, int schoolId) {
-        return service.getAttendanceStudents(courseWeeklyId, courseId, className, teacherId,
-                token, schoolId);
+    /**
+     * 本节考勤
+     */
+    public Observable<HttpResult<List<AttendanceStudent>>> getAttendanceStudent(
+            int teacherId, int courseId, int coursePlanId, String className) {
+        return service.getAttendanceStudents(teacherId, courseId, coursePlanId, className);
     }
-
+    /**
+     * 设置考勤信息
+     */
     public Observable<NoDataResult> setAttendance(
-            String student, int courseId, String courseWeeklyId, String teacherId,
-            String token, int schoolId) {
-        return service.setAttendance(student, courseId, courseWeeklyId, teacherId, token, schoolId);
+            String student, int courseId, int coursePlanId, int teacherId) {
+        return service.setAttendance(student, courseId, coursePlanId, teacherId);
     }
 
+    /**
+     * 查看考勤统计
+     */
     public Observable<HttpResult<List<AttendanceStatistics>>> getAttendanceStatistics(
-            int courseId, String className, String teacherId, String token, int schoolId) {
-        return service.getAttendanceStatistics(courseId, className, teacherId, token, schoolId);
+            int courseId, String className, int teacherId) {
+        return service.getAttendanceStatistics(courseId, className, teacherId);
     }
 
     public Observable<NoDataResult> feedback(String feedbackId, String feedbackInformation,

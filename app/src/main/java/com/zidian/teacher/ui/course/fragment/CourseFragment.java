@@ -145,6 +145,7 @@ public class CourseFragment extends BaseFragment implements ScheduleContract.Vie
             courseInfo.setWeekday(courses.get(i).getWeekDay());
             courseInfo.setBeginEndWeek(String.valueOf(currentWeek));
             courseInfo.setCourseId(courses.get(i).getCourseId());
+            courseInfo.setCoursePlanId(courses.get(i).getCoursePlanId());
             courseInfoList.add(courseInfo);
         }
         scheduleView.setData(courseInfoList, dateList);

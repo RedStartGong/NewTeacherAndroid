@@ -21,7 +21,7 @@ public interface AttendanceContract {
 
         void showLoadStudentsError(Throwable throwable);
 
-        void showStudents(List<AttendanceStudent.DataBean> students);
+        void showStudents(List<AttendanceStudent> students);
 
         void showLoading();
 
@@ -31,8 +31,8 @@ public interface AttendanceContract {
     interface Presenter extends BasePresenter<AttendanceContract.View> {
         void getClasses(@NonNull int courseId);
 
-        void getAttendanceStudents(@NonNull String courseWeeklyId, @NonNull int courseId, @NonNull String className);
+        void getAttendanceStudents(@NonNull int courseId, @NonNull int coursePlanId, @NonNull String className);
 
-        void setAttendance(@NonNull String student, @NonNull int courseId, @NonNull String courseWeeklyId);
+        void setAttendance(@NonNull String student, @NonNull int courseId, @NonNull int coursePlanId);
     }
 }

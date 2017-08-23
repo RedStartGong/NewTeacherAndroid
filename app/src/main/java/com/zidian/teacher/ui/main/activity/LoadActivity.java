@@ -30,7 +30,6 @@ public class LoadActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         handler.sendEmptyMessageDelayed(1 , 2000);
     }
 
