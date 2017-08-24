@@ -8,83 +8,120 @@ import java.util.List;
 
 public class StudentEva {
 
+
     /**
-     * collegeScore : 3.59
-     * teacherAvg : 3.64
-     * teacherRanking : 2
-     * label : [{"indexName":"（学科）专业建设与课程设置","twoIndexName":["课程设置"]},{"indexName":"师德评价","twoIndexName":["师生互动","教学态度/能力（师生和谐）"]},{"indexName":"教学过程评价","twoIndexName":["教学方法","教学管理","教学内容","课堂教学"]},{"indexName":"教学效果评价","twoIndexName":["教学目标达成度","综合能力提升度"]}]
-     * schoolScore : 3.81
+     * teacherRank : 2
+     * collegeScore : 3.4
+     * myAvg : 4.4
+     * schoolScore : 3.4
+     * indexOneMapList : [{"indexTwoList":[{"indexTwoName":"课程设置","indexTwoId":1}],"indexOneId":1,"indexOneName":"（学科）专业建设与课程设置"},{"indexTwoList":[{"indexTwoName":"师生互动","indexTwoId":2},{"indexTwoName":"教学态度/能力（师生和谐）","indexTwoId":3}],"indexOneId":2,"indexOneName":"师德评价"},{"indexTwoList":[{"indexTwoName":"教学方法","indexTwoId":4},{"indexTwoName":"教学管理","indexTwoId":5},{"indexTwoName":"教学内容","indexTwoId":6},{"indexTwoName":"课堂教学","indexTwoId":7}],"indexOneId":3,"indexOneName":"教学过程评价"},{"indexTwoList":[{"indexTwoName":"教学目标达成度","indexTwoId":8},{"indexTwoName":"综合能力提升度","indexTwoId":9}],"indexOneId":4,"indexOneName":"教学效果评价"},{"indexTwoList":[{"indexTwoName":"学校教学质量总体满意度评价","indexTwoId":10}],"indexOneId":5,"indexOneName":"学校教学质量总体满意度"}]
      */
 
-    private float collegeScore;
-    private float teacherAvg;
-    private int teacherRanking;
-    private float schoolScore;
-    private List<LabelBean> label;
+    private int teacherRank;
+    private double collegeScore;
+    private double myAvg;
+    private double schoolScore;
+    private List<IndexOneMapListBean> indexOneMapList;
 
-    public float getCollegeScore() {
+    public int getTeacherRank() {
+        return teacherRank;
+    }
+
+    public void setTeacherRank(int teacherRank) {
+        this.teacherRank = teacherRank;
+    }
+
+    public double getCollegeScore() {
         return collegeScore;
     }
 
-    public void setCollegeScore(float collegeScore) {
+    public void setCollegeScore(double collegeScore) {
         this.collegeScore = collegeScore;
     }
 
-    public float getTeacherAvg() {
-        return teacherAvg;
+    public double getMyAvg() {
+        return myAvg;
     }
 
-    public void setTeacherAvg(float teacherAvg) {
-        this.teacherAvg = teacherAvg;
+    public void setMyAvg(double myAvg) {
+        this.myAvg = myAvg;
     }
 
-    public int getTeacherRanking() {
-        return teacherRanking;
-    }
-
-    public void setTeacherRanking(int teacherRanking) {
-        this.teacherRanking = teacherRanking;
-    }
-
-    public float getSchoolScore() {
+    public double getSchoolScore() {
         return schoolScore;
     }
 
-    public void setSchoolScore(float schoolScore) {
+    public void setSchoolScore(double schoolScore) {
         this.schoolScore = schoolScore;
     }
 
-    public List<LabelBean> getLabel() {
-        return label;
+    public List<IndexOneMapListBean> getIndexOneMapList() {
+        return indexOneMapList;
     }
 
-    public void setLabel(List<LabelBean> label) {
-        this.label = label;
+    public void setIndexOneMapList(List<IndexOneMapListBean> indexOneMapList) {
+        this.indexOneMapList = indexOneMapList;
     }
 
-    public static class LabelBean {
+    public static class IndexOneMapListBean {
         /**
-         * indexName : （学科）专业建设与课程设置
-         * twoIndexName : ["课程设置"]
+         * indexTwoList : [{"indexTwoName":"课程设置","indexTwoId":1}]
+         * indexOneId : 1
+         * indexOneName : （学科）专业建设与课程设置
          */
 
-        private String indexName;
-        private List<String> twoIndexName;
+        private int indexOneId;
+        private String indexOneName;
+        private List<IndexTwoListBean> indexTwoList;
 
-        public String getIndexName() {
-            return indexName;
+        public int getIndexOneId() {
+            return indexOneId;
         }
 
-        public void setIndexName(String indexName) {
-            this.indexName = indexName;
+        public void setIndexOneId(int indexOneId) {
+            this.indexOneId = indexOneId;
         }
 
-        public List<String> getTwoIndexName() {
-            return twoIndexName;
+        public String getIndexOneName() {
+            return indexOneName;
         }
 
-        public void setTwoIndexName(List<String> twoIndexName) {
-            this.twoIndexName = twoIndexName;
+        public void setIndexOneName(String indexOneName) {
+            this.indexOneName = indexOneName;
+        }
+
+        public List<IndexTwoListBean> getIndexTwoList() {
+            return indexTwoList;
+        }
+
+        public void setIndexTwoList(List<IndexTwoListBean> indexTwoList) {
+            this.indexTwoList = indexTwoList;
+        }
+
+        public static class IndexTwoListBean {
+            /**
+             * indexTwoName : 课程设置
+             * indexTwoId : 1
+             */
+
+            private String indexTwoName;
+            private int indexTwoId;
+
+            public String getIndexTwoName() {
+                return indexTwoName;
+            }
+
+            public void setIndexTwoName(String indexTwoName) {
+                this.indexTwoName = indexTwoName;
+            }
+
+            public int getIndexTwoId() {
+                return indexTwoId;
+            }
+
+            public void setIndexTwoId(int indexTwoId) {
+                this.indexTwoId = indexTwoId;
+            }
         }
     }
 }

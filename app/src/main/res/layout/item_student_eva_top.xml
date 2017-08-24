@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:padding="20dp"
         android:orientation="horizontal">
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -19,10 +18,37 @@
             android:gravity="center_horizontal">
 
             <TextView
-                android:id="@+id/school_avg_score"
+                android:id="@+id/tv_my_avg_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="40sp"
+                android:textSize="35sp"
+                android:textColor="@color/colorPrimary"
+                android:text="3.4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的平均分" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/divider_color" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/tv_school_avg_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="35sp"
                 android:textColor="@color/colorPrimary"
                 android:text="3.4" />
 
@@ -47,10 +73,10 @@
             android:gravity="center_horizontal">
 
             <TextView
-                android:id="@+id/major_avg_score"
+                android:id="@+id/tv_major_avg_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="40sp"
+                android:textSize="35sp"
                 android:textColor="@color/colorPrimary"
                 android:text="3.4" />
 
@@ -75,10 +101,10 @@
             android:gravity="center_horizontal">
 
             <TextView
-                android:id="@+id/rank"
+                android:id="@+id/tv_rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="40sp"
+                android:textSize="35sp"
                 android:textColor="@color/colorPrimary"
                 android:text="3" />
 

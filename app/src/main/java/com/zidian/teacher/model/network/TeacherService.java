@@ -208,7 +208,24 @@ public interface TeacherService {
             @Field("requestEvalMessageId") int requestEvalMessageId, @Field("requestState") int requestState,
             @Field("teacherId") int teacherId);
 
-    /********************************************/
+
+
+    /**
+     * 查看学生评价统计
+     */
+    @FormUrlEncoded
+    @POST("EvaluateTeacherPort/selectTeacherStuEvalScore")
+    Observable<HttpResult<StudentEva>> studentEva(
+            @Field("teacherId") int teacherId);
+
+    /**
+     * 查看学生评价二级指标
+     */
+    @FormUrlEncoded
+    @POST("EvaluateTeacherPort/selectTeacherStuEvalScoreTwo")
+    Observable<HttpResult<List<EvaTwoIndex>>> studentEvaTwoIndex(
+            @Field("indexOneId") int indexOneId, @Field("teacherId") int teacherId);
+    /**********************未完成**********************/
     /**
      * 同行评价，查看标签
      */
@@ -259,23 +276,7 @@ public interface TeacherService {
             @Field("teacherId") String teacherId, @Field("token") String token,
             @Field("schoolId") int schoolId);
 
-    /**
-     * 查看学生评价统计
-     */
-    @FormUrlEncoded
-    @POST("EvaluateByStudent/studentEvaluation")
-    Observable<HttpResult<StudentEva>> studentEva(
-            @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") int schoolId);
 
-    /**
-     * 查看学生评价二级指标
-     */
-    @FormUrlEncoded
-    @POST("EvaluateByStudent/studentEvaluationTwoIndex")
-    Observable<HttpResult<List<EvaTwoIndex>>> studentEvaTwoIndex(
-            @Field("indexName") String indexName, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") int schoolId);
 
     /**
      * 查看督导/同行评价

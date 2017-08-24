@@ -7,12 +7,22 @@ package com.zidian.teacher.model.entity.remote;
 public class EvaTwoIndex {
 
     /**
+     * twoIndexId : 1
      * twoIndexScore : 0
-     * twoIndexName : 教学方法
+     * twoIndexName : 课程设置
      */
 
+    private int twoIndexId;
     private float twoIndexScore;
     private String twoIndexName;
+
+    public int getTwoIndexId() {
+        return twoIndexId;
+    }
+
+    public void setTwoIndexId(int twoIndexId) {
+        this.twoIndexId = twoIndexId;
+    }
 
     public float getTwoIndexScore() {
         return twoIndexScore;

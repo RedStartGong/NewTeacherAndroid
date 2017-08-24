@@ -133,8 +133,8 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
             @Override
             public void evaluate(int position) {
 //                Intent intent = new Intent(activity, EvaluateActivity.class);
-//                intent.putExtra("teacherType", myTasks.get(position).getEvaluationType());
-//                intent.putExtra("toTeacherId", myTasks.get(position).getToTeacherId());
+//                intent.putExtra("teacherType", myTasks.get(position).getEvaluateType());
+//                intent.putExtra("toTeacherId", myTasks.get(position).getTe());
 //                intent.putExtra("recordId", myTasks.get(position).getRecordId());
 //                intent.putExtra("evaluateType", myTasks.get(position).getEvaluationType());
 //                intent.putExtra("position", position);

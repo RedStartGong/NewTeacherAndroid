@@ -29,8 +29,7 @@ public class StudentEvaPresenter extends RxPresenter<StudentEvaContract.View>
 
     @Override
     public void getStudentEva() {
-        Subscription subscription = dataManager.studentEva(SharedPreferencesUtils.getUserName(),
-                SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
+        Subscription subscription = dataManager.studentEva(SharedPreferencesUtils.getTeacherId())
                 .compose(RxUtils.<HttpResult<StudentEva>>rxSchedulerIo())
                 .compose(RxUtils.<StudentEva>handleHttpResult())
                 .subscribe(new Subscriber<StudentEva>() {

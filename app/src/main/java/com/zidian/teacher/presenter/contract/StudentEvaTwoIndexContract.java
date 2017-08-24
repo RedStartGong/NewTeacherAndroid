@@ -16,6 +16,6 @@ public interface StudentEvaTwoIndexContract {
     }
 
     interface Presenter extends BasePresenter<StudentEvaTwoIndexContract.View> {
-        void getStudentEvaTwoIndex(String indexName);
+        void getStudentEvaTwoIndex(int indexOneId);
     }
 }

@@ -65,7 +65,8 @@ public class StudentEvaTwoIndexActivity extends BaseActivity implements StudentE
 
     @Override
     protected void initViewAndData() {
-        String indexName = getIntent().getStringExtra("indexName");
+        String indexName = getIntent().getStringExtra("oneIndexName");
+        int oneIndexId = getIntent().getIntExtra("oneIndexId",0);
         toolbar.setTitle(indexName);
         setToolbarBack(toolbar);
         errorView.setVisibility(View.GONE);
@@ -74,7 +75,7 @@ public class StudentEvaTwoIndexActivity extends BaseActivity implements StudentE
         barChartHelper.initBarChart(barChartTwoIndex);
         checkNotNull(presenter);
         presenter.attachView(this);
-        presenter.getStudentEvaTwoIndex(indexName);
+        presenter.getStudentEvaTwoIndex(oneIndexId);
     }
 
     /**

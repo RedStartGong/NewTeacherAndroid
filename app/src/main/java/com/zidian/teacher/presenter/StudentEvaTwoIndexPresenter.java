@@ -30,10 +30,9 @@ public class StudentEvaTwoIndexPresenter extends RxPresenter<StudentEvaTwoIndexC
     }
 
     @Override
-    public void getStudentEvaTwoIndex(String indexName) {
-        Subscription subscription = dataManager.studentEvaTwoIndex(indexName,
-                SharedPreferencesUtils.getUserName(), SharedPreferencesUtils.getToken(),
-                SharedPreferencesUtils.getSchoolId())
+    public void getStudentEvaTwoIndex(int indexOneId) {
+        Subscription subscription = dataManager.studentEvaTwoIndex(indexOneId,
+                SharedPreferencesUtils.getTeacherId())
                 .compose(RxUtils.<HttpResult<List<EvaTwoIndex>>>rxSchedulerIo())
                 .compose(RxUtils.<List<EvaTwoIndex>>handleHttpResult())
                 .subscribe(new Action1<List<EvaTwoIndex>>() {

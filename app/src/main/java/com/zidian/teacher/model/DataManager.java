@@ -233,13 +233,13 @@ public final class DataManager {
         return service.supervisorFeedback(contentFeedback, recordId, teacherId, token, schoolId);
     }
 
-    public Observable<HttpResult<StudentEva>> studentEva(String teacherId, String token, int schoolId) {
-        return service.studentEva(teacherId, token, schoolId);
+    public Observable<HttpResult<StudentEva>> studentEva(int teacherId) {
+        return service.studentEva(teacherId);
     }
 
     public Observable<HttpResult<List<EvaTwoIndex>>> studentEvaTwoIndex(
-            String indexName, String teacherId, String token, int schoolId) {
-        return service.studentEvaTwoIndex(indexName, teacherId, token, schoolId);
+            int indexOneId, int teacherId) {
+        return service.studentEvaTwoIndex(indexOneId, teacherId);
     }
 
     public Observable<HttpResult<List<ColleagueEva>>> colleagueEva(
