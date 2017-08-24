@@ -69,7 +69,7 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         // [0,1]表示‘我请求别人评价我’
         // [1,0]表示‘别人请求评价我’
         // [1,1]表示‘别人请求我评价他
-        //requestState:请求所处状态：0为请求发出，待确认；1为同意，待评价；2为已拒绝；3为已完成
+        //requestState:请求所处状态：0为请求发出，待确认；1为同意，待评价；2为已完成；3为已拒绝
         int requestState = tasks.get(position).getRequestState();
         int myRole = tasks.get(position).getMyRole();
         int requestType = tasks.get(position).getRequestType();
@@ -102,14 +102,8 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         ((ColleagueHolder) holder).viewEvaluate.setVisibility(View.VISIBLE);
                     }
                     break;
-                //已拒绝
-                case 2:
-                    ((ColleagueHolder) holder).viewRejected.setVisibility(View.VISIBLE);
-                    ((ColleagueHolder) holder).viewCheck.setVisibility(View.GONE);
-                    ((ColleagueHolder) holder).viewFinished.setVisibility(View.GONE);
-                    break;
                 //已完成
-                case 3:
+                case 2:
                     //我申请评价别人—已完成 -- 可查看
                     if (myRole == 0 && requestType == 0) {
                         ((ColleagueHolder) holder).viewRejected.setVisibility(View.GONE);
@@ -126,8 +120,13 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         ((ColleagueHolder) holder).viewFinished.setVisibility(View.VISIBLE);
                     }
                     break;
+                //已拒绝
+                case 3:
+                    ((ColleagueHolder) holder).viewRejected.setVisibility(View.VISIBLE);
+                    ((ColleagueHolder) holder).viewCheck.setVisibility(View.GONE);
+                    ((ColleagueHolder) holder).viewFinished.setVisibility(View.GONE);
+                    break;
             }
-
             if (myRole == 0 && requestType == 0) {
                 //我申请评价别人
                 ((ColleagueHolder) holder).tvEvaluateName.setText("我");
@@ -160,27 +159,32 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         } else if (holder instanceof SupervisorHolder) {//督导评价
             //myRole = 0 我是发起请求的人 myRole = 1 我是被请求的人
             //requestType :请求类型：0为请求评价别人，1为请求别人评价‘我’
-            //requestState:请求所处状态：0为请求发出，待确认；1为同意，待评价；2为已拒绝；3为已完成
+            //myRole 跟 requestType
+            // [0,0]表示‘我发起请求评价别人’
+            // [0,1]表示‘我请求别人评价我’
+            // [1,0]表示‘别人请求评价我’
+            // [1,1]表示‘别人请求我评价他
+            //requestState:请求所处状态：1为待评价；2为已完成
             switch (requestState) {
-                case 0:
-                    if (myRole == 0) {
+                case 0://未确认
+                    if (myRole == 0) { //我评价别人，别人未确认评价结果
                         ((SupervisorHolder) holder).viewUntreated.setVisibility(View.VISIBLE);
                         ((SupervisorHolder) holder).viewConfirm.setVisibility(View.GONE);
-                    } else {
+                    } else {//别人评价我，我未确认评价结果
                         ((SupervisorHolder) holder).viewUntreated.setVisibility(View.GONE);
                         ((SupervisorHolder) holder).viewConfirm.setVisibility(View.VISIBLE);
                     }
                     break;
-                case 1:
-                    if (myRole == 0) {
+                case 1://待评价
+                    if (myRole == 0) { //我评价别人，待评价
                         ((SupervisorHolder) holder).viewEvaluate.setVisibility(View.VISIBLE);
                         ((SupervisorHolder) holder).viewUntreated.setVisibility(View.GONE);
-                    } else {
+                    } else {//别人评价我，待评价
                         ((SupervisorHolder) holder).viewEvaluate.setVisibility(View.GONE);
                         ((SupervisorHolder) holder).viewUntreated.setVisibility(View.VISIBLE);
                     }
                     break;
-                case 3:
+                case 2://已完成
                     ((SupervisorHolder) holder).viewCheck.setVisibility(View.VISIBLE);
                     break;
             }
