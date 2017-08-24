@@ -8,31 +8,32 @@ import com.zidian.teacher.util.TimeUtils;
 
 public class MyTask {
 
+
     /**
-     * evaluateType : 3
-     * recordId : 14
-     * requestMessage : requestMessage: I want to sup evaluate you!!
-     * weekDay : 1
+     * evaluateType : 0
+     * requestMessage : 来评价一波
+     * weekDay : 7
      * myRole : 0
+     * requestEvalMessageId : 36
      * courseClassRoom : D3-3阶
-     * requestType : 0
-     * teacherName : 邓燕
-     * courseEndTime : 1503286200000
-     * courseStartTime : 1503282000000
+     * requestType : 1
+     * teacherName : 凌仔芥
+     * courseEndTime : 1496565000000
+     * courseStartTime : 1496560800000
      * requestState : 0
-     * whatWeek : 13
-     * weekPartBegin : 3
-     * anotherTeacher : 18
-     * coursePlanId : 3089
-     * weekPartEnd : 4
-     * courseName : 商务导论
+     * whatWeek : 1
+     * weekPartBegin : 7
+     * anotherTeacher : 9
+     * coursePlanId : 5759
+     * weekPartEnd : 8
+     * courseName : 商务谈判
      */
 
     private int evaluateType;
-    private int recordId;
     private String requestMessage;
     private int weekDay;
     private int myRole;
+    private int requestEvalMessageId;
     private String courseClassRoom;
     private int requestType;
     private String teacherName;
@@ -46,20 +47,21 @@ public class MyTask {
     private int weekPartEnd;
     private String courseName;
 
+    /**
+     * 获取课程上课时间
+     *
+     * @return String
+     */
+    public String getTeachingCalendar() {
+        return TimeUtils.millis2String(courseStartTime, "yyyy/MM/dd HH:mm") + "-" + TimeUtils.millis2String(courseEndTime, "HH:mm");
+    }
+
     public int getEvaluateType() {
         return evaluateType;
     }
 
     public void setEvaluateType(int evaluateType) {
         this.evaluateType = evaluateType;
-    }
-
-    public int getRecordId() {
-        return recordId;
-    }
-
-    public void setRecordId(int recordId) {
-        this.recordId = recordId;
     }
 
     public String getRequestMessage() {
@@ -84,6 +86,14 @@ public class MyTask {
 
     public void setMyRole(int myRole) {
         this.myRole = myRole;
+    }
+
+    public int getRequestEvalMessageId() {
+        return requestEvalMessageId;
+    }
+
+    public void setRequestEvalMessageId(int requestEvalMessageId) {
+        this.requestEvalMessageId = requestEvalMessageId;
     }
 
     public String getCourseClassRoom() {
@@ -180,9 +190,5 @@ public class MyTask {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
-    }
-
-    public String getTeachingCalendar() {
-        return TimeUtils.millis2String(courseStartTime, "yyyy/MM/dd HH:mm") + "-" + TimeUtils.millis2String(courseEndTime, "HH:mm");
     }
 }

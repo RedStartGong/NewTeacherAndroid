@@ -143,34 +143,34 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
 
             @Override
             public void reject(int position) {
-                presenter.changeEvaState(String.valueOf(myTasks.get(position).getRecordId()),"2");
+                presenter.changeEvaState(myTasks.get(position).getRequestEvalMessageId(),3);
                 adapter.removeTask(position);
             }
 
             @Override
             public void agree(int position) {
-                presenter.changeEvaState(String.valueOf(myTasks.get(position).getRecordId()),"1");
+                presenter.changeEvaState(myTasks.get(position).getRequestEvalMessageId(),1);
                 adapter.removeTask(position);
             }
 
             @Override
             public void colleagueCheck(int position) {
                 Intent intent = new Intent(activity, CheckColleagueEvaActivity.class);
-                intent.putExtra("recordId", myTasks.get(position).getRecordId());
+                intent.putExtra("recordId", myTasks.get(position).getRequestEvalMessageId());
                 startActivity(intent);
             }
 
             @Override
             public void supervisorCheck(int position) {
                 Intent intent = new Intent(activity, CheckSupervisorEvaActivity.class);
-                intent.putExtra("recordId", myTasks.get(position).getRecordId());
+                intent.putExtra("recordId", myTasks.get(position).getRequestEvalMessageId());
                 startActivity(intent);
             }
 
             @Override
             public void supervisorConfirm(int position) {
                 Intent intent = new Intent(activity, CheckSupervisorEvaActivity.class);
-                intent.putExtra("recordId", myTasks.get(position).getRecordId());
+                intent.putExtra("recordId", myTasks.get(position).getRequestEvalMessageId());
                 intent.putExtra("needConfirm",true);
                 intent.putExtra("position", position);
                 startActivityForResult(intent, REQUEST_EVALUATE);

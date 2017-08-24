@@ -24,6 +24,6 @@ public interface MyTaskContract {
     interface Presenter extends BasePresenter<MyTaskContract.View> {
         void getTasks(int requestState);
 
-        void changeEvaState(String recordId, String requestState);
+        void changeEvaState(int requestEvalMessageId, int requestState);
     }
 }

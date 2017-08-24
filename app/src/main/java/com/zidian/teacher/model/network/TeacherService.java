@@ -199,6 +199,14 @@ public interface TeacherService {
     Observable<HttpResult<List<MyTask>>> getMyTasks(
             @Field("requestState") int requestState, @Field("myId") int teacherId);
 
+    /**
+     * 修改评价状态
+     */
+    @FormUrlEncoded
+    @POST("EvaluateByTeacher/updateRequestState")
+    Observable<NoDataResult> changeEvaState(
+            @Field("requestEvalMessageId") int requestEvalMessageId, @Field("requestState") int requestState,
+            @Field("teacherId") int teacherId);
 
     /********************************************/
     /**
@@ -223,15 +231,7 @@ public interface TeacherService {
             @Field("colleagueId") String colleagueId, @Field("token") String token,
             @Field("schoolId") int schoolId);
 
-    /**
-     * 修改评价状态
-     */
-    @FormUrlEncoded
-    @POST("ToEvaluateOthers/updateRequestState")
-    Observable<NoDataResult> changeEvaState(
-            @Field("recordId") String recordId, @Field("requestState") String requestState,
-            @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") int schoolId);
+
 
     /**
      * 查看评价详情

@@ -214,8 +214,8 @@ public final class DataManager {
     }
 
     public Observable<NoDataResult> changeEvaState(
-            String recordId, String requestState, String teacherId, String token, int schoolId) {
-        return service.changeEvaState(recordId, requestState, teacherId, token, schoolId);
+            int requestEvalMessageId, int requestState, int teacherId) {
+        return service.changeEvaState(requestEvalMessageId, requestState, teacherId);
     }
 
     public Observable<HttpResult<CheckColleagueEva>> checkColleagueEva(

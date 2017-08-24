@@ -55,10 +55,9 @@ public class MyTaskPresenter extends RxPresenter<MyTaskContract.View> implements
     }
 
     @Override
-    public void changeEvaState(String recordId, String requestState) {
-        Subscription subscription = dataManager.changeEvaState(recordId, requestState,
-                SharedPreferencesUtils.getUserName(), SharedPreferencesUtils.getToken(),
-                SharedPreferencesUtils.getSchoolId())
+    public void changeEvaState(int requestEvalMessageId, int requestState) {
+        Subscription subscription = dataManager.changeEvaState(requestEvalMessageId, requestState,
+                SharedPreferencesUtils.getTeacherId())
                 .compose(RxUtils.<NoDataResult>rxSchedulerIo())
                 .map(new Func1<NoDataResult, NoDataResult>() {
 
