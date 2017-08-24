@@ -102,33 +102,10 @@
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/ic_chevron_right_24dp"
                 android:gravity="center_vertical|right"
-                android:hint="例:第三周--周四--第七八节课" />
+                android:hint="例:第三周 周四 14:20 - 15:00" />
         </LinearLayout>
 
         <include layout="@layout/view_divider" />
-
-
-        <LinearLayout
-            android:id="@+id/ll_input_classroom"
-            style="@style/EvaluateItemChooseLinearLayoutStyle">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="教室"
-                android:textColor="@color/black_text_color"
-                android:textSize="@dimen/text_size_h3" />
-
-            <TextView
-                android:id="@+id/tv_classroom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableRight="@drawable/ic_chevron_right_24dp"
-                android:gravity="center_vertical"
-                android:hint="例:第一教学楼101室" />
-        </LinearLayout>
 
         <Button
             android:id="@+id/btn_confirm"

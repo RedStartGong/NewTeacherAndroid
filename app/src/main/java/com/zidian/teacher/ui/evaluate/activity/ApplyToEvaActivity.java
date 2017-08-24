@@ -13,6 +13,10 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
+import com.zidian.teacher.model.entity.remote.College;
+import com.zidian.teacher.model.entity.remote.CoursePlan;
+import com.zidian.teacher.model.entity.remote.EvaCourse;
+import com.zidian.teacher.model.entity.remote.EvaTeacher;
 import com.zidian.teacher.model.entity.remote.EvaluateCourse;
 import com.zidian.teacher.presenter.ApplyToEvaPresenter;
 import com.zidian.teacher.presenter.contract.ApplyToEvaContract;
@@ -32,6 +36,7 @@ import butterknife.OnClick;
 import static com.zidian.teacher.util.Preconditions.checkNotNull;
 
 /**
+ * 申请评价别人
  * Created by GongCheng on 2017/4/13.
  */
 
@@ -46,8 +51,6 @@ public class ApplyToEvaActivity extends BaseActivity implements ApplyToEvaContra
     TextView tvCourse;
     @BindView(R.id.tv_teaching_date)
     TextView tvTeachingDate;
-    @BindView(R.id.tv_classroom)
-    TextView tvClassroom;
     @BindView(R.id.til_apply_language)
     TextInputLayout tilApplyLanguage;
     @BindView(R.id.et_apply_language)
@@ -57,7 +60,10 @@ public class ApplyToEvaActivity extends BaseActivity implements ApplyToEvaContra
     ApplyToEvaPresenter presenter;
 
     private ProgressDialog progressDialog;
-    private List<EvaluateCourse> courses;
+    private List<College> colleges;
+    private List<EvaTeacher> evaTeachers;
+    private List<EvaCourse> evaCourses;
+    private List<CoursePlan> coursePlans;
 
     @Override
     protected int getLayout() {
@@ -71,7 +77,11 @@ public class ApplyToEvaActivity extends BaseActivity implements ApplyToEvaContra
 
     @Override
     protected void initViewAndData() {
-        courses = new ArrayList<>();
+        colleges = new ArrayList<>();
+        evaTeachers = new ArrayList<>();
+        evaCourses = new ArrayList<>();
+        coursePlans = new ArrayList<>();
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("加载中...");
         toolbar.setTitle("同行评价-评价他人");
@@ -80,7 +90,7 @@ public class ApplyToEvaActivity extends BaseActivity implements ApplyToEvaContra
         setToolbarBack(toolbar);
         checkNotNull(presenter);
         presenter.attachView(this);
-        presenter.getEvaluateCourses();
+        presenter.getColleges();
     }
 
     @Override
@@ -90,7 +100,7 @@ public class ApplyToEvaActivity extends BaseActivity implements ApplyToEvaContra
     }
 
     @OnClick({R.id.ll_choose_college, R.id.ll_choose_teacher, R.id.ll_choose_course,
-            R.id.ll_choose_teaching_date, R.id.ll_input_classroom, R.id.btn_confirm})
+            R.id.ll_choose_teaching_date, R.id.btn_confirm})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_choose_college:
@@ -105,36 +115,23 @@ public class ApplyToEvaActivity extends BaseActivity implements ApplyToEvaContra
             case R.id.ll_choose_teaching_date:
                 chooseTeachingDate();
                 break;
-            case R.id.ll_input_classroom:
-                inputClassroom();
-                break;
             case R.id.btn_confirm:
                 confirm();
                 break;
         }
     }
 
-    private List<String> colleges;
-    private List<String> teachers;
-    private List<String> stringCourses;
-    private List<String> stringCalendars;
-    private String requestedPerson;
-    private String teacherCollege;
-    private String courseId;
-    private String courseName;
-    private String teachingCalendar;
-
+    private int collegeId;
+    private int evaTeacherId;
+    private int courseId;
+    private int coursePlanId;
     /**
      * 选择学院
      */
     private void chooseCollege() {
-        if (colleges == null) {
-            colleges = new ArrayList<>();
-        }
         if (colleges.isEmpty()) {
-            for (int i = 0; i < courses.size(); i++) {
-                colleges.add(courses.get(i).getCollegeName());
-            }
+            SnackbarUtils.showShort(toolbar, "当前无可选学院，请重试");
+            return;
         }
         new MaterialDialog.Builder(this)
                 .title("选择学院")
@@ -146,7 +143,10 @@ public class ApplyToEvaActivity extends BaseActivity implements ApplyToEvaContra
                         tvTeacherName.setText("");
                         tvCourse.setText("");
                         tvTeachingDate.setText("");
-                        teacherCollege = college.toString();
+                        collegeId = colleges.get(i).getCollegeId();
+                        //获取教师
+                        evaTeachers.clear();
+                        presenter.getEvaTeachers(collegeId);
                     }
                 }).show();
     }
@@ -159,33 +159,23 @@ public class ApplyToEvaActivity extends BaseActivity implements ApplyToEvaContra
             SnackbarUtils.showShort(toolbar, "请选择学院");
             return;
         }
-        if (teachers == null) {
-            teachers = new ArrayList<>();
-        }
-        final List<EvaluateCourse.CollegeOtherInformationBean> infoList =
-                courses.get(colleges.indexOf(tvCollege.getText().toString())).getCollegeOtherInformation();
-        teachers.clear();
-        for (int i = 0; i < infoList.size(); i++) {
-            teachers.add(infoList.get(i).getTeacherName());
+        if (evaTeachers.isEmpty()) {
+            SnackbarUtils.showShort(toolbar, "无可选教师");
+            return;
         }
         new MaterialDialog.Builder(this)
                 .title("选择教师")
-                .items(teachers)
+                .items(evaTeachers)
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
                     public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence teacherName) {
                         tvTeacherName.setText(teacherName);
                         tvCourse.setText("");
                         tvTeachingDate.setText("");
-                        JSONObject jsonObject = new JSONObject();
-                        try {
-                            jsonObject.put("theRequestedPersonName", teacherName.toString());
-                            jsonObject.put("theRequestedPersonId",
-                                    infoList.get(teachers.indexOf(teacherName.toString())).getTeacherId());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        requestedPerson = jsonObject.toString();
+                        evaTeacherId = evaTeachers.get(i).getTeacherId();
+                        //获取课程
+                        evaCourses.clear();
+                        presenter.getEvaCourses(evaTeacherId);
                     }
                 }).show();
     }
@@ -202,28 +192,23 @@ public class ApplyToEvaActivity extends BaseActivity implements ApplyToEvaContra
             SnackbarUtils.showShort(toolbar, "请选择教师");
             return;
         }
-        if (stringCourses == null) {
-            stringCourses = new ArrayList<>();
-        }
-        stringCourses.clear();
-        final List<EvaluateCourse.CollegeOtherInformationBean.CourseBean> courseBeanList =
-                courses.get(colleges.indexOf(tvCollege.getText().toString()))
-                        .getCollegeOtherInformation()
-                        .get(teachers.indexOf(tvTeacherName.getText().toString())).getCourse();
-        for (int i = 0; i < courseBeanList.size(); i++) {
-            stringCourses.add(courseBeanList.get(i).getCourseName());
+        if (evaCourses.isEmpty()) {
+            SnackbarUtils.showShort(toolbar, "无可选课程");
+            return;
         }
         new MaterialDialog.Builder(this)
                 .title("选择课程")
-                .items(stringCourses)
+                .items(evaCourses)
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
                     public void onSelection(MaterialDialog materialDialog, View view,
                                             int i, CharSequence course) {
                         tvCourse.setText(course);
                         tvTeachingDate.setText("");
-                        courseName = course.toString();
-                        courseId = courseBeanList.get(stringCourses.indexOf(course.toString())).getCourseId();
+                        courseId = evaCourses.get(i).getCourseId();
+                        //获取课堂
+                        coursePlans.clear();
+                        presenter.getEvaCoursePlans(evaTeacherId, courseId);
                     }
                 })
                 .show();
@@ -245,76 +230,51 @@ public class ApplyToEvaActivity extends BaseActivity implements ApplyToEvaContra
             SnackbarUtils.showShort(toolbar, "请选择课程");
             return;
         }
-        if (stringCalendars == null) {
-            stringCalendars = new ArrayList<>();
-        }
-        stringCalendars.clear();
-        List<EvaluateCourse.CollegeOtherInformationBean.CourseBean.TeachingCalendarTimeBean> calendars =
-                courses.get(colleges.indexOf(tvCollege.getText().toString()))
-                        .getCollegeOtherInformation().get(teachers.indexOf(tvTeacherName.getText().toString()))
-                        .getCourse().get(stringCourses.indexOf(tvCourse.getText().toString()))
-                        .getTeachingCalendarTime();
-        for (int i = 0; i < calendars.size(); i++) {
-            stringCalendars.add(calendars.get(i).getTime());
+        if (coursePlans.isEmpty()) {
+            SnackbarUtils.showShort(toolbar, "无可选课堂");
+            return;
         }
         new MaterialDialog.Builder(this)
                 .title("选择教学日历")
-                .items(stringCalendars)
+                .items(coursePlans)
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
                     public void onSelection(MaterialDialog materialDialog, View view, int i,
-                                            CharSequence calendar) {
-                        tvTeachingDate.setText(calendar);
-                        teachingCalendar = calendar.toString();
+                                            CharSequence coursePlan) {
+                        tvTeachingDate.setText(coursePlan);
+                        coursePlanId = coursePlans.get(i).getCoursePlanId();
                     }
                 }).show();
-
     }
 
-    private void inputClassroom() {
-        new MaterialDialog.Builder(this)
-                .negativeText("取消")
-                .title("输入教室")
-                .inputRange(1, 15)
-                .input(null, null, false, new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(@NonNull MaterialDialog materialDialog, CharSequence classroom) {
-                        tvClassroom.setText(classroom);
-                    }
-                })
-
-                .show();
-    }
 
     /**
      * 确认申请
      */
     private void confirm() {
-        if (TextUtils.isEmpty(teacherCollege)) {
+        if (TextUtils.isEmpty(tvCollege.getText())) {
             SnackbarUtils.showShort(toolbar, "请选择学院");
             return;
         }
-        if (TextUtils.isEmpty(requestedPerson)) {
+        if (TextUtils.isEmpty(tvTeacherName.getText())) {
             SnackbarUtils.showShort(toolbar, "请选择教师");
             return;
         }
-        if (TextUtils.isEmpty(courseName)) {
+        if (TextUtils.isEmpty(tvCourse.getText())) {
             SnackbarUtils.showShort(toolbar, "请选择课程");
             return;
         }
-        if (TextUtils.isEmpty(teachingCalendar)) {
+        if (TextUtils.isEmpty(tvTeachingDate.getText())) {
             SnackbarUtils.showShort(toolbar, "请选择教学日历");
             return;
         }
-        String classroom = tvClassroom.getText().toString().trim();
         String requestExplain = etApplyLanguage.getText().toString().trim();
 
         if (requestExplain.length() > 20) {
             SnackbarUtils.showShort(toolbar, "申请语不得超过20个字符");
             return;
         }
-//        presenter.apply(requestedPerson, teacherCollege, courseId, courseName, teachingCalendar,
-//                classroom, requestExplain);
+        presenter.apply(String.valueOf(evaTeacherId), requestExplain, 2, coursePlanId);
     }
 
 
@@ -325,14 +285,30 @@ public class ApplyToEvaActivity extends BaseActivity implements ApplyToEvaContra
     }
 
     @Override
+    public void showColleges(List<College> colleges) {
+        this.colleges = colleges;
+    }
+
+    @Override
+    public void showEvaTeachers(List<EvaTeacher> evaTeachers) {
+        this.evaTeachers = evaTeachers;
+    }
+
+    @Override
+    public void showEvaCourses(List<EvaCourse> evaCourses) {
+        this.evaCourses = evaCourses;
+    }
+
+    @Override
+    public void showEvaCoursePlans(List<CoursePlan> coursePlans) {
+        this.coursePlans = coursePlans;
+    }
+
+    @Override
     public void showLoading() {
         progressDialog.show();
     }
 
-    @Override
-    public void showEvaluateCourses(List<EvaluateCourse> courses) {
-        this.courses = courses;
-    }
 
     @Override
     public void showSuccess() {

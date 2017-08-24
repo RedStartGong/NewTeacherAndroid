@@ -50,7 +50,8 @@ public class EvaluateFragment extends BaseFragment {
     @Override
     protected void initViewAndData() {
         toolbar.setTitle(R.string.evaluate_manage);
-        if (SharedPreferencesUtils.getTeacherType() == 2) {
+        //如果是教师角色是普通老师则隐藏督导评价
+        if (SharedPreferencesUtils.getTeacherType() == 1) {
             llSupervisorEvaluate.setVisibility(View.GONE);
         }
     }

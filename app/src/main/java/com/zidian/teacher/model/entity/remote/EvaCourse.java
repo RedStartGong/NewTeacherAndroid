@@ -29,4 +29,9 @@ public class EvaCourse {
     public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
+
+    @Override
+    public String toString() {
+        return courseName;
+    }
 }

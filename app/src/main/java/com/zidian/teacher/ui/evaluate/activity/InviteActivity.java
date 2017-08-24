@@ -139,6 +139,7 @@ public class InviteActivity extends BaseActivity implements InviteContract.View 
                                             CharSequence course) {
                         //设置选择的课程
                         tvInviteCourse.setText(course);
+                        tvInviteTeachingDate.setText("");
                         courseName = course.toString();
                         //设置选择学院的Id(方法同上)
                         courseId = evaCourses.get(i).getCourseId();
