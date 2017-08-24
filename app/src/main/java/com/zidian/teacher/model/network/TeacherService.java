@@ -241,14 +241,13 @@ public interface TeacherService {
     Observable<HttpResult<List<ColleagueEva>>> supervisorEva(@Field("teacherId") int teacherId);
 
     /**
-     * 查看同行评价二级指标
+     * 查看自定义评价
      */
     @FormUrlEncoded
-    @POST("EvaluateTeacher/teacherEvaluateTwoIndex")
-    Observable<HttpResult<List<EvaTwoIndex>>> colleagueEvaTwoIndex(
-            @Field("evaluateType") String evaluateType, @Field("indexName") String indexName,
-            @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") int schoolId);
+    @POST("EvaluateTeacherPort/selectTeacherEvaluateCustom")
+    Observable<HttpResult<List<CustomEva>>> customEva(
+            @Field("startRow") int startRow, @Field("pageSize") int pageSize,
+            @Field("teacherId") int teacherId);
 
 
     /**********************未完成**********************/
@@ -303,16 +302,7 @@ public interface TeacherService {
             @Field("schoolId") int schoolId);
 
 
-    /**
-     * 自定义评价
-     */
-    @FormUrlEncoded
-    @POST("EvaluateTeacher/CustomEvaluation")
-    Observable<HttpResult<CustomEva>> customEva(
-            @Field("startrow") String startRow, @Field("pageSize") String pageSize,
-            @Field("operatorId") String operatorId, @Field("operatorType") String operatorType,
-            @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") int schoolId);
+
 
     /**
      * 教师获取需要填写的问卷

@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.zidian.teacher.R;
 import com.zidian.teacher.di.ActivityContext;
 import com.zidian.teacher.model.entity.remote.CustomEva;
+import com.zidian.teacher.util.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ import butterknife.ButterKnife;
 public class CustomEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
-    private List<CustomEva.ListBean> data;
+    private List<CustomEva> data;
 
     @Inject
     public CustomEvaAdapter(@ActivityContext Context context) {
@@ -36,7 +37,7 @@ public class CustomEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.context = context;
     }
 
-    public void setData(List<CustomEva.ListBean> data) {
+    public void setData(List<CustomEva> data) {
         this.data = data;
         notifyDataSetChanged();
     }
@@ -57,11 +58,11 @@ public class CustomEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        ((ItemViewHolder) holder).evaluateName.setText(data.get(position).getNickname());
-        ((ItemViewHolder) holder).evaluateContent.setText(data.get(position).getContent());
-        ((ItemViewHolder) holder).evaluateTime.setText(data.get(position).getTime());
+        ((ItemViewHolder) holder).evaluateName.setText(data.get(position).getAliasName());
+        ((ItemViewHolder) holder).evaluateContent.setText(data.get(position).getEvaluateContent());
+        ((ItemViewHolder) holder).evaluateTime.setText(TimeUtils.millis2String(data.get(position).getEvaluateTime()));
         Glide.with(context)
-                .load(data.get(position).getHeadportraitUrl())
+                .load(data.get(position).getIconUrl())
                 .placeholder(R.drawable.ic_student)
                 .centerCrop()
                 .into(((ItemViewHolder) holder).evaluateImage);

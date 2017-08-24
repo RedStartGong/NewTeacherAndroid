@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -16,8 +15,6 @@ import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
 import com.zidian.teacher.model.entity.remote.ColleagueEva;
 import com.zidian.teacher.model.entity.remote.EvaTwoIndex;
-import com.zidian.teacher.presenter.ColleagueEvaTwoIndexPresenter;
-import com.zidian.teacher.presenter.contract.ColleagueEvaTwoIndexContract;
 import com.zidian.teacher.ui.evaluate.adapter.ChartOptionListAdapter;
 import com.zidian.teacher.ui.widget.BarChartHelper;
 import com.zidian.teacher.ui.widget.ChartDecimalFormatter;
@@ -51,8 +48,6 @@ public class ColleagueEvaTwoIndexActivity extends BaseActivity {
     BarChart barChartTwoIndex;
 
     @Inject
-    ColleagueEvaTwoIndexPresenter presenter;
-    @Inject
     ChartOptionListAdapter adapter;
     @Inject
     BarChartHelper barChartHelper;
@@ -71,7 +66,6 @@ public class ColleagueEvaTwoIndexActivity extends BaseActivity {
 
     @Override
     protected void initViewAndData() {
-        checkNotNull(presenter);
         checkNotNull(adapter);
         checkNotNull(barChartHelper);
         Intent intent = getIntent();
@@ -91,12 +85,6 @@ public class ColleagueEvaTwoIndexActivity extends BaseActivity {
         adapter.setData(getEvaTwoIndeces());
         barChartTwoIndex.setData(getBarData(getEvaTwoIndeces()));
 
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.deAttachView();
     }
 
     /**

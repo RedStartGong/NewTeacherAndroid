@@ -8,6 +8,8 @@ import com.zidian.teacher.presenter.contract.CustomEvaContract;
 import com.zidian.teacher.util.RxUtils;
 import com.zidian.teacher.util.SharedPreferencesUtils;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import rx.Subscriber;
@@ -27,19 +29,11 @@ public class CustomEvaPresenter extends RxPresenter<CustomEvaContract.View> impl
     }
 
     @Override
-    public void getCustomEva(String startRow) {
-        Subscription subscription = dataManager.customEva(startRow, "10",
-                SharedPreferencesUtils.getUserName(), "教师",
-                SharedPreferencesUtils.getUserName(), SharedPreferencesUtils.getToken(),
-                SharedPreferencesUtils.getSchoolId())
-                .compose(RxUtils.<HttpResult<CustomEva>>rxSchedulerIo())
-                .compose(RxUtils.<CustomEva>handleHttpResult())
-                .subscribe(new Subscriber<CustomEva>() {
-                    @Override
-                    public void onStart() {
-                        super.onStart();
-                    }
-
+    public void getCustomEva(int startRow) {
+        Subscription subscription = dataManager.customEva(startRow, 10, SharedPreferencesUtils.getTeacherId())
+                .compose(RxUtils.<HttpResult<List<CustomEva>>>rxSchedulerIo())
+                .compose(RxUtils.<List<CustomEva>>handleHttpResult())
+                .subscribe(new Subscriber<List<CustomEva>>() {
                     @Override
                     public void onCompleted() {
 
@@ -51,12 +45,8 @@ public class CustomEvaPresenter extends RxPresenter<CustomEvaContract.View> impl
                     }
 
                     @Override
-                    public void onNext(CustomEva customEva) {
-                        if (customEva.getList() != null && customEva.getList().size() != 0) {
-                            view.showCustomEva(customEva);
-                        } else {
-                            view.showEmpty();
-                        }
+                    public void onNext(List<CustomEva> customEvas) {
+                        view.showCustomEva(customEvas);
                     }
                 });
         addSubscribe(subscription);

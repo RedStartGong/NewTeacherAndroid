@@ -1,162 +1,81 @@
 package com.zidian.teacher.model.entity.remote;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
-
 /**
  * Created by GongCheng on 2017/4/27.
  */
 
 public class CustomEva {
-
     /**
-     * pages : 13
-     * evaluateNum : 25
-     * list : [{"mynickname":"大雄","likenum":0,"likenumtype":0,"evaluationcontent":"你这个人是","evaluationtime":"2016-10-28 11:15:04","appraiserid":"11011040105","deltype":1,"appraiserurl":"http://ling-zhi-jie.oss-cn-shanghai.aliyuncs.com/11011040105-HeadPortrait-8Z12%6055~46W9_I_%253M5Y%7D%60N.png?Expires=1791508963&OSSAccessKeyId=LTAIMUy5LebAYfzN&Signature=lXvocBbvB4Z1r6BZAs1R6gTxL0M%3D","customevaluationid":54,"byevaluatepersonid":"6283"}]
+     * aliasName :
+     * evaluateContent : 这里荒芜寸草不生
+     * evaluateCustomId : 56
+     * likeNum : 1
+     * studentId : 129
+     * evaluateTime : 1502675136000
+     * iconUrl :
      */
 
-    private int pages;
-    private int evaluateNum;
-    private List<ListBean> list;
+    private String aliasName;
+    private String evaluateContent;
+    private int evaluateCustomId;
+    private int likeNum;
+    private int studentId;
+    private long evaluateTime;
+    private String iconUrl;
 
-    public int getPages() {
-        return pages;
+    public String getAliasName() {
+        return aliasName;
     }
 
-    public void setPages(int pages) {
-        this.pages = pages;
+    public void setAliasName(String aliasName) {
+        this.aliasName = aliasName;
     }
 
-    public int getEvaluateNum() {
-        return evaluateNum;
+    public String getEvaluateContent() {
+        return evaluateContent;
     }
 
-    public void setEvaluateNum(int evaluateNum) {
-        this.evaluateNum = evaluateNum;
+    public void setEvaluateContent(String evaluateContent) {
+        this.evaluateContent = evaluateContent;
     }
 
-    public List<ListBean> getList() {
-        return list;
+    public int getEvaluateCustomId() {
+        return evaluateCustomId;
     }
 
-    public void setList(List<ListBean> list) {
-        this.list = list;
+    public void setEvaluateCustomId(int evaluateCustomId) {
+        this.evaluateCustomId = evaluateCustomId;
     }
 
-    public static class ListBean {
-        /**
-         * mynickname : 大雄
-         * likenum : 0
-         * likenumtype : 0
-         * evaluationcontent : 你这个人是
-         * evaluationtime : 2016-10-28 11:15:04
-         * appraiserid : 11011040105
-         * deltype : 1
-         * appraiserurl : http://ling-zhi-jie.oss-cn-shanghai.aliyuncs.com/11011040105-HeadPortrait-8Z12%6055~46W9_I_%253M5Y%7D%60N.png?Expires=1791508963&OSSAccessKeyId=LTAIMUy5LebAYfzN&Signature=lXvocBbvB4Z1r6BZAs1R6gTxL0M%3D
-         * customevaluationid : 54
-         * byevaluatepersonid : 6283
-         */
+    public int getLikeNum() {
+        return likeNum;
+    }
 
-        @SerializedName("mynickname")
-        private String nickname;
-        @SerializedName("likenum")
-        private int likeNum;
-        @SerializedName("likenumtype")
-        private int likeNumType;
-        @SerializedName("evaluationcontent")
-        private String content;
-        @SerializedName("evaluationtime")
-        private String time;
-        @SerializedName("appraiserid")
-        private String studentId;
-        @SerializedName("deltype")
-        private int deltTpe;
-        @SerializedName("appraiserurl")
-        private String headportraitUrl;
-        @SerializedName("customevaluationid")
-        private int evaluationId;
-        @SerializedName("byevaluatepersonid")
-        private String teacherId;
+    public void setLikeNum(int likeNum) {
+        this.likeNum = likeNum;
+    }
 
-        public String getNickname() {
-            return nickname;
-        }
+    public int getStudentId() {
+        return studentId;
+    }
 
-        public void setNickname(String nickname) {
-            this.nickname = nickname;
-        }
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
+    }
 
-        public int getLikeNum() {
-            return likeNum;
-        }
+    public long getEvaluateTime() {
+        return evaluateTime;
+    }
 
-        public void setLikeNum(int likeNum) {
-            this.likeNum = likeNum;
-        }
+    public void setEvaluateTime(long evaluateTime) {
+        this.evaluateTime = evaluateTime;
+    }
 
-        public int getLikeNumType() {
-            return likeNumType;
-        }
+    public String getIconUrl() {
+        return iconUrl;
+    }
 
-        public void setLikeNumType(int likeNumType) {
-            this.likeNumType = likeNumType;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
-
-        public String getTime() {
-            return time;
-        }
-
-        public void setTime(String time) {
-            this.time = time;
-        }
-
-        public String getStudentId() {
-            return studentId;
-        }
-
-        public void setStudentId(String studentId) {
-            this.studentId = studentId;
-        }
-
-        public int getDeltTpe() {
-            return deltTpe;
-        }
-
-        public void setDeltTpe(int deltTpe) {
-            this.deltTpe = deltTpe;
-        }
-
-        public String getHeadportraitUrl() {
-            return headportraitUrl;
-        }
-
-        public void setHeadportraitUrl(String headportraitUrl) {
-            this.headportraitUrl = headportraitUrl;
-        }
-
-        public int getEvaluationId() {
-            return evaluationId;
-        }
-
-        public void setEvaluationId(int evaluationId) {
-            this.evaluationId = evaluationId;
-        }
-
-        public String getTeacherId() {
-            return teacherId;
-        }
-
-        public void setTeacherId(String teacherId) {
-            this.teacherId = teacherId;
-        }
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
     }
 }

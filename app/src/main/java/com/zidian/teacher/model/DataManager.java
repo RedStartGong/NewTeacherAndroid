@@ -256,16 +256,10 @@ public final class DataManager {
         return service.supervisorEva(teacherId);
     }
 
-    public Observable<HttpResult<List<EvaTwoIndex>>> colleagueEvaTwoIndex(
-            String evaluateType, String indexName, String teacherId, String token,
-            int schoolId) {
-        return service.colleagueEvaTwoIndex(evaluateType, indexName, teacherId, token, schoolId);
-    }
 
-    public Observable<HttpResult<CustomEva>> customEva(
-            String startRow, String pageSize, String operatorId, String operatorType,
-            String teacherId, String token, int schoolId) {
-        return service.customEva(startRow, pageSize, operatorId, operatorType, teacherId, token, schoolId);
+    public Observable<HttpResult<List<CustomEva>>>customEva(
+            int startRow, int pageSize, int teacherId) {
+        return service.customEva(startRow, pageSize, teacherId);
     }
 
     public Observable<HttpResult<QuesSurveyList>> quesSurveyList(
