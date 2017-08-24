@@ -1,7 +1,6 @@
 package com.zidian.teacher.ui.evaluate.adapter;
 
 import android.content.Context;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.CardView;
@@ -13,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.zidian.teacher.R;
 import com.zidian.teacher.model.entity.remote.EvaluateTag;
 import com.zidian.teacher.recyclerviewpager.flowlayout.FlowTagLayout;
@@ -33,11 +33,13 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
     private int itemCount;
     private Map<String, Integer> data = new HashMap<>();
     private int currentItemId = 0;
-    private List<EvaluateTag> beans = new ArrayList<>();
+    private EvaluateTag evaluateTag;
+    private List<EvaluateTag.ThreeIndexListBean> beans;
     Map<Integer, String> map = new HashMap<Integer, String>();
     private static final String[] TAGS = {"非常符合", "比较符合", "一般符合", "比较不符合", "非常不符合"};
     private String customEva;
     private SimpleViewHolder holder;
+    private Gson gson;
     //是否是督导
     private boolean isSupervisor;
 
@@ -87,10 +89,12 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
         }
     }
 
-    public EvaluateAdapter(Context context, List<EvaluateTag> beans, boolean isSupervisor) {
+    public EvaluateAdapter(Context context, EvaluateTag evaluateTag, boolean isSupervisor) {
         this.context = context;
         this.isSupervisor = isSupervisor;
-        this.beans = beans;
+        this.evaluateTag = evaluateTag;
+        beans = evaluateTag.getThreeIndexList();
+        gson = new Gson();
         itemCount = beans.size() % 4 == 0 ? beans.size() / 4 : (beans.size() / 4 + 1);
     }
 
@@ -133,9 +137,9 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
                     holder.tagTextAdapter1.onlyAddAll(getNewTags());
                     holder.tagTextAdapter2.onlyAddAll(getNewTags());
                     holder.tagTextAdapter3.onlyAddAll(getNewTags());
-                    holder.title1.setText(beans.get(position * 4).getThreeIndexQuestionTea());
-                    holder.title2.setText(beans.get(position * 4 + 1).getThreeIndexQuestionTea());
-                    holder.title3.setText(beans.get(position * 4 + 2).getThreeIndexQuestionTea());
+                    holder.title1.setText(beans.get(position * 4).getTchQuestionStyle());
+                    holder.title2.setText(beans.get(position * 4 + 1).getTchQuestionStyle());
+                    holder.title3.setText(beans.get(position * 4 + 2).getTchQuestionStyle());
                 } else if (beans.size() % 4 == 2) {
                     holder.card3.setVisibility(View.INVISIBLE);
                     holder.card4.setVisibility(View.INVISIBLE);
@@ -147,8 +151,8 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
                     holder.tagEvaluate2.setAdapter(holder.tagTextAdapter2);
                     holder.tagTextAdapter1.onlyAddAll(getNewTags());
                     holder.tagTextAdapter2.onlyAddAll(getNewTags());
-                    holder.title1.setText(beans.get(position * 4).getThreeIndexQuestionTea());
-                    holder.title2.setText(beans.get(position * 4 + 1).getThreeIndexQuestionTea());
+                    holder.title1.setText(beans.get(position * 4).getTchQuestionStyle());
+                    holder.title2.setText(beans.get(position * 4 + 1).getTchQuestionStyle());
                 } else if (beans.size() % 4 == 1) {
                     holder.card1.setVisibility(View.VISIBLE);
                     holder.card2.setVisibility(View.INVISIBLE);
@@ -158,7 +162,7 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
                     holder.tagEvaluate1.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
                     holder.tagEvaluate1.setAdapter(holder.tagTextAdapter1);
                     holder.tagTextAdapter1.onlyAddAll(getNewTags());
-                    holder.title1.setText(beans.get(position * 4).getThreeIndexQuestionTea());
+                    holder.title1.setText(beans.get(position * 4).getTchQuestionStyle());
                 }
             } else {
                 holder.llCustomEva.setVisibility(View.GONE);
@@ -189,10 +193,10 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
                 holder.tagTextAdapter2.onlyAddAll(getNewTags());
                 holder.tagTextAdapter3.onlyAddAll(getNewTags());
                 holder.tagTextAdapter4.onlyAddAll(getNewTags());
-                holder.title1.setText(beans.get(position * 4).getThreeIndexQuestionTea());
-                holder.title2.setText(beans.get(position * 4 + 1).getThreeIndexQuestionTea());
-                holder.title3.setText(beans.get(position * 4 + 2).getThreeIndexQuestionTea());
-                holder.title4.setText(beans.get(position * 4 + 3).getThreeIndexQuestionTea());
+                holder.title1.setText(beans.get(position * 4).getTchQuestionStyle());
+                holder.title2.setText(beans.get(position * 4 + 1).getTchQuestionStyle());
+                holder.title3.setText(beans.get(position * 4 + 2).getTchQuestionStyle());
+                holder.title4.setText(beans.get(position * 4 + 3).getTchQuestionStyle());
             }
         } else {
             holder.arrowNext.setVisibility(View.VISIBLE);
@@ -224,10 +228,10 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
             holder.tagTextAdapter2.onlyAddAll(getNewTags());
             holder.tagTextAdapter3.onlyAddAll(getNewTags());
             holder.tagTextAdapter4.onlyAddAll(getNewTags());
-            holder.title1.setText(beans.get(position * 4).getThreeIndexQuestionTea());
-            holder.title2.setText(beans.get(position * 4 + 1).getThreeIndexQuestionTea());
-            holder.title3.setText(beans.get(position * 4 + 2).getThreeIndexQuestionTea());
-            holder.title4.setText(beans.get(position * 4 + 3).getThreeIndexQuestionTea());
+            holder.title1.setText(beans.get(position * 4).getTchQuestionStyle());
+            holder.title2.setText(beans.get(position * 4 + 1).getTchQuestionStyle());
+            holder.title3.setText(beans.get(position * 4 + 2).getTchQuestionStyle());
+            holder.title4.setText(beans.get(position * 4 + 3).getTchQuestionStyle());
         }
         if (data.get("tagEvaluate1" + position) != null) {
             holder.tagTextAdapter1.setSelectCount(data.get("tagEvaluate1" + position));
@@ -245,26 +249,17 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
             holder.tagTextAdapter4.setSelectCount(data.get("tagEvaluate4" + position));
         }
 
-
         holder.tagEvaluate1.setOnTagSelectListener(new OnTagSelectListener() {
             @Override
             public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
 
                 if (selectedList != null && selectedList.size() > 0) {
-                    StringBuilder sb = new StringBuilder();
                     for (int i : selectedList) {
-
-                        data.put("tagEvaluate1" + position, i);
-
-                        sb.append(beans.get(position * 4).getLabel().get(i).getLabelName());
+                        map.put(position * 4, getContentBeanJson(position * 4, i));
                     }
-//                    Snackbar.make(parent, "三级指标:"+ beans.get(position * 4 ).getThreeIndexName() +
-//                            "-选择的标签:" + sb.toString(), Snackbar.LENGTH_LONG)
-//                            .setAction("Action", null).show();
-                    map.put(position * 4, beans.get(position * 4).getPackageName() + "!" +
-                            beans.get(position * 4).getThreeIndexName() + "!" + sb.toString());
+
                 } else {
-                    data.put("tagEvaluate1" + position, 0);
+                    map.remove(position * 4);
                 }
 
             }
@@ -276,17 +271,11 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
                 if (selectedList != null && selectedList.size() > 0) {
                     StringBuilder sb = new StringBuilder();
                     for (int i : selectedList) {
-                        data.put("tagEvaluate2" + position, i);
-                        sb.append(beans.get(position * 4 + 1).getLabel().get(i).getLabelName());
+                        map.put(position * 4 + 1, getContentBeanJson(position * 4 + 1, i));
                     }
-//                    Snackbar.make(parent, "三级指标:"+ beans.get(position * 4 + 1).getThreeIndexName() +
-//                            "-选择的标签:" + sb.toString(), Snackbar.LENGTH_LONG)
-//                            .setAction("Action", null).show();
-                    map.put(position * 4 + 1, beans.get(position * 4 + 1).getPackageName() + "!" +
-                            beans.get(position * 4 + 1).getThreeIndexName() + "!" + sb.toString());
 
                 } else {
-                    data.put("tagEvaluate2" + position, 0);
+                    map.remove(position * 4 + 1);
                 }
 
             }
@@ -299,17 +288,10 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
                 if (selectedList != null && selectedList.size() > 0) {
                     StringBuilder sb = new StringBuilder();
                     for (int i : selectedList) {
-
-                        data.put("tagEvaluate3" + position, i);
-                        sb.append(beans.get(position * 4 + 2).getLabel().get(i).getLabelName());
+                        map.put(position * 4 + 2, getContentBeanJson(position * 4 + 2, i));
                     }
-//                    Snackbar.make(parent, "三级指标:"+ beans.get(position * 4 + 2).getThreeIndexName() +
-//                            "-选择的标签:" + sb.toString(), Snackbar.LENGTH_LONG)
-//                            .setAction("Action", null).show();
-                    map.put(position * 4 + 2, beans.get(position * 4 + 2).getPackageName() + "!" +
-                            beans.get(position * 4 + 2).getThreeIndexName() + "!" + sb.toString());
                 } else {
-                    data.put("tagEvaluate3" + position, 0);
+                    map.remove(position * 4 + 2);
                 }
 
             }
@@ -321,16 +303,10 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
                 if (selectedList != null && selectedList.size() > 0) {
                     StringBuilder sb = new StringBuilder();
                     for (int i : selectedList) {
-                        data.put("tagEvaluate4" + position, i);
-                        sb.append(beans.get(position * 4 + 3).getLabel().get(i).getLabelName());
+                        map.put(position * 4 + 3, getContentBeanJson(position * 4 + 3, i));
                     }
-//                    Snackbar.make(parent, "三级指标:"+ beans.get(position * 4 + 1).getThreeIndexName() +
-//                            "-选择的标签:" + sb.toString(), Snackbar.LENGTH_LONG)
-//                            .setAction("Action", null).show();
-                    map.put(position * 4 + 3, beans.get(position * 4 + 3).getPackageName() + "!" +
-                            beans.get(position * 4 + 3).getThreeIndexName() + "!" + sb.toString());
                 } else {
-                    data.put("tagEvaluate4" + position, 0);
+                    map.remove(position * 4 + 3);
                 }
 
             }
@@ -352,15 +328,20 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
         return holder.etCustomEva.getText().toString().trim();
     }
 
+    /**
+     * 获取选中的标签
+     *
+     * @return
+     */
     public Map<Integer, String> getSelect() {
         return map;
     }
 
-    public List<String> getListTags(List<EvaluateTag.LabelBean> data) {
+    public List<String> getListTags(List<EvaluateTag.ThreeIndexListBean> data) {
         List<String> textTag = null;
         textTag = new ArrayList<>();
         for (int i = 0; i < data.size(); i++) {
-            textTag.add(data.get(i).getLabelName());
+            textTag.add(data.get(i).getThreeIndexName());
         }
         return textTag;
     }
@@ -376,6 +357,56 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
             textTag.add(TAGS[i]);
         }
         return textTag;
+    }
+
+    /**
+     * 将EvaluateContentBean 转为json字符串
+     *
+     * @param position
+     * @return
+     */
+    public String getContentBeanJson(int position, int i) {
+        EvaluateContentBean contentBean = new EvaluateContentBean();
+        contentBean.setEvaluateLabelId(beans.get(position).getLabelList().get(i).getLabelId());
+        contentBean.setEvaluateLabelScore(beans.get(position).getLabelList().get(i).getLabelScore());
+        contentBean.setPushTeacherEvalItemsId(beans.get(position).getPushTeacherEvalItemsId());
+        return gson.toJson(contentBean);
+    }
+
+    /**
+     * 上传EvaluateContentBean
+     * pushTeacherEvalItemsId:推送的题目i,
+     * evaluateLabelId:1所选的标签),
+     * evaluateLabelScore:所选标签的分数
+     */
+    public class EvaluateContentBean {
+        private int pushTeacherEvalItemsId;
+        private int evaluateLabelId;
+        private int evaluateLabelScore;
+
+        public int getPushTeacherEvalItemsId() {
+            return pushTeacherEvalItemsId;
+        }
+
+        public void setPushTeacherEvalItemsId(int pushTeacherEvalItemsId) {
+            this.pushTeacherEvalItemsId = pushTeacherEvalItemsId;
+        }
+
+        public int getEvaluateLabelId() {
+            return evaluateLabelId;
+        }
+
+        public void setEvaluateLabelId(int evaluateLabelId) {
+            this.evaluateLabelId = evaluateLabelId;
+        }
+
+        public int getEvaluateLabelScore() {
+            return evaluateLabelScore;
+        }
+
+        public void setEvaluateLabelScore(int evaluateLabelScore) {
+            this.evaluateLabelScore = evaluateLabelScore;
+        }
     }
 
 

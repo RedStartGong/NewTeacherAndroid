@@ -198,19 +198,17 @@ public final class DataManager {
     }
 
 
-    public Observable<HttpResult<List<EvaluateTag>>> getEvaluateTags(
-            String packageName, String teacherId, String operatorType, String token,
-            int schoolId) {
-        return service.getEvaluateTags(packageName, teacherId, operatorType, token, schoolId);
+    public Observable<HttpResult<EvaluateTag>> getEvaluateTag(
+            int requestEvalMessageId, int teacherId) {
+        return service.getEvaluateTag(requestEvalMessageId, teacherId);
 
     }
 
-    public Observable<NoDataResult> evaluate(
-            String evaluateType, String teacherType, String evaluatedId, String recordId,
-            String evaluateLabel, String evaluateComment, String colleagueId, String token,
-            int schoolId) {
-        return service.evaluate(evaluateType, teacherType, evaluatedId, recordId, evaluateLabel,
-                evaluateComment, colleagueId, token, schoolId);
+    public Observable<NoDataResult> evaluate(int requestEvalMessageId, int toTeacherId,
+                                             int evaluateType, String evaluateContent,
+                                             String customEva, int teacherId) {
+        return service.evaluate(requestEvalMessageId, toTeacherId, evaluateType,
+                evaluateContent, customEva, teacherId);
     }
 
     public Observable<NoDataResult> changeEvaState(
@@ -257,7 +255,7 @@ public final class DataManager {
     }
 
 
-    public Observable<HttpResult<List<CustomEva>>>customEva(
+    public Observable<HttpResult<List<CustomEva>>> customEva(
             int startRow, int pageSize, int teacherId) {
         return service.customEva(startRow, pageSize, teacherId);
     }

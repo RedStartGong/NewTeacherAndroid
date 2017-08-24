@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.gson.Gson;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
 import com.zidian.teacher.model.entity.remote.EvaluateTag;
@@ -52,12 +52,13 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
     EvaluatePresenter presenter;
 
     private EvaluateAdapter adapter;
-    private List<EvaluateTag> evaluateTags;
+    private EvaluateTag evaluateTag;
     private ProgressDialog progressDialog;
     private String teacherType;
-    private String toTeacherId;
+    private int toTeacherId;
     private String recordId;
-    private String evaluateType;
+    int requestEvalMessageId;
+    private int evaluateType;
     //评价的条目
     private int position;
 
@@ -76,13 +77,12 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         Intent intent = getIntent();
         teacherType = String.valueOf(intent.getIntExtra("teacherType", 0));
-        toTeacherId = intent.getStringExtra("toTeacherId");
+        toTeacherId = intent.getIntExtra("toTeacherId", 0);
         recordId = String.valueOf(intent.getIntExtra("recordId", 0));
-        evaluateType = String.valueOf(intent.getIntExtra("evaluateType", 0));
+        evaluateType = intent.getIntExtra("evaluateType", 0);
         position = intent.getIntExtra("position", 0);
-
+        requestEvalMessageId = intent.getIntExtra("requestEvalMessageId", 0);
         errorView.setVisibility(View.GONE);
-        evaluateTags = new ArrayList<>();
         toolbar.setTitle("标签评价");
         setSupportActionBar(toolbar);
         setToolbarBack(toolbar);
@@ -91,7 +91,7 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
         progressDialog.setMessage("加载中...");
 
         presenter.attachView(this);
-        presenter.getEvaluateTags();
+        presenter.getEvaluateTags(requestEvalMessageId);
         initRecyclerView();
     }
 
@@ -195,7 +195,7 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
             SnackbarUtils.showShort(toolbar, "自定义评价不能超过50个字符");
             return true;
         }
-        presenter.evaluate(evaluateType, teacherType, toTeacherId, recordId, getEvaluateLabel(), getCustomEva());
+        presenter.evaluate(requestEvalMessageId, toTeacherId, evaluateType, getEvaluateLabel(), getCustomEva());
         return super.onOptionsItemSelected(item);
     }
 
@@ -204,19 +204,17 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
      */
     private String getEvaluateLabel() {
         Map<Integer, String> map = adapter.getSelect();
-        String result = "";
-
-        result = map.get(0);
-
-        for (int i = 1; i < evaluateTags.size(); i++) {
-
-            if (map.get(i) == null) {
-                result = null;
-                break;
+        if (evaluateTag.getThreeIndexList() == null || evaluateTag.getThreeIndexList().size() != map.size()) {
+            SnackbarUtils.showShort(toolbar, "请完成标签的选取");
+            return null;
+        } else {
+            Gson gson = new Gson();
+            List<String> contentList = new ArrayList<>();
+            for (int i = 0; i < evaluateTag.getThreeIndexList().size(); i++) {
+                contentList.add(map.get(i));
             }
-            result += "," + map.get(i);
+            return gson.toJson(contentList);
         }
-        return result;
     }
 
     /**
@@ -237,15 +235,15 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
     }
 
     @Override
-    public void showEvaluateTags(List<EvaluateTag> evaluateTags) {
+    public void showEvaluateTag(EvaluateTag evaluateTag) {
         progressDialog.dismiss();
         errorView.setVisibility(View.GONE);
         loadingView.setVisibility(View.GONE);
-        this.evaluateTags = evaluateTags;
-        if (evaluateType.equals("9")) {
-            adapter = new EvaluateAdapter(this, evaluateTags, true);
-        } else {
-            adapter = new EvaluateAdapter(this, evaluateTags, false);
+        this.evaluateTag = evaluateTag;
+        if (evaluateType == 3){
+            adapter = new EvaluateAdapter(this, evaluateTag, true);
+        } else{
+            adapter = new EvaluateAdapter(this, evaluateTag, false);
         }
         recyclerViewPager.setAdapter(adapter);
     }

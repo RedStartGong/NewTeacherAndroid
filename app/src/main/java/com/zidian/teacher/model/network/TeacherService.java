@@ -248,30 +248,28 @@ public interface TeacherService {
     Observable<HttpResult<List<CustomEva>>> customEva(
             @Field("startRow") int startRow, @Field("pageSize") int pageSize,
             @Field("teacherId") int teacherId);
-
-
-    /**********************未完成**********************/
     /**
      * 同行评价，查看标签
      */
     @FormUrlEncoded
-    @POST("Label/selectAllLabelName")
-    Observable<HttpResult<List<EvaluateTag>>> getEvaluateTags(
-            @Field("packageName") String packageName, @Field("operatorId") String teacherId,
-            @Field("operatorType") String operatorType, @Field("token") String token,
-            @Field("schoolId") int schoolId);
+    @POST("EvaluateByTeacher/checkEvaluateContent")
+    Observable<HttpResult<EvaluateTag>> getEvaluateTag(
+            @Field("requestEvalMessageId") int requestEvalMessageId, @Field("teacherId") int teacherId);
 
     /**
      * 评价别人
      */
     @FormUrlEncoded
-    @POST("ToEvaluateOthers/evaluationColleagues")
+    @POST("EvaluateByTeacher/evaluateByTeacher")
     Observable<NoDataResult> evaluate(
-            @Field("evaluateType") String evaluateType, @Field("teacherType") String teacherType,
-            @Field("byEvaluatePersonId") String evaluatedId, @Field("recordId") String recordId,
-            @Field("evaluateLabel") String evaluateLabel, @Field("evaluateComment") String evaluateComment,
-            @Field("colleagueId") String colleagueId, @Field("token") String token,
-            @Field("schoolId") int schoolId);
+            @Field("requestEvalMessageId") int requestEvalMessageId, @Field("toTeacherId") int toTeacherId,
+            @Field("evaluateType") int evaluateType, @Field("evaluateContent") String evaluateContent,
+            @Field("customEval") String customEva, @Field("teacherId") int teacherId);
+
+    /**********************未完成**********************/
+
+
+
 
 
 

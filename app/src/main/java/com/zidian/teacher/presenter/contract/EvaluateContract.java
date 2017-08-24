@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface EvaluateContract {
     interface View extends BaseView {
-        void showEvaluateTags(List<EvaluateTag> evaluateTags);
+        void showEvaluateTag(EvaluateTag evaluateTag);
 
         void showTagsError(Throwable e);
 
@@ -22,9 +22,10 @@ public interface EvaluateContract {
     }
 
     interface Presenter extends BasePresenter<EvaluateContract.View> {
-        void getEvaluateTags();
+        void getEvaluateTags(int requestEvalMessageId);
 
-        void evaluate(String evaluateType, String teacherType, String evaluatedId, String recordId,
-                      String evaluateLabel, String evaluateComment);
+        void evaluate(int requestEvalMessageId, int toTeacherId,
+                      int evaluateType, String evaluateContent,
+                      String customEva);
     }
 }

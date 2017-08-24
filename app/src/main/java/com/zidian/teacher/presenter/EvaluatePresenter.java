@@ -10,8 +10,6 @@ import com.zidian.teacher.presenter.contract.EvaluateContract;
 import com.zidian.teacher.util.RxUtils;
 import com.zidian.teacher.util.SharedPreferencesUtils;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import rx.Subscriber;
@@ -25,8 +23,6 @@ import rx.functions.Func1;
 
 public class EvaluatePresenter extends RxPresenter<EvaluateContract.View> implements EvaluateContract.Presenter {
     private final DataManager dataManager;
-    private static final String EVALUATE_TAG_TYPE = "教评";
-    private static final String OPERATOR_TYPE = "教师";
 
     @Inject
     public EvaluatePresenter(DataManager dataManager) {
@@ -34,19 +30,11 @@ public class EvaluatePresenter extends RxPresenter<EvaluateContract.View> implem
     }
 
     @Override
-    public void getEvaluateTags( ) {
-        Subscription subscription = dataManager.getEvaluateTags(EVALUATE_TAG_TYPE,
-                SharedPreferencesUtils.getUserName(), OPERATOR_TYPE,
-                SharedPreferencesUtils.getToken(),SharedPreferencesUtils.getSchoolId())
-                .compose(RxUtils.<HttpResult<List<EvaluateTag>>>rxSchedulerIo())
-                .compose(RxUtils.<List<EvaluateTag>>handleHttpResult())
-                .subscribe(new Subscriber<List<EvaluateTag>>() {
-                    @Override
-                    public void onStart() {
-                        super.onStart();
-                        view.showLoading();
-                    }
-
+    public void getEvaluateTags(int requestEvalMessageId) {
+        Subscription subscription = dataManager.getEvaluateTag(requestEvalMessageId, SharedPreferencesUtils.getTeacherId())
+                .compose(RxUtils.<HttpResult<EvaluateTag>>rxSchedulerIo())
+                .compose(RxUtils.<EvaluateTag>handleHttpResult())
+                .subscribe(new Subscriber<EvaluateTag>() {
                     @Override
                     public void onCompleted() {
 
@@ -58,19 +46,19 @@ public class EvaluatePresenter extends RxPresenter<EvaluateContract.View> implem
                     }
 
                     @Override
-                    public void onNext(List<EvaluateTag> evaluateTags) {
-                        view.showEvaluateTags(evaluateTags);
+                    public void onNext(EvaluateTag evaluateTag) {
+                        view.showEvaluateTag(evaluateTag);
                     }
                 });
         addSubscribe(subscription);
     }
 
     @Override
-    public void evaluate(String evaluateType, String teacherType, String evaluatedId,
-                         String recordId, String evaluateLabel, String evaluateComment) {
-        Subscription subscription = dataManager.evaluate(evaluateType, teacherType, evaluatedId,
-                recordId, evaluateLabel, evaluateComment, SharedPreferencesUtils.getUserName(),
-                SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
+    public void evaluate(int requestEvalMessageId, int toTeacherId,
+                         int evaluateType, String evaluateContent,
+                         String customEva) {
+        Subscription subscription = dataManager.evaluate(requestEvalMessageId, toTeacherId,
+                evaluateType, evaluateContent, customEva, SharedPreferencesUtils.getTeacherId())
                 .compose(RxUtils.<NoDataResult>rxSchedulerIo())
                 .map(new Func1<NoDataResult, NoDataResult>() {
                     @Override

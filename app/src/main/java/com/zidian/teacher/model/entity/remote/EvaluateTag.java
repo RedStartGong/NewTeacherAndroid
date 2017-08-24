@@ -1,7 +1,5 @@
 package com.zidian.teacher.model.entity.remote;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 /**
@@ -11,81 +9,128 @@ import java.util.List;
 public class EvaluateTag {
 
     /**
-     * packageName : 教评
-     * threeindexname : 人格成长
-     * indexName : 教学态度
-     * label : [{"labelName":"自带爹妈光环"},{"labelName":"他是谁"}]
-     * threeIndexQuestionTea : 问题
+     * threeIndexList : [{"threeIndexId":2,"threeIndexName":"教学资源","pushTeacherEvalItemsId":111,"tchQuestionStyle":"在您看来，这门课程的教学资源十分丰富？","labelList":[{"labelName":"不禁竖起了大拇指","labelId":6,"labelScore":5},{"labelName":"nice！","labelId":7,"labelScore":4},{"labelName":"能用","labelId":8,"labelScore":3},{"labelName":"凑凑才能用","labelId":9,"labelScore":2},{"labelName":"zero","labelId":10,"labelScore":1}],"evaluateLabel":6}]
+     * customEvaluate : ””
      */
 
-    private String packageName;
-    @SerializedName("threeindexname")
-    private String threeIndexName;
-    private String indexName;
-    private String threeIndexQuestionTea;
-    private List<LabelBean> label;
+    private String customEvaluate;
+    private List<ThreeIndexListBean> threeIndexList;
 
-    public String getPackageName() {
-        return packageName;
+    public String getCustomEvaluate() {
+        return customEvaluate;
     }
 
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
+    public void setCustomEvaluate(String customEvaluate) {
+        this.customEvaluate = customEvaluate;
     }
 
-    public String getThreeIndexName() {
-        return threeIndexName;
+    public List<ThreeIndexListBean> getThreeIndexList() {
+        return threeIndexList;
     }
 
-    public void setThreeIndexName(String threeIndexName) {
-        this.threeIndexName = threeIndexName;
+    public void setThreeIndexList(List<ThreeIndexListBean> threeIndexList) {
+        this.threeIndexList = threeIndexList;
     }
 
-    public String getThreeIndexQuestionTea() {
-        return threeIndexQuestionTea;
-    }
-
-    public void setThreeIndexQuestionTea(String threeIndexQuestionTea) {
-        this.threeIndexQuestionTea = threeIndexQuestionTea;
-    }
-
-    public String getThreeindexname() {
-        return threeIndexName;
-    }
-
-    public void setThreeindexname(String threeIndexName) {
-        this.threeIndexName = threeIndexName;
-    }
-
-    public String getIndexName() {
-        return indexName;
-    }
-
-    public void setIndexName(String indexName) {
-        this.indexName = indexName;
-    }
-
-    public List<LabelBean> getLabel() {
-        return label;
-    }
-
-    public void setLabel(List<LabelBean> label) {
-        this.label = label;
-    }
-
-    public static class LabelBean {
+    public static class ThreeIndexListBean {
         /**
-         * labelName : 自带爹妈光环
+         * threeIndexId : 2
+         * threeIndexName : 教学资源
+         * pushTeacherEvalItemsId : 111
+         * tchQuestionStyle : 在您看来，这门课程的教学资源十分丰富？
+         * labelList : [{"labelName":"不禁竖起了大拇指","labelId":6,"labelScore":5},{"labelName":"nice！","labelId":7,"labelScore":4},{"labelName":"能用","labelId":8,"labelScore":3},{"labelName":"凑凑才能用","labelId":9,"labelScore":2},{"labelName":"zero","labelId":10,"labelScore":1}]
+         * evaluateLabel : 6
          */
 
-        private String labelName;
+        private int threeIndexId;
+        private String threeIndexName;
+        private int pushTeacherEvalItemsId;
+        private String tchQuestionStyle;
+        private int evaluateLabel;
+        private List<LabelListBean> labelList;
 
-        public String getLabelName() {
-            return labelName;
+        public int getThreeIndexId() {
+            return threeIndexId;
         }
 
-        public void setLabelName(String labelName) {
-            this.labelName = labelName;
+        public void setThreeIndexId(int threeIndexId) {
+            this.threeIndexId = threeIndexId;
+        }
+
+        public String getThreeIndexName() {
+            return threeIndexName;
+        }
+
+        public void setThreeIndexName(String threeIndexName) {
+            this.threeIndexName = threeIndexName;
+        }
+
+        public int getPushTeacherEvalItemsId() {
+            return pushTeacherEvalItemsId;
+        }
+
+        public void setPushTeacherEvalItemsId(int pushTeacherEvalItemsId) {
+            this.pushTeacherEvalItemsId = pushTeacherEvalItemsId;
+        }
+
+        public String getTchQuestionStyle() {
+            return tchQuestionStyle;
+        }
+
+        public void setTchQuestionStyle(String tchQuestionStyle) {
+            this.tchQuestionStyle = tchQuestionStyle;
+        }
+
+        public int getEvaluateLabel() {
+            return evaluateLabel;
+        }
+
+        public void setEvaluateLabel(int evaluateLabel) {
+            this.evaluateLabel = evaluateLabel;
+        }
+
+        public List<LabelListBean> getLabelList() {
+            return labelList;
+        }
+
+        public void setLabelList(List<LabelListBean> labelList) {
+            this.labelList = labelList;
+        }
+
+        public static class LabelListBean {
+            /**
+             * labelName : 不禁竖起了大拇指
+             * labelId : 6
+             * labelScore : 5
+             */
+
+            private String labelName;
+            private int labelId;
+            private int labelScore;
+
+            public String getLabelName() {
+                return labelName;
+            }
+
+            public void setLabelName(String labelName) {
+                this.labelName = labelName;
+            }
+
+            public int getLabelId() {
+                return labelId;
+            }
+
+            public void setLabelId(int labelId) {
+                this.labelId = labelId;
+            }
+
+            public int getLabelScore() {
+                return labelScore;
+            }
+
+            public void setLabelScore(int labelScore) {
+                this.labelScore = labelScore;
+            }
         }
     }
 }
