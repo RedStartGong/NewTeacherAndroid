@@ -32,9 +32,8 @@ public class MyTaskPresenter extends RxPresenter<MyTaskContract.View> implements
     }
 
     @Override
-    public void getTasks(String requestState) {
-        Subscription subscription = dataManager.getMyTasks(requestState, SharedPreferencesUtils.getUserName(),
-                SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
+    public void getTasks(int requestState) {
+        Subscription subscription = dataManager.getMyTasks(requestState, SharedPreferencesUtils.getTeacherId())
                 .compose(RxUtils.<HttpResult<List<MyTask>>>rxSchedulerIo())
                 .compose(RxUtils.<List<MyTask>>handleHttpResult())
                 .subscribe(new Action1<List<MyTask>>() {

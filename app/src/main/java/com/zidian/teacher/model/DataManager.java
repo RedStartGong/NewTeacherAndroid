@@ -148,7 +148,7 @@ public final class DataManager {
             MultipartBody.Part iconUrl) {
         return service.changeUserInfo(teacherId, aliasName, phone, signName, birthday, sex, iconUrl);
     }
-    /******************************************教评************************************************/
+
     /**
      * 获取学院列表
      */
@@ -179,25 +179,13 @@ public final class DataManager {
         return service.getCoursePlans(teacherId, evaTeacherId, courseId);
     }
 
-    public Observable<HttpResult<List<MyTask>>> getMyTasks(
-            String requestState, String teacherId, String token, int schoolId) {
-        return service.getMyTasks(requestState, teacherId, token, schoolId);
+    /**
+     * 查看我的任务
+     */
+    public Observable<HttpResult<List<MyTask>>> getMyTasks(int requestState, int teacherId) {
+        return service.getMyTasks(requestState, teacherId);
     }
 
-    public Observable<InviteCourseResult> getInviteCourses(String teacherId, String token,
-                                                           int schoolId) {
-        return service.getInviteCourses(teacherId, token, schoolId);
-    }
-
-    public Observable<HttpResult<List<EvaluateCourse>>> getEvaluateCourses(
-            String teacherId, String token, int schoolId) {
-        return service.getEvaluateCourses(teacherId, token, schoolId);
-    }
-
-    public Observable<HttpResult<List<InviteTeacher>>> getInviteTeachers(
-            String condition, String teacherId, String token, int schoolId) {
-        return service.getInviteTeacher(condition, teacherId, token, schoolId);
-    }
 
     /**
      * 邀请或者申请评价别人
@@ -209,13 +197,6 @@ public final class DataManager {
                 requestMessage, evaluateType, coursePlanId);
     }
 
-    public Observable<NoDataResult> addSupervisorEva(
-            String teacherId, String teacherName, String college, String requestedPersonId, String requestedPersonName,
-            int courseId, String courseName, String teachingCalendar, String classroom,
-            String teacherType, String token, int schoolId) {
-        return service.addSupervisorEva(teacherId, teacherName, college, requestedPersonId, requestedPersonName,
-                courseId, courseName, teachingCalendar, classroom, teacherType, token, schoolId);
-    }
 
     public Observable<HttpResult<List<EvaluateTag>>> getEvaluateTags(
             String packageName, String teacherId, String operatorType, String token,

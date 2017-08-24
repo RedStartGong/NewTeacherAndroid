@@ -91,8 +91,10 @@ public class CoursePlan {
             return "五";
         } else if (weekDay == 6) {
             return "六";
+        } else if (weekDay == 7){
+            return "日";
         } else {
-            return "七";
+            return "未知";
         }
     }
 }

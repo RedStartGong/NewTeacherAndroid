@@ -1,5 +1,6 @@
 package com.zidian.teacher.ui.evaluate.activity;
 
+import android.support.annotation.IntDef;
 import android.support.annotation.StringDef;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -29,16 +30,18 @@ public class MyTaskActivity extends BaseActivity {
     TabLayout tlMyTask;
     @BindView(R.id.vp_my_task)
     ViewPager vpMyTask;
-    @StringDef({
+    @IntDef({
             TaskType.UN_CONFIRMED,
             TaskType.UN_EVALUATE,
-            TaskType.FINISHED
+            TaskType.FINISHED,
+            TaskType.REFUSED
     })
     @Retention(RetentionPolicy.SOURCE)
     public @interface TaskType{
-        String UN_CONFIRMED = "0";
-        String UN_EVALUATE = "1";
-        String FINISHED = "3";
+        int UN_CONFIRMED = 0;
+        int UN_EVALUATE = 1;
+        int FINISHED = 2;
+        int REFUSED = 3;
     }
     private BaseFragmentPagerAdapter pagerAdapter;
 

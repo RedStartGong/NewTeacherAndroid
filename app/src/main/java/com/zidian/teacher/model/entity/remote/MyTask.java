@@ -1,6 +1,6 @@
 package com.zidian.teacher.model.entity.remote;
 
-import com.google.gson.annotations.SerializedName;
+import com.zidian.teacher.util.TimeUtils;
 
 /**
  * Created by GongCheng on 2017/4/12.
@@ -9,40 +9,49 @@ import com.google.gson.annotations.SerializedName;
 public class MyTask {
 
     /**
-     * requestState : 1
-     * recordId : 1
-     * myRole : 1
-     * courseClassRoom : 操场1
-     * toTeacherName : 陈婷
-     * requestExplain : 来评价我！！！
-     * requestType : 3
-     * toTeacherId : 1001
-     * evaluationType : 2
-     * courseId : 1000002
-     * teachingCalendar : 第12周周三第1-2节
+     * evaluateType : 3
+     * recordId : 14
+     * requestMessage : requestMessage: I want to sup evaluate you!!
+     * weekDay : 1
+     * myRole : 0
+     * courseClassRoom : D3-3阶
+     * requestType : 0
+     * teacherName : 邓燕
+     * courseEndTime : 1503286200000
+     * courseStartTime : 1503282000000
+     * requestState : 0
+     * whatWeek : 13
+     * weekPartBegin : 3
+     * anotherTeacher : 18
+     * coursePlanId : 3089
+     * weekPartEnd : 4
      * courseName : 商务导论
      */
 
-    private int requestState;
+    private int evaluateType;
     private int recordId;
+    private String requestMessage;
+    private int weekDay;
     private int myRole;
-    @SerializedName("courseClassRoom")
-    private String courseLocation;
-    private String toTeacherName;
-    private String requestExplain;
+    private String courseClassRoom;
     private int requestType;
-    private String toTeacherId;
-    private int evaluationType;
-    private String courseId;
-    private String teachingCalendar;
+    private String teacherName;
+    private long courseEndTime;
+    private long courseStartTime;
+    private int requestState;
+    private int whatWeek;
+    private int weekPartBegin;
+    private int anotherTeacher;
+    private int coursePlanId;
+    private int weekPartEnd;
     private String courseName;
 
-    public int getRequestState() {
-        return requestState;
+    public int getEvaluateType() {
+        return evaluateType;
     }
 
-    public void setRequestState(int requestState) {
-        this.requestState = requestState;
+    public void setEvaluateType(int evaluateType) {
+        this.evaluateType = evaluateType;
     }
 
     public int getRecordId() {
@@ -53,6 +62,22 @@ public class MyTask {
         this.recordId = recordId;
     }
 
+    public String getRequestMessage() {
+        return requestMessage;
+    }
+
+    public void setRequestMessage(String requestMessage) {
+        this.requestMessage = requestMessage;
+    }
+
+    public int getWeekDay() {
+        return weekDay;
+    }
+
+    public void setWeekDay(int weekDay) {
+        this.weekDay = weekDay;
+    }
+
     public int getMyRole() {
         return myRole;
     }
@@ -61,28 +86,12 @@ public class MyTask {
         this.myRole = myRole;
     }
 
-    public String getCourseLocation() {
-        return courseLocation;
+    public String getCourseClassRoom() {
+        return courseClassRoom;
     }
 
-    public void setCourseLocation(String courseLocation) {
-        this.courseLocation = courseLocation;
-    }
-
-    public String getToTeacherName() {
-        return toTeacherName;
-    }
-
-    public void setToTeacherName(String toTeacherName) {
-        this.toTeacherName = toTeacherName;
-    }
-
-    public String getRequestExplain() {
-        return requestExplain;
-    }
-
-    public void setRequestExplain(String requestExplain) {
-        this.requestExplain = requestExplain;
+    public void setCourseClassRoom(String courseClassRoom) {
+        this.courseClassRoom = courseClassRoom;
     }
 
     public int getRequestType() {
@@ -93,36 +102,76 @@ public class MyTask {
         this.requestType = requestType;
     }
 
-    public String getToTeacherId() {
-        return toTeacherId;
+    public String getTeacherName() {
+        return teacherName;
     }
 
-    public void setToTeacherId(String toTeacherId) {
-        this.toTeacherId = toTeacherId;
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 
-    public int getEvaluationType() {
-        return evaluationType;
+    public long getCourseEndTime() {
+        return courseEndTime;
     }
 
-    public void setEvaluationType(int evaluationType) {
-        this.evaluationType = evaluationType;
+    public void setCourseEndTime(long courseEndTime) {
+        this.courseEndTime = courseEndTime;
     }
 
-    public String getCourseId() {
-        return courseId;
+    public long getCourseStartTime() {
+        return courseStartTime;
     }
 
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
+    public void setCourseStartTime(long courseStartTime) {
+        this.courseStartTime = courseStartTime;
     }
 
-    public String getTeachingCalendar() {
-        return teachingCalendar;
+    public int getRequestState() {
+        return requestState;
     }
 
-    public void setTeachingCalendar(String teachingCalendar) {
-        this.teachingCalendar = teachingCalendar;
+    public void setRequestState(int requestState) {
+        this.requestState = requestState;
+    }
+
+    public int getWhatWeek() {
+        return whatWeek;
+    }
+
+    public void setWhatWeek(int whatWeek) {
+        this.whatWeek = whatWeek;
+    }
+
+    public int getWeekPartBegin() {
+        return weekPartBegin;
+    }
+
+    public void setWeekPartBegin(int weekPartBegin) {
+        this.weekPartBegin = weekPartBegin;
+    }
+
+    public int getAnotherTeacher() {
+        return anotherTeacher;
+    }
+
+    public void setAnotherTeacher(int anotherTeacher) {
+        this.anotherTeacher = anotherTeacher;
+    }
+
+    public int getCoursePlanId() {
+        return coursePlanId;
+    }
+
+    public void setCoursePlanId(int coursePlanId) {
+        this.coursePlanId = coursePlanId;
+    }
+
+    public int getWeekPartEnd() {
+        return weekPartEnd;
+    }
+
+    public void setWeekPartEnd(int weekPartEnd) {
+        this.weekPartEnd = weekPartEnd;
     }
 
     public String getCourseName() {
@@ -131,5 +180,9 @@ public class MyTask {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    public String getTeachingCalendar() {
+        return TimeUtils.millis2String(courseStartTime, "yyyy/MM/dd HH:mm") + "-" + TimeUtils.millis2String(courseEndTime, "HH:mm");
     }
 }

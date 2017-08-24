@@ -53,11 +53,11 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
     @Inject
     MyTaskAdapter adapter;
 
-    private String taskType;
+    private int taskType;
     private List<MyTask> myTasks;
     private static final int REQUEST_EVALUATE = 1;
 
-    public static MyTasksFragment newInstance(@MyTaskActivity.TaskType String type) {
+    public static MyTasksFragment newInstance(@MyTaskActivity.TaskType int type) {
 
         Bundle args = new Bundle();
 
@@ -132,13 +132,13 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
         adapter.setMyTaskOnClickListener(new MyTaskOnClickListener() {
             @Override
             public void evaluate(int position) {
-                Intent intent = new Intent(activity, EvaluateActivity.class);
-                intent.putExtra("teacherType", myTasks.get(position).getEvaluationType());
-                intent.putExtra("toTeacherId", myTasks.get(position).getToTeacherId());
-                intent.putExtra("recordId", myTasks.get(position).getRecordId());
-                intent.putExtra("evaluateType", myTasks.get(position).getEvaluationType());
-                intent.putExtra("position", position);
-                startActivityForResult(intent, REQUEST_EVALUATE);
+//                Intent intent = new Intent(activity, EvaluateActivity.class);
+//                intent.putExtra("teacherType", myTasks.get(position).getEvaluationType());
+//                intent.putExtra("toTeacherId", myTasks.get(position).getToTeacherId());
+//                intent.putExtra("recordId", myTasks.get(position).getRecordId());
+//                intent.putExtra("evaluateType", myTasks.get(position).getEvaluationType());
+//                intent.putExtra("position", position);
+//                startActivityForResult(intent, REQUEST_EVALUATE);
             }
 
             @Override
@@ -178,13 +178,13 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
 
             @Override
             public void supervisorEvaluate(int position) {
-                Intent intent = new Intent(activity, EvaluateActivity.class);
-                intent.putExtra("teacherType", myTasks.get(position).getEvaluationType());
-                intent.putExtra("toTeacherId", myTasks.get(position).getToTeacherId());
-                intent.putExtra("recordId", myTasks.get(position).getRecordId());
-                intent.putExtra("evaluateType", myTasks.get(position).getEvaluationType());
-                intent.putExtra("position", position);
-                startActivityForResult(intent, REQUEST_EVALUATE);
+//                Intent intent = new Intent(activity, EvaluateActivity.class);
+//                intent.putExtra("teacherType", myTasks.get(position).getEvaluationType());
+//                intent.putExtra("toTeacherId", myTasks.get(position).getToTeacherId());
+//                intent.putExtra("recordId", myTasks.get(position).getRecordId());
+//                intent.putExtra("evaluateType", myTasks.get(position).getEvaluationType());
+//                intent.putExtra("position", position);
+//                startActivityForResult(intent, REQUEST_EVALUATE);
             }
         });
     }

@@ -26,8 +26,8 @@ import butterknife.OnClick;
  */
 
 public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final int TYPE_COLLEAGUE = 0;
-    private static final int TYPE_SUPERVISOR = 1;
+    private static final int TYPE_COLLEAGUE = 2;
+    private static final int TYPE_SUPERVISOR = 3;
 
     private List<MyTask> tasks;
 
@@ -132,7 +132,7 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 //我申请评价别人
                 ((ColleagueHolder) holder).tvEvaluateName.setText("我");
                 ((ColleagueHolder) holder).tvEvaluatedName.setText(context.getString(R.string.evaluate_others_course,
-                        tasks.get(position).getToTeacherName()));
+                        tasks.get(position).getTeacherName()));
                 ((ColleagueHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_apply_evaluate);
 
             } else if (myRole == 0 && requestType == 1) {
@@ -140,23 +140,23 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 ((ColleagueHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_invite_evaluate);
                 ((ColleagueHolder) holder).tvEvaluateName.setText("我");
                 ((ColleagueHolder) holder).tvEvaluatedName.setText(context.getString(R.string.someone_evaluate_my_course,
-                        tasks.get(position).getToTeacherName()));
+                        tasks.get(position).getTeacherName()));
             } else if (myRole == 1 && requestType == 0) {
                 //别人申请评价我的课
                 ((ColleagueHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_apply_evaluate);
-                ((ColleagueHolder) holder).tvEvaluateName.setText(tasks.get(position).getToTeacherName());
+                ((ColleagueHolder) holder).tvEvaluateName.setText(tasks.get(position).getTeacherName());
                 ((ColleagueHolder) holder).tvEvaluatedName.setText(R.string.evaluate_my_course);
             } else {
                 //别人邀请我评价他的课
                 ((ColleagueHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_invite_evaluate);
-                ((ColleagueHolder) holder).tvEvaluateName.setText(tasks.get(position).getToTeacherName());
+                ((ColleagueHolder) holder).tvEvaluateName.setText(tasks.get(position).getTeacherName());
                 ((ColleagueHolder) holder).tvEvaluatedName.setText(R.string.evaluate_his_course);
             }
             //公用组件
             ((ColleagueHolder) holder).tvEvaluateCourse.setText(tasks.get(position).getCourseName());
             ((ColleagueHolder) holder).tvCourseDate.setText(tasks.get(position).getTeachingCalendar());
-            ((ColleagueHolder) holder).tvCourseLocation.setText(tasks.get(position).getCourseLocation());
-            ((ColleagueHolder) holder).tvMessage.setText(tasks.get(position).getRequestExplain());
+            ((ColleagueHolder) holder).tvCourseLocation.setText(tasks.get(position).getCourseClassRoom());
+            ((ColleagueHolder) holder).tvMessage.setText(tasks.get(position).getRequestMessage());
         } else if (holder instanceof SupervisorHolder) {//督导评价
             //myRole = 0 我是发起请求的人 myRole = 1 我是被请求的人
             //requestType :请求类型：0为请求评价别人，1为请求别人评价‘我’
@@ -187,16 +187,16 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             if (myRole == 0) {//我发起请求
                 ((SupervisorHolder) holder).tvEvaluateName.setText("我");
                 ((SupervisorHolder) holder).tvEvaluatedName.setText(
-                        context.getString(R.string.others_course, tasks.get(position).getToTeacherName()));
+                        context.getString(R.string.others_course, tasks.get(position).getTeacherName()));
             } else {//我是被请求的人
-                ((SupervisorHolder) holder).tvEvaluateName.setText(tasks.get(position).getToTeacherName());
+                ((SupervisorHolder) holder).tvEvaluateName.setText(tasks.get(position).getTeacherName());
                 ((SupervisorHolder) holder).tvEvaluatedName.setText(context.getString(R.string.my_course));
             }
             //公用组件
             ((SupervisorHolder) holder).ivEvaluateAction.setImageResource(R.drawable.ic_evaluate_others);
             ((SupervisorHolder) holder).tvEvaluateCourse.setText(tasks.get(position).getCourseName());
             ((SupervisorHolder) holder).tvCourseDate.setText(tasks.get(position).getTeachingCalendar());
-            ((SupervisorHolder) holder).tvCourseLocation.setText(tasks.get(position).getCourseLocation());
+            ((SupervisorHolder) holder).tvCourseLocation.setText(tasks.get(position).getCourseClassRoom());
         }
     }
 
@@ -206,11 +206,11 @@ public class MyTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     /**
-     * evaluationType 评价类型：2代表教师评价，9代表督导评价
+     * evaluationType 评价类型：2代表同行评价，3代表督导评价
      */
     @Override
     public int getItemViewType(int position) {
-        if (tasks.get(position).getEvaluationType() == 2) {
+        if (tasks.get(position).getEvaluateType() == TYPE_COLLEAGUE) {
             return TYPE_COLLEAGUE;
         } else {
             return TYPE_SUPERVISOR;

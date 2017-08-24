@@ -192,55 +192,15 @@ public interface TeacherService {
             @Field("requestType") int requestType, @Field("requestMessage") String requestMessage,
             @Field("evaluateType") int evaluateType, @Field("coursePlanId") int coursePlanId);
     /**
-     * 我的任务
+     * 查看我的任务
      */
-    // TODO: 2017/8/23  我的任务
     @FormUrlEncoded
-    @POST("ToEvaluateOthers/myAssignment")
+    @POST("EvaluateByTeacher/myAssignment")
     Observable<HttpResult<List<MyTask>>> getMyTasks(
-            @Field("requestState") String requestState, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") int schoolId);
-
-    /**
-     * 获取邀请评价时的课程信息
-     */
-    @FormUrlEncoded
-    @POST("page/evaluateBySupervisor/inviteSelectAll")
-    Observable<InviteCourseResult> getInviteCourses(@Field("teacherId") String teacherId, @Field("token") String token,
-                                                    @Field("schoolId") int schoolId);
-
-    /**
-     * 获取评价他人时的课程信息
-     */
-    @FormUrlEncoded
-    @POST("page/evaluateBySupervisor/selectAll")
-    Observable<HttpResult<List<EvaluateCourse>>> getEvaluateCourses(
-            @Field("teacherId") String teacherId, @Field("token") String token, @Field("schoolId") int schoolId);
-
-    /**
-     * 获取邀请评价的教师
-     */
-    @FormUrlEncoded
-    @POST("page/evaluateBySupervisor/selectTeacher")
-    Observable<HttpResult<List<InviteTeacher>>> getInviteTeacher(@Field("condition") String condition, @Field("teacherId")
-            String teacherId, @Field("token") String token, @Field("schoolId") int schoolId);
+            @Field("requestState") int requestState, @Field("myId") int teacherId);
 
 
-
-    /**
-     * 添加督导评价
-     */
-    @FormUrlEncoded
-    @POST("page/evaluateBySupervisor/add")
-    Observable<NoDataResult> addSupervisorEva(
-            @Field("initateTheRequestId") String teacherId, @Field("initateTheRequestName") String teacherName,
-            @Field("theRequestedPersonCollege") String theRequestedPersonCollege,
-            @Field("theRequestedPersonId") String requestedPersonId,
-            @Field("theRequestedPersonName") String requestedPersonName, @Field("courseId") int courseId,
-            @Field("courseName") String courseName, @Field("teachingCalendarTime") String teachingCalendar,
-            @Field("courseClassroom") String classroom, @Field("teacherType") String teacherType,
-            @Field("token") String token, @Field("schoolId") int schoolId);
-
+    /********************************************/
     /**
      * 同行评价，查看标签
      */
