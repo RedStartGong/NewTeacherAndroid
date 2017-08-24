@@ -59,7 +59,7 @@ public class ApplyToEvaActivity extends BaseActivity implements ApplyToEvaContra
     @Inject
     ApplyToEvaPresenter presenter;
 
-    private ProgressDialog progressDialog;
+    private MaterialDialog progressDialog;
     private List<College> colleges;
     private List<EvaTeacher> evaTeachers;
     private List<EvaCourse> evaCourses;
@@ -82,8 +82,10 @@ public class ApplyToEvaActivity extends BaseActivity implements ApplyToEvaContra
         evaCourses = new ArrayList<>();
         coursePlans = new ArrayList<>();
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("加载中...");
+        progressDialog = new MaterialDialog.Builder(this)
+                .progress(true, 10)
+                .content("加载中...")
+                .build();
         toolbar.setTitle("同行评价-评价他人");
         tilApplyLanguage.setCounterEnabled(true);
         tilApplyLanguage.setCounterMaxLength(20);
