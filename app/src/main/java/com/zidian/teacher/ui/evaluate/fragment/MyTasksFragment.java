@@ -156,7 +156,7 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
             @Override
             public void colleagueCheck(int position) {
                 Intent intent = new Intent(activity, CheckColleagueEvaActivity.class);
-                intent.putExtra("recordId", myTasks.get(position).getRequestEvalMessageId());
+                intent.putExtra("requestEvalMessageId", myTasks.get(position).getRequestEvalMessageId());
                 startActivity(intent);
             }
 

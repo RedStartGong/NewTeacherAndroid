@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
 import com.zidian.teacher.model.entity.remote.CheckColleagueEva;
+import com.zidian.teacher.model.entity.remote.EvaluateTag;
 import com.zidian.teacher.presenter.CheckColleagueEvaPresenter;
 import com.zidian.teacher.presenter.contract.CheckColleagueEvaContract;
 import com.zidian.teacher.recyclerviewpager.recycleview.RecyclerViewPager;
@@ -52,13 +53,13 @@ public class CheckColleagueEvaActivity extends BaseActivity implements CheckColl
 
     @Override
     protected void initViewAndData() {
-        String recordId = String.valueOf(getIntent().getIntExtra("recordId", 0));
+        int requestEvalMessageId = getIntent().getIntExtra("requestEvalMessageId", 0);
         toolbar.setTitle("同行评价");
         errorView.setVisibility(View.GONE);
         setToolbarBack(toolbar);
         checkNotNull(presenter);
         presenter.attachView(this);
-        presenter.checkColleagueEva(recordId);
+        presenter.getEvaluateTags(requestEvalMessageId);
         initRecyclerView();
     }
 
@@ -159,13 +160,14 @@ public class CheckColleagueEvaActivity extends BaseActivity implements CheckColl
     }
 
     @Override
-    public void showEvaTags(CheckColleagueEva checkColleagueEva) {
+    public void showEvaTag(EvaluateTag evaluateTag) {
         loadingView.setVisibility(View.GONE);
         errorView.setVisibility(View.GONE);
-        CheckAdapter adapter = new CheckAdapter(this, checkColleagueEva.getMapList(),
-                checkColleagueEva.getEvaluateComment());
+        CheckAdapter adapter = new CheckAdapter(this, evaluateTag.getThreeIndexList(),
+                evaluateTag.getCustomEvaluate());
         recyclerViewPager.setAdapter(adapter);
     }
+
 
 
 }

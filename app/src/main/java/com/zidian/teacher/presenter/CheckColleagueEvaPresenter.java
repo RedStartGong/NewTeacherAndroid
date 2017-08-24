@@ -2,7 +2,7 @@ package com.zidian.teacher.presenter;
 
 import com.zidian.teacher.base.RxPresenter;
 import com.zidian.teacher.model.DataManager;
-import com.zidian.teacher.model.entity.remote.CheckColleagueEva;
+import com.zidian.teacher.model.entity.remote.EvaluateTag;
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.presenter.contract.CheckColleagueEvaContract;
 import com.zidian.teacher.util.RxUtils;
@@ -28,13 +28,11 @@ public class CheckColleagueEvaPresenter extends RxPresenter<CheckColleagueEvaCon
     }
 
     @Override
-    public void checkColleagueEva(String recordId) {
-        Subscription subscription = dataManager.checkColleagueEva(recordId,
-                SharedPreferencesUtils.getUserName(), SharedPreferencesUtils.getToken(),
-                SharedPreferencesUtils.getSchoolId())
-                .compose(RxUtils.<HttpResult<CheckColleagueEva>>rxSchedulerIo())
-                .compose(RxUtils.<CheckColleagueEva>handleHttpResult())
-                .subscribe(new Subscriber<CheckColleagueEva>() {
+    public void getEvaluateTags(int requestEvalMessageId) {
+        Subscription subscription = dataManager.getEvaluateTag(requestEvalMessageId, SharedPreferencesUtils.getTeacherId())
+                .compose(RxUtils.<HttpResult<EvaluateTag>>rxSchedulerIo())
+                .compose(RxUtils.<EvaluateTag>handleHttpResult())
+                .subscribe(new Subscriber<EvaluateTag>() {
                     @Override
                     public void onStart() {
                         super.onStart();
@@ -52,11 +50,10 @@ public class CheckColleagueEvaPresenter extends RxPresenter<CheckColleagueEvaCon
                     }
 
                     @Override
-                    public void onNext(CheckColleagueEva checkColleagueEva) {
-                        view.showEvaTags(checkColleagueEva);
+                    public void onNext(EvaluateTag evaluateTag) {
+                        view.showEvaTag(evaluateTag);
                     }
                 });
         addSubscribe(subscription);
-
     }
 }
