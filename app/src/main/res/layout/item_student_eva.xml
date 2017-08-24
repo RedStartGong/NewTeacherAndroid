@@ -32,7 +32,7 @@
                     android:background="@color/material_green_100" />
 
                 <TextView
-                    android:id="@+id/tv_evaluate_type"
+                    android:id="@+id/tv_one_index_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"

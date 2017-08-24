@@ -17,6 +17,8 @@ public interface ColleagueEvaContract {
         void showColleagueEva(List<ColleagueEva> colleagueEvaList);
     }
     interface Presenter extends BasePresenter<ColleagueEvaContract.View> {
-        void getColleagueEva(String evaluateType);
+        void getColleagueEva();
+
+        void getSupervisorEva();
     }
 }

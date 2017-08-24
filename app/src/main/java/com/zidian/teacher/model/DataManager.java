@@ -242,9 +242,18 @@ public final class DataManager {
         return service.studentEvaTwoIndex(indexOneId, teacherId);
     }
 
-    public Observable<HttpResult<List<ColleagueEva>>> colleagueEva(
-            String evaluateType, String teacherId, String token, int schoolId) {
-        return service.colleagueEva(evaluateType, teacherId, token, schoolId);
+    /**
+     * 查看同行评价统计
+     */
+    public Observable<HttpResult<List<ColleagueEva>>> colleagueEva(int teacherId) {
+        return service.colleagueEva(teacherId);
+    }
+
+    /**
+     * 查看督导评价统计
+     */
+    public Observable<HttpResult<List<ColleagueEva>>> supervisorEva(int teacherId) {
+        return service.supervisorEva(teacherId);
     }
 
     public Observable<HttpResult<List<EvaTwoIndex>>> colleagueEvaTwoIndex(

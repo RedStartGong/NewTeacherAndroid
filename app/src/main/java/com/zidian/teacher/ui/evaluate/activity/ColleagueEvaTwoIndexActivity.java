@@ -14,6 +14,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
+import com.zidian.teacher.model.entity.remote.ColleagueEva;
 import com.zidian.teacher.model.entity.remote.EvaTwoIndex;
 import com.zidian.teacher.presenter.ColleagueEvaTwoIndexPresenter;
 import com.zidian.teacher.presenter.contract.ColleagueEvaTwoIndexContract;
@@ -37,16 +38,13 @@ import static com.zidian.teacher.util.Preconditions.checkNotNull;
  * Created by GongCheng on 2017/4/28.
  */
 
-public class ColleagueEvaTwoIndexActivity extends BaseActivity
-        implements ColleagueEvaTwoIndexContract.View {
+public class ColleagueEvaTwoIndexActivity extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_index_score)
     TextView tvIndexScore;
     @BindView(R.id.error_view)
     TextView errorView;
-    @BindView(R.id.loading_view)
-    ProgressBar loadingView;
     @BindView(R.id.rv_eva_tag)
     RecyclerView rvEvaTag;
     @BindView(R.id.bar_chart_two_index)
@@ -58,6 +56,8 @@ public class ColleagueEvaTwoIndexActivity extends BaseActivity
     ChartOptionListAdapter adapter;
     @Inject
     BarChartHelper barChartHelper;
+
+    private List<ColleagueEva.TwoIndexListBean> twoIndexListBeanList;
 
     @Override
     protected int getLayout() {
@@ -75,22 +75,22 @@ public class ColleagueEvaTwoIndexActivity extends BaseActivity
         checkNotNull(adapter);
         checkNotNull(barChartHelper);
         Intent intent = getIntent();
-        String indexName = intent.getStringExtra("indexName");
-        String evaluateType = intent.getStringExtra("evaluateType");
-        float indexScore = intent.getFloatExtra("indexScore", 0);
-
-        toolbar.setTitle(indexName);
+        twoIndexListBeanList = intent.getParcelableArrayListExtra("twoIndex");
+        String oneIndexName = intent.getStringExtra("oneIndexName");
+        float oneIndexScore = intent.getFloatExtra("oneIndexScore", 0);
+        toolbar.setTitle(oneIndexName);
         setToolbarBack(toolbar);
         //格式化数字，保留小数点后两位
         DecimalFormat decimalFormat = new DecimalFormat("##0.00");
-        tvIndexScore.setText(decimalFormat.format(indexScore));
+        tvIndexScore.setText(decimalFormat.format(oneIndexScore));
         errorView.setVisibility(View.GONE);
         rvEvaTag.setLayoutManager(new LinearLayoutManager(this));
         rvEvaTag.setAdapter(adapter);
         barChartHelper.initBarChart(barChartTwoIndex);
+        //设置数据
+        adapter.setData(getEvaTwoIndeces());
+        barChartTwoIndex.setData(getBarData(getEvaTwoIndeces()));
 
-        presenter.attachView(this);
-        presenter.getEvaTwoIndex(evaluateType, indexName);
     }
 
     @Override
@@ -119,18 +119,21 @@ public class ColleagueEvaTwoIndexActivity extends BaseActivity
         return barData;
     }
 
-    @Override
-    public void showError(Throwable e) {
-        errorView.setVisibility(View.VISIBLE);
-        errorView.setText(e.getMessage());
-        loadingView.setVisibility(View.GONE);
+    /**
+     * 转换二级标签list
+     *
+     * @return {@link EvaTwoIndex list}
+     */
+    public List<EvaTwoIndex> getEvaTwoIndeces() {
+        List<EvaTwoIndex> evaTwoIndices = new ArrayList<>();
+        EvaTwoIndex evaTwoIndex = new EvaTwoIndex();
+        for (int i = 0; i < twoIndexListBeanList.size(); i++) {
+            evaTwoIndex.setTwoIndexName(twoIndexListBeanList.get(i).getTwoIndexName());
+            evaTwoIndex.setTwoIndexId(twoIndexListBeanList.get(i).getTwoIndexId());
+            evaTwoIndex.setTwoIndexScore(twoIndexListBeanList.get(i).getTwoIndexScore());
+            evaTwoIndices.add(evaTwoIndex);
+        }
+        return evaTwoIndices;
     }
 
-    @Override
-    public void showEvaTwoIndex(List<EvaTwoIndex> evaTwoIndices) {
-        errorView.setVisibility(View.GONE);
-        loadingView.setVisibility(View.GONE);
-        adapter.setData(evaTwoIndices);
-        barChartTwoIndex.setData(getBarData(evaTwoIndices));
-    }
 }

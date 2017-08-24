@@ -225,6 +225,32 @@ public interface TeacherService {
     @POST("EvaluateTeacherPort/selectTeacherStuEvalScoreTwo")
     Observable<HttpResult<List<EvaTwoIndex>>> studentEvaTwoIndex(
             @Field("indexOneId") int indexOneId, @Field("teacherId") int teacherId);
+
+    /**
+     * 查看同行评价
+     */
+    @FormUrlEncoded
+    @POST("EvaluateTeacherPort/selectTeacherTchEvalScore")
+    Observable<HttpResult<List<ColleagueEva>>> colleagueEva(@Field("teacherId") int teacherId);
+
+    /**
+     * 查看督导评价
+     */
+    @FormUrlEncoded
+    @POST("EvaluateTeacherPort/selectTeacherSupEvalScore")
+    Observable<HttpResult<List<ColleagueEva>>> supervisorEva(@Field("teacherId") int teacherId);
+
+    /**
+     * 查看同行评价二级指标
+     */
+    @FormUrlEncoded
+    @POST("EvaluateTeacher/teacherEvaluateTwoIndex")
+    Observable<HttpResult<List<EvaTwoIndex>>> colleagueEvaTwoIndex(
+            @Field("evaluateType") String evaluateType, @Field("indexName") String indexName,
+            @Field("teacherId") String teacherId, @Field("token") String token,
+            @Field("schoolId") int schoolId);
+
+
     /**********************未完成**********************/
     /**
      * 同行评价，查看标签
@@ -276,26 +302,6 @@ public interface TeacherService {
             @Field("teacherId") String teacherId, @Field("token") String token,
             @Field("schoolId") int schoolId);
 
-
-
-    /**
-     * 查看督导/同行评价
-     */
-    @FormUrlEncoded
-    @POST("EvaluateTeacher/teacherEvaluation")
-    Observable<HttpResult<List<ColleagueEva>>> colleagueEva(
-            @Field("evaluateType") String evaluateType, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") int schoolId);
-
-    /**
-     * 查看督导/同行评价二级指标
-     */
-    @FormUrlEncoded
-    @POST("EvaluateTeacher/teacherEvaluateTwoIndex")
-    Observable<HttpResult<List<EvaTwoIndex>>> colleagueEvaTwoIndex(
-            @Field("evaluateType") String evaluateType, @Field("indexName") String indexName,
-            @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") int schoolId);
 
     /**
      * 自定义评价

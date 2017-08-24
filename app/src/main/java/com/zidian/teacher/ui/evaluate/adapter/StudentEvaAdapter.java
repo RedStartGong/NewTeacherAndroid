@@ -124,7 +124,7 @@ public class StudentEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     static class ItemViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_evaluate_color)
         ImageView evaluateColor;
-        @BindView(R.id.tv_evaluate_type)
+        @BindView(R.id.tv_one_index_name)
         TextView evaluateType;
         @BindView(R.id.tv_evaluate_tag)
         TextView evaluateTag;

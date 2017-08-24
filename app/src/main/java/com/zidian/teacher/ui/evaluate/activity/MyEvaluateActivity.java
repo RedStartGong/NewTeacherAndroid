@@ -50,8 +50,8 @@ public class MyEvaluateActivity extends BaseActivity {
         titles.add("督导评价");
         titles.add("自定义评价");
         fragments.add(StudentEvaFragment.newInstance());
-        fragments.add(ColleagueEvaFragment.newInstance("colleagueEvaluation"));
-        fragments.add(ColleagueEvaFragment.newInstance("supervisorEvaluation"));
+        fragments.add(ColleagueEvaFragment.newInstance(2));
+        fragments.add(ColleagueEvaFragment.newInstance(3));
         fragments.add(CustomEvaFragment.newInstance());
         BaseFragmentPagerAdapter pagerAdapter = new BaseFragmentPagerAdapter(
                 getSupportFragmentManager(), fragments, titles);

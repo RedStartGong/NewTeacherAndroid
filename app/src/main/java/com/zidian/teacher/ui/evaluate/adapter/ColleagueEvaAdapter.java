@@ -1,5 +1,8 @@
 package com.zidian.teacher.ui.evaluate.adapter;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.zidian.teacher.R;
 import com.zidian.teacher.model.entity.remote.ColleagueEva;
+import com.zidian.teacher.ui.evaluate.activity.ColleagueEvaTwoIndexActivity;
 import com.zidian.teacher.ui.widget.BarChartHelper;
 import com.zidian.teacher.ui.widget.ChartDecimalFormatter;
 import com.zidian.teacher.util.ColorConstants;
@@ -65,35 +69,38 @@ public class ColleagueEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof TopViewHolder) {
             barChartHelper.initBarChart(((TopViewHolder) holder).colleagueBarChart);
             ((TopViewHolder) holder).colleagueBarChart.setData(getBarData());
             ((TopViewHolder) holder).colleagueBarChart.invalidate();
         } else if (holder instanceof ItemViewHolder) {
             ((ItemViewHolder) holder).evaluateColor.setBackgroundColor(ColorConstants.CHART_COLORS[position - 1]);
-            ((ItemViewHolder) holder).evaluateScored.setText(decimal(data.get(position - 1).getIndexScore()));
-            ((ItemViewHolder) holder).evaluateType.setText(data.get(position - 1).getIndexName());
+            ((ItemViewHolder) holder).evaluateScored.setText(decimal(data.get(position - 1).getOneIndexScore()));
+            ((ItemViewHolder) holder).oneIndexName.setText(data.get(position - 1).getOneIndexName());
             StringBuffer sb = new StringBuffer();
 
             if (data.get(position - 1).getTwoIndexList().size() == 1) {
-                sb.append(data.get(position - 1).getTwoIndexList().get(0));
+                sb.append(data.get(position - 1).getTwoIndexList().get(0).getTwoIndexName());
             } else {
-                sb.append(data.get(position - 1).getTwoIndexList().get(0) + "、");
+                sb.append(data.get(position - 1).getTwoIndexList().get(0).getTwoIndexName() + "、");
             }
             for (int i = 1; i < data.get(position - 1).getTwoIndexList().size(); i++) {
                 if (i == data.get(position - 1).getTwoIndexList().size() - 1) {
-                    sb.append(data.get(position - 1).getTwoIndexList().get(i));
+                    sb.append(data.get(position - 1).getTwoIndexList().get(i).getTwoIndexName());
                 } else {
-                    sb.append(data.get(position - 1).getTwoIndexList().get(i) + "、");
+                    sb.append(data.get(position - 1).getTwoIndexList().get(i).getTwoIndexName() + "、");
                 }
             }
             ((ItemViewHolder) holder).evaluateTag.setText(sb.toString());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClickListener.onClick(data.get(holder.getAdapterPosition() - 1).getIndexName(),
-                            data.get(holder.getAdapterPosition() - 1).getIndexScore());
+                    Intent intent = new Intent(holder.itemView.getContext(), ColleagueEvaTwoIndexActivity.class);
+                    intent.putExtra("twoIndex", (ArrayList<? extends Parcelable>) data.get(position -1).getTwoIndexList());
+                    intent.putExtra("oneIndexName", data.get(position - 1).getOneIndexName());
+                    intent.putExtra("oneIndexScore", data.get(position - 1).getOneIndexScore());
+                    holder.itemView.getContext().startActivity(intent);
                 }
             });
         }
@@ -122,7 +129,7 @@ public class ColleagueEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         List<BarEntry> barEntries = new ArrayList<>();
 
         for (int i = 0; i < data.size(); i++) {
-            barEntries.add(new BarEntry(i + 1, data.get(i).getIndexScore()));
+            barEntries.add(new BarEntry(i + 1, data.get(i).getOneIndexScore()));
         }
         BarDataSet dataSet = new BarDataSet(barEntries, "BarChart");
         dataSet.setColors(ColorConstants.CHART_COLORS);
@@ -162,8 +169,8 @@ public class ColleagueEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     static class ItemViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_evaluate_color)
         ImageView evaluateColor;
-        @BindView(R.id.tv_evaluate_type)
-        TextView evaluateType;
+        @BindView(R.id.tv_one_index_name)
+        TextView oneIndexName;
         @BindView(R.id.tv_evaluate_tag)
         TextView evaluateTag;
         @BindView(R.id.tv_evaluate_scored)

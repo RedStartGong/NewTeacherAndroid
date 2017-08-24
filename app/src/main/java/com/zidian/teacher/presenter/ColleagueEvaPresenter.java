@@ -30,9 +30,38 @@ public class ColleagueEvaPresenter extends RxPresenter<ColleagueEvaContract.View
     }
 
     @Override
-    public void getColleagueEva(String evaluateType) {
-        Subscription subscription = dataManager.colleagueEva(evaluateType, SharedPreferencesUtils.getUserName(),
-                SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
+    public void getColleagueEva() {
+        Subscription subscription = dataManager.colleagueEva(SharedPreferencesUtils.getTeacherId())
+                .compose(RxUtils.<HttpResult<List<ColleagueEva>>>rxSchedulerIo())
+                .compose(RxUtils.<List<ColleagueEva>>handleHttpResult())
+                .subscribe(new Subscriber<List<ColleagueEva>>() {
+                    @Override
+                    public void onStart() {
+                        super.onStart();
+                        view.showLoading();
+                    }
+
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        view.showError(e);
+                    }
+
+                    @Override
+                    public void onNext(List<ColleagueEva> colleagueEvas) {
+                        view.showColleagueEva(colleagueEvas);
+                    }
+                });
+        addSubscribe(subscription);
+    }
+
+    @Override
+    public void getSupervisorEva() {
+        Subscription subscription = dataManager.supervisorEva(SharedPreferencesUtils.getTeacherId())
                 .compose(RxUtils.<HttpResult<List<ColleagueEva>>>rxSchedulerIo())
                 .compose(RxUtils.<List<ColleagueEva>>handleHttpResult())
                 .subscribe(new Subscriber<List<ColleagueEva>>() {

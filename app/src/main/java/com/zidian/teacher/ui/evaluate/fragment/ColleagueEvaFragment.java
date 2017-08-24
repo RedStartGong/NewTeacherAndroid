@@ -43,15 +43,16 @@ public class ColleagueEvaFragment extends BaseFragment implements ColleagueEvaCo
     @Inject
     ColleagueEvaAdapter adapter;
 
-    private String evaluateType;
+    //2是同行评价，3是督导评价
+    private int evaluateType;
 
-    public static ColleagueEvaFragment newInstance(String evaluateType) {
+    public static ColleagueEvaFragment newInstance(int evaluateType) {
 
         Bundle args = new Bundle();
 
         ColleagueEvaFragment fragment = new ColleagueEvaFragment();
-        fragment.evaluateType = evaluateType;
         fragment.setArguments(args);
+        fragment.evaluateType = evaluateType;
         return fragment;
     }
 
@@ -71,20 +72,16 @@ public class ColleagueEvaFragment extends BaseFragment implements ColleagueEvaCo
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(activity, DividerItemDecoration.VERTICAL));
-        adapter.setOnItemClickListener(new ColleagueEvaAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(String indexName, float indexScore) {
-                Intent intent = new Intent(getContext(), ColleagueEvaTwoIndexActivity.class);
-                intent.putExtra("indexName", indexName);
-                intent.putExtra("evaluateType", evaluateType);
-                intent.putExtra("indexScore", indexScore);
-                startActivity(intent);
-            }
-        });
         checkNotNull(presenter);
         checkNotNull(adapter);
         presenter.attachView(this);
-        presenter.getColleagueEva(evaluateType);
+        //判断是同行评价还是督导评价
+        if (evaluateType == 2) {
+            presenter.getColleagueEva();
+        } else if (evaluateType == 3) {
+            presenter.getSupervisorEva();
+        }
+
     }
 
     @Override
