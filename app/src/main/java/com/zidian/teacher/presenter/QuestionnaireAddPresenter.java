@@ -28,10 +28,9 @@ public class QuestionnaireAddPresenter extends RxPresenter<QuestionnaireAddContr
     }
 
     @Override
-    public void addQuestionnaire(String questionnaire) {
-        Subscription subscription = dataManager.addQuestionnaire(questionnaire,
-                SharedPreferencesUtils.getUserName(), SharedPreferencesUtils.getToken(),
-                SharedPreferencesUtils.getSchoolId())
+    public void addQuestionnaire(String classList, String quesTitle, String quesRemark, String quesItems) {
+        Subscription subscription = dataManager.addQuestionnaire(classList, quesTitle, quesRemark,
+                quesItems, SharedPreferencesUtils.getTeacherId())
                 .compose(RxUtils.<NoDataResult>rxSchedulerIo())
                 .map(new Func1<NoDataResult, NoDataResult>() {
                     @Override

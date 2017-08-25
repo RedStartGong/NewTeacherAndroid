@@ -1,7 +1,5 @@
 package com.zidian.teacher.model.entity.remote;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 
 /**
@@ -11,126 +9,41 @@ import java.io.Serializable;
 
 public class PersonInfo implements Serializable {
 
+
     /**
-     * becomments : 18
-     * personalizedsignature : 那么多的人你要去哪里
-     * mynickname : 哈哈哈哈
-     * teacherphonenumber : 133333333
-     * teachersex : 女
-     * beviewed : 9053
-     * teacherAge : 15
-     * teacherpassword : 96e79218965eb72c92a549dd5a330112
-     * teacherheadportrait : http://ling-zhi-jie.oss-cn-shanghai.aliyuncs.com/6283-HeadPortrait-1484710478250.JPEG?Expires=1800070491&OSSAccessKeyId=LTAIMUy5LebAYfzN&Signature=lpe2t%2B7gaBV04cQpf%2BsApOKyMO4%3D
-     * mybirthd : 2001-10-31
-     * bedownloaded : 0
-     * teachername : 谢文玲
+     * aliasName :
+     * birthday :
+     * sex : 0
+     * phone : 18281965033
+     * toTchEvalNum : 0
+     * signName :
+     * toSupEvalNum : 0
+     * byStuEvalNum : 0
+     * name : 景云
+     * iconUrl :
+     * byTchEvalNum : 0
+     * bySupEvalNum : 0
      */
 
-    @SerializedName("becomments")
-    private int evaluatedCount;
-    @SerializedName("personalizedsignature")
-    private String personSignature;
-    @SerializedName("mynickname")
-    private String nickName;
-    @SerializedName("teacherphonenumber")
-    private String phoneNumber;
-    @SerializedName("teachersex")
-    private String sex;
-    private int beviewed;
-    @SerializedName("teacherAge")
-    private String age;
-    @SerializedName("teacherpassword")
-    private String password;
-    @SerializedName("teacherheadportrait")
-    private String portrait;
-    @SerializedName("mybirthd")
+    private String aliasName;
     private String birthday;
-    @SerializedName("bedownloaded")
-    private int downloaded;
-    @SerializedName("teachername")
+    private int sex;
+    private String phone;
+    private int toTchEvalNum;
+    private String signName;
+    private int toSupEvalNum;
+    private int byStuEvalNum;
     private String name;
-    /**
-     * byNumberOfPeerEvaluation : 12
-     * bySuperviseTheEvaluationNumber : 0
-     * superviseTheEvaluationNumber : 6
-     * numberOfPeerEvaluation : 2
-     */
+    private String iconUrl;
+    private int byTchEvalNum;
+    private int bySupEvalNum;
 
-    private int byNumberOfPeerEvaluation;
-    private int bySuperviseTheEvaluationNumber;
-    private int superviseTheEvaluationNumber;
-    private int numberOfPeerEvaluation;
-
-    public int getEvaluatedCount() {
-        return evaluatedCount;
+    public String getAliasName() {
+        return aliasName;
     }
 
-    public void setEvaluatedCount(int evaluatedCount) {
-        this.evaluatedCount = evaluatedCount;
-    }
-
-    public String getPersonSignature() {
-        return personSignature;
-    }
-
-    public void setPersonSignature(String personSignature) {
-        this.personSignature = personSignature;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public int getBeviewed() {
-        return beviewed;
-    }
-
-    public void setBeviewed(int beviewed) {
-        this.beviewed = beviewed;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPortrait() {
-        return portrait;
-    }
-
-    public void setPortrait(String portrait) {
-        this.portrait = portrait;
+    public void setAliasName(String aliasName) {
+        this.aliasName = aliasName;
     }
 
     public String getBirthday() {
@@ -141,12 +54,52 @@ public class PersonInfo implements Serializable {
         this.birthday = birthday;
     }
 
-    public int getDownloaded() {
-        return downloaded;
+    public int getSex() {
+        return sex;
     }
 
-    public void setDownloaded(int downloaded) {
-        this.downloaded = downloaded;
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public int getToTchEvalNum() {
+        return toTchEvalNum;
+    }
+
+    public void setToTchEvalNum(int toTchEvalNum) {
+        this.toTchEvalNum = toTchEvalNum;
+    }
+
+    public String getSignName() {
+        return signName;
+    }
+
+    public void setSignName(String signName) {
+        this.signName = signName;
+    }
+
+    public int getToSupEvalNum() {
+        return toSupEvalNum;
+    }
+
+    public void setToSupEvalNum(int toSupEvalNum) {
+        this.toSupEvalNum = toSupEvalNum;
+    }
+
+    public int getByStuEvalNum() {
+        return byStuEvalNum;
+    }
+
+    public void setByStuEvalNum(int byStuEvalNum) {
+        this.byStuEvalNum = byStuEvalNum;
     }
 
     public String getName() {
@@ -157,35 +110,27 @@ public class PersonInfo implements Serializable {
         this.name = name;
     }
 
-    public int getByNumberOfPeerEvaluation() {
-        return byNumberOfPeerEvaluation;
+    public String getIconUrl() {
+        return iconUrl;
     }
 
-    public void setByNumberOfPeerEvaluation(int byNumberOfPeerEvaluation) {
-        this.byNumberOfPeerEvaluation = byNumberOfPeerEvaluation;
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
     }
 
-    public int getBySuperviseTheEvaluationNumber() {
-        return bySuperviseTheEvaluationNumber;
+    public int getByTchEvalNum() {
+        return byTchEvalNum;
     }
 
-    public void setBySuperviseTheEvaluationNumber(int bySuperviseTheEvaluationNumber) {
-        this.bySuperviseTheEvaluationNumber = bySuperviseTheEvaluationNumber;
+    public void setByTchEvalNum(int byTchEvalNum) {
+        this.byTchEvalNum = byTchEvalNum;
     }
 
-    public int getSuperviseTheEvaluationNumber() {
-        return superviseTheEvaluationNumber;
+    public int getBySupEvalNum() {
+        return bySupEvalNum;
     }
 
-    public void setSuperviseTheEvaluationNumber(int superviseTheEvaluationNumber) {
-        this.superviseTheEvaluationNumber = superviseTheEvaluationNumber;
-    }
-
-    public int getNumberOfPeerEvaluation() {
-        return numberOfPeerEvaluation;
-    }
-
-    public void setNumberOfPeerEvaluation(int numberOfPeerEvaluation) {
-        this.numberOfPeerEvaluation = numberOfPeerEvaluation;
+    public void setBySupEvalNum(int bySupEvalNum) {
+        this.bySupEvalNum = bySupEvalNum;
     }
 }

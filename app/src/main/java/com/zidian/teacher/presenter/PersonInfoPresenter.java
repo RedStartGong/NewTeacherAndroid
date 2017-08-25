@@ -28,9 +28,7 @@ public class PersonInfoPresenter extends RxPresenter<PersonInfoContract.View> im
 
     @Override
     public void getPersonInfo() {
-        Subscription subscription = dataManager.getPersonInfo(SharedPreferencesUtils.getUserName(),
-                String.valueOf(SharedPreferencesUtils.getTeacherType()), SharedPreferencesUtils.getToken(),
-                SharedPreferencesUtils.getSchoolId())
+        Subscription subscription = dataManager.getPersonInfo(SharedPreferencesUtils.getTeacherId())
                 .compose(RxUtils.<HttpResult<PersonInfo>>rxSchedulerIo())
                 .compose(RxUtils.<PersonInfo>handleHttpResult())
                 .subscribe(new Action1<PersonInfo>() {

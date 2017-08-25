@@ -109,7 +109,7 @@ public class AddQuestionnaireActivity extends BaseActivity implements Questionna
         if (TextUtils.isEmpty(getQuestionnaireResult())) {
             return true;
         }
-        presenter.addQuestionnaire(getQuestionnaireResult());
+//        presenter.addQuestionnaire(getQuestionnaireResult());
 
         return super.onOptionsItemSelected(item);
     }
@@ -168,7 +168,6 @@ public class AddQuestionnaireActivity extends BaseActivity implements Questionna
                 mList.add(datas.get(i).getChild().get(j));
             }
         }
-
 
         return mList;
     }

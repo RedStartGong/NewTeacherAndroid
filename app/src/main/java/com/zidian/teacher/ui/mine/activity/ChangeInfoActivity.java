@@ -23,6 +23,7 @@ import com.zidian.teacher.presenter.ChangeInfoPresenter;
 import com.zidian.teacher.presenter.contract.ChangeInfoContract;
 import com.zidian.teacher.util.SharedPreferencesUtils;
 import com.zidian.teacher.util.SnackbarUtils;
+import com.zidian.teacher.util.TimeUtils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -69,8 +70,8 @@ public class ChangeInfoActivity extends BaseActivity implements ChangeInfoContra
     ChangeInfoPresenter presenter;
 
     private static final int REQUEST_CODE = 0;
-    private ProgressDialog progressDialog;
-    private String image;
+    private MaterialDialog progressDialog;
+    private File image;
 
     @Override
     protected int getLayout() {
@@ -85,21 +86,38 @@ public class ChangeInfoActivity extends BaseActivity implements ChangeInfoContra
     @Override
     protected void initViewAndData() {
         toolbar.setTitle(getString(R.string.change_person_info));
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         setToolbarBack(toolbar);
-        progressDialog = new ProgressDialog(this);
+        setToolbarBack(toolbar);
+
         checkNotNull(presenter);
         presenter.attachView(this);
 
+        progressDialog = new MaterialDialog.Builder(this)
+                .progress(true, 10)
+                .content("加载中")
+                .build();
         //init person info
         PersonInfo personInfo = (PersonInfo) getIntent().getSerializableExtra("personInfo");
-        Glide.with(this).load(personInfo.getPortrait()).centerCrop().error(R.drawable.ic_teacher).into(civPortrait);
-        tvNickname.setText(personInfo.getNickName());
-        tvMotto.setText(personInfo.getPersonSignature());
-        tvAge.setText(personInfo.getAge());
-        tvSex.setText(personInfo.getSex());
-        tvBirthday.setText(personInfo.getBirthday());
-        tvPhoneNumber.setText(personInfo.getPhoneNumber());
+        Glide.with(this).load(personInfo.getIconUrl()).centerCrop().error(R.drawable.ic_teacher).into(civPortrait);
+        String sex;
+        if (personInfo.getSex() == 0) {
+            sex = "男";
+        } else if (personInfo.getSex() == 1) {
+            sex = "女";
+        } else {
+            sex = "";
+        }
+        tvNickname.setText(personInfo.getAliasName());
+        tvMotto.setText(personInfo.getSignName());
+        if (!personInfo.getBirthday().equals("")) {
+            String birthday = TimeUtils.millis2String(Long.parseLong(personInfo.getBirthday()), "yyyy-MM-dd");
+            tvBirthday.setText(birthday);
+            int birthdayYear = Integer.parseInt(TimeUtils.millis2String(Long.parseLong(personInfo.getBirthday()), "yyyy"));
+            int currentYear = Integer.parseInt(TimeUtils.millis2String(System.currentTimeMillis(), "yyyy"));
+            tvAge.setText(String.valueOf(currentYear - birthdayYear));
+        }
+        tvSex.setText(sex);
+        tvPhoneNumber.setText(personInfo.getPhone());
     }
 
     @Override
@@ -173,13 +191,14 @@ public class ChangeInfoActivity extends BaseActivity implements ChangeInfoContra
             //创建多部分拿上面的请求体做参数
             //file 是上传是的参数key
             MultipartBody.Part file = MultipartBody.Part.createFormData("iconUrl", System.currentTimeMillis() + ".png", requestFile);
-            presenter.changeUserInfo(requestTeacherId, requestNickname, requestPhoneNumber, requestMotto, requestBirthday,
+            presenter.changeUserInfo(requestTeacherId,requestNickname, requestPhoneNumber, requestMotto, requestBirthday,
                     requestSex, file);
         } else {//不带头像
-            presenter.changeUserInfoNoImg(requestTeacherId, requestNickname, requestPhoneNumber, requestMotto, requestBirthday,
+            presenter.changeUserInfoNoImg(requestTeacherId,requestNickname, requestPhoneNumber, requestMotto, requestBirthday,
                     requestSex);
         }
-//        presenter.setPersonInfo(motto, phoneNumber, sex, birthday, nickname);
+
+
     }
 
     /**
@@ -313,26 +332,27 @@ public class ChangeInfoActivity extends BaseActivity implements ChangeInfoContra
             List<String> pathList = data.getStringArrayListExtra(ImgSelActivity.INTENT_RESULT);
 
             Glide.with(this).load(pathList.get(0)).into(civPortrait);
-            image = pathList.get(0);
+            File file = new File(pathList.get(0));
+            image = file;
         }
     }
 
     @Override
     public void showError(Throwable e) {
         progressDialog.dismiss();
+        SnackbarUtils.showShort(toolbar, e.getMessage());
     }
 
     @Override
-    public void showLoading(String loadingMsg) {
-        progressDialog.setMessage(loadingMsg);
+    public void showLoading() {
         progressDialog.show();
     }
 
     @Override
-    public void showSuccess(String successMsg) {
+    public void showSuccess() {
         progressDialog.dismiss();
-        SnackbarUtils.showShort(toolbar, successMsg);
         //修改成功
         setResult(RESULT_OK);
+        SnackbarUtils.showShort(toolbar, "修改个人信息成功");
     }
 }

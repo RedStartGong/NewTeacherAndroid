@@ -70,9 +70,8 @@ public interface TeacherService {
      * 获取个人信息
      */
     @FormUrlEncoded
-    @POST("teacher/selectMydata")
-    Observable<HttpResult<PersonInfo>> getPersonInfo(@Field("teacherType") String teacherType
-    );
+    @POST("teacherAppL/selectMe")
+    Observable<HttpResult<PersonInfo>> getPersonInfo(@Field("teacherId") int teacherId);
 
     /**
      * 修改密码
@@ -145,11 +144,21 @@ public interface TeacherService {
      * 修改个人信息(带头像)
      */
     @Multipart
-    @POST("page/studentApp/updateMe")
+    @POST("teacherAppL/updateMe")
     Observable<NoDataResult> changeUserInfo(
             @Part("teacherId") RequestBody teacherId, @Part("aliasName") RequestBody aliasName,
             @Part("phone") RequestBody phone, @Part("signName") RequestBody signName, @Part("birthday") RequestBody birthday,
             @Part("sex") RequestBody sex, @Part MultipartBody.Part iconUrl);
+
+    /**
+     * 修改个人信息(不带头像)
+     */
+    @Multipart
+    @POST("teacherAppL/updateMe")
+    Observable<NoDataResult> changeUserInfoNoImg(
+            @Part("teacherId") RequestBody teacherId, @Part("aliasName") RequestBody aliasName,
+            @Part("phone") RequestBody phone, @Part("signName") RequestBody signName, @Part("birthday") RequestBody birthday,
+            @Part("sex") RequestBody sex);
 
     /**************************************评价部分**************************************/
 
@@ -284,8 +293,9 @@ public interface TeacherService {
     @FormUrlEncoded
     @POST("QuestionnaireController/tchTerminalReleaseTheQues")
     Observable<NoDataResult> addQuestionnaire(
-            @Field("questionnaire") String questionnaire, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") int schoolId);
+            @Field("classList") String classList, @Field("quesTitle") String quesTitle,
+            @Field("quesRemark") String quesRemark, @Field("quesItems") String quesItems,
+            @Field("teacherId") int teacherId);
 
     /**********************未完成**********************/
 

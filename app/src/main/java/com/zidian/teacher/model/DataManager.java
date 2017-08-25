@@ -74,10 +74,9 @@ public final class DataManager {
     /**
      * 获取个人信息
      */
-    // TODO: 2017/8/23 尚未完成
     public Observable<HttpResult<PersonInfo>> getPersonInfo(
-            String teacherId, String teacherType, String token, int schoolId) {
-        return service.getPersonInfo(teacherType);
+            int teacherId) {
+        return service.getPersonInfo(teacherId);
     }
 
     /**
@@ -147,6 +146,15 @@ public final class DataManager {
             RequestBody signName, RequestBody birthday, RequestBody sex,
             MultipartBody.Part iconUrl) {
         return service.changeUserInfo(teacherId, aliasName, phone, signName, birthday, sex, iconUrl);
+    }
+
+    /**
+     * 修改个人信息(不带头像)
+     */
+    public Observable<NoDataResult> changeUserInfoNoImg(
+            RequestBody teacherId, RequestBody aliasName, RequestBody phone,
+            RequestBody signName, RequestBody birthday, RequestBody sex) {
+        return service.changeUserInfoNoImg(teacherId, aliasName, phone, signName, birthday, sex);
     }
 
     /**
@@ -289,8 +297,8 @@ public final class DataManager {
     }
 
     public Observable<NoDataResult> addQuestionnaire(
-            String questionnaire, String teacherId, String token, int schoolId) {
-        return service.addQuestionnaire(questionnaire, teacherId, token, schoolId);
+            String classList, String quesTitle, String quesRemark, String quesItems, int teacherId) {
+        return service.addQuestionnaire(classList, quesTitle, quesRemark, quesItems, teacherId);
     }
 
     public Observable<HttpResult<List<SelectClass>>> getAllClasses(

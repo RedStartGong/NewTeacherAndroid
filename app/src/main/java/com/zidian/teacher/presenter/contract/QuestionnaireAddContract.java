@@ -15,6 +15,6 @@ public interface QuestionnaireAddContract {
     }
 
     interface Presenter extends BasePresenter<QuestionnaireAddContract.View> {
-        void addQuestionnaire(String questionnaire);
+        void addQuestionnaire(String classList, String quesTitle, String quesRemark, String quesItems);
     }
 }

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TextView;
@@ -51,6 +52,8 @@ public class MineFragment extends BaseFragment implements PersonInfoContract.Vie
     TextView tvSupervisorEvaluate;
     @BindView(R.id.tv_colleague_evaluate)
     TextView tvColleagueEvaluate;
+    @BindView(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Inject
     PersonInfoPresenter presenter;
@@ -119,6 +122,13 @@ public class MineFragment extends BaseFragment implements PersonInfoContract.Vie
         checkNotNull(presenter);
         presenter.attachView(this);
         presenter.getPersonInfo();
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.getPersonInfo();
+            }
+        });
     }
 
     @Override
@@ -163,19 +173,21 @@ public class MineFragment extends BaseFragment implements PersonInfoContract.Vie
 
     @Override
     public void showError(Throwable e) {
+        swipeRefreshLayout.setRefreshing(false);
         SnackbarUtils.showShort(cimPortrait, e.getMessage());
     }
 
     @Override
     public void showInfo(PersonInfo personInfo) {
+        swipeRefreshLayout.setRefreshing(false);
         tvName.setText(personInfo.getName());
-        tvStudentEvaMe.setText(String.valueOf(personInfo.getEvaluatedCount()));
-        tvSupervisorEvaMe.setText(String.valueOf(personInfo.getBySuperviseTheEvaluationNumber()));
-        tvColleagueEvaMe.setText(String.valueOf(personInfo.getByNumberOfPeerEvaluation()));
-        tvColleagueEvaluate.setText(String.valueOf(personInfo.getNumberOfPeerEvaluation()));
-        tvSupervisorEvaluate.setText(String.valueOf(personInfo.getSuperviseTheEvaluationNumber()));
+        tvStudentEvaMe.setText(String.valueOf(personInfo.getByStuEvalNum()));
+        tvSupervisorEvaMe.setText(String.valueOf(personInfo.getBySupEvalNum()));
+        tvColleagueEvaMe.setText(String.valueOf(personInfo.getByTchEvalNum()));
+        tvColleagueEvaluate.setText(String.valueOf(personInfo.getToTchEvalNum()));
+        tvSupervisorEvaluate.setText(String.valueOf(personInfo.getToSupEvalNum()));
 
-        Glide.with(this).load(personInfo.getPortrait())
+        Glide.with(this).load(personInfo.getIconUrl())
                 .error(R.drawable.ic_teacher)
                 .into(cimPortrait);
         this.personInfo = personInfo;

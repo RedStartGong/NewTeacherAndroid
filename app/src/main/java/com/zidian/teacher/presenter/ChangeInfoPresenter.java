@@ -50,7 +50,7 @@ public class ChangeInfoPresenter extends RxPresenter<ChangeInfoContract.View> im
                     @Override
                     public void onStart() {
                         super.onStart();
-                        view.showLoading("上传中...");
+                        view.showLoading();
                     }
 
                     @Override
@@ -65,7 +65,7 @@ public class ChangeInfoPresenter extends RxPresenter<ChangeInfoContract.View> im
 
                     @Override
                     public void onNext(NoDataResult noDataResult) {
-                        view.showSuccess(noDataResult.getMessage());
+                        view.showSuccess();
                     }
                 });
         addSubscribe(subscription);
@@ -75,6 +75,41 @@ public class ChangeInfoPresenter extends RxPresenter<ChangeInfoContract.View> im
     public void changeUserInfoNoImg(RequestBody teacherId, RequestBody aliasName,
                                     RequestBody phone, RequestBody signName,
                                     RequestBody birthday, RequestBody sex) {
+        Subscription subscription = dataManager.changeUserInfoNoImg(teacherId, aliasName, phone,
+                signName, birthday, sex)
+                .compose(RxUtils.<NoDataResult>rxSchedulerIo())
+                .map(new Func1<NoDataResult, NoDataResult>() {
+                    @Override
+                    public NoDataResult call(NoDataResult noDataResult) {
+                        if (noDataResult.getCode() != 200) {
+                            throw new ApiException(noDataResult.getMessage());
+                        } else {
+                            return noDataResult;
+                        }
+                    }
+                })
+                .subscribe(new Subscriber<NoDataResult>() {
+                    @Override
+                    public void onStart() {
+                        super.onStart();
+                        view.showLoading();
+                    }
 
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        view.showError(e);
+                    }
+
+                    @Override
+                    public void onNext(NoDataResult noDataResult) {
+                        view.showSuccess();
+                    }
+                });
+        addSubscribe(subscription);
     }
 }

@@ -12,9 +12,9 @@ import okhttp3.RequestBody;
 
 public interface ChangeInfoContract {
     interface View extends BaseView {
-        void showLoading(String loadingMsg);
+        void showLoading();
 
-        void showSuccess(String successMsg);
+        void showSuccess();
     }
 
     interface Presenter extends BasePresenter<ChangeInfoContract.View> {
