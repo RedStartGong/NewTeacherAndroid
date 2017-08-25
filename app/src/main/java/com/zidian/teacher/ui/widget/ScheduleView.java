@@ -50,9 +50,9 @@ public class ScheduleView extends View implements OnTouchListener {
 
     // 颜色
     public static final int contentBg = Color.argb(255, 255, 255, 255);
-    public static final int barBg = Color.argb(255, 233, 241, 237);
+    public static final int barBg = Color.argb(255, 248, 238, 237);
     public static final int bayText = Color.argb(255, 150, 150, 150);
-    public static final int barBgHrLine = Color.argb(255, 150, 150, 150);
+    public static final int barBgHrLine = Color.argb(255, 209, 98, 101);
     public static final int classBorder = Color.argb(180, 150, 150, 150);
     public static final int markerBorder = Color.argb(100, 150, 150, 150);
 

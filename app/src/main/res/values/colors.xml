@@ -23,4 +23,7 @@
     <color name="background">#f5f4f9</color>
     <!--分割线颜色-->
     <color name="divider_color">#dedfdf</color>
+    <!--ScheduleView-->
+    <color name="week_text_color">#D16265</color>
+    <color name="week_bar_bg_color">#f8eeed</color>
 </resources>
