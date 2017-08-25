@@ -69,7 +69,7 @@ public class QuestionnaireSurveyFragment extends BaseFragment{
     protected void initViewAndData() {
         checkNotNull(adapter);
 
-        errorView.setText("当前没有问卷");
+        errorView.setText("当前没有您需要填写的问卷");
         loadingView.setVisibility(View.GONE);
     }
 
