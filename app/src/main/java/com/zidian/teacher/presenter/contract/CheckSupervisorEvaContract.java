@@ -23,6 +23,6 @@ public interface CheckSupervisorEvaContract {
     interface Presenter extends BasePresenter<CheckSupervisorEvaContract.View> {
         void getEvaluateTag(int requestEvalMessageId);
 
-        void confirm(String recordId);
+        void confirm(int requestEvalMessageId);
     }
 }

@@ -15,6 +15,6 @@ public interface SupervisorFeedbackContract {
     }
 
     interface Presenter extends BasePresenter<SupervisorFeedbackContract.View> {
-        void feedback(String feedbackContent, String recordId);
+        void feedback(int requestEvalMessageId, String dissentDesc);
     }
 }

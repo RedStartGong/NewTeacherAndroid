@@ -39,7 +39,7 @@ public class SupervisorFeedbackActivity extends BaseActivity implements Supervis
     @Inject
     SupervisorFeedbackPresenter presenter;
 
-    private String recordId;
+    private int requestEvalMessageId;
     private ProgressDialog progressDialog;
 
     @Override
@@ -54,7 +54,7 @@ public class SupervisorFeedbackActivity extends BaseActivity implements Supervis
 
     @Override
     protected void initViewAndData() {
-        recordId = getIntent().getStringExtra("recordId");
+        requestEvalMessageId = getIntent().getIntExtra("requestEvalMessageId", 0);
         toolbar.setTitle("申诉");
         setToolbarBack(toolbar);
         progressDialog = new ProgressDialog(this);
@@ -88,7 +88,7 @@ public class SupervisorFeedbackActivity extends BaseActivity implements Supervis
             tilSupervisorFeedback.setError("反馈内容不得为空！");
             return;
         }
-        presenter.feedback(etSupervisorFeedback.getText().toString().trim(), recordId);
+        presenter.feedback(requestEvalMessageId, etSupervisorFeedback.getText().toString().trim());
     }
 
     @Override

@@ -197,13 +197,18 @@ public final class DataManager {
                 requestMessage, evaluateType, coursePlanId);
     }
 
-
+    /**
+     * 获取评价的标签/查看同行或者督导评价的结果
+     */
     public Observable<HttpResult<EvaluateTag>> getEvaluateTag(
             int requestEvalMessageId, int teacherId) {
         return service.getEvaluateTag(requestEvalMessageId, teacherId);
 
     }
 
+    /**
+     * 进行同行/督导评价
+     */
     public Observable<NoDataResult> evaluate(int requestEvalMessageId, int toTeacherId,
                                              int evaluateType, String evaluateContent,
                                              String customEva, int teacherId) {
@@ -211,24 +216,20 @@ public final class DataManager {
                 evaluateContent, customEva, teacherId);
     }
 
+    /**
+     * 修改我的任务-评价状态
+     */
     public Observable<NoDataResult> changeEvaState(
             int requestEvalMessageId, int requestState, int teacherId) {
         return service.changeEvaState(requestEvalMessageId, requestState, teacherId);
     }
 
-    public Observable<HttpResult<CheckColleagueEva>> checkColleagueEva(
-            String recordId, String teacherId, String token, int schoolId) {
-        return service.checkColleagueEva(recordId, teacherId, token, schoolId);
-    }
-
-    public Observable<HttpResult<CheckSupervisorEva>> checkSupervisorEva(
-            String recordId, String teacherId, String token, int schoolId) {
-        return service.checkSupervisorEva(recordId, teacherId, token, schoolId);
-    }
-
-    public Observable<NoDataResult> supervisorFeedback(
-            String contentFeedback, String recordId, String teacherId, String token, int schoolId) {
-        return service.supervisorFeedback(contentFeedback, recordId, teacherId, token, schoolId);
+    /**
+     * 添加督导评价反馈，dissentDesc 为空时表示确认
+     */
+    public Observable<NoDataResult> supervisorFeedback(int requestEvalMessageId, int toState,
+                                                       String dissentDesc, int teacherId) {
+        return service.supervisorFeedback(requestEvalMessageId, toState, dissentDesc, teacherId);
     }
 
     public Observable<HttpResult<StudentEva>> studentEva(int teacherId) {

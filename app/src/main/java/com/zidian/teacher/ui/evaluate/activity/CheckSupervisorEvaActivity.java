@@ -55,9 +55,9 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
     CheckSupervisorEvaPresenter presenter;
 
     private ProgressDialog progressDialog;
-    private String recordId;
     //确认的任务条目
     private int position;
+    int requestEvalMessageId;
 
     @Override
     protected int getLayout() {
@@ -73,8 +73,7 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
     @Override
     protected void initViewAndData() {
         Intent intent = getIntent();
-        recordId = String.valueOf(intent.getIntExtra("recordId", 0));
-        int requestEvalMessageId = intent.getIntExtra("requestEvalMessageId", 0);
+        requestEvalMessageId = intent.getIntExtra("requestEvalMessageId", 0);
         boolean needConfirm = intent.getBooleanExtra("needConfirm", false);
         //任务类型 0为待确认
         int taskType = intent.getIntExtra("taskType", -1);
@@ -177,14 +176,6 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
             }
         });
     }
-
-    @OnClick(R.id.btn_raise_objection)
-    public void raiseObjection() {
-        Intent intent = new Intent(this, SupervisorFeedbackActivity.class);
-        intent.putExtra("recordId", recordId);
-        startActivity(intent);
-    }
-
     /**
      * {@link EventBus}反馈是否成功
      *
@@ -197,6 +188,13 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
         }
     }
 
+    @OnClick(R.id.btn_raise_objection)
+    public void raiseObjection() {
+        Intent intent = new Intent(this, SupervisorFeedbackActivity.class);
+        intent.putExtra("requestEvalMessageId", requestEvalMessageId);
+        startActivity(intent);
+    }
+
     @OnClick(R.id.btn_confirm)
     public void confirm() {
         new MaterialDialog.Builder(this)
@@ -207,7 +205,7 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        presenter.confirm(recordId);
+                        presenter.confirm(requestEvalMessageId);
                     }
                 })
                 .show();

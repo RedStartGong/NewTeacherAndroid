@@ -30,10 +30,9 @@ public class SupervisorFeedbackPresenter extends RxPresenter<SupervisorFeedbackC
 
 
     @Override
-    public void feedback(String feedbackContent, String recordId) {
-        Subscription subscription = dataManager.supervisorFeedback(feedbackContent, recordId,
-                SharedPreferencesUtils.getUserName(), SharedPreferencesUtils.getToken(),
-                SharedPreferencesUtils.getSchoolId())
+    public void feedback(int requestEvalMessageId, String dissentDesc) {
+        Subscription subscription = dataManager.supervisorFeedback(requestEvalMessageId, 1,
+                dissentDesc, SharedPreferencesUtils.getTeacherId())
                 .compose(RxUtils.<NoDataResult>rxSchedulerIo())
                 .map(new Func1<NoDataResult, NoDataResult>() {
                     @Override

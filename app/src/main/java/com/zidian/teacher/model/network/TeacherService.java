@@ -198,7 +198,6 @@ public interface TeacherService {
     @POST("EvaluateByTeacher/myAssignment")
     Observable<HttpResult<List<MyTask>>> getMyTasks(
             @Field("requestState") int requestState, @Field("myId") int teacherId);
-
     /**
      * 修改评价状态
      */
@@ -207,8 +206,6 @@ public interface TeacherService {
     Observable<NoDataResult> changeEvaState(
             @Field("requestEvalMessageId") int requestEvalMessageId, @Field("requestState") int requestState,
             @Field("teacherId") int teacherId);
-
-
 
     /**
      * 查看学生评价统计
@@ -255,7 +252,6 @@ public interface TeacherService {
     @POST("EvaluateByTeacher/checkEvaluateContent")
     Observable<HttpResult<EvaluateTag>> getEvaluateTag(
             @Field("requestEvalMessageId") int requestEvalMessageId, @Field("teacherId") int teacherId);
-
     /**
      * 评价别人
      */
@@ -265,12 +261,16 @@ public interface TeacherService {
             @Field("requestEvalMessageId") int requestEvalMessageId, @Field("toTeacherId") int toTeacherId,
             @Field("evaluateType") int evaluateType, @Field("evaluateContent") String evaluateContent,
             @Field("customEval") String customEva, @Field("teacherId") int teacherId);
+    /**
+     * 添加督导评价反馈，contentFeedback 为空时表示确认
+     */
+    @FormUrlEncoded
+    @POST("EvaluateByTeacher/supEvaluateConfirm")
+    Observable<NoDataResult> supervisorFeedback(
+            @Field("requestEvalMessageId") int requestEvalMessageId, @Field("toState") int toState,
+            @Field("dissentDesc") String dissentDesc, @Field("teacherId") int teacherId);
 
     /**********************未完成**********************/
-
-
-
-
 
 
     /**
@@ -281,23 +281,6 @@ public interface TeacherService {
             @Query("recordId") String recordId, @Query("teacherId") String teacherId,
             @Query("token") String token, @Query("schoolId") int schoolId);
 
-    /**
-     * 查看督导评价详情
-     */
-    @GET("page/evaluateBySupervisor/evaluationDetails")
-    Observable<HttpResult<CheckSupervisorEva>> checkSupervisorEva(
-            @Query("recordId") String recordId, @Query("teacherId") String teacherId,
-            @Query("token") String token, @Query("schoolId") int schoolId);
-
-    /**
-     * 添加督导评价反馈，contentFeedback 为空时表示确认
-     */
-    @FormUrlEncoded
-    @POST("page/evaluateBySupervisor/addFeedback")
-    Observable<NoDataResult> supervisorFeedback(
-            @Field("contentFeedback") String contentFeedback, @Field("recordId") String recordId,
-            @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") int schoolId);
 
 
 

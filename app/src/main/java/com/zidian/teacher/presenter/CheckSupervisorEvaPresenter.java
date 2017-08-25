@@ -61,10 +61,9 @@ public class CheckSupervisorEvaPresenter extends RxPresenter<CheckSupervisorEvaC
     }
 
     @Override
-    public void confirm(String recordId) {
-        Subscription subscription = dataManager.supervisorFeedback("", recordId,
-                SharedPreferencesUtils.getUserName(), SharedPreferencesUtils.getToken(),
-                SharedPreferencesUtils.getSchoolId())
+    public void confirm(int requestEvalMessageId) {
+        Subscription subscription = dataManager.supervisorFeedback(requestEvalMessageId, 0,
+                "", SharedPreferencesUtils.getTeacherId())
                 .compose(RxUtils.<NoDataResult>rxSchedulerIo())
                 .map(new Func1<NoDataResult, NoDataResult>() {
                     @Override
