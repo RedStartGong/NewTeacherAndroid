@@ -3,8 +3,6 @@ package com.zidian.teacher.model.network;
 
 import com.zidian.teacher.model.entity.remote.AttendanceStatistics;
 import com.zidian.teacher.model.entity.remote.AttendanceStudent;
-import com.zidian.teacher.model.entity.remote.CheckColleagueEva;
-import com.zidian.teacher.model.entity.remote.CheckSupervisorEva;
 import com.zidian.teacher.model.entity.remote.College;
 import com.zidian.teacher.model.entity.remote.CoursePlan;
 import com.zidian.teacher.model.entity.remote.EvaCourse;
@@ -14,14 +12,11 @@ import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.model.entity.remote.CourseTime;
 import com.zidian.teacher.model.entity.remote.CustomEva;
 import com.zidian.teacher.model.entity.remote.EvaTwoIndex;
-import com.zidian.teacher.model.entity.remote.EvaluateCourse;
 import com.zidian.teacher.model.entity.remote.EvaluateTag;
 import com.zidian.teacher.model.entity.remote.HttpResult;
-import com.zidian.teacher.model.entity.remote.InviteCourseResult;
-import com.zidian.teacher.model.entity.remote.InviteTeacher;
 import com.zidian.teacher.model.entity.remote.LoginResult;
 import com.zidian.teacher.model.entity.remote.MyQuesDetail;
-import com.zidian.teacher.model.entity.remote.MyQuesList;
+import com.zidian.teacher.model.entity.remote.MyQuestionnaire;
 import com.zidian.teacher.model.entity.remote.MyTask;
 import com.zidian.teacher.model.entity.remote.NoDataResult;
 import com.zidian.teacher.model.entity.remote.PersonInfo;
@@ -38,11 +33,9 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -296,11 +289,24 @@ public interface TeacherService {
             @Field("classList") String classList, @Field("quesTitle") String quesTitle,
             @Field("quesRemark") String quesRemark, @Field("quesItems") String quesItems,
             @Field("teacherId") int teacherId);
+    /**
+     * 查看指定教师发布的全部问卷
+     */
+    @FormUrlEncoded
+    @POST("QuestionnaireController/tchSelectSelfQuesList")
+    Observable<HttpResult<List<MyQuestionnaire>>> myQuesList(
+            @Field("teacherId") int teacherId);
+
+    /**
+     * 查看指定教师发布的问卷统计详情
+     */
+    @FormUrlEncoded
+    @POST("QuestionnaireController/tchSelectSelfQues")
+    Observable<HttpResult<List<MyQuesDetail>>> myQuesDetail(
+            @Field("questionnaireId") int questionnaireId, @Field("releaseTime") long releaseTime,
+            @Field("teacherId") int teacherId);
 
     /**********************未完成**********************/
-
-
-
 
 
     /**
@@ -331,24 +337,7 @@ public interface TeacherService {
             @Field("questionnaireSubmit") String questionnaireSubmit, @Field("teacherId") String teacherId,
             @Field("token") String token, @Field("schoolId") int schoolId);
 
-    /**
-     * 查看指定教师发布的全部问卷
-     */
-    @FormUrlEncoded
-    @POST("Questionnaire/selectQuestionnaire")
-    Observable<HttpResult<MyQuesList>> myQuesList(
-            @Field("startrow") String startRow, @Field("pageSize") String pageSize,
-            @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") int schoolId);
 
-    /**
-     * 查看指定教师发布的问卷统计详情
-     */
-    @FormUrlEncoded
-    @POST("Questionnaire/selectQuestionnaireStatistics")
-    Observable<HttpResult<List<MyQuesDetail>>> myQuesDetail(
-            @Field("questionnaireId") String questionnaireId, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") int schoolId);
 
 
 

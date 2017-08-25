@@ -63,9 +63,10 @@ public class MyQuesDetailActivity extends BaseActivity implements MyQuesDetailCo
 
         errorView.setVisibility(View.GONE);
         Intent intent = getIntent();
-        String questionnaireId = String.valueOf(intent.getIntExtra("questionnaireId", 0));
+        int questionnaireId = intent.getIntExtra("questionnaireId", 0);
         String questionnaireTitle = intent.getStringExtra("questionnaireTitle");
         int completeCount = intent.getIntExtra("completeCount", 0);
+        long releaseTime = intent.getLongExtra("releaseTime", 0);
 
         toolbar.setTitle("问卷详情");
         setToolbarBack(toolbar);
@@ -74,7 +75,7 @@ public class MyQuesDetailActivity extends BaseActivity implements MyQuesDetailCo
         rvQuestionDetailList.setLayoutManager(new LinearLayoutManager(this));
         rvQuestionDetailList.setAdapter(adapter);
         presenter.attachView(this);
-        presenter.getMyQuesDetail(questionnaireId);
+        presenter.getMyQuesDetail(questionnaireId, releaseTime);
     }
 
     @Override

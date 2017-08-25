@@ -3,8 +3,6 @@ package com.zidian.teacher.model;
 
 import com.zidian.teacher.model.entity.remote.AttendanceStatistics;
 import com.zidian.teacher.model.entity.remote.AttendanceStudent;
-import com.zidian.teacher.model.entity.remote.CheckColleagueEva;
-import com.zidian.teacher.model.entity.remote.CheckSupervisorEva;
 import com.zidian.teacher.model.entity.remote.College;
 import com.zidian.teacher.model.entity.remote.CoursePlan;
 import com.zidian.teacher.model.entity.remote.EvaCourse;
@@ -15,14 +13,11 @@ import com.zidian.teacher.model.entity.remote.Course;
 import com.zidian.teacher.model.entity.remote.CourseTime;
 import com.zidian.teacher.model.entity.remote.CustomEva;
 import com.zidian.teacher.model.entity.remote.EvaTwoIndex;
-import com.zidian.teacher.model.entity.remote.EvaluateCourse;
 import com.zidian.teacher.model.entity.remote.EvaluateTag;
 import com.zidian.teacher.model.entity.remote.HttpResult;
-import com.zidian.teacher.model.entity.remote.InviteCourseResult;
-import com.zidian.teacher.model.entity.remote.InviteTeacher;
 import com.zidian.teacher.model.entity.remote.LoginResult;
 import com.zidian.teacher.model.entity.remote.MyQuesDetail;
-import com.zidian.teacher.model.entity.remote.MyQuesList;
+import com.zidian.teacher.model.entity.remote.MyQuestionnaire;
 import com.zidian.teacher.model.entity.remote.MyTask;
 import com.zidian.teacher.model.entity.remote.NoDataResult;
 import com.zidian.teacher.model.entity.remote.PersonInfo;
@@ -40,11 +35,6 @@ import javax.inject.Singleton;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.Multipart;
-import retrofit2.http.POST;
-import retrofit2.http.Part;
 import rx.Observable;
 
 /**
@@ -285,15 +275,13 @@ public final class DataManager {
         return service.quesSubmit(questionnaireSubmit, teacherId, token, schoolId);
     }
 
-    public Observable<HttpResult<MyQuesList>> myQuesList(
-            String startRow, String pageSize, String teacherId, String token,
-            int schoolId) {
-        return service.myQuesList(startRow, pageSize, teacherId, token, schoolId);
+    public Observable<HttpResult<List<MyQuestionnaire>>> myQuesList(int teacherId) {
+        return service.myQuesList(teacherId);
     }
 
     public Observable<HttpResult<List<MyQuesDetail>>> myQuesDetail(
-            String questionnaireId, String teacherId, String token, int schoolId) {
-        return service.myQuesDetail(questionnaireId, teacherId, token, schoolId);
+            int questionnaireId,long releaseTime, int teacherId) {
+        return service.myQuesDetail(questionnaireId, releaseTime, teacherId);
     }
 
     public Observable<NoDataResult> addQuestionnaire(

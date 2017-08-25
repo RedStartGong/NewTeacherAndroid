@@ -32,10 +32,9 @@ public class MyQuesDetailPresenter extends RxPresenter<MyQuesDetailContract.View
     }
 
     @Override
-    public void getMyQuesDetail(String questionnaireId) {
-        Subscription subscription = dataManager.myQuesDetail(questionnaireId,
-                SharedPreferencesUtils.getUserName(), SharedPreferencesUtils.getToken(),
-                SharedPreferencesUtils.getSchoolId())
+    public void getMyQuesDetail(int questionnaireId, long releaseTime) {
+        Subscription subscription = dataManager.myQuesDetail(questionnaireId,releaseTime,
+                SharedPreferencesUtils.getTeacherId())
                 .compose(RxUtils.<HttpResult<List<MyQuesDetail>>>rxSchedulerIo())
                 .compose(RxUtils.<List<MyQuesDetail>>handleHttpResult())
                 .map(new Func1<List<MyQuesDetail>, List<MyQuesDetail>>() {
@@ -45,7 +44,7 @@ public class MyQuesDetailPresenter extends RxPresenter<MyQuesDetailContract.View
                         Collections.sort(myQuesDetails, new Comparator<MyQuesDetail>() {
                             @Override
                             public int compare(MyQuesDetail o1, MyQuesDetail o2) {
-                                return o1.getQuestionNum() - o2.getQuestionNum();
+                                return o1.getQuestionnaireItemId() - o2.getQuestionnaireItemId();
                             }
                         });
                         return myQuesDetails;

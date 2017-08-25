@@ -18,10 +18,8 @@ import com.zidian.teacher.model.entity.remote.SelectClass;
 import com.zidian.teacher.presenter.SelectClassPresenter;
 import com.zidian.teacher.presenter.contract.SelectClassContract;
 import com.zidian.teacher.ui.questionnaire.adapter.SelectClassAdapter;
-import com.zidian.teacher.ui.questionnaire.bean.ClassBean;
 import com.zidian.teacher.util.SnackbarUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -91,12 +89,13 @@ public class SelectClassActivity extends BaseActivity implements SelectClassCont
             SnackbarUtils.showShort(toolbar, "无可选班级");
             return true;
         }
-        if (TextUtils.isEmpty(adapter.getClasses())){
+        if (TextUtils.isEmpty(adapter.getClassNames())){
             SnackbarUtils.showShort(toolbar, "请选择班级");
             return true;
         }
         Intent intent = new Intent();
-        intent.putExtra("classes", adapter.getClasses());
+        intent.putExtra("classes", adapter.getClassNames());
+        intent.putExtra("classIds", adapter.getClassIds());
         setResult(RESULT_OK, intent);
         finish();
 

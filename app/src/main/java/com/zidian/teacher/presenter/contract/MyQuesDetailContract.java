@@ -16,6 +16,6 @@ public interface MyQuesDetailContract {
     }
 
     interface Presenter extends BasePresenter<MyQuesDetailContract.View> {
-        void getMyQuesDetail(String questionnaireId);
+        void getMyQuesDetail(int questionnaireId, long releaseTime);
     }
 }

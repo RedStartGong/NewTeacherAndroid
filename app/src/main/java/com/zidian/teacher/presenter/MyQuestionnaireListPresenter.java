@@ -3,15 +3,17 @@ package com.zidian.teacher.presenter;
 import com.zidian.teacher.base.RxPresenter;
 import com.zidian.teacher.model.DataManager;
 import com.zidian.teacher.model.entity.remote.HttpResult;
-import com.zidian.teacher.model.entity.remote.MyQuesList;
+import com.zidian.teacher.model.entity.remote.MyQuestionnaire;
 import com.zidian.teacher.presenter.contract.MyQuestionnaireListContract;
 import com.zidian.teacher.util.RxUtils;
 import com.zidian.teacher.util.SharedPreferencesUtils;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
+import rx.Subscriber;
 import rx.Subscription;
-import rx.functions.Action1;
 
 /**
  * Created by GongCheng on 2017/5/3.
@@ -27,27 +29,27 @@ public class MyQuestionnaireListPresenter extends RxPresenter<MyQuestionnaireLis
     }
 
     @Override
-    public void getMyQues(String startRow) {
-        Subscription subscription = dataManager.myQuesList(startRow, "10",
-                SharedPreferencesUtils.getUserName(), SharedPreferencesUtils.getToken(),
-                SharedPreferencesUtils.getSchoolId())
-                .compose(RxUtils.<HttpResult<MyQuesList>>rxSchedulerIo())
-                .compose(RxUtils.<MyQuesList>handleHttpResult())
-                .subscribe(new Action1<MyQuesList>() {
+    public void getMyQues() {
+        Subscription subscription = dataManager.myQuesList(SharedPreferencesUtils.getTeacherId())
+                .compose(RxUtils.<HttpResult<List<MyQuestionnaire>>>rxSchedulerIo())
+                .compose(RxUtils.<List<MyQuestionnaire>>handleHttpResult())
+                .subscribe(new Subscriber<List<MyQuestionnaire>>() {
                     @Override
-                    public void call(MyQuesList myQuesList) {
-                        if (myQuesList.getList().isEmpty()) {
-                            view.showEmpty();
-                        } else {
-                            view.showMyQues(myQuesList);
-                        }
+                    public void onCompleted() {
+
                     }
-                }, new Action1<Throwable>() {
+
                     @Override
-                    public void call(Throwable throwable) {
-                        view.showError(throwable);
+                    public void onError(Throwable e) {
+                        view.showError(e);
+                    }
+
+                    @Override
+                    public void onNext(List<MyQuestionnaire> myQuestionnaires) {
+                        view.showMyQues(myQuestionnaires);
                     }
                 });
+
         addSubscribe(subscription);
     }
 }

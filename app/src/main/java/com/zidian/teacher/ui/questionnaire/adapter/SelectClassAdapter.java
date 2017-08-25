@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.zidian.teacher.R;
 import com.zidian.teacher.model.entity.remote.SelectClass;
 import com.zidian.teacher.ui.questionnaire.bean.ClassBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -32,9 +34,9 @@ public class SelectClassAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     /**
      * 得到选中的班级
      *
-     * @return 选中的班级,用逗号分割
+     * @return 选中的班级, 用逗号分割
      */
-    public String getClasses() {
+    public String getClassNames() {
         StringBuilder sb = new StringBuilder();
         int classesCount = 0;
         for (int i = 0; i < data.size(); i++) {
@@ -66,6 +68,22 @@ public class SelectClassAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         }
         return sb.toString();
+    }
+
+    /**
+     * 获取课程Id json字符串
+     *
+     * @return [1, 5, 3]
+     */
+    public String getClassIds() {
+        Gson gson = new Gson();
+        List<Integer> ids = new ArrayList<>();
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).isSelected()) {
+                ids.add(data.get(i).getClassId());
+            }
+        }
+        return gson.toJson(ids);
     }
 
     @Override

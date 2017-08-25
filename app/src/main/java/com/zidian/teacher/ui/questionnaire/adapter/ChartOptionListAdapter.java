@@ -23,9 +23,9 @@ import butterknife.ButterKnife;
 
 public class ChartOptionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<MyQuesDetail.StatisticalBean> describes;
+    private List<MyQuesDetail.QuestionnaireSelectionListBean> describes;
 
-    public void setData(List<MyQuesDetail.StatisticalBean> describes) {
+    public void setData(List<MyQuesDetail.QuestionnaireSelectionListBean> describes) {
         this.describes = describes;
         notifyDataSetChanged();
     }
@@ -41,10 +41,10 @@ public class ChartOptionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof OptionViewHolder) {
-            ((OptionViewHolder) holder).optionDescribeTv.setText(describes.get(position).getOptionsDescribe());
+            ((OptionViewHolder) holder).optionDescribeTv.setText(describes.get(position).getSelectionName());
             ((OptionViewHolder) holder).optionColorIv.setBackgroundColor(ColorConstants.CHART_COLORS[position]);
             ((OptionViewHolder) holder).tvOptionCount.setText(
-                    holder.itemView.getContext().getString(R.string.option_count,describes.get(position).getStisNum()));
+                    holder.itemView.getContext().getString(R.string.option_count,describes.get(position).getSelectionNum()));
         }
     }
 

@@ -63,16 +63,17 @@ public class MyQuesDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (holder instanceof ViewHolder) {
             ((ViewHolder) holder).tvQuestionnaireTitle
                     .setText(context.getString(R.string.my_ques_num,
-                            data.get(position).getQuestionNum(),
-                            data.get(position).getQuestionContent()));
+                            position,
+                            data.get(position).getQuestionnaireItemName()));
             pieChartHelper.initPieChart(((ViewHolder) holder).pcQuestionnaireChart);
             ((ViewHolder) holder).pcQuestionnaireChart.setData(getPieData(position));
             ((ViewHolder) holder).pcQuestionnaireChart.invalidate();
-            List<MyQuesDetail.StatisticalBean> optionList = data.get(position).getStatistical();
-            Collections.sort(optionList, new Comparator<MyQuesDetail.StatisticalBean>() {
+            List<MyQuesDetail.QuestionnaireSelectionListBean> optionList =
+                    data.get(position).getQuestionnaireSelectionList();
+            Collections.sort(optionList, new Comparator<MyQuesDetail.QuestionnaireSelectionListBean>() {
                 @Override
-                public int compare(MyQuesDetail.StatisticalBean o1, MyQuesDetail.StatisticalBean o2) {
-                    return Integer.parseInt(o1.getOption()) - Integer.parseInt(o2.getOption());
+                public int compare(MyQuesDetail.QuestionnaireSelectionListBean o1, MyQuesDetail.QuestionnaireSelectionListBean o2) {
+                    return o1.getSelectionId() - o2.getSelectionId();
                 }
             });
             ((ViewHolder) holder).adapter.setData(optionList);
@@ -83,19 +84,20 @@ public class MyQuesDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      * 得到饼状图数据
      *
      * @param position 位置
-     * @return         PieData
+     * @return PieData
      */
     private PieData getPieData(int position) {
         List<PieEntry> pieEntries = new ArrayList<>();
-        List<MyQuesDetail.StatisticalBean> statisticalBeanList = data.get(position).getStatistical();
+        List<MyQuesDetail.QuestionnaireSelectionListBean> statisticalBeanList =
+                data.get(position).getQuestionnaireSelectionList();
 
         for (int i = 0; i < statisticalBeanList.size(); i++) {
-            if (statisticalBeanList.get(i).getStisNum() != 0) {
-                pieEntries.add(new PieEntry(statisticalBeanList.get(i).getStisNum(),
-                        statisticalBeanList.get(i).getOptionsDescribe()));
+            if (statisticalBeanList.get(i).getSelectionNum() != 0) {
+                pieEntries.add(new PieEntry(statisticalBeanList.get(i).getSelectionNum(),
+                        statisticalBeanList.get(i).getSelectionName()));
             }
         }
-        PieDataSet dataSet = new PieDataSet(pieEntries, data.get(position).getQuestionContent());
+        PieDataSet dataSet = new PieDataSet(pieEntries, data.get(position).getQuestionnaireItemName());
         dataSet.setValueFormatter(new PercentFormatter());
         dataSet.setValueTextSize(12f);
         dataSet.setColors(ColorConstants.CHART_COLORS);

@@ -14,12 +14,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
 import com.zidian.teacher.presenter.QuestionnaireAddPresenter;
 import com.zidian.teacher.presenter.contract.QuestionnaireAddContract;
 import com.zidian.teacher.ui.questionnaire.adapter.QuestionnaireAddAdapter;
 import com.zidian.teacher.ui.questionnaire.bean.QuestionAddBean;
+import com.zidian.teacher.ui.questionnaire.bean.QuestionnaireItem;
 import com.zidian.teacher.ui.questionnaire.event.QuesAddEvent;
 import com.zidian.teacher.util.SharedPreferencesUtils;
 import com.zidian.teacher.util.SnackbarUtils;
@@ -62,6 +64,7 @@ public class AddQuestionnaireActivity extends BaseActivity implements Questionna
     private List<QuestionAddBean> questionAddBeanList = new ArrayList<>();
     private List<QuestionAddBean> adapterList = new ArrayList<>();
     private ProgressDialog progressDialog;
+    private String classIds;
 
     @Override
     protected int getLayout() {
@@ -106,10 +109,20 @@ public class AddQuestionnaireActivity extends BaseActivity implements Questionna
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (TextUtils.isEmpty(getQuestionnaireResult())) {
+        if (TextUtils.isEmpty(getQuesItems())) {
             return true;
         }
-//        presenter.addQuestionnaire(getQuestionnaireResult());
+        String title = tvQuesTitle.getText().toString().trim();
+        if (TextUtils.isEmpty(title)) {
+            SnackbarUtils.showShort(toolbar, "请填写问卷标题");
+            return true;
+        }
+        if (TextUtils.isEmpty(classIds)) {
+            SnackbarUtils.showShort(toolbar, "请选择班级");
+            return true;
+        }
+
+        presenter.addQuestionnaire(classIds, title, "", getQuesItems());
 
         return super.onOptionsItemSelected(item);
     }
@@ -196,6 +209,7 @@ public class AddQuestionnaireActivity extends BaseActivity implements Questionna
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CLASS && resultCode == RESULT_OK) {
             tvClasses.setText(data.getStringExtra("classes"));
+            classIds = data.getStringExtra("classIds");
         }
     }
 
@@ -274,7 +288,12 @@ public class AddQuestionnaireActivity extends BaseActivity implements Questionna
         return list;
     }
 
-    private String getQuestionnaireResult() {
+    /**
+     * 获取问卷题目json字符串
+     *
+     * @return
+     */
+    private String getQuesItems() {
         List<QuestionAddBean> parent = new ArrayList<>();
 
         for (QuestionAddBean pitem : parent) {
@@ -286,86 +305,47 @@ public class AddQuestionnaireActivity extends BaseActivity implements Questionna
                 parent.add(item);
             }
         }
-
         String json = "";
-
-        try {
-            JSONArray jsonarray = new JSONArray();
-            for (int i = 0; i < parent.size(); i++) {
-                String option = "";
-                String optionsDescribe = "";
-                if (parent.get(i).getQuestionName() == null || parent.get(i).getQuestionName().length() == 0) {
-                    Snackbar.make(toolbar, "请输入问卷题目！", Snackbar.LENGTH_SHORT).show();
+        Gson gson = new Gson();
+        List<QuestionnaireItem> questionnaireItems = new ArrayList<>();
+        for (int i = 0; i < parent.size(); i++) {
+            QuestionnaireItem item = new QuestionnaireItem();
+            if (parent.get(i).getQuestionName() == null || parent.get(i).getQuestionName().length() == 0) {
+                Snackbar.make(toolbar, "请输入问卷题目！", Snackbar.LENGTH_SHORT).show();
+                return "";
+            } else {
+                item.setItemName(parent.get(i).getQuestionName());
+                item.setItemType(0);
+                item.setItemRemark("");
+            }
+            List<QuestionnaireItem.ItemOptionsBean> itemOptions = new ArrayList<>();
+            for (int j = 0; j < parent.get(i).getChild().size() - 1; j++) {
+                if (parent.get(i).getChild().get(j).getItemName() == null || parent.get(i).getChild().get(j).getItemName().length() == 0) {
+                    Snackbar.make(toolbar, "请输入选项内容！", Snackbar.LENGTH_SHORT).show();
                     return "";
                 } else {
-
-                }
-
-
-                for (int j = 0; j < parent.get(i).getChild().size() - 1; j++) {
-                    if (parent.get(i).getChild().get(j).getItemName() == null || parent.get(i).getChild().get(j).getItemName().length() == 0) {
-                        Snackbar.make(toolbar, "请输入选项内容！", Snackbar.LENGTH_SHORT).show();
+                    if (parent.get(i).getChild().size() < 3) {
+                        Snackbar.make(toolbar, "请至少输入2个选项！", Snackbar.LENGTH_SHORT).show();
                         return "";
-                    } else {
-                        if (parent.get(i).getChild().size() < 3) {
-                            Snackbar.make(toolbar, "请至少输入2个选项！", Snackbar.LENGTH_SHORT).show();
-                            return "";
-                        }
-                        if (parent.get(i).getChild().size() > 5) {
-                            Snackbar.make(toolbar, "最多输入5个选项！", Snackbar.LENGTH_SHORT).show();
-                            return "";
-                        }
-                        if (j == 0) {
-                            optionsDescribe = parent.get(i).getChild().get(j).getItemName();
-                            option = (j + 1) + "";
-                        } else {
-                            optionsDescribe += "!!" + parent.get(i).getChild().get(j).getItemName();
-                            option += "!!" + (j + 1) + "";
-                        }
-
                     }
-
+                    if (parent.get(i).getChild().size() > 5) {
+                        Snackbar.make(toolbar, "最多输入5个选项！", Snackbar.LENGTH_SHORT).show();
+                        return "";
+                    }
+                    //设置每个选项的名字与选项分数，暂时都设置分数为1
+                    itemOptions.add(new QuestionnaireItem.ItemOptionsBean(parent.get(i).getChild().get(j).getItemName(), 1));
                 }
-
-                if (optionsDescribe.length() == 0) {
-                    Snackbar.make(toolbar, "至少添加2个选项！", Snackbar.LENGTH_SHORT).show();
-                    return "";
-                }
-
-                JSONObject jsonObjAnswer = new JSONObject();//pet对象，json形式
-                jsonObjAnswer.put("questionNumber", i + 1 + "");
-                jsonObjAnswer.put("questionContent", parent.get(i).getQuestionName());
-                jsonObjAnswer.put("options", option);
-                jsonObjAnswer.put("optionsDescribe", optionsDescribe);
-                jsonObjAnswer.put("problemTypes", "选择题");
-                jsonObjAnswer.put("couplingIndex", "");
-                jsonarray.put(jsonObjAnswer);
             }
 
-            if (tvQuesTitle.getText().toString().trim().length() == 0) {
-                Snackbar.make(toolbar, "请输入问卷标题！", Snackbar.LENGTH_SHORT).show();
-                return "";
-            } else if (tvClasses.getText().toString().trim().length() == 0) {
-                Snackbar.make(toolbar, "请选择发布对象！", Snackbar.LENGTH_SHORT).show();
+            if (itemOptions.size() < 2) {
+                Snackbar.make(toolbar, "至少添加2个选项！", Snackbar.LENGTH_SHORT).show();
                 return "";
             }
-
-            JSONObject jsonObjResult = new JSONObject();
-            jsonObjResult.put("publisherId", SharedPreferencesUtils.getUserName());
-            jsonObjResult.put("releaseToWho", tvClasses.getText().toString().trim());
-            jsonObjResult.put("publishObjects", "班级");
-            jsonObjResult.put("questionnaireExplain", "教师发布");
-            jsonObjResult.put("questionnaireTitle", tvQuesTitle.getText().toString().trim());
-            jsonObjResult.put("questionnaireResult", jsonarray);
-
-            json = jsonObjResult.toString();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+            item.setItemOptions(itemOptions);
+            questionnaireItems.add(item);
         }
 
-        Log.e("T", json + "");
-        return json;
+        return gson.toJson(questionnaireItems);
     }
 
     @Override

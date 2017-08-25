@@ -9,72 +9,82 @@ import java.util.List;
 public class MyQuesDetail {
 
     /**
-     * questionNum : 1
-     * questionContent : 你煞笔
-     * statistical : [{"stisNum":3,"option":"2","optionsDescribe":"你猜煞笔"},{"stisNum":1,"option":"1","optionsDescribe":"你煞笔"},{"stisNum":1,"option":"3","optionsDescribe":"你最煞笔"}]
+     * questionnaireSelectionList : [{"selectionName":"第一题的选项1","selectionId":10,"selectionNum":1},{"selectionName":"第一题的选项2","selectionId":11,"selectionNum":1},{"selectionName":"第一题的选项3","selectionId":12,"selectionNum":2}]
+     * questionnaireItemId : 6
+     * questionnaireItemName : 这是单选题
+     * questionnaireItemType : 0
      */
 
-    private int questionNum;
-    private String questionContent;
-    private List<StatisticalBean> statistical;
+    private int questionnaireItemId;
+    private String questionnaireItemName;
+    private int questionnaireItemType;
+    private List<QuestionnaireSelectionListBean> questionnaireSelectionList;
 
-    public int getQuestionNum() {
-        return questionNum;
+    public int getQuestionnaireItemId() {
+        return questionnaireItemId;
     }
 
-    public void setQuestionNum(int questionNum) {
-        this.questionNum = questionNum;
+    public void setQuestionnaireItemId(int questionnaireItemId) {
+        this.questionnaireItemId = questionnaireItemId;
     }
 
-    public String getQuestionContent() {
-        return questionContent;
+    public String getQuestionnaireItemName() {
+        return questionnaireItemName;
     }
 
-    public void setQuestionContent(String questionContent) {
-        this.questionContent = questionContent;
+    public void setQuestionnaireItemName(String questionnaireItemName) {
+        this.questionnaireItemName = questionnaireItemName;
     }
 
-    public List<StatisticalBean> getStatistical() {
-        return statistical;
+    public int getQuestionnaireItemType() {
+        return questionnaireItemType;
     }
 
-    public void setStatistical(List<StatisticalBean> statistical) {
-        this.statistical = statistical;
+    public void setQuestionnaireItemType(int questionnaireItemType) {
+        this.questionnaireItemType = questionnaireItemType;
     }
 
-    public static class StatisticalBean {
+    public List<QuestionnaireSelectionListBean> getQuestionnaireSelectionList() {
+        return questionnaireSelectionList;
+    }
+
+    public void setQuestionnaireSelectionList(List<QuestionnaireSelectionListBean> questionnaireSelectionList) {
+        this.questionnaireSelectionList = questionnaireSelectionList;
+    }
+
+    public static class QuestionnaireSelectionListBean {
         /**
-         * stisNum : 3
-         * option : 2
-         * optionsDescribe : 你猜煞笔
+         * selectionName : 第一题的选项1
+         * selectionId : 10
+         * selectionNum : 1
          */
 
-        private int stisNum;
-        private String option;
-        private String optionsDescribe;
+        private String selectionName;
+        private int selectionId;
+        private int selectionNum;
 
-        public int getStisNum() {
-            return stisNum;
+        public String getSelectionName() {
+            return selectionName;
         }
 
-        public void setStisNum(int stisNum) {
-            this.stisNum = stisNum;
+        public void setSelectionName(String selectionName) {
+            this.selectionName = selectionName;
         }
 
-        public String getOption() {
-            return option;
+        public int getSelectionId() {
+            return selectionId;
         }
 
-        public void setOption(String option) {
-            this.option = option;
+        public void setSelectionId(int selectionId) {
+            this.selectionId = selectionId;
         }
 
-        public String getOptionsDescribe() {
-            return optionsDescribe;
+        public int getSelectionNum() {
+            return selectionNum;
         }
 
-        public void setOptionsDescribe(String optionsDescribe) {
-            this.optionsDescribe = optionsDescribe;
+        public void setSelectionNum(int selectionNum) {
+            this.selectionNum = selectionNum;
         }
     }
 }

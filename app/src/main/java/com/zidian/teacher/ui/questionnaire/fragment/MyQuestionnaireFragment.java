@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseFragment;
-import com.zidian.teacher.model.entity.remote.MyQuesList;
+import com.zidian.teacher.model.entity.remote.MyQuestionnaire;
 import com.zidian.teacher.presenter.MyQuestionnaireListPresenter;
 import com.zidian.teacher.presenter.contract.MyQuestionnaireListContract;
 import com.zidian.teacher.ui.questionnaire.adapter.MyQuesListAdapter;
@@ -45,8 +45,7 @@ public class MyQuestionnaireFragment extends BaseFragment implements MyQuestionn
 
     private FloatingActionButton fabAdd;
 
-    private List<MyQuesList.ListBean> beanList;
-    private int row = 1;
+    private List<MyQuestionnaire> myQuestionnaires;
 
     public static MyQuestionnaireFragment newInstance() {
 
@@ -71,10 +70,11 @@ public class MyQuestionnaireFragment extends BaseFragment implements MyQuestionn
     protected void initViewAndData() {
         checkNotNull(presenter);
         checkNotNull(adapter);
-        beanList = new ArrayList<>();
+        myQuestionnaires = new ArrayList<>();
 
         fabAdd = (FloatingActionButton) getParentFragment().getView().findViewById(R.id.fab_add_questionnaire);
         errorView.setVisibility(View.GONE);
+        recyclerView.setLoadingMoreEnabled(false);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -90,19 +90,17 @@ public class MyQuestionnaireFragment extends BaseFragment implements MyQuestionn
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                row = 1;
-                presenter.getMyQues(String.valueOf(row));
+                presenter.getMyQues();
             }
 
             @Override
             public void onLoadMore() {
-                row++;
-                presenter.getMyQues(String.valueOf(row));
+
             }
         });
         recyclerView.setAdapter(adapter);
         presenter.attachView(this);
-        presenter.getMyQues(String.valueOf(row));
+        presenter.getMyQues();
     }
 
     @Override
@@ -114,40 +112,24 @@ public class MyQuestionnaireFragment extends BaseFragment implements MyQuestionn
     @Override
     public void showError(Throwable e) {
         loadingView.setVisibility(View.GONE);
-        if (row == 1) {
-            errorView.setVisibility(View.VISIBLE);
-            errorView.setText(e.getMessage());
-            beanList.clear();
-            adapter.setData(beanList);
-            recyclerView.refreshComplete();
-        } else {
-            errorView.setVisibility(View.GONE);
-        }
+        errorView.setVisibility(View.VISIBLE);
+        errorView.setText(e.getMessage());
+
     }
 
     @Override
     public void showEmpty() {
-        if (row == 1) {
-            errorView.setVisibility(View.VISIBLE);
-            errorView.setText("当前没有问卷");
-            loadingView.setVisibility(View.GONE);
-        } else {
-            recyclerView.refreshComplete();
-        }
+        errorView.setVisibility(View.VISIBLE);
+        errorView.setText("当前没有问卷");
+        loadingView.setVisibility(View.GONE);
+
     }
 
     @Override
-    public void showMyQues(MyQuesList myQuesList) {
+    public void showMyQues(List<MyQuestionnaire> myQuestionnaires) {
         errorView.setVisibility(View.GONE);
         loadingView.setVisibility(View.GONE);
         recyclerView.refreshComplete();
-        if (row == 1) {
-            this.beanList.clear();
-        }
-        this.beanList.addAll(myQuesList.getList());
-        if (myQuesList.getPages() == row) {
-            recyclerView.noMoreLoading();
-        }
-        adapter.setData(beanList);
+        adapter.setData(myQuestionnaires);
     }
 }

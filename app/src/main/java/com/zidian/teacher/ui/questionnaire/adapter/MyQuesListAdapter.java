@@ -10,8 +10,9 @@ import android.widget.TextView;
 
 import com.zidian.teacher.R;
 import com.zidian.teacher.di.ActivityContext;
-import com.zidian.teacher.model.entity.remote.MyQuesList;
+import com.zidian.teacher.model.entity.remote.MyQuestionnaire;
 import com.zidian.teacher.ui.questionnaire.activity.MyQuesDetailActivity;
+import com.zidian.teacher.util.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ import butterknife.ButterKnife;
 
 public class MyQuesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<MyQuesList.ListBean> data;
+    private List<MyQuestionnaire> data;
     private Context context;
 
     @Inject
@@ -36,7 +37,7 @@ public class MyQuesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.context = context;
     }
 
-    public void setData(List<MyQuesList.ListBean> data) {
+    public void setData(List<MyQuestionnaire> data) {
         this.data = data;
         notifyDataSetChanged();
     }
@@ -51,19 +52,20 @@ public class MyQuesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ViewHolder) {
-            ((ViewHolder) holder).tvTitle.setText(data.get(position).getQuestionnaireTitle());
-            ((ViewHolder) holder).tvTime.setText(data.get(position).getReleaseTime());
+            ((ViewHolder) holder).tvTitle.setText(data.get(position).getQuestionnaireName());
+            ((ViewHolder) holder).tvTime.setText(TimeUtils.millis2String(data.get(position).getReleaseTime()));
             ((ViewHolder) holder).tvComplete.setText(
                     context.getString(R.string.my_questionnaire_complete,
-                            data.get(position).getChooseNumber(),
-                            data.get(position).getChooseNumber() + data.get(position).getNotChooseNumber()));
+                            data.get(position).getQuesFillOutNum(),
+                            data.get(position).getQuesPushNum() ));
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, MyQuesDetailActivity.class);
-                    intent.putExtra("questionnaireId", data.get(position).getQuestionnaireId());
-                    intent.putExtra("questionnaireTitle", data.get(position).getQuestionnaireTitle());
-                    intent.putExtra("completeCount", data.get(position).getChooseNumber());
+                    intent.putExtra("questionnaireId", data.get(position).getQuestionnaireId())
+                            .putExtra("questionnaireTitle", data.get(position).getQuestionnaireName())
+                            .putExtra("completeCount", data.get(position).getQuesFillOutNum())
+                            .putExtra("releaseTime",data.get(position).getReleaseTime());
                     context.startActivity(intent);
                 }
             });
