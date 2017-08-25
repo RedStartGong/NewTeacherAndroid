@@ -143,13 +143,13 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
 
             @Override
             public void reject(int position) {
-                presenter.changeEvaState(myTasks.get(position).getRequestEvalMessageId(),3);
+                presenter.changeEvaState(myTasks.get(position).getRequestEvalMessageId(), 3);
                 adapter.removeTask(position);
             }
 
             @Override
             public void agree(int position) {
-                presenter.changeEvaState(myTasks.get(position).getRequestEvalMessageId(),1);
+                presenter.changeEvaState(myTasks.get(position).getRequestEvalMessageId(), 1);
                 adapter.removeTask(position);
             }
 
@@ -163,16 +163,25 @@ public class MyTasksFragment extends BaseFragment implements MyTaskContract.View
             @Override
             public void supervisorCheck(int position) {
                 Intent intent = new Intent(activity, CheckSupervisorEvaActivity.class);
-                intent.putExtra("recordId", myTasks.get(position).getRequestEvalMessageId());
-                startActivity(intent);
+                intent.putExtra("teacherType", myTasks.get(position).getEvaluateType());
+                intent.putExtra("toTeacherId", myTasks.get(position).getAnotherTeacher());
+                intent.putExtra("requestEvalMessageId", myTasks.get(position).getRequestEvalMessageId());
+                intent.putExtra("evaluateType", myTasks.get(position).getEvaluateType());
+                intent.putExtra("position", position);
+                startActivityForResult(intent, REQUEST_EVALUATE);
             }
 
             @Override
             public void supervisorConfirm(int position) {
                 Intent intent = new Intent(activity, CheckSupervisorEvaActivity.class);
-                intent.putExtra("recordId", myTasks.get(position).getRequestEvalMessageId());
-                intent.putExtra("needConfirm",true);
+                intent.putExtra("teacherType", myTasks.get(position).getEvaluateType());
+                intent.putExtra("toTeacherId", myTasks.get(position).getAnotherTeacher());
+                intent.putExtra("requestEvalMessageId", myTasks.get(position).getRequestEvalMessageId());
+                intent.putExtra("evaluateType", myTasks.get(position).getEvaluateType());
                 intent.putExtra("position", position);
+                if (myTasks.get(position).getMyRole() == 1) {
+                    intent.putExtra("needConfirm", true);
+                }
                 startActivityForResult(intent, REQUEST_EVALUATE);
             }
 

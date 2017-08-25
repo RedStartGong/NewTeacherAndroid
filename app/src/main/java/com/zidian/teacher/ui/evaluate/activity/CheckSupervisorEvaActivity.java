@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -17,11 +16,11 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
-import com.zidian.teacher.model.entity.remote.CheckSupervisorEva;
+import com.zidian.teacher.model.entity.remote.EvaluateTag;
 import com.zidian.teacher.presenter.CheckSupervisorEvaPresenter;
 import com.zidian.teacher.presenter.contract.CheckSupervisorEvaContract;
 import com.zidian.teacher.recyclerviewpager.recycleview.RecyclerViewPager;
-import com.zidian.teacher.ui.evaluate.adapter.SupervisorCheckAdapter;
+import com.zidian.teacher.ui.evaluate.adapter.CheckAdapter;
 import com.zidian.teacher.ui.evaluate.event.FeedbackEvent;
 import com.zidian.teacher.util.SnackbarUtils;
 
@@ -75,7 +74,11 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
     protected void initViewAndData() {
         Intent intent = getIntent();
         recordId = String.valueOf(intent.getIntExtra("recordId", 0));
+        int requestEvalMessageId = intent.getIntExtra("requestEvalMessageId", 0);
         boolean needConfirm = intent.getBooleanExtra("needConfirm", false);
+        //任务类型 0为待确认
+        int taskType = intent.getIntExtra("taskType", -1);
+        int toTeacherId = intent.getIntExtra("toTeacherId", 0);
         position = intent.getIntExtra("position", 0);
         toolbar.setTitle("督导评价");
         setToolbarBack(toolbar);
@@ -87,7 +90,7 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
         initRecyclerView();
         checkNotNull(presenter);
         presenter.attachView(this);
-        presenter.getEvaTags(recordId);
+        presenter.getEvaluateTag(requestEvalMessageId);
     }
 
     @Override
@@ -171,7 +174,6 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
                         v2.setScaleX(0.9f);
                     }
                 }
-
             }
         });
     }
@@ -226,13 +228,14 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
     }
 
     @Override
-    public void showEvaTags(CheckSupervisorEva checkSupervisorEva) {
+    public void showEvaTag(EvaluateTag evaluateTag) {
         loadingView.setVisibility(View.GONE);
         errorView.setVisibility(View.GONE);
-        SupervisorCheckAdapter adapter = new SupervisorCheckAdapter(this, checkSupervisorEva.getMapList(),
-                checkSupervisorEva.getEvaluateComment());
+        CheckAdapter adapter = new CheckAdapter(this, evaluateTag.getThreeIndexList(),
+                evaluateTag.getCustomEvaluate());
         recyclerViewPager.setAdapter(adapter);
     }
+
 
     @Override
     public void showFeedbackSucceed() {

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.zidian.teacher.R;
 import com.zidian.teacher.model.entity.remote.CheckColleagueEva;
 import com.zidian.teacher.model.entity.remote.CheckSupervisorEva;
+import com.zidian.teacher.model.entity.remote.EvaluateTag;
 import com.zidian.teacher.recyclerviewpager.flowlayout.FlowTagLayout;
 
 import java.util.ArrayList;
@@ -29,13 +30,13 @@ public class SupervisorCheckAdapter extends RecyclerView.Adapter<SupervisorCheck
     private final Context context;
     private int itemCount;
     private Map<String, Integer> data = new HashMap<>();
-    private List<CheckSupervisorEva.MapListBean> beans = new ArrayList<>();
+    private List<EvaluateTag.ThreeIndexListBean> beans = new ArrayList<>();
     Map<Integer, String> map;
     private static final String[] TAGS = {"非常符合", "比较符合", "一般符合", "比较不符合", "非常不符合"};
     private String customEva;
     private SimpleViewHolder holder;
 
-    public SupervisorCheckAdapter(Context context, List<CheckSupervisorEva.MapListBean> beans, String customEva) {
+    public SupervisorCheckAdapter(Context context, List<EvaluateTag.ThreeIndexListBean> beans, String customEva) {
         this.context = context;
         this.beans = beans;
         itemCount = beans.size() % 4 == 0 ? beans.size() / 4 : (beans.size() / 4 + 1);
@@ -62,6 +63,8 @@ public class SupervisorCheckAdapter extends RecyclerView.Adapter<SupervisorCheck
         TextView title4;
         ImageView arrowBack;
         ImageView arrowNext;
+        TextView tvCustomEva;
+        TextView tvCustomEvaTitle;
         LinearLayout llCustomEva;
 
         public SimpleViewHolder(View view) {
@@ -81,6 +84,8 @@ public class SupervisorCheckAdapter extends RecyclerView.Adapter<SupervisorCheck
             title2 = (TextView) view.findViewById(R.id.item_title2);
             title3 = (TextView) view.findViewById(R.id.item_title3);
             title4 = (TextView) view.findViewById(R.id.item_title4);
+            tvCustomEva = (TextView) view.findViewById(R.id.tv_custom_eva);
+            tvCustomEvaTitle = (TextView) view.findViewById(R.id.tv_custom_eva_title);
             llCustomEva = (LinearLayout) view.findViewById(R.id.ll_custom_eva);
         }
     }
@@ -120,9 +125,9 @@ public class SupervisorCheckAdapter extends RecyclerView.Adapter<SupervisorCheck
                     holder.tagTextAdapter2.onlyAddAll(getNewTags());
                     holder.tagTextAdapter3.onlyAddAll(getNewTags());
 
-                    holder.title1.setText(beans.get(position * 4).getThreeIndexQuestionTea());
-                    holder.title2.setText(beans.get(position * 4 + 1).getThreeIndexQuestionTea());
-                    holder.title3.setText(beans.get(position * 4 + 2).getThreeIndexQuestionTea());
+                    holder.title1.setText(beans.get(position * 4).getTchQuestionStyle());
+                    holder.title2.setText(beans.get(position * 4 + 1).getTchQuestionStyle());
+                    holder.title3.setText(beans.get(position * 4 + 2).getTchQuestionStyle());
                 } else if (beans.size() % 4 == 2) {
                     holder.card3.setVisibility(View.INVISIBLE);
                     holder.card4.setVisibility(View.INVISIBLE);
@@ -138,8 +143,8 @@ public class SupervisorCheckAdapter extends RecyclerView.Adapter<SupervisorCheck
                     holder.tagTextAdapter1.onlyAddAll(getNewTags());
                     holder.tagTextAdapter2.onlyAddAll(getNewTags());
 
-                    holder.title1.setText(beans.get(position * 4).getThreeIndexQuestionTea());
-                    holder.title2.setText(beans.get(position * 4 + 1).getThreeIndexQuestionTea());
+                    holder.title1.setText(beans.get(position * 4).getTchQuestionStyle());
+                    holder.title2.setText(beans.get(position * 4 + 1).getTchQuestionStyle());
                 } else if (beans.size() % 4 == 1) {
                     holder.card1.setVisibility(View.VISIBLE);
                     holder.card2.setVisibility(View.INVISIBLE);
@@ -152,7 +157,7 @@ public class SupervisorCheckAdapter extends RecyclerView.Adapter<SupervisorCheck
                     holder.tagTextAdapter1.setSelectCount(getTagSelectedIndex(beans.get(position * 4)));
                     holder.tagTextAdapter1.onlyAddAll(getNewTags());
 
-                    holder.title1.setText(beans.get(position * 4).getThreeIndexQuestionTea());
+                    holder.title1.setText(beans.get(position * 4).getTchQuestionStyle());
                 }
             } else {
                 if (position == 0) {
@@ -188,10 +193,10 @@ public class SupervisorCheckAdapter extends RecyclerView.Adapter<SupervisorCheck
                 holder.tagTextAdapter3.onlyAddAll(getNewTags());
                 holder.tagTextAdapter4.onlyAddAll(getNewTags());
 
-                holder.title1.setText(beans.get(position * 4).getThreeIndexQuestionTea());
-                holder.title2.setText(beans.get(position * 4 + 1).getThreeIndexQuestionTea());
-                holder.title3.setText(beans.get(position * 4 + 2).getThreeIndexQuestionTea());
-                holder.title4.setText(beans.get(position * 4 + 3).getThreeIndexQuestionTea());
+                holder.title1.setText(beans.get(position * 4).getTchQuestionStyle());
+                holder.title2.setText(beans.get(position * 4 + 1).getTchQuestionStyle());
+                holder.title3.setText(beans.get(position * 4 + 2).getTchQuestionStyle());
+                holder.title4.setText(beans.get(position * 4 + 3).getTchQuestionStyle());
             }
         } else {
             holder.arrowNext.setVisibility(View.VISIBLE);
@@ -226,10 +231,10 @@ public class SupervisorCheckAdapter extends RecyclerView.Adapter<SupervisorCheck
             holder.tagTextAdapter3.onlyAddAll(getNewTags());
             holder.tagTextAdapter4.onlyAddAll(getNewTags());
 
-            holder.title1.setText(beans.get(position * 4).getThreeIndexQuestionTea());
-            holder.title2.setText(beans.get(position * 4 + 1).getThreeIndexQuestionTea());
-            holder.title3.setText(beans.get(position * 4 + 2).getThreeIndexQuestionTea());
-            holder.title4.setText(beans.get(position * 4 + 3).getThreeIndexQuestionTea());
+            holder.title1.setText(beans.get(position * 4).getTchQuestionStyle());
+            holder.title2.setText(beans.get(position * 4 + 1).getTchQuestionStyle());
+            holder.title3.setText(beans.get(position * 4 + 2).getTchQuestionStyle());
+            holder.title4.setText(beans.get(position * 4 + 3).getTchQuestionStyle());
         }
         if (data.get("tagEvaluate1" + position) != null) {
             holder.tagTextAdapter1.setSelectCount(data.get("tagEvaluate1" + position));
@@ -271,12 +276,11 @@ public class SupervisorCheckAdapter extends RecyclerView.Adapter<SupervisorCheck
     /**
      * 得到预选TAG的下标
      *
-     * @param mapListBean
      * @return
      */
-    private int getTagSelectedIndex(CheckSupervisorEva.MapListBean mapListBean) {
-        for (int i = 0; i < mapListBean.getLabelList().size(); i++) {
-            if (mapListBean.getLabelList().get(i).equals(mapListBean.getMycChoiceLabel())) {
+    private int getTagSelectedIndex(EvaluateTag.ThreeIndexListBean bean) {
+        for (int i = 0; i < bean.getLabelList().size(); i++) {
+            if (bean.getLabelList().get(i).getLabelId() == bean.getEvaluateLabel()) {
                 return i;
             }
         }

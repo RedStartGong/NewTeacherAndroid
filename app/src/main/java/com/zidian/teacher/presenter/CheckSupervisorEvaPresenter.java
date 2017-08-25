@@ -3,6 +3,7 @@ package com.zidian.teacher.presenter;
 import com.zidian.teacher.base.RxPresenter;
 import com.zidian.teacher.model.DataManager;
 import com.zidian.teacher.model.entity.remote.CheckSupervisorEva;
+import com.zidian.teacher.model.entity.remote.EvaluateTag;
 import com.zidian.teacher.model.entity.remote.HttpResult;
 import com.zidian.teacher.model.entity.remote.NoDataResult;
 import com.zidian.teacher.model.network.ApiException;
@@ -31,12 +32,15 @@ public class CheckSupervisorEvaPresenter extends RxPresenter<CheckSupervisorEvaC
     }
 
     @Override
-    public void getEvaTags(String recordId) {
-        Subscription subscription = dataManager.checkSupervisorEva(recordId, SharedPreferencesUtils.getUserName(),
-                SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
-                .compose(RxUtils.<HttpResult<CheckSupervisorEva>>rxSchedulerIo())
-                .compose(RxUtils.<CheckSupervisorEva>handleHttpResult())
-                .subscribe(new Subscriber<CheckSupervisorEva>() {
+    public void getEvaluateTag(int requestEvalMessageId) {
+        Subscription subscription = dataManager.getEvaluateTag(requestEvalMessageId, SharedPreferencesUtils.getTeacherId())
+                .compose(RxUtils.<HttpResult<EvaluateTag>>rxSchedulerIo())
+                .compose(RxUtils.<EvaluateTag>handleHttpResult())
+                .subscribe(new Subscriber<EvaluateTag>() {
+                    @Override
+                    public void onStart() {
+                        super.onStart();
+                    }
 
                     @Override
                     public void onCompleted() {
@@ -49,8 +53,8 @@ public class CheckSupervisorEvaPresenter extends RxPresenter<CheckSupervisorEvaC
                     }
 
                     @Override
-                    public void onNext(CheckSupervisorEva checkSupervisorEva) {
-                        view.showEvaTags(checkSupervisorEva);
+                    public void onNext(EvaluateTag evaluateTag) {
+                        view.showEvaTag(evaluateTag);
                     }
                 });
         addSubscribe(subscription);
