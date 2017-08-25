@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import rx.Subscriber;
 import rx.Subscription;
 import rx.functions.Action1;
 
@@ -30,18 +31,24 @@ public class SelectClassPresenter extends RxPresenter<SelectClassContract.View>
 
     @Override
     public void getAllClasses() {
-        Subscription subscription = dataManager.getAllClasses(SharedPreferencesUtils.getUserName(),
-                SharedPreferencesUtils.getToken(), SharedPreferencesUtils.getSchoolId())
-                .compose(RxUtils.<SelectClass>rxSchedulerIo())
-                .subscribe(new Action1<SelectClass>() {
+        Subscription subscription = dataManager.getAllClasses(SharedPreferencesUtils.getTeacherId())
+                .compose(RxUtils.<HttpResult<List<SelectClass>>>rxSchedulerIo())
+                .compose(RxUtils.<List<SelectClass>>handleHttpResult())
+                .subscribe(new Subscriber<List<SelectClass>>() {
                     @Override
-                    public void call(SelectClass selectClass) {
-                        view.showClasses(selectClass.getDate());
+                    public void onCompleted() {
+
                     }
-                }, new Action1<Throwable>() {
+
                     @Override
-                    public void call(Throwable throwable) {
-                        view.showError(throwable);
+                    public void onError(Throwable e) {
+                        view.showError(e);
+                    }
+
+                    @Override
+                    public void onNext(List<SelectClass> selectClasses) {
+                        view.showClasses(selectClasses);
+
                     }
                 });
         addSubscribe(subscription);

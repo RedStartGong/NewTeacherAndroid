@@ -293,9 +293,9 @@ public final class DataManager {
         return service.addQuestionnaire(questionnaire, teacherId, token, schoolId);
     }
 
-    public Observable<SelectClass> getAllClasses(
-            String teacherId, String token, int schoolId) {
-        return service.getAllClasses(teacherId, token, schoolId);
+    public Observable<HttpResult<List<SelectClass>>> getAllClasses(
+            int teacherId) {
+        return service.getAllClasses(teacherId);
     }
 
 

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zidian.teacher.R;
+import com.zidian.teacher.model.entity.remote.SelectClass;
 import com.zidian.teacher.ui.questionnaire.bean.ClassBean;
 
 import java.util.List;
@@ -22,10 +23,9 @@ import butterknife.ButterKnife;
 
 public class SelectClassAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<ClassBean> data;
-    private String classes;
+    private List<SelectClass> data;
 
-    public SelectClassAdapter(@NonNull List<ClassBean> data) {
+    public SelectClassAdapter(@NonNull List<SelectClass> data) {
         this.data = data;
     }
 

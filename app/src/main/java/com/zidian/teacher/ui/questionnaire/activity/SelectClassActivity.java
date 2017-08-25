@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
+import com.zidian.teacher.model.entity.remote.SelectClass;
 import com.zidian.teacher.presenter.SelectClassPresenter;
 import com.zidian.teacher.presenter.contract.SelectClassContract;
 import com.zidian.teacher.ui.questionnaire.adapter.SelectClassAdapter;
@@ -117,14 +118,10 @@ public class SelectClassActivity extends BaseActivity implements SelectClassCont
     }
 
     @Override
-    public void showClasses(List<String> classes) {
+    public void showClasses(List<SelectClass> classes) {
         errorView.setVisibility(View.GONE);
         loadingView.setVisibility(View.GONE);
-        List<ClassBean> data = new ArrayList<>();
-        for (int i = 0; i < classes.size(); i++) {
-            data.add(new ClassBean(classes.get(i)));
-        }
-        adapter = new SelectClassAdapter(data);
+        adapter = new SelectClassAdapter(classes);
         recyclerView.setAdapter(adapter);
     }
 }

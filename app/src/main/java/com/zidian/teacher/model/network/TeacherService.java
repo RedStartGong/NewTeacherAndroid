@@ -270,16 +270,24 @@ public interface TeacherService {
             @Field("requestEvalMessageId") int requestEvalMessageId, @Field("toState") int toState,
             @Field("dissentDesc") String dissentDesc, @Field("teacherId") int teacherId);
 
-    /**********************未完成**********************/
-
+    /**
+     * 查看教师所教的所有班级
+     */
+    @FormUrlEncoded
+    @POST("QuestionnaireController/selectTeachClassByTch")
+    Observable<HttpResult<List<SelectClass>>> getAllClasses(
+            @Field("teacherId") int teacherId);
 
     /**
-     * 查看评价详情
+     * 教师发布问卷
      */
-    @GET("ToEvaluateOthers/evaluationDetails")
-    Observable<HttpResult<CheckColleagueEva>> checkColleagueEva(
-            @Query("recordId") String recordId, @Query("teacherId") String teacherId,
-            @Query("token") String token, @Query("schoolId") int schoolId);
+    @FormUrlEncoded
+    @POST("QuestionnaireController/tchTerminalReleaseTheQues")
+    Observable<NoDataResult> addQuestionnaire(
+            @Field("questionnaire") String questionnaire, @Field("teacherId") String teacherId,
+            @Field("token") String token, @Field("schoolId") int schoolId);
+
+    /**********************未完成**********************/
 
 
 
@@ -332,21 +340,7 @@ public interface TeacherService {
             @Field("questionnaireId") String questionnaireId, @Field("teacherId") String teacherId,
             @Field("token") String token, @Field("schoolId") int schoolId);
 
-    /**
-     * 查看教师所教的所有班级
-     */
-    @FormUrlEncoded
-    @POST("teacher/selectClassByTeacher")
-    Observable<SelectClass> getAllClasses(
-            @Field("teacherId") String teacherId, @Field("token") String token,
-            @Field("schoolId") int schoolId);
 
-    /**
-     * 教师发布问卷
-     */
-    @FormUrlEncoded
-    @POST("Questionnaire/teacherInsertQuestionnaire")
-    Observable<NoDataResult> addQuestionnaire(
-            @Field("questionnaire") String questionnaire, @Field("teacherId") String teacherId,
-            @Field("token") String token, @Field("schoolId") int schoolId);
+
+
 }
