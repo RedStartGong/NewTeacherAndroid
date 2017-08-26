@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="课堂"
+                android:text="教学日历"
                 android:textColor="@color/black_text_color"
                 android:textSize="@dimen/text_size_h3" />
 
