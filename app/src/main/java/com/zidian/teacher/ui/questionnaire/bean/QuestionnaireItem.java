@@ -1,5 +1,7 @@
 package com.zidian.teacher.ui.questionnaire.bean;
 
+import com.zidian.teacher.base.GsonBean;
+
 import java.util.List;
 
 /**
@@ -7,7 +9,7 @@ import java.util.List;
  * Created by GongCheng on 2017/8/25.
  */
 
-public class QuestionnaireItem {
+public class QuestionnaireItem extends GsonBean{
 
     /**
      * itemName : 问题第一题

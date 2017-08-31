@@ -118,6 +118,7 @@
 -keep class com.google.gson.stream.** { *; }
 # Application classes that will be serialized/deserialized over Gson
 -keep class com.zidian.teacher.model.** { *; }
+-keep class * extends com.zidian.teacher.base.GsonBean{*;}
 
 # okhttp3
 -keep class okhttp3.** { *; }

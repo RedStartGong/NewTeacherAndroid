@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.zidian.teacher.R;
 import com.zidian.teacher.model.entity.remote.SelectClass;
-import com.zidian.teacher.ui.questionnaire.bean.ClassBean;
 
 import java.util.ArrayList;
 import java.util.List;

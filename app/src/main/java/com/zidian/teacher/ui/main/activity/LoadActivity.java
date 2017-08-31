@@ -30,7 +30,7 @@ public class LoadActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        handler.sendEmptyMessageDelayed(1 , 2000);
+        handler.sendEmptyMessageDelayed(1, 2000);
     }
 
     /**
@@ -51,11 +51,11 @@ public class LoadActivity extends AppCompatActivity {
                 switch (msg.what) {
                     case 1:
                         if (SharedPreferencesUtils.getIsLogin()) {
-                            activity.startActivity(new Intent(activity , MainActivity.class));
-                            activity.overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
+                            activity.startActivity(new Intent(activity, MainActivity.class));
+                            activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         } else {
-                            activity.startActivity(new Intent(activity , LoginActivity.class));
-                            activity.overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
+                            activity.startActivity(new Intent(activity, LoginActivity.class));
+                            activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         }
                         break;
                 }

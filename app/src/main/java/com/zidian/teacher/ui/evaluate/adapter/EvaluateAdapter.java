@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.zidian.teacher.R;
+import com.zidian.teacher.base.GsonBean;
 import com.zidian.teacher.model.entity.remote.EvaluateTag;
 import com.zidian.teacher.recyclerviewpager.flowlayout.FlowTagLayout;
 import com.zidian.teacher.recyclerviewpager.flowlayout.OnTagSelectListener;
@@ -379,7 +380,7 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.Simple
      * evaluateLabelId:1所选的标签),
      * evaluateLabelScore:所选标签的分数
      */
-    public class EvaluateContentBean {
+    public class EvaluateContentBean extends GsonBean{
         private int pushTeacherEvalItemsId;
         private int evaluateLabelId;
         private int evaluateLabelScore;

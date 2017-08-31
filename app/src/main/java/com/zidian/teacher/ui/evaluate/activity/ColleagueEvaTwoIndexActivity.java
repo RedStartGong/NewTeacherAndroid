@@ -82,8 +82,8 @@ public class ColleagueEvaTwoIndexActivity extends BaseActivity {
         rvEvaTag.setAdapter(adapter);
         barChartHelper.initBarChart(barChartTwoIndex);
         //设置数据
-        adapter.setData(getEvaTwoIndeces());
-        barChartTwoIndex.setData(getBarData(getEvaTwoIndeces()));
+        adapter.setData(getEvaTwoIndex());
+        barChartTwoIndex.setData(getBarData(getEvaTwoIndex()));
 
     }
 
@@ -112,10 +112,10 @@ public class ColleagueEvaTwoIndexActivity extends BaseActivity {
      *
      * @return {@link EvaTwoIndex list}
      */
-    public List<EvaTwoIndex> getEvaTwoIndeces() {
+    public List<EvaTwoIndex> getEvaTwoIndex() {
         List<EvaTwoIndex> evaTwoIndices = new ArrayList<>();
-        EvaTwoIndex evaTwoIndex = new EvaTwoIndex();
         for (int i = 0; i < twoIndexListBeanList.size(); i++) {
+            EvaTwoIndex evaTwoIndex = new EvaTwoIndex();
             evaTwoIndex.setTwoIndexName(twoIndexListBeanList.get(i).getTwoIndexName());
             evaTwoIndex.setTwoIndexId(twoIndexListBeanList.get(i).getTwoIndexId());
             evaTwoIndex.setTwoIndexScore(twoIndexListBeanList.get(i).getTwoIndexScore());
