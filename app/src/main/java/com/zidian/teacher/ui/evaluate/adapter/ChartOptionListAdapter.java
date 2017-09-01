@@ -20,8 +20,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * 图表描述Adapter
  * Created by GongCheng on 2016/11/15.
- * 图标描述Adapter
  */
 
 public class ChartOptionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

@@ -18,6 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
+ * 我的评价container
  * Created by GongCheng on 2017/4/27.
  */
 

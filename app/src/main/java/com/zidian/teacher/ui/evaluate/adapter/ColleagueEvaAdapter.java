@@ -1,7 +1,6 @@
 package com.zidian.teacher.ui.evaluate.adapter;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -58,16 +57,6 @@ public class ColleagueEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
 
-    public interface OnItemClickListener {
-        void onClick(String indexName, float indexScore);
-    }
-
-    private OnItemClickListener onItemClickListener;
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof TopViewHolder) {
@@ -78,18 +67,18 @@ public class ColleagueEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((ItemViewHolder) holder).evaluateColor.setBackgroundColor(ColorConstants.CHART_COLORS[position - 1]);
             ((ItemViewHolder) holder).evaluateScored.setText(decimal(data.get(position - 1).getOneIndexScore()));
             ((ItemViewHolder) holder).oneIndexName.setText(data.get(position - 1).getOneIndexName());
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
 
             if (data.get(position - 1).getTwoIndexList().size() == 1) {
                 sb.append(data.get(position - 1).getTwoIndexList().get(0).getTwoIndexName());
             } else {
-                sb.append(data.get(position - 1).getTwoIndexList().get(0).getTwoIndexName() + "、");
+                sb.append(data.get(position - 1).getTwoIndexList().get(0).getTwoIndexName()).append("、");
             }
             for (int i = 1; i < data.get(position - 1).getTwoIndexList().size(); i++) {
                 if (i == data.get(position - 1).getTwoIndexList().size() - 1) {
                     sb.append(data.get(position - 1).getTwoIndexList().get(i).getTwoIndexName());
                 } else {
-                    sb.append(data.get(position - 1).getTwoIndexList().get(i).getTwoIndexName() + "、");
+                    sb.append(data.get(position - 1).getTwoIndexList().get(i).getTwoIndexName()).append("、");
                 }
             }
             ((ItemViewHolder) holder).evaluateTag.setText(sb.toString());
@@ -156,6 +145,7 @@ public class ColleagueEvaAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         notifyDataSetChanged();
     }
 
+    @SuppressWarnings("all")
     static class TopViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.colleague_bar_chart)
         BarChart colleagueBarChart;

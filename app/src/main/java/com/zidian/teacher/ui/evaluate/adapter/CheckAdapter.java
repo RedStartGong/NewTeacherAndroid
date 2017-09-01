@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 查看评价结果adapter
  * Created by GongCheng on 2017/4/20.
  */
 

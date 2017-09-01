@@ -1,6 +1,5 @@
 package com.zidian.teacher.ui.evaluate.activity;
 
-import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
@@ -17,13 +16,9 @@ import com.zidian.teacher.model.entity.remote.College;
 import com.zidian.teacher.model.entity.remote.CoursePlan;
 import com.zidian.teacher.model.entity.remote.EvaCourse;
 import com.zidian.teacher.model.entity.remote.EvaTeacher;
-import com.zidian.teacher.model.entity.remote.EvaluateCourse;
 import com.zidian.teacher.presenter.ApplyToEvaPresenter;
 import com.zidian.teacher.presenter.contract.ApplyToEvaContract;
 import com.zidian.teacher.util.SnackbarUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;

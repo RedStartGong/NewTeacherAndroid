@@ -29,6 +29,7 @@ import butterknife.OnClick;
 import static com.zidian.teacher.util.Preconditions.checkNotNull;
 
 /**
+ * 发起督导评价
  * Created by GongCheng on 2017/4/18.
  */
 

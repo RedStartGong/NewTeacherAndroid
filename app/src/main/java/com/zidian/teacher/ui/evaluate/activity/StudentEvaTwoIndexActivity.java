@@ -31,6 +31,7 @@ import butterknife.BindView;
 import static com.zidian.teacher.util.Preconditions.checkNotNull;
 
 /**
+ * 学生评价二级指标
  * Created by GongCheng on 2017/4/28.
  */
 

@@ -36,6 +36,7 @@ import butterknife.OnClick;
 import static com.zidian.teacher.util.Preconditions.checkNotNull;
 
 /**
+ * 查看同行评价结果
  * Created by GongCheng on 2017/4/25.
  */
 
