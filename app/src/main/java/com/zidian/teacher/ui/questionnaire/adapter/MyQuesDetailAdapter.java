@@ -1,6 +1,7 @@
 package com.zidian.teacher.ui.questionnaire.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -100,6 +101,7 @@ public class MyQuesDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         PieDataSet dataSet = new PieDataSet(pieEntries, data.get(position).getQuestionnaireItemName());
         dataSet.setValueFormatter(new PercentFormatter());
         dataSet.setValueTextSize(12f);
+        dataSet.setValueTextColor(Color.parseColor("#4e342e"));
         dataSet.setColors(ColorConstants.CHART_COLORS);
 
         return new PieData(dataSet);
