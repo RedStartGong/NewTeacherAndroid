@@ -1,6 +1,5 @@
 package com.zidian.teacher.ui.questionnaire.activity;
 
-import android.app.ProgressDialog;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +11,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
 import com.zidian.teacher.model.entity.remote.QuesSurveyDetail;
@@ -70,7 +70,7 @@ public class QuesSurveyDetailActivity extends BaseActivity implements QuesSurvey
     private int count = 0;
     private int selectItem = -1;
     private Map<Integer, Integer> so = new HashMap<>();
-    private ProgressDialog progressDialog;
+    private MaterialDialog progressDialog;
 
     @Override
     protected int getLayout() {
@@ -86,8 +86,10 @@ public class QuesSurveyDetailActivity extends BaseActivity implements QuesSurvey
     protected void initViewAndData() {
         checkNotNull(presenter);
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("加载中...");
+        progressDialog = new MaterialDialog.Builder(this)
+                .progress(true, 10)
+                .content("加载中...")
+                .build();
         questionnaireId = this.getIntent().getIntExtra("questionnaireId", 0);
         toolbar.setTitle("问卷调查");
         setToolbarBack(toolbar);

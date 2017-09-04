@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
 import com.zidian.teacher.model.entity.remote.CoursePlan;
@@ -54,7 +53,7 @@ public class InviteActivity extends BaseActivity implements InviteContract.View 
 
     private static final int REQUEST_TEACHER = 1;
 
-    private ProgressDialog progressDialog;
+    private MaterialDialog progressDialog;
     private List<EvaCourse> evaCourses;
     private List<String> stringCourses;
     private List<CoursePlan> coursePlans;
@@ -79,8 +78,10 @@ public class InviteActivity extends BaseActivity implements InviteContract.View 
         setToolbarBack(toolbar);
         tilInvitationLanguage.setCounterEnabled(true);
         tilInvitationLanguage.setCounterMaxLength(20);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("正在提交邀请...");
+        progressDialog = new MaterialDialog.Builder(this)
+                .progress(true, 10)
+                .content("正在提交邀请...")
+                .build();
 
         checkNotNull(presenter);
         presenter.attachView(this);

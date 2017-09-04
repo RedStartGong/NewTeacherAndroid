@@ -1,6 +1,7 @@
 package com.zidian.teacher.presenter;
 
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.zidian.teacher.base.RxPresenter;
@@ -37,48 +38,49 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
 
     @Override
     public void login(@NonNull final String username, @NonNull final String password, @NonNull final int schoolId) {
-        Subscription subscription = dataManager.login(username, password, schoolId)
-                .compose(RxUtils.<LoginResult>rxSchedulerIo())
-                .map(new Func1<LoginResult, LoginResult>() {
-                    @Override
-                    public LoginResult call(LoginResult loginResult) {
-                        if (loginResult.getCode() == 200) {
-                            return loginResult;
-                        } else {
-                            throw new ApiException(loginResult.getMessage());
-                        }
-                    }
-                })
-                .subscribe(new Subscriber<LoginResult>() {
-                    @Override
-                    public void onStart() {
-                        super.onStart();
-                        view.showLoading();
-                    }
+        view.showLoading();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Subscription subscription = dataManager.login(username, password, schoolId)
+                        .compose(RxUtils.<LoginResult>rxSchedulerIo())
+                        .map(new Func1<LoginResult, LoginResult>() {
+                            @Override
+                            public LoginResult call(LoginResult loginResult) {
+                                if (loginResult.getCode() == 200) {
+                                    return loginResult;
+                                } else {
+                                    throw new ApiException(loginResult.getMessage());
+                                }
+                            }
+                        })
+                        .subscribe(new Subscriber<LoginResult>() {
 
-                    @Override
-                    public void onCompleted() {
+                            @Override
+                            public void onCompleted() {
 
-                    }
+                            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        view.showError(e);
-                    }
+                            @Override
+                            public void onError(Throwable e) {
+                                view.showError(e);
+                            }
 
-                    @Override
-                    public void onNext(LoginResult loginResult) {
-                        SharedPreferencesUtils.setToken(loginResult.getToken());
-                        SharedPreferencesUtils.setUsername(username);
-                        SharedPreferencesUtils.setPassword(password);
-                        SharedPreferencesUtils.setSchoolId(schoolId);
-                        SharedPreferencesUtils.setTeacherId(loginResult.getTeacherId());
-                        SharedPreferencesUtils.setIsLogin(true);
-                        SharedPreferencesUtils.setTeacherType(loginResult.getTeacherType());
-                        SharedPreferencesUtils.setTeacherName(loginResult.getTeacherName());
-                        view.showSuccess();
-                    }
-                });
-        addSubscribe(subscription);
+                            @Override
+                            public void onNext(LoginResult loginResult) {
+                                SharedPreferencesUtils.setToken(loginResult.getToken());
+                                SharedPreferencesUtils.setUsername(username);
+                                SharedPreferencesUtils.setPassword(password);
+                                SharedPreferencesUtils.setSchoolId(schoolId);
+                                SharedPreferencesUtils.setTeacherId(loginResult.getTeacherId());
+                                SharedPreferencesUtils.setIsLogin(true);
+                                SharedPreferencesUtils.setTeacherType(loginResult.getTeacherType());
+                                SharedPreferencesUtils.setTeacherName(loginResult.getTeacherName());
+                                view.showSuccess();
+                            }
+                        });
+                addSubscribe(subscription);
+            }
+        }, 1500);
     }
 }

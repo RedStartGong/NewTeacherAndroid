@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.gson.Gson;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
@@ -63,7 +64,7 @@ public class AddQuestionnaireActivity extends BaseActivity implements Questionna
     private QuestionnaireAddAdapter adapter;
     private List<QuestionAddBean> questionAddBeanList = new ArrayList<>();
     private List<QuestionAddBean> adapterList = new ArrayList<>();
-    private ProgressDialog progressDialog;
+    private MaterialDialog progressDialog;
     private String classIds;
 
     @Override
@@ -79,7 +80,10 @@ public class AddQuestionnaireActivity extends BaseActivity implements Questionna
     @Override
     protected void initViewAndData() {
         checkNotNull(presenter);
-
+        progressDialog = new MaterialDialog.Builder(this)
+                .progress(true, 10)
+                .content("加载中...")
+                .build();
         toolbar.setTitle("新增问卷");
         setSupportActionBar(toolbar);
         setToolbarBack(toolbar);
@@ -356,10 +360,6 @@ public class AddQuestionnaireActivity extends BaseActivity implements Questionna
 
     @Override
     public void showLoading() {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("加载中...");
-        }
         progressDialog.show();
 
     }

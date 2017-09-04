@@ -55,7 +55,7 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
     @Inject
     CheckSupervisorEvaPresenter presenter;
 
-    private ProgressDialog progressDialog;
+    private MaterialDialog progressDialog;
     //确认的任务条目
     private int position;
     int requestEvalMessageId;
@@ -73,6 +73,10 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
 
     @Override
     protected void initViewAndData() {
+        progressDialog = new MaterialDialog.Builder(this)
+                .progress(true, 10)
+                .content("加载中...")
+                .build();
         Intent intent = getIntent();
         requestEvalMessageId = intent.getIntExtra("requestEvalMessageId", 0);
         boolean needConfirm = intent.getBooleanExtra("needConfirm", false);
@@ -221,8 +225,7 @@ public class CheckSupervisorEvaActivity extends BaseActivity implements CheckSup
 
     @Override
     public void showLoading() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("加载中...");
+        progressDialog .show();
         progressDialog.show();
     }
 

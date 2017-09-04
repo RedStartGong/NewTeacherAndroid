@@ -1,13 +1,9 @@
 package com.zidian.teacher.ui.evaluate.activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,12 +12,10 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager;
 import com.beloo.widget.chipslayoutmanager.SpacingItemDecoration;
 import com.jaredrummler.materialspinner.MaterialSpinner;
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
 import com.zidian.teacher.model.entity.remote.College;
 import com.zidian.teacher.model.entity.remote.EvaTeacher;
-import com.zidian.teacher.model.entity.remote.InviteTeacher;
 import com.zidian.teacher.presenter.InviteSelectTeacherPresenter;
 import com.zidian.teacher.presenter.contract.InviteSelectTeacherContract;
 import com.zidian.teacher.ui.evaluate.adapter.InviteTeacherAdapter;
@@ -56,7 +50,7 @@ public class InviteSelectTeacherActivity extends BaseActivity implements InviteS
     @Inject
     InviteTeacherAdapter adapter;
 
-    private ProgressDialog progressDialog;
+    private MaterialDialog progressDialog;
 
     @Override
     protected int getLayout() {
@@ -70,8 +64,10 @@ public class InviteSelectTeacherActivity extends BaseActivity implements InviteS
 
     @Override
     protected void initViewAndData() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("加载中...");
+        progressDialog = new MaterialDialog.Builder(this)
+                .progress(true, 10)
+                .content("加载中...")
+                .build();
         ChipsLayoutManager chipsLayoutManager = ChipsLayoutManager.newBuilder(this)
                 //a layoutOrientation of layout manager, could be VERTICAL OR HORIZONTAL. HORIZONTAL by default
                 .setOrientation(ChipsLayoutManager.HORIZONTAL)

@@ -63,7 +63,7 @@ public class MyQuesDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (holder instanceof ViewHolder) {
             ((ViewHolder) holder).tvQuestionnaireTitle
                     .setText(context.getString(R.string.my_ques_num,
-                            position,
+                            position + 1,
                             data.get(position).getQuestionnaireItemName()));
             pieChartHelper.initPieChart(((ViewHolder) holder).pcQuestionnaireChart);
             ((ViewHolder) holder).pcQuestionnaireChart.setData(getPieData(position));

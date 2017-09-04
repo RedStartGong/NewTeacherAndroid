@@ -53,7 +53,7 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
 
     private EvaluateAdapter adapter;
     private EvaluateTag evaluateTag;
-    private ProgressDialog progressDialog;
+    private MaterialDialog progressDialog;
     private String teacherType;
     private int toTeacherId;
     private String recordId;
@@ -87,8 +87,10 @@ public class EvaluateActivity extends BaseActivity implements EvaluateContract.V
         setSupportActionBar(toolbar);
         setToolbarBack(toolbar);
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("加载中...");
+        progressDialog = new MaterialDialog.Builder(this)
+                .progress(true, 10)
+                .content("加载中...")
+                .build();
 
         presenter.attachView(this);
         presenter.getEvaluateTags(requestEvalMessageId);

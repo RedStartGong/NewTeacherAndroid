@@ -1,8 +1,6 @@
 package com.zidian.teacher.ui.course.activity;
 
-import android.app.ProgressDialog;
 import android.support.annotation.IntDef;
-import android.support.annotation.StringDef;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
@@ -59,7 +58,7 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
     private List<StudentClass> classes;
     private List<AttendanceStudent> students;
     private CourseInfo courseInfo;
-    private ProgressDialog progressDialog;
+    private MaterialDialog progressDialog;
 
     @Override
     protected int getLayout() {
@@ -88,8 +87,10 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
                 presenter.getAttendanceStudents(courseInfo.getCourseId(), courseInfo.getCoursePlanId(), cls.getClassName());
             }
         });
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage(getString(R.string.attendance_loading));
+        progressDialog = new MaterialDialog.Builder(this)
+                .progress(true, 10)
+                .content(R.string.attendance_loading)
+                .build();
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));

@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
 import com.zidian.teacher.model.entity.remote.School;
@@ -49,7 +50,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     ActManager actManager;
 
     private static final int CHOOSE_SCHOOL = 1;
-    private ProgressDialog progressDialog;
+    private MaterialDialog progressDialog;
     private int schoolId;
 
     @Override
@@ -67,8 +68,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     protected void initViewAndData() {
         checkNotNull(presenter);
         presenter.attachView(this);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage(getString(R.string.login_loading));
+        progressDialog = new MaterialDialog.Builder(this)
+                .progress(true, 10)
+                .content(R.string.login_loading)
+                .build();
         etUsername.setText(SharedPreferencesUtils.getUserName());
         etPassword.setText(SharedPreferencesUtils.getPassword());
 

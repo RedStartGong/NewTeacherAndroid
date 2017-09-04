@@ -1,11 +1,11 @@
 package com.zidian.teacher.ui.evaluate.activity;
 
-import android.app.ProgressDialog;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.zidian.teacher.R;
 import com.zidian.teacher.base.BaseActivity;
@@ -41,7 +41,7 @@ public class SupervisorFeedbackActivity extends BaseActivity implements Supervis
     SupervisorFeedbackPresenter presenter;
 
     private int requestEvalMessageId;
-    private ProgressDialog progressDialog;
+    private MaterialDialog progressDialog;
 
     @Override
     protected int getLayout() {
@@ -58,8 +58,10 @@ public class SupervisorFeedbackActivity extends BaseActivity implements Supervis
         requestEvalMessageId = getIntent().getIntExtra("requestEvalMessageId", 0);
         toolbar.setTitle("申诉");
         setToolbarBack(toolbar);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("提交中...");
+        progressDialog = new MaterialDialog.Builder(this)
+                .progress(true, 10)
+                .content("提交中...")
+                .build();
         tilSupervisorFeedback.setCounterEnabled(true);
         tilSupervisorFeedback.setCounterMaxLength(100);
         Subscription textSubscription = RxTextView.textChanges(etSupervisorFeedback)

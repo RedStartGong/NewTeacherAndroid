@@ -1,12 +1,12 @@
 package com.zidian.teacher.ui.mine.activity;
 
-import android.app.ProgressDialog;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jakewharton.rxbinding.support.v7.widget.RxToolbar;
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.jakewharton.rxbinding.widget.TextViewTextChangeEvent;
@@ -38,7 +38,7 @@ public class FeedbackActivity extends BaseActivity implements FeedbackContract.V
     @Inject
     FeedbackPresenter presenter;
 
-    private ProgressDialog progressDialog;
+    private MaterialDialog progressDialog;
 
     @Override
     protected int getLayout() {
@@ -60,8 +60,10 @@ public class FeedbackActivity extends BaseActivity implements FeedbackContract.V
             }
         });
         setToolbarBack(toolbar);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage(getString(R.string.feedback_loading));
+        progressDialog = new MaterialDialog.Builder(this)
+                .progress(true, 10)
+                .content("提交中...")
+                .build();
         tilFeedback.setCounterEnabled(true);
         tilFeedback.setCounterMaxLength(500);
         RxTextView.textChangeEvents(etFeedbackContent).subscribe(new Action1<TextViewTextChangeEvent>() {
