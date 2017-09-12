@@ -71,6 +71,29 @@ public class AttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     /**
+     * 学生全勤考勤信息Json String
+     *
+     * @return Json字符串
+     * example: [{studentId=11041010216,attendanceContent="1"},{studentId=14041020205},attendanceContent="1"]
+     */
+    public String getAllAttendJson() {
+        String jsonResult = "";
+        try {
+            JSONArray jsonarray = new JSONArray();
+            for (int i = 0; i < students.size(); i++) {
+                JSONObject jsonObjAnswer = new JSONObject();
+                jsonObjAnswer.put("studentId", students.get(i).getStudentId());
+                jsonObjAnswer.put("attendanceType", 0);
+                jsonarray.put(jsonObjAnswer);
+            }
+            jsonResult = jsonarray.toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonResult;
+    }
+
+    /**
      * 设置考勤信息
      *
      * @param code 状态

@@ -1,6 +1,7 @@
 package com.zidian.teacher.ui.course.activity;
 
 import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.zidian.teacher.R;
@@ -116,7 +118,7 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
         int ABSENTEEISM = 4;
     }
 
-    @OnClick({R.id.btn_late, R.id.btn_leave_early, R.id.btn_absenteeism, R.id.btn_leave, R.id.btn_submit})
+    @OnClick({R.id.btn_late, R.id.btn_leave_early, R.id.btn_absenteeism, R.id.btn_leave, R.id.btn_submit,R.id.tv_all_attend})
     public void onAttendanceStatusClick(View view) {
         switch (view.getId()) {
             case R.id.btn_late:
@@ -133,6 +135,27 @@ public class AttendanceActivity extends BaseActivity implements AttendanceContra
                 break;
             case R.id.btn_submit:
                 presenter.setAttendance(adapter.getStudentJson(), courseInfo.getCourseId(), courseInfo.getCoursePlanId());
+                break;
+            case R.id.tv_all_attend:
+                new MaterialDialog.Builder(this)
+                        .title("温馨提示")
+                        .content("是否全勤?")
+                        .negativeText("取消")
+                        .positiveText("确定")
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                presenter.setAttendance(adapter.getAllAttendJson(), courseInfo.getCourseId(), courseInfo.getCoursePlanId());
+                            }
+                        })
+                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+
                 break;
         }
     }
