@@ -58,6 +58,7 @@
         <activity android:name=".ui.questionnaire.activity.QuesSurveyDetailActivity" />
         <activity android:name=".ui.questionnaire.activity.SelectClassActivity" />
         <activity android:name=".ui.main.activity.ChooseSchoolActivity"/>
+        <activity android:name=".ui.main.activity.ForgetPasswordActivity" />
 
     </application>
 

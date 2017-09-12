@@ -71,6 +71,17 @@
             android:textSize="17sp" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_forget_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="?android:selectableItemBackground"
+        android:clickable="true"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="3dp"
+        android:text="忘记密码？" />
+
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"

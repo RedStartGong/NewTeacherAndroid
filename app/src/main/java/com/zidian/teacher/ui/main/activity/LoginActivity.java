@@ -1,12 +1,7 @@
 package com.zidian.teacher.ui.main.activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -19,9 +14,6 @@ import com.zidian.teacher.ui.widget.ClearEditText;
 import com.zidian.teacher.util.ActManager;
 import com.zidian.teacher.util.SharedPreferencesUtils;
 import com.zidian.teacher.util.SnackbarUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -122,6 +114,11 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             return;
         }
         presenter.login(username, password, schoolId);
+    }
+
+    @OnClick(R.id.tv_forget_password)
+    public void forgetPassword() {
+        startActivity(new Intent(this, ForgetPasswordActivity.class));
     }
 
     @Override
