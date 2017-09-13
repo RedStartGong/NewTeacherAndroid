@@ -2,6 +2,9 @@ package com.zidian.teacher.ui.main.activity;
 
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.text.Html;
 import android.widget.TextView;
 
 import com.zidian.teacher.R;
@@ -31,7 +34,7 @@ public class ForgetPasswordActivity extends BaseActivity {
 
     @Override
     protected void initViewAndData() {
-
+        tvTelephone.setText(Html.fromHtml("<a href='tel:010-86466797' ><b>010-86466797</b></a>"));
     }
 
     @OnClick(R.id.btn_back)
@@ -41,8 +44,8 @@ public class ForgetPasswordActivity extends BaseActivity {
 
     @OnClick(R.id.tv_telephone)
     public void getTelephoneNumber() {
-        ClipboardManager copy = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
-        copy.setText("010-86466797");
-        SnackbarUtils.showShort(tvTelephone, "电话号码已复制到剪贴板");
+        Uri uri = Uri.parse("tel:010-86466797");
+        Intent intent = new Intent(Intent.ACTION_DIAL, uri);
+        startActivity(intent);
     }
 }
